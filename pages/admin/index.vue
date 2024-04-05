@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';  
+import { ref } from 'vue';
 
 useHead({
     titleTemplate: 'Clientes | NEX_WOD',
@@ -10,9 +10,9 @@ const user = ref('leandrocesar');
 const senha = ref('');
 
 const route = useRoute();
-const Users = await useFetch('https://api-hjsxsumlfq-uc.a.run.app/users');
+const Users = await useFetch('http://191.101.70.209:8083/users');
 const item = Users.data.value;
-const UsersId = await useFetch(`https://api-hjsxsumlfq-uc.a.run.app/users/:id`);
+const UsersId = await useFetch(`http://191.101.70.209:8083/users/:id`);
 
 const service = ref('')
 const exists = Users.data.value.find(u => service);
@@ -83,7 +83,50 @@ colorCookie.value === "darkCookie" ? colorMode.value = "dark" : colorMode.value 
 const state = useCookie('state')
 state.value = state.value
 
+// Pie Chart ínicio
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js'
+import { Pie } from 'vue-chartjs'
+
+ChartJS.register(ArcElement, Tooltip, Legend, Title)
+
+const data = {
+  labels: ['Personal', 'Consultoria', 'Avaliação Física'],
+  datasets: [
+      {
+          backgroundColor: ['#09df00', '#34d399', '#095d62'],
+        data: [servicesCount.Personal, servicesCount.Consultoria, servicesCount.Avaliação],
+        borderRadius: 8,
+        rotation: 260,
+    }
+  ]
+}
+
+const options = {
+  responsive: true,
+  maintainAspectRatio: false,
+    plugins: {
+        title: {
+            display: true,
+            text: `Quantidade de Clientes: ${ Users.data.value.length }`,
+            font: {
+                size: 20,
+            }
+        },
+        legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+    }
+}
+// Pie Chart fim
+
+
 </script>
+
 <template>
 
     <div id="grid">
@@ -112,16 +155,17 @@ state.value = state.value
                 </div>
             </div>
 
-            <div>
-                {{ Users.data.value.length }} - Clientes
-            </div>
-            Quantidade de personal: {{ servicesCount.Personal}}
-            <br>
-            Quantidade de personas: {{ servicesCount }}
+        </div>
+        <div class='pie'>
+            <Pie :data="data" :options="options" />
         </div>
     </div>
 </template>
 <style scoped>
+.pie {
+    width: 400px;
+    height: 400px;
+}
 .nav-top {
     position: sticky;
     top: 0px;

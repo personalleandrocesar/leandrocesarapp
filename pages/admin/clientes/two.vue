@@ -121,7 +121,7 @@ function clear() {
 
 async function submitForm() {
     try {
-        const response = await fetch('https://api-hjsxsumlfq-uc.a.run.app/fs', {
+        const response = await fetch('http://191.101.70.209:8083/fs', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

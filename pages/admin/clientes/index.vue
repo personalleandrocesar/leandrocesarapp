@@ -4,9 +4,9 @@ import { reloadNuxtApp } from "nuxt/app";
 useHead({
     titleTemplate: 'Clientes | NEX_WOD',
 });
-const Users = await useFetch('https://api-hjsxsumlfq-uc.a.run.app/users');
+const Users = await useFetch('http://191.101.70.209:8083/users');
 const item = Users.data.value;
-const UsersId = await useFetch(`https://api-hjsxsumlfq-uc.a.run.app/users/:id`);
+const UsersId = await useFetch(`http://191.101.70.209:8083/users/:id`);
 
 console.log(UsersId.data.value);
 
@@ -40,7 +40,7 @@ function switchButton() {
 }
 async function submitForm() {
     try {
-        const response = await fetch('https://api-hjsxsumlfq-uc.a.run.app/user', {
+        const response = await fetch('http://191.101.70.209:8083/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

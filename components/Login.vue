@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 const user = ref('');
 const senha = ref('');
-const client = useFetch('https://api-hjsxsumlfq-uc.a.run.app/users');
+const client = useFetch('http://191.101.70.209:8083/users');
 
 const dontUser = ref(false);
 

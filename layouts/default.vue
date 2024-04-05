@@ -30,7 +30,7 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const dataConf = await useFetch(`https://api-hjsxsumlfq-uc.a.run.app/users/${route.params.id}`)
+const dataConf = await useFetch(`http://191.101.70.209:8083/users/${route.params.id}`)
 const status = dataConf.data.value?.status
 const photoOpen = ref(false);
 function openPhoto() {
