@@ -83,14 +83,17 @@ colorCookie.value === "darkCookie" ? colorMode.value = "dark" : colorMode.value 
 const state = useCookie('state')
 state.value = state.value
 
-// Pie Chart ínicio
+// Doughnut Chart ínicio
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js'
-import { Pie } from 'vue-chartjs'
+import { Doughnut } from 'vue-chartjs'
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title)
 
 const data = {
-  labels: ['Personal', 'Consultoria', 'Avaliação Física'],
+  labels: [
+    `Personal (${servicesCount.Personal})`,
+    `Consultoria (${servicesCount.Consultoria})`, 
+    `Avaliação Física (${servicesCount.Avaliação})`],
   datasets: [
       {
           backgroundColor: ['#09df00', '#34d399', '#095d62'],
@@ -109,20 +112,20 @@ const options = {
             display: true,
             text: `Quantidade de Clientes: ${ Users.data.value.length }`,
             font: {
-                size: 20,
+                size: 17,
             }
         },
         legend: {
                 labels: {
                     // This more specific font property overrides the global property
                     font: {
-                        size: 16
+                        size: 13
                     }
                 }
             }
     }
 }
-// Pie Chart fim
+// Doughnut Chart fim
 
 
 </script>
@@ -156,15 +159,15 @@ const options = {
             </div>
 
         </div>
-        <div class='pie'>
-            <Pie :data="data" :options="options" />
+        <div class='Doughnut'>
+            <Doughnut :data="data" :options="options" />
         </div>
     </div>
 </template>
 <style scoped>
-.pie {
-    width: 400px;
-    height: 400px;
+.Doughnut {
+    width: 320px;
+    height: 320px;
 }
 .nav-top {
     position: sticky;

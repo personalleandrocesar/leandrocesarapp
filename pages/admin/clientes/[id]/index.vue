@@ -120,6 +120,8 @@ function menu() {
             <h1>
                 {{ Users.data.value.name }} {{ Users.data.value.lastName }}
             </h1>
+            <img :src="`/admin/clientes/${Users.data.value.foto}`">
+
             <p>{{Users.data.value.email }}</p>
             <p>{{Users.data.value.service }}</p>
             <p>{{Users.data.value.target }}</p>

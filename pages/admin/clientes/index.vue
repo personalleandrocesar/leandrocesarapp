@@ -128,7 +128,7 @@ function formatarData(input) {
 
                         <div class="title-user">
 
-                            <img :src="item.foto">
+                            <img :src="`/admin/clientes/${item.foto}`">
                             <h4>
                                 {{ item.name }} {{ item.lastName }}
                             </h4>
@@ -237,7 +237,7 @@ function formatarData(input) {
         <div class="center-start">
             <div>
 
-                <img v-if="photoClient" class="cliente" :src="file.value">
+                <img v-if="photoClient" class="cliente" :src="foto" >
                 <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
                 <input class="file-cliente" type="file" display="none" />
             </div>
