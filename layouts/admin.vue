@@ -87,6 +87,9 @@ const navD = ref(state.value === 4)
                     <NuxtLink :to="`/admin/clientes`">
                         <Icon name='solar:dumbbell-large-bold' /> Clientes
                     </NuxtLink>
+                    <NuxtLink :to="`/admin/clientes`">
+                        <Icon name='solar:dumbbell-large-bold' /> Clientes
+                    </NuxtLink>
                 </div>
             </div>
             <div>    
