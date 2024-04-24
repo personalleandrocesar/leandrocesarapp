@@ -4,7 +4,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Cristiano Pereira de Souza",
     "email": "",
     "senha": "",
-    "foto": "https://m.leandrocesar.com/img/cristianosouza.png",
+    "foto": "https://api.nexwod.app/img/cristianosouza.png",
     "servico": "Consultoria on-line",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

@@ -7,7 +7,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Camilla Figueiredo",
     "email": "",
     "senha": "1234",
-    "foto": "https://m.leandrocesar.com/img/camillafigueiredo.jpeg",
+    "foto": "https://api.nexwod.app/img/camillafigueiredo.jpeg",
     "servico": "Consultoria on-line",
     "objetivo": "Definição",
     "tempo": "60 min.",

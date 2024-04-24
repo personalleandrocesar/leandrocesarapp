@@ -10,9 +10,9 @@ const user = ref('leandrocesar');
 const senha = ref('');
 
 const route = useRoute();
-const Users = await useFetch('http://191.101.70.209:8083/users');
+const Users = await useFetch('https://api.nexwod.app/users');
 const item = Users.data.value;
-const UsersId = await useFetch(`http://191.101.70.209:8083/users/:id`);
+const UsersId = await useFetch(`https://api.nexwod.app/users/:id`);
 
 const service = ref('')
 const exists = Users.data.value.find(u => service);

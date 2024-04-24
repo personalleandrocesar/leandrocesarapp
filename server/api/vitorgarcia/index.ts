@@ -4,7 +4,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Vitor Garcia",
     "email": "",
     "senha": "",
-    "foto": "https://m.leandrocesar.com/img/vitorgarcia.jpeg",
+    "foto": "https://api.nexwod.app/img/vitorgarcia.jpeg",
     "servico": "Consultoria",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

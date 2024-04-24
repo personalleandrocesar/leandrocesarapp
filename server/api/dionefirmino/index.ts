@@ -7,7 +7,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Dione Firmino da Silva",
     "email": "",
     "senha": "1234",
-    "foto": "https://m.leandrocesar.com/img/dionefirmino.jpeg",
+    "foto": "https://api.nexwod.app/img/dionefirmino.jpeg",
     "servico": "Personal Trainer",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

@@ -4,7 +4,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Danielle Novaes",
     "email": "",
     "senha": "novaes@Da",
-    "foto": "https://m.leandrocesar.com/img/daniellenovaes.jpg",
+    "foto": "https://api.nexwod.app/img/daniellenovaes.jpg",
     "objetivo": "Fortalecimento",
     "tempo": "60 min.",
     "dias": "2-4 dias",

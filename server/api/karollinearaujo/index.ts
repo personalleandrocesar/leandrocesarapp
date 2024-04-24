@@ -5,7 +5,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Ana Karolline da Silva Araújo",
     "email": "",
     "senha": "",
-    "foto": "https://m.leandrocesar.com/img/karollinearaujo.jpeg",
+    "foto": "https://api.nexwod.app/img/karollinearaujo.jpeg",
     "servico": "Consultoria on-line",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

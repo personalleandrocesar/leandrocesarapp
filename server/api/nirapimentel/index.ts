@@ -7,7 +7,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Alcenira Pimentel",
     "email": "alceniralucas@gmailcom",
     "senha": "1234",
-    "foto": "https://m.leandrocesar.com/img/nirapimentel.png",
+    "foto": "https://api.nexwod.app/img/nirapimentel.png",
     "servico": "Consultoria on-line",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

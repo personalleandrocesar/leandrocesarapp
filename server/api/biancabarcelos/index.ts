@@ -4,7 +4,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Bianca Barcelos R. da Silva",
     "email": "",
     "senha": "",
-    "foto": "https://m.leandrocesar.com/img/biancabarcelos.png",
+    "foto": "https://api.nexwod.app/img/biancabarcelos.png",
     "servico": "Consultoria on-line",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

@@ -3,7 +3,7 @@ export default defineEventHandler((event) => {
     "nome": "Isadora",
     "nomeCompleto": "Isadora Peçanha",
     "email": "contato@isadoraarq.com",
-    "foto": "https://m.leandrocesar.com/img/isadorapecanha.png",
+    "foto": "https://api.nexwod.app/img/isadorapecanha.png",
     "servico": "Personal Trainer",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

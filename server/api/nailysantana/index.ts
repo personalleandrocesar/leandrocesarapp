@@ -5,7 +5,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Naily Lorena Lessa Santana",
     "email": "",
     "senha": "",
-    "foto": "https://m.leandrocesar.com/img/nailysantana.jpeg",
+    "foto": "https://api.nexwod.app/img/nailysantana.jpeg",
     "servico": "Personal Trainer",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

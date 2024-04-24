@@ -4,7 +4,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Luana Mello",
     "email": "",
     "senha": "mello@Lu",
-    "foto": "https://m.leandrocesar.com/img/luanamello.jpeg",
+    "foto": "https://api.nexwod.app/img/luanamello.jpeg",
     "servico": "Personal Trainer",
     "objetivo": "Perder %G.",
     "tempo": "60 min.",

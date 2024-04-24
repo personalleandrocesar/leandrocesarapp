@@ -10,7 +10,7 @@ export default defineEventHandler((event) => {
       "grupo": "",
       "obs": "Pés paralelos.",
       "photo": "",
-      "img": "https://m.leandrocesar.com/exe/legpress.gif"
+      "img": "https://api.nexwod.app/exe/legpress.gif"
     },
     {
       "id": 2,
@@ -22,7 +22,7 @@ export default defineEventHandler((event) => {
       "grupo": "",
       "obs": "",
       "photo": "extensora",
-      "img": "https://m.leandrocesar.com/exe/extensora.gif"
+      "img": "https://api.nexwod.app/exe/extensora.gif"
     },
     {
       "id": 3,
@@ -34,7 +34,7 @@ export default defineEventHandler((event) => {
       "grupo": "",
       "obs": "",
       "photo": "adutora",
-      "img": "https://m.leandrocesar.com/exe/adutora.gif"
+      "img": "https://api.nexwod.app/exe/adutora.gif"
     },
     {
       "id": 4,
@@ -46,7 +46,7 @@ export default defineEventHandler((event) => {
       "grupo": "",
       "obs": "Pegada neutra.",
       "photo": "supinoHammer",
-      "img": "https://m.leandrocesar.com/exe/supinoHammer.gif"
+      "img": "https://api.nexwod.app/exe/supinoHammer.gif"
     },
     {
       "id": 5,
@@ -58,7 +58,7 @@ export default defineEventHandler((event) => {
       "grupo": "",
       "obs": "",
       "photo": "tricepsCorda",
-      "img": "https://m.leandrocesar.com/exe/tricepsCorda.gif"
+      "img": "https://api.nexwod.app/exe/tricepsCorda.gif"
     },
     {
       "id": 6,
@@ -70,7 +70,7 @@ export default defineEventHandler((event) => {
       "grupo": "",
       "obs": "Fazer 12 repetições na abdução de ombros + 8 na flexão!",
       "photo": "elevacaoLateral",
-      "img": "https://m.leandrocesar.com/exe/elevacaoLateralHBC.gif"
+      "img": "https://api.nexwod.app/exe/elevacaoLateralHBC.gif"
     },
     {
       "id": 7,
@@ -82,7 +82,7 @@ export default defineEventHandler((event) => {
       "grupo": "",
       "obs": "",
       "photo": "tricepsMaquina",
-      "img": "https://m.leandrocesar.com/exe/tricepsMaquina.gif"
+      "img": "https://api.nexwod.app/exe/tricepsMaquina.gif"
     },
     {
       "id": 8,
@@ -94,7 +94,7 @@ export default defineEventHandler((event) => {
       "grupo": "",
       "obs": "Fazer com caneleiras;",
       "photo": "flexaoQuadril",
-      "img": "https://m.leandrocesar.com/exe/flexaoQuadril.gif"
+      "img": "https://api.nexwod.app/exe/flexaoQuadril.gif"
     },
     {
       "id": 9,
@@ -106,7 +106,7 @@ export default defineEventHandler((event) => {
       "grupo": "",
       "obs": "",
       "photo": "",
-      "img": "https://m.leandrocesar.com/exe/abdominalMaquina.gif"
+      "img": "https://api.nexwod.app/exe/abdominalMaquina.gif"
     }
   ]
 })

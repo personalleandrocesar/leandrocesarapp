@@ -4,7 +4,7 @@ export default defineEventHandler((event) => {
     "nomeCompleto": "Camilla Dimas Cotrim",
     "email": "camilla.dimas@hotmail.com",
     "senha": "dimas@Ca",
-    "foto": "https://m.leandrocesar.com/img/camilladimas.jpeg",
+    "foto": "https://api.nexwod.app/img/camilladimas.jpeg",
     "servico": "Personal Trainer",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

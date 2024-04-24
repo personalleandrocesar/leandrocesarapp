@@ -55,8 +55,8 @@ useHead({
 });
 
 const route = useRoute();
-const Users = await useFetch(`http://191.101.70.209:8083/users/${route.params.id}`);
-const UsersTrainnig = await useFetch(`http://191.101.70.209:8083/users/${route.params.id}/treino`);
+const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
+const UsersTrainnig = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treino`);
 const item = Users.data.value;
 
 const treinos = ref('')
@@ -72,7 +72,7 @@ function addClient() {
 
 async function submitTreino() {
     try {
-        const response = await fetch(`http://191.101.70.209:8083/user/${route.params.id}/treinos`, {
+        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const dataConf = await useFetch(`http://191.101.70.209:8083/users/${route.params.id}`)
+const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
 const status = dataConf.data.value?.status
 const photoOpen = ref(false);
 function openPhoto() {

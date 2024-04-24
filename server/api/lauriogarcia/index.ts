@@ -3,7 +3,7 @@ export default defineEventHandler((event) => {
     "nome": "Laurio",
     "nomeCompleto": "Laurio Garcia",
     "email": "",
-    "foto": "https://m.leandrocesar.com/img/lauriogarcia.png",
+    "foto": "https://api.nexwod.app/img/lauriogarcia.png",
     "servico": "Consultoria on-line",
     "objetivo": "Hipertrofia",
     "tempo": "60 min.",

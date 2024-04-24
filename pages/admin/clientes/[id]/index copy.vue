@@ -6,7 +6,7 @@ useHead({
 });
 
 const route = useRoute();
-const Users = await useFetch(`http://191.101.70.209:8083/users/${route.params.id}`);
+const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
 const item = Users.data.value;
 
 console.log(item);
@@ -20,7 +20,7 @@ function addClient () {
 
 async function submit() {
     try {
-        const response = await fetch(`http://191.101.70.209:8083/users/${route.params.id}`, {
+        const response = await fetch(`https://api.nexwod.app/users/${route.params.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ async function submit() {
         <div class="table-clients">
 
 
-            <form action="http://191.101.70.209:8083/user" method="post">
+            <form action="https://api.nexwod.app/user" method="post">
                 <span>Nome: </span>
                 <input type="text" :v-model="name" name="name" placeholder="Nome" />
                 <input type="text" :v-model="lastName" name="lastName" placeholder="Sobrenome" />
