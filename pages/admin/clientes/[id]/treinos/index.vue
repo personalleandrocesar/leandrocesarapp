@@ -329,7 +329,7 @@ function moveItemDown(index) {
                             <td> <input type="text" v-model="item.rest"></td>
                             <td><textarea id="story" name="story" rows="2" cols="20" v-model="item.obs"></textarea></td>
                             <td><input type="text" v-model="item.photo"></td>
-                            <input type="hidden" :value="item.img = `https://deepacupuntura.com/exe/${item.photo}.gif`"
+                            <input type="hidden" :value="item.img = `https://nexwod.app/exe/${item.photo}.gif`"
                                 readonly>
                             <button v-if="index > 0" @click="moveItemUp(index)">Subir</button>
                             <button v-if="index < items.length - 1" @click="moveItemDown(index)">Descer</button>
