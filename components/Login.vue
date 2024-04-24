@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 const user = ref('');
 const senha = ref('');
-const client = useFetch('https://nexwod.app/users');
+const client = useFetch('https://api.nexwod.app/users');
 
 const dontUser = ref(false);
 
@@ -65,7 +65,6 @@ const passView = ref(true)
 const pass = ref('password')
 function swPass() {
   passView.value = !passView.value;
-
   pass.value = 'password'
 };
 
@@ -74,9 +73,30 @@ function swText() {
   pass.value = 'text'
 };
 
+const linkFeed = ref(true)
+const linkPartner = ref(false)
+const feedShow = ref(true)
+
+function buttonFeed() {
+  linkFeed.value = true
+  linkPartner.value = false
+  feedShow.value = true
+}
+
+function buttonPartner() {
+  linkFeed.value = false
+  linkPartner.value = true
+  feedShow.value = false
+}
+
+
+
 </script>
 <template>
-  <header>
+  <div v-if='dontUser' class="dont-user top">
+    Usuário não encontrado!
+  </div>
+  <div>
     <div class="head-logo" id="sobre">
       <div class='logo'>
         <img @click="openPhoto()" src="~/assets/logo.png">
@@ -86,10 +106,13 @@ function swText() {
       <div class="name">
         leandrocesar.app
       </div>
-      <div class='swt'>
-
-        <h3>Cliente</h3>
-        <h3>Personal</h3>
+      <div class="link">
+        <NuxtLink @click="buttonFeed" :class="{ aActive: linkFeed }">
+          Cliente
+        </NuxtLink>
+        <NuxtLink @click="buttonPartner" :class="{ aActivee: linkPartner }">
+          Personal
+        </NuxtLink>
       </div>
     </div>
     <div class="inputs">
@@ -98,16 +121,14 @@ function swText() {
         <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Digite seu usuário" autofocus
           v-model="user" required autocomplete="username">
       </div>
-      <div v-if='dontUser' class="dont-user">
-        Usuário não encontrado!
-      </div>
       <div class="senha">
-          <h4>Senha</h4>
-          <input v-bind:type="pass" @keyup.enter="trigger" name="" id="password" placeholder="Digite sua senha" v-model="senha" autocomplete="off">
-          <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon"/>
-          <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon"/>
-        
-        </div>
+        <h4>Senha</h4>
+        <input v-bind:type="pass" @keyup.enter="trigger" name="" id="password" placeholder="Digite sua senha"
+          v-model="senha" autocomplete="off">
+        <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
+        <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
+
+      </div>
       <div>
         <NuxtLink class='login' @click="enterClicked">
           LOGIN
@@ -123,13 +144,13 @@ function swText() {
     </div>
 
 
-  </header>
+  </div>
   <footer>
 
     <div v-if="popView()" class="pop-up">
       <p>
         Neste app, usamos cookies e outras tecnologias semelhantes para melhorar sua
-        experiência de navegação e facilitar certos tipos de vantagens de navegação. 
+        experiência de navegação e facilitar certos tipos de vantagens de navegação.
         Ao clicar no botão abaixo, você está ciente e concordando com estas funcionalidades.
       </p>
       <div class="button-pop" @click="popOk()">PROSSEGUIR!</div>
@@ -137,21 +158,55 @@ function swText() {
   </footer>
   <div class="color">
 
-            <a @click="theme()" :model="$colorMode.value" >
-    <Icon :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'"/>             </a>
-           
-    </div>   
-        <div class="whats">
+    <a @click="theme()" :model="$colorMode.value">
+      <Icon
+        :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
+    </a>
 
-            
-            <a
-            href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20Leandro%20Cesar,%20fiquei%20interessado(a)%20nos%20seus%20Servi%C3%A7os,%20me%20chamo%20">
-            <Icon name="ic:outline-whatsapp" />
-        </a>
-    </div> 
+  </div>
+  <div class="whats">
+
+
+    <a
+      href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20Leandro%20Cesar,%20fiquei%20interessado(a)%20nos%20seus%20Servi%C3%A7os,%20me%20chamo%20">
+      <Icon name="ic:outline-whatsapp" />
+    </a>
+  </div>
 </template>
 
 <style scoped>
+.link {
+   display: flex;
+   justify-content: space-evenly;
+   margin-top: 1.5rem;
+   font-size: 1.1rem;
+   font-weight: bolder;
+   backdrop-filter: blur(5px);
+}
+
+.link a {
+    letter-spacing: 2px;
+    margin: 5px 15px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.link   a:hover {
+    border-bottom: solid 2px #34d399;
+    cursor: pointer;
+}
+
+
+.aActive {
+    border-bottom: solid 2px #34d399;
+    color: #34d399;
+    
+}
+.aActivee {
+    border-bottom: solid 2px #34d399;
+    color: #34d399;
+    
+}
 .head-logo {
   display: flex;
   justify-content: center;
@@ -193,7 +248,7 @@ h3 {
   height: 100px;
   width: 100px;
   box-shadow: 0px 7px 20px #00dc82;
-  margin: 3.5rem 0 1.5rem 0;
+  margin: 5rem 0 1.5rem 0;
   border-radius: 8px;
   z-index: 10;
 }
@@ -320,8 +375,22 @@ h3 {
 }
 
 .dont-user {
-  color: red;
-  font-weight: 900;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 200px;
+  background-color: #ff1900;
+  color: #fff;
+  text-shadow: 2px 2px 2px #111;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  border-radius: 5px;
+  font-weight: bolder;
+  padding: 8px 0px;
 }
 
 input {
@@ -380,7 +449,7 @@ a {
 }
 
 a:hover {
-  color: #00DC82;
+  /* color: #00DC82; */
 }
 
 .login {
