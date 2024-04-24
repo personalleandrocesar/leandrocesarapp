@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 const user = ref('');
 const senha = ref('');
-const client = useFetch('http://191.101.70.209:8083/users');
+const client = useFetch('https://nexwod.app/users');
 
 const dontUser = ref(false);
 
@@ -84,9 +84,13 @@ function swText() {
     </div>
     <div class="head-name">
       <div class="name">
-        app.leandrocesar.com
+        leandrocesar.app
       </div>
-      <h3>Área do Cliente</h3>
+      <div class='swt'>
+
+        <h3>Cliente</h3>
+        <h3>Personal</h3>
+      </div>
     </div>
     <div class="inputs">
       <div>
@@ -166,6 +170,20 @@ function swText() {
   right: 12px;
   z-index: 10000;
 }
+
+.swt {
+display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+h3 {
+  margin: 30px 10px 0 10px;
+  
+}
+
 .logo {
   display: flex;
   justify-content: center;
@@ -175,7 +193,7 @@ function swText() {
   height: 100px;
   width: 100px;
   box-shadow: 0px 7px 20px #00dc82;
-  margin: 6.5rem 0 1.5rem 0;
+  margin: 3.5rem 0 1.5rem 0;
   border-radius: 8px;
   z-index: 10;
 }
