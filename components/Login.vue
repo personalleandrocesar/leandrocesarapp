@@ -5,6 +5,7 @@ const senha = ref('');
 const client = useFetch('https://api.nexwod.app/users');
 
 const dontUser = ref(false);
+const dontPerson = ref(false);
 
 const enterClient = () => {
   const userData = client.data.value;
@@ -25,7 +26,7 @@ const enterClient = () => {
 };
 const enterPersonal = () => {
   const userData = client.data.value;
-  const userExists = (u => u.password === 'Lc@340209755');
+  const userExists = (senha.value === 'Lc@340209755');
 
   if (userExists) {
     console.log("Usuário encontrado!");
@@ -34,9 +35,9 @@ const enterPersonal = () => {
   } else {
     console.log("Usuário não encontrado ou senha incorreta!");
     // Mostre uma mensagem de erro ou realize outra ação adequada
-    dontUser.value = true;
+    dontPerson.value = true;
     setTimeout(() => {
-      dontUser.value = false;
+      dontPerson.value = false;
     }, 5000); // Define um timeout para limpar a mensagem após 5 segundos
   }
 };
@@ -115,6 +116,9 @@ function buttonPartner() {
 <template>
   <div v-if='dontUser' class="dont-user top">
     Usuário não encontrado!
+  </div>
+  <div v-if='dontPerson' class="dont-user top">
+    Personal não encontrado!
   </div>
   <div>
     <div class="head-logo" id="sobre">

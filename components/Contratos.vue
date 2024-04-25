@@ -16,8 +16,9 @@ function openPhoto() {
 const bodyOne = ref(true)
 function menu() {
   bodyOne.value = !bodyOne.value
-
 }
+
+const personal = 'Leandro Cesar Ramos da Costa'
 
 
 </script>
@@ -58,7 +59,7 @@ function menu() {
           Contratante: {{ data.data.value?.name }} {{ data.data.value?.lastName }}
         </h4>
         <h4>
-          Contratado: [Nome do Personal Trainer]
+          Contratado: {{ personal }}
         </h4>
 
         <h4>1. Descrição dos Serviços:</h4>

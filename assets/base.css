@@ -188,7 +188,7 @@ body input::placeholder {
 
 .dark-mode body input {
   background: var(--vt-c-black-soft);
-  color: var(--vt-c-text-dark-3);
+  color: var(--vt-c-text-dark-1);
   border: transparent;
 }
 

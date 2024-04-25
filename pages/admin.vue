@@ -59,17 +59,29 @@ const state = useCookie('state')
 state.value = state.value
 
 
+const photoOpen = ref(false);
+function openPhoto() {
+    photoOpen.value = !photoOpen.value;
+}
+
 </script>
 <template>
 
     <div id="grid">
         <div id="areaA">
-            <NuxtLink :to="`/admin`">
-                <Icon name='material-symbols:data-usage' /> Início
-            </NuxtLink>
-            <NuxtLink :to="`/admin/clientes`">
-                <Icon name='solar:users-group-two-rounded-bold' /> Clientes
-            </NuxtLink> 
+            <div>
+                <NuxtLink :to="`/admin`">
+                    <Icon name='material-symbols:data-usage' /> Início
+                </NuxtLink>
+                <NuxtLink :to="`/admin/clientes`">
+                    <Icon name='solar:users-group-two-rounded-bold' /> Clientes
+                </NuxtLink> 
+            </div>
+            <div class='logOut'>
+                <NuxtLink :to="`/`">
+                    <Icon name='solar:users-group-two-rounded-bold' /> Log Out
+                </NuxtLink> 
+            </div>
         </div>
         <div id="areaB">
             <NuxtPage />
@@ -101,6 +113,11 @@ state.value = state.value
 #areaA {
     border-right: solid 1px #34d39940;
     font-weight: bolder;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 #areaA a {
@@ -163,6 +180,7 @@ state.value = state.value
     margin: 10px;
     border-radius: 5px;
 }
+
 
 .nav-top {
     position: sticky;

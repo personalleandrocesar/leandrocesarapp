@@ -12,6 +12,7 @@
     position: sticky;
     top: 1.5rem;
     margin: 1.5rem;
+    z-index: 100;
 }
 
 .nav a {
