@@ -6,7 +6,7 @@ const client = useFetch('https://api.nexwod.app/users');
 
 const dontUser = ref(false);
 
-const enterClicked = () => {
+const enterClient = () => {
   const userData = client.data.value;
   const userExists = client.data.value.some(u => u.username === user.value && u.password === senha.value);
 
@@ -23,10 +23,30 @@ const enterClicked = () => {
     }, 5000); // Define um timeout para limpar a mensagem após 5 segundos
   }
 };
+const enterPersonal = () => {
+  const userData = client.data.value;
+  const userExists = client.data.value.some(u => u.username === user.value && u.password === senha.value && u.root === true);
+
+  if (userExists) {
+    console.log("Usuário encontrado!");
+    // Faça a ação para redirecionar ou permitir o acesso do usuário à página
+    return navigateTo(`/admin`);
+  } else {
+    console.log("Usuário não encontrado ou senha incorreta!");
+    // Mostre uma mensagem de erro ou realize outra ação adequada
+    dontUser.value = true;
+    setTimeout(() => {
+      dontUser.value = false;
+    }, 5000); // Define um timeout para limpar a mensagem após 5 segundos
+  }
+};
 
 
 const trigger = () => {
-  enterClicked()
+  enterClient()
+}
+const trig = () => {
+  enterPersonal()
 }
 
 const pop = useCookie('pop', { maxAge: 7889400 })
@@ -73,20 +93,20 @@ function swText() {
   pass.value = 'text'
 };
 
-const linkFeed = ref(true)
-const linkPartner = ref(false)
-const feedShow = ref(true)
+const linkClient = ref(true)
+const linkPersonal = ref(false)
+const clientShow = ref(true)
 
 function buttonFeed() {
-  linkFeed.value = true
-  linkPartner.value = false
-  feedShow.value = true
+  linkClient.value = true
+  linkPersonal.value = false
+  clientShow.value = true
 }
 
 function buttonPartner() {
-  linkFeed.value = false
-  linkPartner.value = true
-  feedShow.value = false
+  linkClient.value = false
+  linkPersonal.value = true
+  clientShow.value = false
 }
 
 
@@ -107,15 +127,16 @@ function buttonPartner() {
         leandrocesar.app
       </div>
       <div class="link">
-        <NuxtLink @click="buttonFeed" :class="{ aActive: linkFeed }">
-          Cliente
+        <NuxtLink @click="buttonFeed" :class="{ aActive: linkClient }">
+          Clientes
         </NuxtLink>
-        <NuxtLink @click="buttonPartner" :class="{ aActivee: linkPartner }">
+        <NuxtLink @click="buttonPartner" :class="{ aActivee: linkPersonal }">
           Personal
         </NuxtLink>
       </div>
     </div>
-    <div class="inputs">
+
+    <div v-if='clientShow' class="inputs">
       <div>
         <h4>Usuário</h4>
         <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Digite seu usuário" autofocus
@@ -130,7 +151,34 @@ function buttonPartner() {
 
       </div>
       <div>
-        <NuxtLink class='login' @click="enterClicked">
+        <NuxtLink class='login' @click="enterClient">
+          LOGIN
+          <Icon name="solar:login-3-bold" />
+        </NuxtLink>
+      </div>
+      <div class="lost">
+        <a href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20professor!%20Esqueci%20o%20meu%20email%20e%20minha%20senha!"
+          target="_blank">
+          <h5>Esqueci minha senha</h5>
+        </a>
+      </div>
+    </div>
+    <div v-else class="inputs">
+      <div>
+        <h4>Usuário</h4>
+        <input type="email" @keyup.enter="trig" name="" id="username" placeholder="Digite seu usuário" autofocus
+          v-model="user" required autocomplete="username">
+      </div>
+      <div class="senha">
+        <h4>Senha</h4>
+        <input v-bind:type="pass" @keyup.enter="trig" name="" id="password" placeholder="Digite sua senha"
+          v-model="senha" autocomplete="off">
+        <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
+        <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
+
+      </div>
+      <div>
+        <NuxtLink class='login' @click="enterPersonal">
           LOGIN
           <Icon name="solar:login-3-bold" />
         </NuxtLink>
@@ -448,9 +496,9 @@ a {
   transition: all .4s linear;
 }
 
-a:hover {
-  /* color: #00DC82; */
-}
+/* a:hover {
+  color: #00DC82;
+} */
 
 .login {
   transition: all .4s linear;
