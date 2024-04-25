@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   routeRules: {
     '/api/**': { cors: true, headers: { 'access-control-allow-methods': 'GET, POST' } },
-    'http://191.101.70.209:8083/**': { cors: true, headers: { 'access-control-allow-methods': 'GET, POST' } },
+    'https://api.nexwod.app/**': { cors: true, headers: { 'access-control-allow-methods': 'GET, POST' } },
   },
   app: {
     head: {

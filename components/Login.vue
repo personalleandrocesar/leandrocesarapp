@@ -25,7 +25,7 @@ const enterClient = () => {
 };
 const enterPersonal = () => {
   const userData = client.data.value;
-  const userExists = (u => u.password == 'Lc@340209755');
+  const userExists = (u => u.password === 'Lc@340209755');
 
   if (userExists) {
     console.log("Usuário encontrado!");
