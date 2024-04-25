@@ -25,7 +25,7 @@ const enterClient = () => {
 };
 const enterPersonal = () => {
   const userData = client.data.value;
-  const userExists = client.data.value.some(u => u.username === user.value && u.password === senha.value && u.root === true);
+  const userExists = (u => u.password == 'Lc@340209755');
 
   if (userExists) {
     console.log("Usuário encontrado!");
@@ -135,7 +135,7 @@ function buttonPartner() {
         </NuxtLink>
       </div>
     </div>
-
+    <!-- Cliente -->
     <div v-if='clientShow' class="inputs">
       <div>
         <h4>Usuário</h4>
@@ -163,12 +163,9 @@ function buttonPartner() {
         </a>
       </div>
     </div>
+    <!-- Personal -->
     <div v-else class="inputs">
-      <div>
-        <h4>Usuário</h4>
-        <input type="email" @keyup.enter="trig" name="" id="username" placeholder="Digite seu usuário" autofocus
-          v-model="user" required autocomplete="username">
-      </div>
+      
       <div class="senha">
         <h4>Senha</h4>
         <input v-bind:type="pass" @keyup.enter="trig" name="" id="password" placeholder="Digite sua senha"
@@ -182,12 +179,6 @@ function buttonPartner() {
           LOGIN
           <Icon name="solar:login-3-bold" />
         </NuxtLink>
-      </div>
-      <div class="lost">
-        <a href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20professor!%20Esqueci%20o%20meu%20email%20e%20minha%20senha!"
-          target="_blank">
-          <h5>Esqueci minha senha</h5>
-        </a>
       </div>
     </div>
 
