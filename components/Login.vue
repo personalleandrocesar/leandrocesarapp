@@ -291,7 +291,7 @@ h3 {
   height: 100px;
   width: 100px;
   box-shadow: 0px 7px 20px #00dc82;
-  margin: 5.5rem 0 1.5rem 0;
+  margin: 7rem 0 1.5rem 0;
   border-radius: 8px;
   z-index: 10;
 }
