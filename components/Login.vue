@@ -142,13 +142,11 @@ function buttonPartner() {
     <!-- Cliente -->
     <div v-if='clientShow' class="inputs">
       <div>
-        <h4>Usuário</h4>
-        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Digite seu usuário" autofocus
+        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="USUÁRIO" autofocus
           v-model="user" required autocomplete="username">
       </div>
       <div class="senha">
-        <h4>Senha</h4>
-        <input v-bind:type="pass" @keyup.enter="trigger" name="" id="password" placeholder="Digite sua senha"
+        <input v-bind:type="pass" @keyup.enter="trigger" name="" id="password" placeholder="SENHA"
           v-model="senha" autocomplete="off">
         <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
         <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
@@ -274,8 +272,8 @@ a {
 
 .swt {
 display: flex;
-  justify-content: center;
-  flex-direction: row;
+justify-content: center;
+flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -294,7 +292,7 @@ h3 {
   height: 100px;
   width: 100px;
   box-shadow: 0px 7px 20px #00dc82;
-  margin: 5rem 0 1.5rem 0;
+  margin: 5.5rem 0 1.5rem 0;
   border-radius: 8px;
   z-index: 10;
 }
@@ -306,7 +304,7 @@ h3 {
   border: #00dc82 2px solid;
   z-index: 100;
   opacity: 1;
-
+  
 }
 
 
@@ -347,6 +345,7 @@ h3 {
 
 .head-name {
   display: flex;
+  margin-bottom: 10px;
   justify-content: center;
   flex-direction: column;
   align-items: center;
@@ -493,7 +492,6 @@ h4:nth-child(1) {
 .login {
   transition: all .4s linear;
   border: solid 2px #00DC82;
-  
   cursor: pointer;
   width: 140px;
   text-align: center;
