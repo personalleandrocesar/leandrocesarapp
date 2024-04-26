@@ -233,8 +233,7 @@ function buttonPartner() {
     text-align: center;
     cursor: pointer;
 }
-
-.link   a:hover {
+.link   a:hover { 
     border-bottom: solid 2px #00dc82;
     cursor: pointer;
 }
