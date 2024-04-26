@@ -169,8 +169,7 @@ function buttonPartner() {
     <div v-else class="inputs">
       
       <div class="senha">
-        <h4>Senha</h4>
-        <input v-bind:type="pass" @keyup.enter="trig" name="" id="password" placeholder="Digite sua senha"
+        <input v-bind:type="pass" @keyup.enter="trig" name="" id="password" placeholder="SENHA"
           v-model="senha" autocomplete="off">
         <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
         <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
@@ -265,7 +264,7 @@ a {
 
 #password-icon {
   position: absolute;
-  top: 60px;
+  top: 16px;
   right: 12px;
   z-index: 10000;
 }
