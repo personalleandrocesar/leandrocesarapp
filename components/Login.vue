@@ -492,22 +492,25 @@ h4:nth-child(1) {
 
 .login {
   transition: all .4s linear;
-  border: solid 1px #00DC8210;
-  box-shadow: 0 0px 5px #00DC8210;
-  border-radius: 8px;
+  border: solid 1px #00DC8290;
+  background-color: #fff;
   cursor: pointer;
-  width: 160px;
+  width: 140px;
   text-align: center;
   line-height: 18px;
-  border-radius: 8px;
+  border-radius: 88px;
   font-weight: 600;
   transition: all 0.2s ease-in-out 0s;
-  height: 34px;
+  height: 30px;
   font-size: 14px;
   padding-inline: 16px;
-  padding-top: 7px;
+  padding-top: 6px;
   padding-bottom: 8px;
   margin: 1rem 1.5rem;
+}
+
+.lost h5{
+  font-size: .6rem;
 }
 
 .login .icon {
@@ -517,13 +520,8 @@ h4:nth-child(1) {
 
 .login:hover {
   cursor: pointer;
-  background-color: #00DC8210;
-  color: #00DC8280;
-
-  padding-inline: 16px;
-  padding-top: 7px;
-  padding-bottom: 8px;
-  margin: 1rem 1.5rem;
+  background-color: #00DC82;
+  color: #fff;
 }
 
 .login:hover .icon {
