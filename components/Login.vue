@@ -218,13 +218,17 @@ function buttonPartner() {
 </template>
 
 <style scoped>
+a {
+  text-decoration: none;
+  transition: all .3s linear;
+  border: solid 2px transparent ;
+}
 .link {
    display: flex;
    justify-content: space-evenly;
    margin-top: 1.5rem;
    font-size: 1.1rem;
    font-weight: bolder;
-   backdrop-filter: blur(5px);
 }
 
 .link a {
@@ -438,28 +442,21 @@ h3 {
 input {
   margin: .5rem auto;
   transition: all .4s linear;
-  border: solid 1px #00DC8210;
-  box-shadow: 0 0px 5px #00DC8210;
-  border-radius: 8px;
+  border-bottom: solid 2px #00DC82;
   text-align: left;
   line-height: 18px;
-  border-radius: 8px;
   font-weight: 600;
+  border-radius: 4px;
   transition: all 0.2s ease-in-out 0s;
   height: 34px;
   font-size: 14px;
   padding-inline: 16px;
   padding-top: 8px;
   padding-bottom: 8px;
-
 }
 
 .inputs div h4 {
   text-align: left;
-}
-
-input:focus {
-  border-color: #00DC8280;
 }
 
 input:focus-visible {
@@ -474,6 +471,13 @@ input:hover {
   background-color: #00DC8210;
 }
 
+
+input:focus {
+  border: 0 none;
+  border-bottom: solid 2px #00DC82;
+  outline: 0;
+}
+
 h4 {
   transition: all .3s linear;
   margin: 0 0 0 10px;
@@ -485,14 +489,6 @@ h4:nth-child(1) {
   margin: 20px 0 0 10px;
 }
 
-a {
-  text-decoration: none;
-  transition: all .4s linear;
-}
-
-/* a:hover {
-  color: #00DC82;
-} */
 
 .login {
   transition: all .4s linear;
