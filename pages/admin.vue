@@ -111,7 +111,7 @@ function openPhoto() {
 }
 
 #areaA {
-    border-right: solid 1px #34d39940;
+    border-right: solid 1px #00DC8240;
     font-weight: bolder;
     text-decoration: none;
     cursor: pointer;
@@ -121,7 +121,7 @@ function openPhoto() {
 }
 
 .logOut {
-    border-top: solid 1px #34d39940;
+    border-top: solid 1px #00DC8240;
 }
 
 #areaA a {
@@ -133,26 +133,26 @@ function openPhoto() {
     align-items: center;
     flex-wrap: wrap;
     padding: 12px;
-    border-bottom: solid 1px #34d39940;
+    border-bottom: solid 1px #00DC8240;
     border-end-end-radius: 5px;
     border-start-end-radius: 5px;
 }
 
 #areaA a:hover {
     background-color: transparent;
-    background: linear-gradient(to right, transparent 0%, transparent  50%, #34d399 100%);
-    color: #34d399;
+    background: linear-gradient(to right, transparent 0%, transparent  50%, #00DC82 100%);
+    color: #00DC82;
 }
 
 #areaA a.router-link-exact-active {
-    background: linear-gradient(to bottom right, #34d399 0%, #34d399 50%, #34d399 100%);
+    background: linear-gradient(to bottom right, #00DC82 0%, #00DC82 50%, #00DC82 100%);
     color: #fff;
     text-decoration: none;
     cursor: pointer;
 }
 
 #areaA a.router-link-exact-active:hover {
-    background: linear-gradient(to bottom right, #34d399 0%, #34d399 50%, #34d399 100%);
+    background: linear-gradient(to bottom right, #00DC82 0%, #00DC82 50%, #00DC82 100%);
     color: #fff;
     text-decoration: none;
     cursor: pointer;
@@ -160,7 +160,7 @@ function openPhoto() {
 
 #areaA a.router-link-exact-active:hover::after {
     background-color: var(--color-background);
-    color: #34d399;
+    color: #00DC82;
     text-decoration: none;
     cursor: pointer;
 }
@@ -168,19 +168,19 @@ function openPhoto() {
 #areaB {
     margin: 10px;
     border-radius: 5px;
-    border: solid 1px #34d39940;
+    border: solid 1px #00DC8240;
     overflow-x: hidden; 
     overflow-y: auto; 
 }
 
 #areaB-A {
-    border: solid 1px #34d39940;
+    border: solid 1px #00DC8240;
     margin: 10px;
     border-radius: 5px;
 }
 
 #areaB-B {
-    border: solid 1px #34d39940;
+    border: solid 1px #00DC8240;
     margin: 10px;
     border-radius: 5px;
 }
@@ -198,7 +198,7 @@ function openPhoto() {
     z-index: 1;
     height: 40px;
     font-weight: bolder;
-    border-bottom: .10px solid #34d39940;
+    border-bottom: .10px solid #00DC8240;
     backdrop-filter: blur(45px);
 }
 
@@ -207,11 +207,11 @@ function openPhoto() {
 }
 
 .clients span {
-    border: 1px solid #34d39990;
+    border: 1px solid #00DC8290;
     padding: 3px 6px;
     border-radius: 5px;
-    color: #34d399;
-    background-color: #34d39930;
+    color: #00DC82;
+    background-color: #00DC8230;
     margin-left: 3px;
 }
 
@@ -227,7 +227,7 @@ function openPhoto() {
 .notifications:hover {
     padding: 4px 5px;
     border-radius: 5px;
-    color: #34d399;
+    color: #00DC82;
     background-color: #fff;
 }
 
@@ -244,7 +244,7 @@ function openPhoto() {
     height: 50px;
     font-weight: bolder;
     margin-bottom: 1rem;
-    border-bottom: .10px solid #34d39940;
+    border-bottom: .10px solid #00DC8240;
     backdrop-filter: blur(45px);
 }
 
@@ -253,17 +253,17 @@ function openPhoto() {
 }
 
 .users-conf span {
-    border: 1px solid #34d39990;
+    border: 1px solid #00DC8290;
     padding: 8px;
     border-radius: 5px;
-    color: #34d399;
-    background-color: #34d39930;
+    color: #00DC82;
+    background-color: #00DC8230;
     margin-left: 3px;
 }
 
 .filter {
-    border: solid 1px #34d39990;
-    background-color: #34d39930;
+    border: solid 1px #00DC8290;
+    background-color: #00DC8230;
     padding: 6px 7px;
     margin: 9px 35px;
     border-radius: 5px;
@@ -275,7 +275,7 @@ function openPhoto() {
     border: solid 1px #fff;
     padding: 6px 7px;
     border-radius: 5px;
-    color: #34d399;
+    color: #00DC82;
     background-color: #fff;
 }
 
@@ -306,8 +306,8 @@ function openPhoto() {
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
-    border: solid 1px #34d39910;
-    box-shadow: 0 0px 5px #34d39940;
+    border: solid 1px #00DC8210;
+    box-shadow: 0 0px 5px #00DC8240;
     backdrop-filter: blur(100px)
 }
 
@@ -326,14 +326,14 @@ function openPhoto() {
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
-    border: solid 1px #34d39910;
-    box-shadow: 0 0px 5px #34d39940;
+    border: solid 1px #00DC8210;
+    box-shadow: 0 0px 5px #00DC8240;
     backdrop-filter: blur(100px)
 }
 
 .whats .icon,
 .color .icon {
-    color: #34d39990;
+    color: #00DC8290;
     zoom: 1;
 } 
 
@@ -352,8 +352,8 @@ function openPhoto() {
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
-    border: solid 1px #34d39910;
-    box-shadow: 0 0px 5px #34d39940;
+    border: solid 1px #00DC8210;
+    box-shadow: 0 0px 5px #00DC8240;
     backdrop-filter: blur(100px)
 }
 
@@ -372,14 +372,14 @@ function openPhoto() {
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
-    border: solid 1px #34d39910;
-    box-shadow: 0 0px 5px #34d39940;
+    border: solid 1px #00DC8210;
+    box-shadow: 0 0px 5px #00DC8240;
     backdrop-filter: blur(100px)
 }
 
 .whats .icon,
 .color .icon {
-    color: #34d39990;
+    color: #00DC8290;
     zoom: 1;
 }
 </style>
