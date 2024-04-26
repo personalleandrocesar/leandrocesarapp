@@ -120,6 +120,10 @@ function openPhoto() {
     flex-direction: column;
 }
 
+.logOut {
+    border-top: solid 1px #34d39940;
+}
+
 #areaA a {
     text-decoration: none;
     cursor: pointer;

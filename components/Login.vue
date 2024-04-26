@@ -235,19 +235,19 @@ function buttonPartner() {
 }
 
 .link   a:hover {
-    border-bottom: solid 2px #34d399;
+    border-bottom: solid 2px #00dc82;
     cursor: pointer;
 }
 
 
 .aActive {
-    border-bottom: solid 2px #34d399;
-    color: #34d399;
+    border-bottom: solid 2px #00dc82;
+    color: #00dc82;
     
 }
 .aActivee {
-    border-bottom: solid 2px #34d399;
-    color: #34d399;
+    border-bottom: solid 2px #00dc82;
+    color: #00dc82;
     
 }
 .head-logo {
