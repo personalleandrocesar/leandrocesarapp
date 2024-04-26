@@ -493,6 +493,7 @@ h4:nth-child(1) {
 .login {
   transition: all .4s linear;
   border: solid 2px #00DC82;
+  
   cursor: pointer;
   width: 140px;
   text-align: center;
