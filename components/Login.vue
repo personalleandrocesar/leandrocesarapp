@@ -142,11 +142,11 @@ function buttonPartner() {
     <!-- Cliente -->
     <div v-if='clientShow' class="inputs">
       <div>
-        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="USUÁRIO" autofocus
+        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
           v-model="user" required autocomplete="username">
       </div>
       <div class="senha">
-        <input v-bind:type="pass" @keyup.enter="trigger" name="" id="password" placeholder="SENHA"
+        <input v-bind:type="pass" @keyup.enter="trigger" name="" id="password" placeholder="Senha"
           v-model="senha" autocomplete="off">
         <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
         <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
@@ -169,7 +169,7 @@ function buttonPartner() {
     <div v-else class="inputs">
       
       <div class="senha">
-        <input v-bind:type="pass" @keyup.enter="trig" name="" id="password" placeholder="SENHA"
+        <input v-bind:type="pass" @keyup.enter="trig" name="" id="password" placeholder="Senha"
           v-model="senha" autocomplete="off">
         <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
         <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
