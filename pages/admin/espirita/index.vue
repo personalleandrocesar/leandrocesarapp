@@ -38,7 +38,6 @@ function switchButton() {
     swit.value = !swit.value
     block.value = !block.value
 }
-
 async function submitForm() {
     try {
         const response = await fetch('https://api.nexwod.app/user', {
@@ -99,16 +98,15 @@ function formatarData(input) {
 <template>
 
     <div v-if="add" id="grid">
-        <div id="areaA">
+        <div  id="areaA">
             <div class="nav-top">
                 <div class="clients">
-                    <Icon name='solar:users-group-two-rounded-bold' /> Clientes <span> {{ Users.data.value.length }}
-                    </span>
+                    <Icon name='solar:users-group-two-rounded-bold' /> Clientes <span> {{ Users.data.value.length }} </span>
                 </div>
                 <div>
                     <div class="add-client" @click="addClient">Adicionar Cliente
-                        <Icon name='material-symbols:add' />
-                    </div>
+                    <Icon name='material-symbols:add' />
+                </div>
                 </div>
             </div>
             <div class="nav-users">
@@ -148,9 +146,8 @@ function formatarData(input) {
             </div>
             <div v-else class="users-list">
 
-                <!-- <tr>
-                </tr> -->
-                <!-- <tr>
+                <table id="customers">
+                    <tr>
                         <th>#</th>
                         <th>Nome</th>
                         <th>Sobrenome</th>
@@ -163,81 +160,70 @@ function formatarData(input) {
                         <th>Status</th>
                         <th>Dias</th>
                         <th>Tempo</th>
-                    </tr> -->
-                <table>
-                    <thead >
-                        <tr class="">
-                            <th>
-                                <span>#</span>
-                            </th>
-                            
-                            <th>
-                                <span>Username</span>
-                            </th>
-                            <th>
-                                <span>Nome</span>
-                            </th>
-                            <th>
-                                <span>Serviço</span>
-                            </th>
-                            <th>
-                                <span>Objetivo</span>
-                            </th>
-                            <th >
-                                <span>Status</span>
-                            </th>
-                            <th >
-                                <span>Início</span>
-                            </th>
-                            <th >
-                                <span>Fim</span>
-                            </th>
-                            <th >
-                                <span>email</span>
-                            </th>
-                        </tr><!---->
-                    </thead>
-                    <tbody  v-for="(item, index) in item" :key="index">
-                        <tr @click="navigateTo(`/admin/clientes/${item.username}`)"
-                            class='button'>  
-                            <td>{{ index +1 }}</td>
-                            <td>
+                    </tr>
+                    <tr v-for="(item, index) in item" :key="index">
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
+                                {{ index + 1 }}
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
+                                {{ item.name }}
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
+                                {{ item.lastName }}
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
                                 {{ item.username }}
-                            </td>
-                            <td >
-                                {{  item.name }} {{ item.lastName }}
-                            </td>
-                            <td >
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
+                                {{ item.email }}
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
+                                {{ item.periodStart }}
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
+                                {{ item.periodEnd }}
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
                                 {{ item.service }}
-                            </td>
-                            <td >
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
+                                {{ item.status }}
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
                                 {{ item.target }}
-                            </td>
-                            <td>
-                                <span>
-                                    {{ item.status }}
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    {{ item.periodStart }}
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    {{ item.periodEnd }}
-                                </span>
-                            </td>
-                                <td>
-                                    <span>
-                                        {{ item.email }}
-                                    </span>
-                                </td>
-                                    
-                        </tr>
-                    </tbody>
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
+                                {{ item.day }}
+                            </NuxtLink>
+                        </td>
+                        <td>
+                            <NuxtLink :to="`/admin/clientes/${item.username}`">
+                                {{ item.time }}
+                            </NuxtLink>
+                        </td>
+                    </tr>
                 </table>
-
 
             </div>
         </div>
@@ -254,7 +240,7 @@ function formatarData(input) {
         <div class="center-start">
             <div>
 
-                <img v-if="photoClient" class="cliente" :src="foto">
+                <img v-if="photoClient" class="cliente" :src="foto" >
                 <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
                 <input class="file-cliente" type="file" display="none" />
             </div>
@@ -348,6 +334,25 @@ function formatarData(input) {
     color: #34d399;
     background-color: #34d39930;
     margin-left: 3px;
+}
+
+.add-client {
+    border: solid 1px #04be7a90;
+    background-color: #04be7a;
+    padding: 6px 7px;
+    margin: 4px;
+    border-radius: 5px;
+    transition: all .5s linear;
+    cursor: pointer;
+    color: #fff;
+}
+
+.add-client:hover {
+    border: solid 1px #fff;
+    padding: 6px 7px;
+    border-radius: 8px;
+    color: #04be7a;
+    background-color: #fff;
 }
 
 .notifications {
@@ -656,7 +661,7 @@ input {
 .add-client {
     border: solid 1px #04be7a90;
     background-color: #04be7a;
-    padding: 5px 7px;
+    padding: 6px 7px;
     margin: 4px;
     border-radius: 5px;
     transition: all .5s linear;
@@ -666,6 +671,7 @@ input {
 
 .add-client:hover {
     border: solid 1px #fff;
+    padding: 6px 7px;
     border-radius: 8px;
     color: #04be7a;
     background-color: #fff;
@@ -810,6 +816,7 @@ input {
     width: 55px;
     text-align: center;
     padding-top: 4px;
+    border: solid 2px #fff;
     border-radius: 8px;
     background-color: #04be7a50;
     cursor: pointer;

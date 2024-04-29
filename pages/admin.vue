@@ -75,12 +75,15 @@ function openPhoto() {
                 </NuxtLink>
                 <NuxtLink :to="`/admin/clientes`">
                     <Icon name='solar:users-group-two-rounded-bold' /> Clientes
-                </NuxtLink> 
+                </NuxtLink>
+                <NuxtLink :to="`/admin/espirita`">
+                    <Icon name='solar:user-speak-rounded-bold' /> espiritacristao.com
+                </NuxtLink>
             </div>
             <div class='logOut'>
                 <NuxtLink :to="`/`">
                     <Icon name='solar:users-group-two-rounded-bold' /> Log Out
-                </NuxtLink> 
+                </NuxtLink>
             </div>
         </div>
         <div id="areaB">
