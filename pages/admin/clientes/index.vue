@@ -98,7 +98,7 @@ function formatarData(input) {
 
 <template>
 
-    <div v-if="add" id="grid">
+    <div id="grid">
         <div id="areaA">
             <div class="nav-top">
                 <div class="clients">
@@ -106,7 +106,7 @@ function formatarData(input) {
                     </span>
                 </div>
                 <div>
-                    <div class="notifications" >
+                    <div class="notifications">
                         <Icon name='mingcute:notification-newdot-fill' />
                     </div>
                 </div>
@@ -124,11 +124,15 @@ function formatarData(input) {
                     <div class="add-client" @click="addClient">Adicionar Cliente
                         <Icon name='material-symbols:add' />
                     </div>
+                    <!-- parei aqui -->
+                    <!-- <div class="close-client" @click="addClient">Fechar
+                        <Icon name='material-symbols:cancel-rounded' />
+                    </div> -->
                 </div>
             </div>
 
         </div>
-        <div>
+        <div v-if="add">
             <div v-if="block" class="users-list">
                 <div v-for="(item, index) in item" :key="index">
 
@@ -242,76 +246,71 @@ function formatarData(input) {
 
             </div>
         </div>
-    </div>
-    <div v-else class="main">
-        <div class="barTop center">
-            <div>
-                <NuxtLink class="close">
-                    <Icon name="material-symbols:cancel-rounded" @click="addClient" />
-                </NuxtLink>
+        <div v-else class="main">
+            <div class="barTop center">
+
             </div>
-
-        </div>
-        <div class="center-start">
-            <div>
-
-                <img v-if="photoClient" class="cliente" :src="foto">
-                <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
-                <input class="file-cliente" type="file" display="none" />
-            </div>
-
-        </div>
-
-        <div class="table-clients">
-
-
-            <form @submit.prevent="submitForm">
-                <div class="table">
-                    <div class="row header">
-                        <div class="cell-two">Nome</div>
-                        <div class="cell-two">Sobrenome</div>
-                        <div class="cell-two">Usuário</div>
-                        <div class="cell-two">Email</div>
-                        <div class="cell-two">Senha</div>
-                        <div class="cell-two">Serviço</div>
-                    </div>
-                    <div class="row">
-                        <div class="cell-two"><input type="text" v-model="name" name="name" /> </div>
-                        <div class="cell-two"><input type="text" v-model="lastName" name="lastName" /> </div>
-                        <div class="cell-two"><input type="text" v-model="username" name="username" /> </div>
-                        <div class="cell-two"><input type="email" v-model="email" name="email" /></div>
-                        <div class="cell-two"><input type="text" v-model="password" name="password" /> </div>
-                        <div class="cell-two"><input type="text" v-model="service" name="service" /> </div>
-                    </div>
-                </div>
-                <div class="table">
-                    <div class="row header">
-                        <div class="cell-two">Início</div>
-                        <div class="cell-two">Fim</div>
-                        <div class="cell-two">Objetivo</div>
-                        <div class="cell-two">Status</div>
-                        <div class="cell-two">Dias</div>
-                        <div class="cell-two">Tempo</div>
-                    </div>
-                    <div class="row">
-                        <div class="cell-two"><input type="date" v-model="periodStart" name="periodStart" /> </div>
-                        <div class="cell-two"><input type="date" v-model="periodEnd" name="periodEnd" /> </div>
-                        <div class="cell-two"><input type="text" v-model="target" name="target" /> </div>
-                        <div class="cell-two"><input type="text" v-model="status" name="status" /> </div>
-                        <div class="cell-two"><input type="text" v-model="day" name="day" /> </div>
-                        <div class="cell-two"> <input type="text" v-model="time" name="time" /> </div>
-                    </div>
-                </div>
-
-                <button class="input" type="submit" @click="refreshAll">Adicionar</button>
-            </form>
-            <div v-if="subscriberOk" class="subscriberOk top">
+            <div class="center-start">
                 <div>
-                    Inscrição realizada com Sucesso!
+
+                    <img v-if="photoClient" class="cliente" :src="foto">
+                    <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
+                    <input class="file-cliente" type="file" display="none" />
                 </div>
+
             </div>
 
+            <div class="table-clients">
 
+
+                <form @submit.prevent="submitForm">
+                    <div class="table">
+                        <div class="row header">
+                            <div class="cell-two">Nome</div>
+                            <div class="cell-two">Sobrenome</div>
+                            <div class="cell-two">Usuário</div>
+                            <div class="cell-two">Email</div>
+                            <div class="cell-two">Senha</div>
+                            <div class="cell-two">Serviço</div>
+                        </div>
+                        <div class="row">
+                            <div class="cell-two"><input type="text" v-model="name" name="name" /> </div>
+                            <div class="cell-two"><input type="text" v-model="lastName" name="lastName" /> </div>
+                            <div class="cell-two"><input type="text" v-model="username" name="username" /> </div>
+                            <div class="cell-two"><input type="email" v-model="email" name="email" /></div>
+                            <div class="cell-two"><input type="text" v-model="password" name="password" /> </div>
+                            <div class="cell-two"><input type="text" v-model="service" name="service" /> </div>
+                        </div>
+                    </div>
+                    <div class="table">
+                        <div class="row header">
+                            <div class="cell-two">Início</div>
+                            <div class="cell-two">Fim</div>
+                            <div class="cell-two">Objetivo</div>
+                            <div class="cell-two">Status</div>
+                            <div class="cell-two">Dias</div>
+                            <div class="cell-two">Tempo</div>
+                        </div>
+                        <div class="row">
+                            <div class="cell-two"><input type="date" v-model="periodStart" name="periodStart" /> </div>
+                            <div class="cell-two"><input type="date" v-model="periodEnd" name="periodEnd" /> </div>
+                            <div class="cell-two"><input type="text" v-model="target" name="target" /> </div>
+                            <div class="cell-two"><input type="text" v-model="status" name="status" /> </div>
+                            <div class="cell-two"><input type="text" v-model="day" name="day" /> </div>
+                            <div class="cell-two"> <input type="text" v-model="time" name="time" /> </div>
+                        </div>
+                    </div>
+
+                    <button class="input" type="submit" @click="refreshAll">Adicionar</button>
+                </form>
+                <div v-if="subscriberOk" class="subscriberOk top">
+                    <div>
+                        Inscrição realizada com Sucesso!
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
 </template>
