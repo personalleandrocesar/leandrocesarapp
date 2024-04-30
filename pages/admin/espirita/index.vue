@@ -342,7 +342,7 @@ function formatarData(input) {
     padding: 6px 7px;
     margin: 4px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
     color: #fff;
 }
@@ -360,7 +360,7 @@ function formatarData(input) {
     padding: 4px 5px;
     margin: 6px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
@@ -409,7 +409,7 @@ function formatarData(input) {
     padding: 6px 7px;
     margin: 9px 35px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
@@ -664,7 +664,7 @@ input {
     padding: 6px 7px;
     margin: 4px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
     color: #fff;
 }
@@ -712,7 +712,7 @@ input {
     padding: 6px 7px;
     margin: 9px 35px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 

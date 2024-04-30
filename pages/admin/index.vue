@@ -149,12 +149,12 @@ const options = {
                     <!-- Clientes <span> {{ Users.data.value.length  }} </span> -->
                 </div>
                 <div>
-                    <div v-if="swit" class="filter" @click="switchButton">
+                    <!-- <div v-if="swit" class="filter" @click="switchButton">
                         <Icon name='material-symbols:view-list-outline' /> Lista
                     </div>
                     <div v-else class="filter" @click="switchButton">
                         <Icon name='solar:widget-linear' /> Blocos
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -205,7 +205,7 @@ const options = {
     padding: 4px 5px;
     margin: 6px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
@@ -254,7 +254,7 @@ const options = {
     padding: 6px 7px;
     margin: 9px 35px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 

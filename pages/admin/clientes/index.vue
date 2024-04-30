@@ -106,21 +106,23 @@ function formatarData(input) {
                     </span>
                 </div>
                 <div>
-                    <div class="add-client" @click="addClient">Adicionar Cliente
-                        <Icon name='material-symbols:add' />
+                    <div class="notifications" >
+                        <Icon name='mingcute:notification-newdot-fill' />
                     </div>
                 </div>
             </div>
             <div class="nav-users">
                 <div class="users-conf">
-                    <!-- Clientes <span> {{ Users.data.value.length  }} </span> -->
-                </div>
-                <div>
                     <div v-if="swit" class="filter" @click="switchButton">
-                        <Icon name='material-symbols:view-list-outline' /> Lista
+                        <Icon name='solar:widget-linear' /> Blocos
                     </div>
                     <div v-else class="filter" @click="switchButton">
-                        <Icon name='solar:widget-linear' /> Blocos
+                        <Icon name='material-symbols:view-list-outline' /> Lista
+                    </div>
+                </div>
+                <div>
+                    <div class="add-client" @click="addClient">Adicionar Cliente
+                        <Icon name='material-symbols:add' />
                     </div>
                 </div>
             </div>
@@ -165,12 +167,12 @@ function formatarData(input) {
                         <th>Tempo</th>
                     </tr> -->
                 <table>
-                    <thead >
+                    <thead>
                         <tr class="">
                             <th>
                                 <span>#</span>
                             </th>
-                            
+
                             <th>
                                 <span>Username</span>
                             </th>
@@ -183,34 +185,33 @@ function formatarData(input) {
                             <th>
                                 <span>Objetivo</span>
                             </th>
-                            <th >
+                            <th>
                                 <span>Status</span>
                             </th>
-                            <th >
+                            <th>
                                 <span>Início</span>
                             </th>
-                            <th >
+                            <th>
                                 <span>Fim</span>
                             </th>
-                            <th >
+                            <th>
                                 <span>email</span>
                             </th>
                         </tr><!---->
                     </thead>
-                    <tbody  v-for="(item, index) in item" :key="index">
-                        <tr @click="navigateTo(`/admin/clientes/${item.username}`)"
-                            class='button'>  
+                    <tbody v-for="(item, index) in item" :key="index">
+                        <tr @click="navigateTo(`/admin/clientes/${item.username}`)" class='button'>
                             <td>{{ index +1 }}</td>
                             <td>
                                 {{ item.username }}
                             </td>
-                            <td >
-                                {{  item.name }} {{ item.lastName }}
+                            <td>
+                                {{ item.name }} {{ item.lastName }}
                             </td>
-                            <td >
+                            <td>
                                 {{ item.service }}
                             </td>
-                            <td >
+                            <td>
                                 {{ item.target }}
                             </td>
                             <td>
@@ -228,12 +229,12 @@ function formatarData(input) {
                                     {{ item.periodEnd }}
                                 </span>
                             </td>
-                                <td>
-                                    <span>
-                                        {{ item.email }}
-                                    </span>
-                                </td>
-                                    
+                            <td>
+                                <span>
+                                    {{ item.email }}
+                                </span>
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -355,7 +356,7 @@ function formatarData(input) {
     padding: 4px 5px;
     margin: 6px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
@@ -385,18 +386,6 @@ function formatarData(input) {
         border-right: solid 1px #34d39940;
 }
 
-.users-conf {
-    margin: 16px;
-}
-
-.users-conf span {
-    border: 1px solid #34d39990;
-    padding: 8px;
-    border-radius: 5px;
-    color: #34d399;
-    background-color: #34d39930;
-    margin-left: 3px;
-}
 
 .filter {
     border: solid 1px #34d39990;
@@ -404,7 +393,7 @@ function formatarData(input) {
     padding: 6px 7px;
     margin: 9px 35px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
@@ -657,15 +646,15 @@ input {
     border: solid 1px #04be7a90;
     background-color: #04be7a;
     padding: 5px 7px;
-    margin: 4px;
+    margin: 10px 6px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
     color: #fff;
 }
 
 .add-client:hover {
-    border: solid 1px #fff;
+    border: solid 1px #04be7a90 ;
     border-radius: 8px;
     color: #04be7a;
     background-color: #fff;
@@ -689,12 +678,12 @@ input {
 }
 
 .users-conf {
-    margin: 16px;
+    margin: -1px;
 }
 
 .users-conf span {
     border: 1px solid #04be7a90;
-    padding: 8px;
+    padding: 2px;
     border-radius: 5px;
     color: #04be7a;
     background-color: #04be7a30;
@@ -704,9 +693,9 @@ input {
 .filter {
     border: solid 1px #04be7a90;
     padding: 6px 7px;
-    margin: 9px 35px;
+    margin: 9px 10px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 

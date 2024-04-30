@@ -292,7 +292,7 @@ textarea#story {
     border: solid 1px #8D00AB;
     padding: 2px 7px;
     border-radius: 8px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 

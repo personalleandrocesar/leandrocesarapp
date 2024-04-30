@@ -220,7 +220,7 @@ body {
     border: solid 1px #34d399;
     padding: 2px 7px;
     border-radius: 8px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 .add-client:hover {

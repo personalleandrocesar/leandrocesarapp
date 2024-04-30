@@ -417,7 +417,7 @@ function moveItemDown(index) {
     padding: 4px 5px;
     margin: 6px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
@@ -477,7 +477,7 @@ function moveItemDown(index) {
     padding: 5px 35px;
     margin: 9px 20px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
@@ -531,7 +531,7 @@ form {
     padding: 5px 5px;
     margin: 9px 4px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
@@ -549,7 +549,7 @@ form {
     padding: 5px 5px;
     margin: 9px 4px;
     border-radius: 5px;
-    transition: all .5s linear;
+    transition: all .3s linear;
     cursor: pointer;
 }
 
