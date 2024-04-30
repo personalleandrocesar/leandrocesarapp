@@ -253,7 +253,7 @@ function formatarData(input) {
             <div class="barTop center">
 
             </div>
-            <div class="center-start">
+            <div class="center-start inputs">
                 <div class="center-start-one">
                     <div>
                         <img v-if="photoClient" class="cliente" :src="foto">
@@ -264,27 +264,27 @@ function formatarData(input) {
 
                     </div>
                 </div>
-                <div class="center-start-two inputs">
-                        <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
-                                autofocus v-model="user" required autocomplete="username">
-                        </div>
-                        <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
-                                autofocus v-model="user" required autocomplete="username">
-                        </div>
-                        <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
-                                autofocus v-model="user" required autocomplete="username">
-                        </div>
-                        <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
-                                autofocus v-model="user" required autocomplete="username">
-                        </div>
-                        <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
-                                autofocus v-model="user" required autocomplete="username">
-                        </div>
+                <div class="center-start-two ">
+                    <div>
+                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
+                            v-model="user" required autocomplete="username">
+                    </div>
+                    <div>
+                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
+                            v-model="user" required autocomplete="username">
+                    </div>
+                    <div>
+                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
+                            v-model="user" required autocomplete="username">
+                    </div>
+                    <div>
+                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
+                            v-model="user" required autocomplete="username">
+                    </div>
+                    <div>
+                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
+                            v-model="user" required autocomplete="username">
+                    </div>
                 </div>
 
             </div>
