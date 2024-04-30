@@ -406,7 +406,7 @@ function moveItemDown(index) {
 .clients span {
     border: 1px solid #34d39990;
     padding: 3px 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #34d39930;
     margin-left: 3px;
@@ -416,14 +416,14 @@ function moveItemDown(index) {
     border: solid 1px transparent;
     padding: 4px 5px;
     margin: 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
 
 .notifications:hover {
     padding: 4px 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #fff;
 }
@@ -438,7 +438,7 @@ function moveItemDown(index) {
     flex-wrap: wrap;
     width: 100%;
     z-index: 1;
-    height: 50px;
+    height: 35px;
     font-weight: bolder;
     margin-bottom: 1rem;
     border-bottom: .10px solid #34d39940;
@@ -454,7 +454,7 @@ function moveItemDown(index) {
 .users-conf span {
     border: 1px solid #34d39990;
     padding: 8px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #34d39930;
     margin-left: 3px;
@@ -474,9 +474,9 @@ function moveItemDown(index) {
 .actions a {
     border: solid 1px #34d39910;
     background-color: transparent;
-    padding: 5px 35px;
-    margin: 9px 20px;
-    border-radius: 5px;
+    padding: 4px 35px;
+        margin: 2.5px 10px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
@@ -530,7 +530,7 @@ form {
     background-color: #fadb4080;
     padding: 5px 5px;
     margin: 9px 4px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
@@ -538,7 +538,7 @@ form {
 .update-button:hover {
     border: solid 1px #fadb40;
     padding: 5px 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #000;
     background-color: #fadb40;
 }
@@ -548,7 +548,7 @@ form {
     background-color: #ff190080;
     padding: 5px 5px;
     margin: 9px 4px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
@@ -556,7 +556,7 @@ form {
 .delete-button:hover {
     border: solid 1px #ff1900;
     padding: 5px 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #fff;
     background-color: #ff1900;
 }

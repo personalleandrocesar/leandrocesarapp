@@ -347,7 +347,7 @@ function formatarData(input) {
 .clients span {
     border: 1px solid #34d39990;
     padding: 3px 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #34d39930;
     margin-left: 3px;
@@ -357,14 +357,14 @@ function formatarData(input) {
     border: solid 1px transparent;
     padding: 4px 5px;
     margin: 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
 
 .notifications:hover {
     padding: 4px 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #fff;
 }
@@ -460,7 +460,7 @@ function formatarData(input) {
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 8px 0px;
     font-weight: bolder;
 }
@@ -508,9 +508,9 @@ input {
     font-weight: bolder;
 }
 
-.table {
-    display: flex;
-    flex-direction: column;
+thead {
+    background-color: #04be7a90;
+
 }
 
 .row {
@@ -521,7 +521,6 @@ input {
 }
 
 .row:nth-child(1) {
-    background-color: #04be7a90;
     position: sticky;
     top: 90px;
     font-size: 1.1rem;
@@ -619,7 +618,7 @@ input {
 .clients span {
     border: 1px solid #04be7a40;
     padding: 3px 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #04be7a;
     background-color: #04be7a40;
     margin-left: 3px;
@@ -630,7 +629,7 @@ input {
     background-color: #04be7a;
     padding: 5px 7px;
     margin: 1.5px 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
     color: #fff;
@@ -667,7 +666,7 @@ input {
 .users-conf span {
     border: 1px solid #04be7a90;
     padding: 2px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #04be7a;
     background-color: #04be7a30;
     margin-left: 3px;
@@ -690,7 +689,7 @@ input {
 
 .users-list {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
@@ -712,7 +711,7 @@ input {
     height: 100px;
     width: 150px;
     margin: 2px;
-    border-radius: 5px;
+    border-radius: 8px;
     border: solid 2px #04be7a60;
 }
 
@@ -816,7 +815,7 @@ input {
 
 .center-start {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     flex-direction: row;
     align-content: space-evenly;
     align-items: center;
@@ -905,5 +904,29 @@ input {
     align-items: center;
     flex-wrap: wrap;
     font-family: ' gagalin';
+}
+.table {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #04be7a40;
+    font-size: 1rem;
+}
+
+.row:nth-child(1) {
+    background-color: #04be7a90;
+    position: sticky;
+    top: 90px;
+    font-size: 1.1rem;
+    font-weight: bolder;
+}
+
+.row:nth-child(2n) {
+    background-color: #04be7a10;
+
 }
 </style>

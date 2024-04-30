@@ -330,7 +330,7 @@ function formatarData(input) {
 .clients span {
     border: 1px solid #34d39990;
     padding: 3px 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #34d39930;
     margin-left: 3px;
@@ -341,7 +341,7 @@ function formatarData(input) {
     background-color: #04be7a;
     padding: 6px 7px;
     margin: 4px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
     color: #fff;
@@ -359,14 +359,14 @@ function formatarData(input) {
     border: solid 1px transparent;
     padding: 4px 5px;
     margin: 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
 
 .notifications:hover {
     padding: 4px 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #fff;
 }
@@ -397,7 +397,7 @@ function formatarData(input) {
 .users-conf span {
     border: 1px solid #34d39990;
     padding: 8px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #34d39930;
     margin-left: 3px;
@@ -408,7 +408,7 @@ function formatarData(input) {
     background-color: #34d39930;
     padding: 6px 7px;
     margin: 9px 35px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
@@ -416,7 +416,7 @@ function formatarData(input) {
 .filter:hover {
     border: solid 1px #fff;
     padding: 6px 7px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #fff;
 }
@@ -493,7 +493,7 @@ function formatarData(input) {
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 8px 0px;
     font-weight: bolder;
 }
@@ -652,7 +652,7 @@ input {
 .clients span {
     border: 1px solid #04be7a40;
     padding: 3px 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #04be7a;
     background-color: #04be7a40;
     margin-left: 3px;
@@ -663,7 +663,7 @@ input {
     background-color: #04be7a;
     padding: 6px 7px;
     margin: 4px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
     color: #fff;
@@ -701,7 +701,7 @@ input {
 .users-conf span {
     border: 1px solid #04be7a90;
     padding: 8px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #04be7a;
     background-color: #04be7a30;
     margin-left: 3px;
@@ -711,7 +711,7 @@ input {
     border: solid 1px #04be7a90;
     padding: 6px 7px;
     margin: 9px 35px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
@@ -748,7 +748,7 @@ input {
     height: 100px;
     width: 150px;
     margin: 2px;
-    border-radius: 5px;
+    border-radius: 8px;
     border: solid 2px #04be7a60;
 }
 

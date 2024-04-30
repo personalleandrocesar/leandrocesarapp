@@ -194,7 +194,7 @@ const options = {
 .clients span {
     border: 1px solid #34d39990;
     padding: 3px 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #34d39930;
     margin-left: 3px;
@@ -204,14 +204,14 @@ const options = {
     border: solid 1px transparent;
     padding: 4px 5px;
     margin: 6px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
 
 .notifications:hover {
     padding: 4px 5px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #fff;
 }
@@ -242,7 +242,7 @@ const options = {
 .users-conf span {
     border: 1px solid #34d39990;
     padding: 8px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #34d39930;
     margin-left: 3px;
@@ -253,7 +253,7 @@ const options = {
     background-color: #34d39930;
     padding: 6px 7px;
     margin: 9px 35px;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
@@ -261,7 +261,7 @@ const options = {
 .filter:hover {
     border: solid 1px #fff;
     padding: 6px 7px;
-    border-radius: 5px;
+    border-radius: 8px;
     color: #34d399;
     background-color: #fff;
 }
