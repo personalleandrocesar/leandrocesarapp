@@ -207,7 +207,7 @@ function formatarData(input) {
                         </tr><!---->
                     </thead>
                     <tbody v-for="(item, index) in item" :key="index">
-                        <tr @click="navigateTo(`/admin/clientes/${item.username}`)" class='button'>
+                        <tr @click="navigateTo(`/admin/clientes/${item.username}`)">
                             <td>{{ index +1 }}</td>
                             <td>
                                 {{ item.username }}
@@ -254,11 +254,37 @@ function formatarData(input) {
 
             </div>
             <div class="center-start">
-                <div>
+                <div class="center-start-one">
+                    <div>
+                        <img v-if="photoClient" class="cliente" :src="foto">
+                        <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
+                    </div>
+                    <div>
+                        <input class="file-cliente" type="file" display="none" />
 
-                    <img v-if="photoClient" class="cliente" :src="foto">
-                    <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
-                    <input class="file-cliente" type="file" display="none" />
+                    </div>
+                </div>
+                <div class="center-start-two inputs">
+                        <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
+                                autofocus v-model="user" required autocomplete="username">
+                        </div>
+                        <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
+                                autofocus v-model="user" required autocomplete="username">
+                        </div>
+                        <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
+                                autofocus v-model="user" required autocomplete="username">
+                        </div>
+                        <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
+                                autofocus v-model="user" required autocomplete="username">
+                        </div>
+                        <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário"
+                                autofocus v-model="user" required autocomplete="username">
+                        </div>
                 </div>
 
             </div>
@@ -318,6 +344,57 @@ function formatarData(input) {
     </div>
 </template>
 <style scoped>
+.inputs {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.inputs div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.inputs input {
+  margin: .5rem auto;
+  transition: all .4s linear;
+  border-bottom: solid 2px #00DC82;
+  text-align: left;
+  line-height: 18px;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out 0s;
+  height: 34px;
+  font-size: 14px;
+  padding-inline: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.inputs input:focus-visible {
+    border: solid 1px #00DC82;
+    background-color: #00DC8210;
+}
+
+.inputs input:active {
+    border-color: #00DC8280;
+}
+
+.inputs input:hover {
+    background-color: #00DC8240;
+    cursor:pointer;
+}
+
+
+.inputs input:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
 .Doughnut {
     width: 320px;
     height: 320px;
@@ -507,12 +584,6 @@ input {
     font-size: 1rem;
     font-weight: bolder;
 }
-
-thead {
-    background-color: #04be7a90;
-
-}
-
 .row {
     display: flex;
     flex-direction: row;
@@ -715,6 +786,10 @@ thead {
     border: solid 2px #04be7a60;
 }
 
+.title-user:hover {
+    background-color: #34d39960;
+}
+
 .title-user img {
     height: 35px;
     width: 35px;
@@ -813,21 +888,37 @@ thead {
     margin-bottom: 1rem;
 }
 
-.center-start {
+.center-start{
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
-    align-content: space-evenly;
+    align-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
     width: 100%;
-    padding-top: 5px;
     margin-bottom: 4rem;
+}
+.center-start-one {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.center-start-two {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .center-start div a {
-
     margin: 0 20px;
+}
+
+.center-start input {
+    margin: 10px ;
 }
 
 .others {

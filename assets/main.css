@@ -63,26 +63,34 @@ table {
   letter-spacing: 1px;
   font-size: 0.8rem;
   width: 100%;
+  font-weight: bolder;    
   border-radius: 8px;
 }
 
-thead {
-  background-color: #04be7a90;
-
-}
 
 td{
-    border: .1px solid #04be7a90;
+  border: .1px solid #04be7a90;
   padding: 10px 20px;
 }
 
-  th {
-    border: .1px solid #04be7a90;
+th {
+  border: .1px solid #04be7a70;
+  background-color: #04be7a90;  
   padding: 10px 20px;
 }
 
-tr:nth-child(1) {
+tbody:nth-child(2n + 1) {
+  background-color: #04be7a10;
   font-weight: bolder;  
+}
+
+tbody:nth-child(2n) {
+  background-color: #04be7a40;
+}
+
+tbody:hover {
+  background-color: #04be7a60;
+  cursor: pointer;
 }
 
 td {
