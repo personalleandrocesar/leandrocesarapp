@@ -27,9 +27,11 @@ const target= ref('')
 const day= ref('')
 const time = ref('')
 
+const addCloseClient = ref(true)
 const add = ref(true)
 function addClient() {
     add.value = !add.value
+    addCloseClient.value = !addCloseClient.value
 }
 
 const swit = ref(true)
@@ -38,6 +40,7 @@ function switchButton() {
     swit.value = !swit.value
     block.value = !block.value
 }
+
 
 async function submitForm() {
     try {
@@ -121,13 +124,13 @@ function formatarData(input) {
                     </div>
                 </div>
                 <div>
-                    <div class="add-client" @click="addClient">Adicionar Cliente
+                    <div v-if="addCloseClient" class="add-client" @click="addClient">Adicionar Cliente
                         <Icon name='material-symbols:add' />
                     </div>
                     <!-- parei aqui -->
-                    <!-- <div class="close-client" @click="addClient">Fechar
+                    <div v-else class="add-client" @click="addClient">Fechar
                         <Icon name='material-symbols:cancel-rounded' />
-                    </div> -->
+                    </div>
                 </div>
             </div>
 
@@ -385,25 +388,6 @@ function formatarData(input) {
         border-right: solid 1px #34d39940;
 }
 
-
-.filter {
-    border: solid 1px #34d39990;
-    background-color: #34d39930;
-    padding: 6px 7px;
-    margin: 9px 35px;
-    border-radius: 5px;
-    transition: all .3s linear;
-    cursor: pointer;
-}
-
-.filter:hover {
-    border: solid 1px #fff;
-    padding: 6px 7px;
-    border-radius: 5px;
-    color: #34d399;
-    background-color: #fff;
-}
-
 .users-list {
     display: flex;
     justify-content: flex-start;
@@ -645,7 +629,7 @@ input {
     border: solid 1px #04be7a90;
     background-color: #04be7a;
     padding: 5px 7px;
-    margin: 10px 6px;
+    margin: 1.5px 6px;
     border-radius: 5px;
     transition: all .3s linear;
     cursor: pointer;
@@ -669,7 +653,7 @@ input {
     flex-wrap: wrap;
     width: 100%;
     z-index: 1;
-    height: 50px;
+    height: 35px;
     font-weight: bolder;
     border-bottom: solid 1px #04be7a40;
     border-right: solid 1px #04be7a40;
@@ -691,19 +675,17 @@ input {
 
 .filter {
     border: solid 1px #04be7a90;
-    padding: 6px 7px;
-    margin: 9px 10px;
-    border-radius: 5px;
+    padding: 4px 12px;
+    margin: 4px 14px;
+    border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
+    background-color: #04be7a10;
 }
 
 .filter:hover {
-    border: solid 1px #fff;
-    padding: 6px 7px;
-    border-radius: 8px;
-    color: #04be7a;
-    background-color: #fff;
+    color: #fff;
+    background-color: #04be7a90;
 }
 
 .users-list {

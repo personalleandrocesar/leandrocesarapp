@@ -226,7 +226,7 @@ const options = {
     flex-wrap: wrap;
     width: 100%;
     z-index: 1;
-    height: 50px;
+    height: 35px;
     font-weight: bolder;
     margin-bottom: 1rem;
     border-bottom: .10px solid #34d39940;
