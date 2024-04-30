@@ -27,19 +27,37 @@ const target= ref('')
 const day= ref('')
 const time = ref('')
 
+const switBlock = ref(true)
+const switList = ref(false)
+const block = ref(false)
+function switchButtonBlock() {
+    switBlock.value = true
+    switList.value = false
+    block.value = !block.value
+}
+function switchButtonList() {
+    switBlock.value = false
+    switList.value = true
+    block.value = !block.value
+}
+
 const addCloseClient = ref(true)
 const add = ref(true)
 function addClient() {
     add.value = !add.value
     addCloseClient.value = !addCloseClient.value
+    // colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'
+    switBlock.value = false
+    switList.value = false
+}
+function closeClient() {
+    add.value = !add.value
+    addCloseClient.value = !addCloseClient.value
+    // colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'
+    switBlock.value = true
+    switList.value = false
 }
 
-const swit = ref(true)
-const block = ref(false)
-function switchButton() {
-    swit.value = !swit.value
-    block.value = !block.value
-}
 
 
 async function submitForm() {
@@ -116,10 +134,10 @@ function formatarData(input) {
             </div>
             <div class="nav-users">
                 <div class="users-conf">
-                    <div v-if="swit" class="filter" @click="switchButton">
+                    <div v-if="switBlock" class="filter" @click="switchButtonBlock">
                         <Icon name='solar:widget-linear' /> Blocos
                     </div>
-                    <div v-else class="filter" @click="switchButton">
+                    <div v-else-if="switList" class="filter" @click="switchButtonList">
                         <Icon name='material-symbols:view-list-outline' /> Lista
                     </div>
                 </div>
@@ -128,7 +146,7 @@ function formatarData(input) {
                         <Icon name='material-symbols:add' />
                     </div>
                     <!-- parei aqui -->
-                    <div v-else class="add-client" @click="addClient">Fechar
+                    <div v-else class="add-client" @click="closeClient">Fechar
                         <Icon name='material-symbols:cancel-rounded' />
                     </div>
                 </div>
@@ -253,43 +271,66 @@ function formatarData(input) {
             <div class="barTop center">
 
             </div>
-            <div class="center-start inputs">
-                <div class="center-start-one">
-                    <div>
-                        <img v-if="photoClient" class="cliente" :src="foto">
-                        <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
+            <form @submit.prevent="submitForm">
+                <div class="center-start">
+                    <div class="center-start-one">
+                        <div>
+                            <img v-if="photoClient" class="cliente" :src="foto">
+                            <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
+                        </div>
+                        <div>
+                            <input class="file-cliente" type="file" display="none" />
+
+                        </div>
+                    </div>
+                    <div class="center-start-two inputs">
+                        <!-- <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Nome" autofocus
+                            v-model="user" required autocomplete="username">
                     </div>
                     <div>
-                        <input class="file-cliente" type="file" display="none" />
+                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Sobrenome" autofocus
+                            v-model="user" required autocomplete="username">
+                    </div>
+                    <div>
+                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
+                            v-model="user" required autocomplete="username">
+                    </div>
+                    <div>
+                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="E-mail" autofocus
+                            v-model="user" required autocomplete="username">
+                    </div>
+                    <div>
+                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Senha" autofocus
+                        v-model="user" required autocomplete="username">
+                    </div> -->
+                        <div><input type="text" placeholder="Nome" v-model="name" name="name" /> </div>
+                        <div><input type="text" placeholder="Sobrenome" v-model="lastName" name="lastName" /> </div>
+                        <div><input type="text" placeholder="Usuário" v-model="username" name="username" /> </div>
+                        <div><input type="email" placeholder="E-mail" v-model="email" name="email" /></div>
+                        <div><input type="text" placeholder="Senha" v-model="password" name="password" /> </div>
+                    </div>
+                    
+                </div>
+                <div class="center-start">
 
+                    <div class="center-start-two inputs">
+                        
+                        <div><input type="text" placeholder="Serviço" v-model="service" name="service" /> </div>
+                        <div><input type="text" placeholder="Objetivo" v-model="target" name="target" /> </div>
+                        <div><input type="text" placeholder="Dias" v-model="day" name="day" /> </div>
+                        <div> <input type="text" placeholder="Tempo (minutos)"  v-model="time" name="time" /> </div>
+                        <div><input type="date" v-model="periodStart" name="periodStart" /> </div>
+                        <div><input type="date" v-model="periodEnd" name="periodEnd" /> </div>
+                        <div><input type="text" placeholder="Status" v-model="status" name="status" /> </div>
                     </div>
                 </div>
-                <div class="center-start-two ">
-                    <div>
-                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
-                            v-model="user" required autocomplete="username">
-                    </div>
-                    <div>
-                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
-                            v-model="user" required autocomplete="username">
-                    </div>
-                    <div>
-                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
-                            v-model="user" required autocomplete="username">
-                    </div>
-                    <div>
-                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
-                            v-model="user" required autocomplete="username">
-                    </div>
-                    <div>
-                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
-                            v-model="user" required autocomplete="username">
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="table-clients">
+                <button class="input" type="submit" @click="refreshAll">Adicionar</button>
+            </form>
+            <br>
+            <br>
+            <br>
+            <!-- <div class="table-clients">
 
 
                 <form @submit.prevent="submitForm">
@@ -332,13 +373,13 @@ function formatarData(input) {
 
                     <button class="input" type="submit" @click="refreshAll">Adicionar</button>
                 </form>
-                <div v-if="subscriberOk" class="subscriberOk top">
-                    <div>
-                        Inscrição realizada com Sucesso!
-                    </div>
+                
+                
+            </div> -->
+            <div v-if="subscriberOk" class="subscriberOk top">
+                <div>
+                    Inscrição realizada com Sucesso!
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -810,10 +851,9 @@ input {
 }
 
 .cliente {
-    height: 100px;
-    width: 100px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
-    border: solid 3px #04be7a;
     color: #04be7a;
 }
 
@@ -890,13 +930,13 @@ input {
 
 .center-start{
     display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-bottom: 4rem;
+        justify-content: flex-start;
+        flex-direction: row;
+        align-content: flex-start;
+        align-items: center;
+        flex-wrap: nowrap;
+        width: 100%;
+        margin-bottom: 4rem;
 }
 .center-start-one {
     display: flex;
