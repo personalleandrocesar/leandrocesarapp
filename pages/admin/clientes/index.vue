@@ -29,33 +29,46 @@ const time = ref('')
 
 const switBlock = ref(true)
 const switList = ref(false)
+const addCloseClient = ref(true)
+const closeAddClient = ref(false)
+const add = ref(true)
 const block = ref(false)
 function switchButtonBlock() {
-    switBlock.value = true
-    switList.value = false
-    block.value = !block.value
-}
-function switchButtonList() {
     switBlock.value = false
     switList.value = true
     block.value = !block.value
 }
+function switchButtonList() {
+    switBlock.value = true
+    switList.value = false
+    block.value = !block.value
+}
 
-const addCloseClient = ref(true)
-const add = ref(true)
 function addClient() {
-    add.value = !add.value
-    addCloseClient.value = !addCloseClient.value
+    add.value = false
+    addCloseClient.value = false
+    closeAddClient.value = true
     // colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'
     switBlock.value = false
     switList.value = false
+    block.value = true
 }
 function closeClient() {
-    add.value = !add.value
-    addCloseClient.value = !addCloseClient.value
+    add.value = true
+    addCloseClient.value = true
+    closeAddClient.value = false
     // colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'
     switBlock.value = true
     switList.value = false
+    block.value = false
+    // if (switBlock.value === true  ) {
+    //     return switBlock.value = true,
+    //     switList.value = false
+    // } else (switList === true) {
+    //     return switList.value = true,
+    //     switBlock.value = false
+    // }
+
 }
 
 
@@ -146,7 +159,7 @@ function formatarData(input) {
                         <Icon name='material-symbols:add' />
                     </div>
                     <!-- parei aqui -->
-                    <div v-else class="add-client" @click="closeClient">Fechar
+                    <div v-else-if="closeAddClient" class="close-client" @click="closeClient">Fechar
                         <Icon name='material-symbols:cancel-rounded' />
                     </div>
                 </div>
@@ -542,7 +555,6 @@ function formatarData(input) {
     z-index: 1;
     height: 50px;
     font-weight: bolder;
-    margin-bottom: 1rem;
     border-bottom: .10px solid #34d39940;
     backdrop-filter: blur(45px);
     border-bottom: solid 1px #34d39940;
@@ -791,6 +803,24 @@ input {
 }
 
 .add-client:hover {
+    border: solid 1px #04be7a90 ;
+    border-radius: 8px;
+    color: #04be7a;
+    background-color: #fff;
+}
+
+.close-client {
+    border: solid 1px #04be7a90;
+    background-color: #04be7a;
+    padding: 5px 42px;
+        margin: 1.5px 6px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+    color: #fff;
+}
+
+.close-client:hover {
     border: solid 1px #04be7a90 ;
     border-radius: 8px;
     color: #04be7a;
