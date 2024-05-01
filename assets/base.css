@@ -183,7 +183,6 @@ body input::placeholder {
 }
 
 
-
 .dark-mode body input {
   background: var(--vt-c-black-soft);
   color: var(--vt-c-text-dark-1);
@@ -193,19 +192,10 @@ body input::placeholder {
   color: var(--vt-c-text-dark-1);
 }
 
-
-
-
-
 .dark-mode body ul li {
   font-size: 1rem;
   color: var(--vt-c-white-soft);
 }
-
-
-
-
-
 
 .sepia-mode body {
   background-color: #f1e7d0;

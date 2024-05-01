@@ -310,22 +310,28 @@ function formatarData(input) {
                         <div><input type="email" placeholder="E-mail" v-model="email" name="email" /></div>
                         <div><input type="text" placeholder="Senha" v-model="password" name="password" /> </div>
                     </div>
-                    
+
                 </div>
                 <div class="center-start">
 
-                    <div class="center-start-two inputs">
-                        
+                    <div class="center-start-tree inputs">
+
                         <div><input type="text" placeholder="Serviço" v-model="service" name="service" /> </div>
                         <div><input type="text" placeholder="Objetivo" v-model="target" name="target" /> </div>
                         <div><input type="text" placeholder="Dias" v-model="day" name="day" /> </div>
-                        <div> <input type="text" placeholder="Tempo (minutos)"  v-model="time" name="time" /> </div>
-                        <div><input type="date" v-model="periodStart" name="periodStart" /> </div>
-                        <div><input type="date" v-model="periodEnd" name="periodEnd" /> </div>
+                        <div> <input type="text" placeholder="Tempo (minutos)" v-model="time" name="time" /> </div>
+                        <div>
+                            <span>Início do Período</span>
+                            <input type="date" v-model="periodStart" name="periodStart" /> 
+                        </div>
+                        <div>
+                            <span>Início do Período</span>
+                            <input type="date" v-model="periodEnd" name="periodEnd" />
+                        </div>
                         <div><input type="text" placeholder="Status" v-model="status" name="status" /> </div>
                     </div>
                 </div>
-                <button class="input" type="submit" @click="refreshAll">Adicionar</button>
+                <button class="login" type="submit">Adicionar</button>
             </form>
             <br>
             <br>
@@ -385,6 +391,43 @@ function formatarData(input) {
     </div>
 </template>
 <style scoped>
+.login {
+    transition: all .4s linear;
+    border: solid 2px #00DC82;
+    cursor: pointer;
+    width: 140px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 88px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+    padding-inline: 16px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    margin: 0rem 1.5rem;
+}
+
+.lost h5 {
+    font-size: .6rem;
+}
+
+.login .icon {
+    margin: -2px 0px 2px 4px;
+    transition: transform .3s linear;
+}
+
+.login:hover {
+    cursor: pointer;
+    background-color: #00DC82;
+    color: #fff;
+}
+
+.login:hover .icon {
+    margin: -2px 0px 2px 4px;
+    transform: translateX(6px);
+}
 .inputs {
   display: flex;
   justify-content: center;
@@ -895,7 +938,6 @@ input {
     text-align: center;
     padding-top: 4px;
     border-radius: 8px;
-    background-color: #04be7a50;
     cursor: pointer;
 }
 
@@ -951,6 +993,19 @@ input {
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
+    margin-top: -20px;
+}
+.center-start-tree {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: -60px 0 -50px 10px;
+}
+.center-start-tree span{
+    margin: 5px 0px -10px 12px;
+    font-weight: bolder ;
 }
 
 .center-start div a {

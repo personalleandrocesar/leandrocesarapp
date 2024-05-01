@@ -33,7 +33,7 @@ async function deleteUser() {
                 subscriberOk.value = false;
                 reloadNuxtApp({
                     path: "/admin/clientes",
-                    ttl: 1000, // default 10000
+                    ttl: 2000, // default 10000
                 });
             }, 2000);
         } else {
