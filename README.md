@@ -1,63 +1,65 @@
-# Nuxt 3 Minimal Starter
+# leandrocesar.app
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+### Rota: `/admin`
 
-## Setup
+#### Método: GET
+#### Clientes
 
-Make sure to install the dependencies:
+> Graficos de Cliente já cadastrados
+> - Quantidade de clientes total    
+> - Quantidade de clientes em cada Serviço
+> - Quantidade de clientes em cada Serviço
+> - Quantidade de clientes ativos
+> - Quantidade de clientes Inativos
 
-```bash
-# npm
-npm install
+#### treinos
 
-# pnpm
-pnpm install
+> Graficos de Cliente já cadastrados
+> - Quantidade de treinos no total    
 
-# yarn
-yarn install
-```
+---
 
-## Development Server
+### Rota: `/admin/clientes`
 
-Start the development server on `http://localhost:3000`:
+#### Método: GET
+> Lista de Cliente já cadastrados
 
-```bash
-# npm
-npm run dev
+#### Método: POST
+> Cria um novo usúario!
 
-# pnpm
-pnpm run dev
+Definindo o inputs do formulário:
 
-# yarn
-yarn dev
-```
+- Nome
+- Sobrenome
+- Data de nascimento
+- Usuário
+- Senha
+- Serviço
+- Objetivo
+- Início do Período
+- Fim do Período
+- Status
+- Dias p/ semana
+- Tempo de Treino
 
-## Production
+---
 
-Build the application for production:
+### Rota: `/admin/clientes/:id`
 
-```bash
-# npm
-npm run build
+#### Método: GET
+> Pegar os dados do cliente em mostrar na tela
 
-# pnpm
-pnpm run build
+O que aparecerá:
 
-# yarn
-yarn build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- Nome
+- Sobrenome
+- Data de nascimento
+- Idade
+- Usuário
+- Serviço
+- Objetivo
+- Início do Período
+- Fim do Período
+- Status
+- Dias p/ semana
+- Tempo de Treino
