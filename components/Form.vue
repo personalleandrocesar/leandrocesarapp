@@ -128,7 +128,7 @@ function buttonPartner() {
     </div>
     <div class="head-name">
       <div class="name">
-        leandrocesar.app
+        leandrocesar.com
       </div>
       <h3>Ficha de cadastro</h3>
       <div class="link">
@@ -150,7 +150,7 @@ function buttonPartner() {
       <div class="sex-radio">
 
         <div class="radio">
-          <input type="radio" name='sex' id="feminino" class="check" v-model="sexo" autocomplete="sexo">
+          <input type="radio" name='sex' id="feminino" class="check" v-model="sexo" autocomplete="sexo" checked>
           <h5>
             <label for="feminino">Feminino</label>
           </h5>
@@ -178,19 +178,16 @@ function buttonPartner() {
           <option value="">Qual serviço?</option>
           <option value="personal">Personal</option>
           <option value="consultoria">Consultoria</option>
-      </select>
-          <input type="text" name="" id="usuario" placeholder="Usuário" v-model="usuario"
-          autocomplete="usuario">
+        </select>
+        <input type="text" name="" id="usuario" placeholder="Usuário" v-model="usuario" autocomplete="usuario">
 
       </div>
       <div class="senha">
-        
+
       </div>
       <div class="senha">
-        <input type="text" name="" id="email" placeholder="E-mail" v-model="email"
-        autocomplete="email">
-        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="password"
-          autocomplete="off">
+        <input type="text" name="" id="email" placeholder="E-mail" v-model="email" autocomplete="email">
+        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="password" autocomplete="off">
         <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
         <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
 
@@ -202,23 +199,18 @@ function buttonPartner() {
           <option value="emagrecimento">Emagrecimento</option>
           <option value="acompanhamento">Só acompanhamento</option>
           <option value="outro">Outro</option>
-      </select>
-        <input type="number" name="" id="servico" placeholder="Dias/semana" v-model="servico"
-          autocomplete="servico">
+        </select>
+        <input type="number" name="" id="servico" placeholder="Dias/semana" v-model="servico" autocomplete="servico">
 
       </div>
       <div>
-        <input type="text" name="" id="servico" placeholder="Tempo/treino" v-model="servico"
-          autocomplete="servico">
-          <input type="text" name="" id="servico" placeholder="Dia do pagamento" v-model="servico"
-            autocomplete="servico">
+        <input type="text" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
+        <input type="text" name="" id="servico" placeholder="Dia do pagamento" v-model="servico" autocomplete="servico">
 
       </div>
       <div>
-        <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico"
-          autocomplete="servico">
-        <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico"
-          autocomplete="servico">
+        <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
+        <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
 
       </div>
 
@@ -245,8 +237,7 @@ function buttonPartner() {
     <div v-else class="inputs">
 
       <div class="senha">
-        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="senha"
-          autocomplete="off">
+        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="senha" autocomplete="off">
         <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
         <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
 
