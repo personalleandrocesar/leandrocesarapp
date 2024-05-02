@@ -1,4 +1,29 @@
 # leandrocesar.app
+### Rota: `/form`
+
+
+#### Método: POST
+> Cadastro de clientes
+
+Definindo o inputs do formulário:
+
+- Nome
+- Sobrenome
+- Sexo
+- Data de nascimento
+- WhatsApp
+- Serviço
+- Usuário
+- E-mail
+- Senha
+- Objetivo
+- Dias p/ semana
+- Tempo de Treino
+- Dia do pagamento
+- Início do Período
+- Fim do Período
+
+---
 
 ### Rota: `/admin`
 
@@ -34,9 +59,10 @@ Definindo o inputs do formulário:
 - Sexo
 - Data de nascimento
 - WhatsApp
-- Usuário
-- Senha
 - Serviço
+- Usuário
+- E-mail
+- Senha
 - Objetivo
 - Dias p/ semana
 - Tempo de Treino

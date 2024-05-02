@@ -132,9 +132,9 @@ function buttonPartner() {
       </div>
       <h3>Ficha de cadastro</h3>
       <div class="link">
-        <NuxtLink @click="buttonFeed" :class="{ aActive: linkClient }">
+        <!-- <NuxtLink @click="buttonFeed" :class="{ aActive: linkClient }">
           Personal
-        </NuxtLink>
+        </NuxtLink> -->
         <!-- <NuxtLink @click="buttonPartner" :class="{ aActivee: linkPersonal }">
           Consultoria
         </NuxtLink> -->
@@ -166,16 +166,30 @@ function buttonPartner() {
       <div>
 
         <div>
-          <input type="text" name="" id="nascimento" placeholder="Data de nascimento" autofocus v-model="nascimento"
+          <input type="date" name="" id="nascimento" placeholder="Data de nascimento" autofocus v-model="nascimento"
             required autocomplete="nascimento">
           <input type="tel" name="" id="whatsapp" placeholder="WhatsApp" v-model="whatsapp" autocomplete="whatsapp">
         </div>
 
       </div>
-      <div class="senha">
-        <input type="text" @keyup.enter="trig" name="" id="usuario" placeholder="Usuário" v-model="usuario"
+      <div>
+
+        <select name="service" id="service" class="select" placeholder='Serviço'>
+          <option value="">Qual serviço?</option>
+          <option value="personal">Personal</option>
+          <option value="consultoria">Consultoria</option>
+      </select>
+          <input type="text" name="" id="usuario" placeholder="Usuário" v-model="usuario"
           autocomplete="usuario">
-        <input v-bind:type="pass" @keyup.enter="trig" name="" id="password" placeholder="Senha" v-model="password"
+
+      </div>
+      <div class="senha">
+        
+      </div>
+      <div class="senha">
+        <input type="text" name="" id="email" placeholder="E-mail" v-model="email"
+        autocomplete="email">
+        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="password"
           autocomplete="off">
         <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
         <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
@@ -183,19 +197,33 @@ function buttonPartner() {
       </div>
       <div>
         <select name="service" id="service" class="select" placeholder='Serviço'>
-          <option value="">Qual Serviço?</option>
-          <option value="personal">Personal</option>
-          <option value="consultoria">Consultoria</option>
+          <option value="">Qual objetivo?</option>
+          <option value="hipertrofia">Hipertrofia</option>
+          <option value="emagrecimento">Emagrecimento</option>
+          <option value="acompanhamento">Só acompanhamento</option>
+          <option value="outro">Outro</option>
       </select>
-        <input type="text" @keyup.enter="trig" name="" id="servico" placeholder="Serviço" v-model="servico"
+        <input type="number" name="" id="servico" placeholder="Dias/semana" v-model="servico"
           autocomplete="servico">
-        <input v-bind:type="pass" @keyup.enter="trig" name="" id="password" placeholder="Objetivo" v-model="password"
-          autocomplete="off">
+
+      </div>
+      <div>
+        <input type="text" name="" id="servico" placeholder="Tempo/treino" v-model="servico"
+          autocomplete="servico">
+          <input type="text" name="" id="servico" placeholder="Dia do pagamento" v-model="servico"
+            autocomplete="servico">
+
+      </div>
+      <div>
+        <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico"
+          autocomplete="servico">
+        <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico"
+          autocomplete="servico">
 
       </div>
 
       <div class="check-terms">
-        <input type="checkbox" id="terms" class="check">
+        <input type="checkbox" id="terms" class="check" v-model="terms">
         <h5>
           <label for="terms">Aceito os</label>
           <NuxtLink class="terms">
@@ -205,21 +233,19 @@ function buttonPartner() {
       </div>
       <div>
         <NuxtLink class='login' @click="enterClient">
-          LOGIN
+          ENVIAR
           <Icon name="solar:login-3-bold" />
         </NuxtLink>
       </div>
-      <div class="lost">
-        <a href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20professor!%20Esqueci%20o%20meu%20email%20e%20minha%20senha!"
-          target="_blank">
-        </a>
-      </div>
+      <br>
+      <br>
+      <br>
     </div>
     <!-- Personal -->
     <div v-else class="inputs">
 
       <div class="senha">
-        <input v-bind:type="pass" @keyup.enter="trig" name="" id="password" placeholder="Senha" v-model="senha"
+        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="senha"
           autocomplete="off">
         <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
         <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
