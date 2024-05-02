@@ -31,16 +31,19 @@ Definindo o inputs do formulário:
 
 - Nome
 - Sobrenome
+- Sexo
 - Data de nascimento
+- WhatsApp
 - Usuário
 - Senha
 - Serviço
 - Objetivo
-- Início do Período
-- Fim do Período
-- Status
 - Dias p/ semana
 - Tempo de Treino
+- Início do Período
+- Fim do Período
+- Dia do vencimento
+- Status
 
 ---
 
@@ -53,13 +56,16 @@ O que aparecerá:
 
 - Nome
 - Sobrenome
+- Sexo
 - Data de nascimento
+- WhatsApp
 - Idade
 - Usuário
 - Serviço
 - Objetivo
-- Início do Período
-- Fim do Período
-- Status
 - Dias p/ semana
 - Tempo de Treino
+- Início do Período
+- Fim do Período
+- Dia do vencimento
+- Status
