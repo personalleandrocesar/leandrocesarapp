@@ -179,20 +179,6 @@ function buttonPartner() {
           <option value="personal">Personal</option>
           <option value="consultoria">Consultoria</option>
         </select>
-        <input type="text" name="" id="usuario" placeholder="Usuário" v-model="usuario" autocomplete="usuario">
-
-      </div>
-      <div class="senha">
-
-      </div>
-      <div class="senha">
-        <input type="text" name="" id="email" placeholder="E-mail" v-model="email" autocomplete="email">
-        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="password" autocomplete="off">
-        <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
-        <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
-
-      </div>
-      <div>
         <select name="service" id="service" class="select" placeholder='Serviço'>
           <option value="">Qual objetivo?</option>
           <option value="hipertrofia">Hipertrofia</option>
@@ -200,12 +186,27 @@ function buttonPartner() {
           <option value="acompanhamento">Só acompanhamento</option>
           <option value="outro">Outro</option>
         </select>
+        
+      </div>
+      <div>
+        <input type="text" name="" id="email" placeholder="E-mail" v-model="email" autocomplete="email">
+        
+      </div>
+      <div class="senha">
+      <input type="text" name="" id="usuario" placeholder="Usuário" v-model="usuario" autocomplete="usuario">
+        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="password" autocomplete="off">
+        <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
+        <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
+
+      </div>
+      <div>
+        <input type="text" name="" id="servico" placeholder="Dia do pagamento" v-model="servico" autocomplete="servico">
         <input type="number" name="" id="servico" placeholder="Dias/semana" v-model="servico" autocomplete="servico">
 
       </div>
       <div>
         <input type="text" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
-        <input type="text" name="" id="servico" placeholder="Dia do pagamento" v-model="servico" autocomplete="servico">
+        <input type="text" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
 
       </div>
       <div>
@@ -545,6 +546,9 @@ input {
 .inputs #lastName {
   width: 130px
 }
+.inputs #email {
+  width: 345px
+}
 
 .inputs div h4 {
   text-align: left;
@@ -596,7 +600,7 @@ h4:nth-child(1) {
   text-align: left;
   line-height: 18px;
   transition: all 0.2s ease-in-out 0s;
-  height: 30px;
+  height: 34px;
   font-size: 14px;
   padding-top: 4px;
   padding-bottom: 8px;
