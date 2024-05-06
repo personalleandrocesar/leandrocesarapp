@@ -220,38 +220,66 @@ function buttonPartner() {
         </div>
 
       </div>
+      <!-- E-mail -->
       <div class="inputs">
         <div>
 
           <span>E-mail</span>
           <input type="text" name="" id="email" placeholder="" v-model="email" autocomplete="email">
-          
+
         </div>
       </div>
-      <div class="senha">
-        <input type="text" name="" id="usuario" placeholder="Usuário" v-model="usuario" autocomplete="usuario">
-        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="password" autocomplete="off">
-        <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
-        <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
+      <!-- Usuário e senha -->
+      <div class="inputs senha">
+        <div>
+          <span>Usuário</span>
+          <input type="text" name="" id="usuario" placeholder="" v-model="usuario" autocomplete="usuario">
+        </div>
+        <div>
+          <span>Senha</span>
+          <input v-bind:type="pass" name="" id="password" placeholder="" v-model="password" autocomplete="off">
+          <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
+          <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
+        </div>
+        
+      </div>
+      <div class="inputs">
+        <div>
+          
+          <span>Dias/semana</span>
+          <input type="number" name="" id="servico" placeholder="" v-model="servico" autocomplete="servico">
+          
+        </div>
+        <div>
+          
+          <span>Minutos/treino</span>
+          <input type="number" name="" id="vencimento" placeholder="" v-model="vencimento" autocomplete="vencimento">
+          
+        </div>
+        
+      </div>
+      <div class="inputs">
+        <div>
+  
+          <span>Dia do Vencimento</span>
+          <input type="number" name="" id="vencimento" placeholder="" v-model="vencimento" autocomplete="vencimento">
+       
+        </div>
+        <div>
+
+          <span>Início dos treinos</span>
+          <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
+       
+        </div>
+      </div>
+      <div>
 
       </div>
       <div>
-        <input type="text" name="" id="servico" placeholder="Dia do pagamento" v-model="servico" autocomplete="servico">
-        <input type="number" name="" id="servico" placeholder="Dias/semana" v-model="servico" autocomplete="servico">
-
-      </div>
-      <div>
-        <input type="text" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
-        <input type="text" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
-
-      </div>
-      <div>
-        <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
-        <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
 
       </div>
 
-      <div class="check-terms">
+      <div class="check-terms inputs">
         <input type="checkbox" id="terms" class="check" v-model="terms">
         <h5>
           <label for="terms">Aceito os</label>
@@ -260,7 +288,7 @@ function buttonPartner() {
           </NuxtLink>
         </h5>
       </div>
-      <div>
+      <div class="inputs">
         <NuxtLink class='login' @click="enterClient">
           ENVIAR
           <Icon name="solar:login-3-bold" />
@@ -368,9 +396,13 @@ a {
 
 #password-icon {
   position: absolute;
-  top: 16px;
-  right: 12px;
+  top: 34px;
+  right: 30px;
   z-index: 10000;
+}
+
+.inputs #password {
+  padding-right: 28px;
 }
 
 .swt {
@@ -529,12 +561,12 @@ h3 {
   margin: 20px 5px 10px 10px;
 }
 .inputs .radio {
-  margin: 20px 205px 10px 250px;
+  margin: 20px 25px 10px -25px;
 
 }
 .inputs .check {
   text-decoration: underline;
-  margin: -11px 5px -20px -2px;
+  margin: 10px 5px 0px -2px;
   width: 13px;
   cursor: pointer;
 }

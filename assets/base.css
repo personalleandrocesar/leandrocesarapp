@@ -188,6 +188,11 @@ body input::placeholder {
   color: var(--vt-c-text-dark-1);
 }
 
+.dark-mode body select option {
+  color: var(--vt-c-text-dark-1);
+  background: var(--vt-c-black-soft);
+}
+
 .dark-mode body ul li {
   font-size: 1rem;
   color: var(--vt-c-white-soft);
