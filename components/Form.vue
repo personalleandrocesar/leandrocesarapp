@@ -161,20 +161,16 @@ function buttonPartner() {
 
       <!-- Sexo -->
       <div class="inputs">
-        <div>
+        <div class="radio">
 
           <input type="radio" name='sex' id="feminino" class="check" v-model="sexo" autocomplete="sexo" checked>
-          <h5>
-            <label for="feminino">Feminino</label>
-          </h5>
+          <label for="feminino">Feminino</label>
 
         </div>
-        <div>
+        <div class="radio">
 
           <input type="radio" name='sex' id="masculino" class="check" v-model="sexo" autocomplete="sexo">
-          <h5>
-            <label for="masculino">Masculino</label>
-          </h5>
+          <label for="masculino">Masculino</label>
 
         </div>
 
@@ -241,35 +237,35 @@ function buttonPartner() {
           <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
           <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
         </div>
-        
+
       </div>
       <div class="inputs">
         <div>
-          
+
           <span>Dias/semana</span>
           <input type="number" name="" id="servico" placeholder="" v-model="servico" autocomplete="servico">
-          
+
         </div>
         <div>
-          
+
           <span>Minutos/treino</span>
           <input type="number" name="" id="vencimento" placeholder="" v-model="vencimento" autocomplete="vencimento">
-          
+
         </div>
-        
+
       </div>
       <div class="inputs">
         <div>
-  
+
           <span>Dia do Vencimento</span>
           <input type="number" name="" id="vencimento" placeholder="" v-model="vencimento" autocomplete="vencimento">
-       
+
         </div>
         <div>
 
           <span>Início dos treinos</span>
           <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
-       
+
         </div>
       </div>
       <div>
@@ -557,19 +553,17 @@ h3 {
   margin: .5rem
 }
 
-.inputs .check-terms {
-  margin: 20px 5px 10px 10px;
-}
-.inputs .radio {
-  margin: 20px 25px 10px -25px;
-
-}
-.inputs .check {
+.inputs #masculino.check, .inputs #feminino.check  {
   text-decoration: underline;
-  margin: 10px 5px 0px -2px;
-  width: 13px;
+  margin: -15px -94px;
+  height: 15px;
   cursor: pointer;
 }
+
+.inputs .radio {
+  margin: 30px 30px 15px 30px;
+}
+
 
 .inputs .terms {
   text-decoration: underline;
@@ -640,7 +634,6 @@ input:focus {
   border-bottom: solid 2px #00DC82;
   outline: 0;
 }
-
 
 
 h4 {
