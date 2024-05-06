@@ -141,59 +141,95 @@ function buttonPartner() {
       </div>
     </div>
     <!-- Cliente -->
-    <div v-if='clientShow' class="inputs">
-      <div>
-        <input type="text" name="" id="nome" placeholder="Nome" autofocus v-model="name" required autocomplete="nome">
-        <input type="text" name="" id="sobrenome" placeholder="Sobrenome" v-model="lastName" autocomplete="sobrenome">
+    <div v-if='clientShow'>
+      <!-- Nome e sobrenome -->
+      <div class="inputs">
+
+        <div>
+
+          <span>Nome</span>
+          <input type="text" name="" id="nome" placeholder="" autofocus v-model="name" required autocomplete="nome">
+
+        </div>
+        <div>
+
+          <span>Sobrenome</span>
+          <input type="text" name="" id="sobrenome" placeholder="" v-model="lastName" autocomplete="sobrenome">
+
+        </div>
       </div>
 
-      <div class="sex-radio">
+      <!-- Sexo -->
+      <div class="inputs">
+        <div>
 
-        <div class="radio">
           <input type="radio" name='sex' id="feminino" class="check" v-model="sexo" autocomplete="sexo" checked>
           <h5>
             <label for="feminino">Feminino</label>
           </h5>
+
         </div>
-        <div class="radio">
+        <div>
+
           <input type="radio" name='sex' id="masculino" class="check" v-model="sexo" autocomplete="sexo">
           <h5>
             <label for="masculino">Masculino</label>
           </h5>
+
         </div>
 
+
       </div>
-      <div>
+      <!-- Data de nascimento + Whatsapp -->
+      <div class="inputs">
 
         <div>
-          <input type="date" name="" id="nascimento" placeholder="Data de nascimento" autofocus v-model="nascimento"
-            required autocomplete="nascimento">
-          <input type="tel" name="" id="whatsapp" placeholder="WhatsApp" v-model="whatsapp" autocomplete="whatsapp">
+          <span>Data de nascimento</span>
+          <input type="date" name="" id="nascimento" placeholder="" autofocus v-model="nascimento" required
+            autocomplete="nascimento">
+        </div>
+        <div>
+          <span>WhatsApp</span>
+          <input type="tel" name="" id="whatsapp" placeholder="(xx)xxxxx-xxxx" v-model="whatsapp"
+            autocomplete="whatsapp">
         </div>
 
       </div>
-      <div>
+      <!-- Serviço e objetivo -->
+      <div class="inputs">
 
-        <select name="service" id="service" class="select" placeholder='Serviço'>
-          <option value="">Qual serviço?</option>
-          <option value="personal">Personal</option>
-          <option value="consultoria">Consultoria</option>
-        </select>
-        <select name="service" id="service" class="select" placeholder='Serviço'>
-          <option value="">Qual objetivo?</option>
-          <option value="hipertrofia">Hipertrofia</option>
-          <option value="emagrecimento">Emagrecimento</option>
-          <option value="acompanhamento">Só acompanhamento</option>
-          <option value="outro">Outro</option>
-        </select>
-        
+        <div>
+          <span>Qual Serviço?</span>
+          <select name="service" id="service" class="select" placeholder=''>
+            <option value=""></option>
+            <option value="personal">Personal</option>
+            <option value="consultoria">Consultoria</option>
+          </select>
+        </div>
+
+        <div>
+
+          <span>Qual Serviço?</span>
+          <select name="service" id="service" class="select" placeholder=''>
+            <option value=""></option>
+            <option value="hipertrofia">Hipertrofia</option>
+            <option value="emagrecimento">Emagrecimento</option>
+            <option value="acompanhamento">Só acompanhamento</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+
       </div>
-      <div>
-        <input type="text" name="" id="email" placeholder="E-mail" v-model="email" autocomplete="email">
-        
+      <div class="inputs">
+        <div>
+
+          <span>E-mail</span>
+          <input type="text" name="" id="email" placeholder="" v-model="email" autocomplete="email">
+          
+        </div>
       </div>
       <div class="senha">
-      <input type="text" name="" id="usuario" placeholder="Usuário" v-model="usuario" autocomplete="usuario">
+        <input type="text" name="" id="usuario" placeholder="Usuário" v-model="usuario" autocomplete="usuario">
         <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="password" autocomplete="off">
         <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
         <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
@@ -473,24 +509,27 @@ h3 {
 .inputs {
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  font-weight: bolder;
+  font-size: 14px;
 }
 
 .inputs div {
   display: flex;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;
+  margin: .5rem
 }
 
 .inputs .check-terms {
   margin: 20px 5px 10px 10px;
 }
 .inputs .radio {
-  margin: 20px 25px 10px 25px;
+  margin: 20px 205px 10px 250px;
 
 }
 .inputs .check {
@@ -526,7 +565,6 @@ h3 {
 }
 
 input {
-  margin: .5rem .8rem;
   transition: all .4s linear;
   border-bottom: solid 2px #00DC82;
   text-align: left;
@@ -534,10 +572,8 @@ input {
   font-weight: 600;
   border-radius: 4px;
   transition: all 0.2s ease-in-out 0s;
-  height: 34px;
+  height: 30px;
   font-size: 14px;
-  padding-top: 8px;
-  padding-bottom: 8px;
 }
 
 .inputs #username {
@@ -547,7 +583,7 @@ input {
   width: 130px
 }
 .inputs #email {
-  width: 345px
+  width: 335px
 }
 
 .inputs div h4 {
@@ -598,13 +634,9 @@ h4:nth-child(1) {
   cursor: pointer;
   width: 160px;
   text-align: left;
-  line-height: 18px;
   transition: all 0.2s ease-in-out 0s;
-  height: 34px;
+  height: 30px;
   font-size: 14px;
-  padding-top: 4px;
-  padding-bottom: 8px;
-  margin: .7rem;
 }
 
 .select:focus {
