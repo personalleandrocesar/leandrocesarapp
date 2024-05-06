@@ -568,9 +568,16 @@ h3 {
 .inputs .terms {
   text-decoration: underline;
   color:#00dc82 ;
+  height: 15px;
   cursor: pointer;
 }
 
+.inputs #terms.check{
+  text-decoration: underline;
+  margin: 10px -64px;
+  height: 15px;
+  cursor: pointer;
+}
 .dont-user {
   position: fixed;
   top: 10px;
