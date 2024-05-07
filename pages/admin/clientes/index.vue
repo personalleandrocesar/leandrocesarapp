@@ -1,9 +1,11 @@
 <script setup>
 import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
+
 useHead({
     titleTemplate: 'Clientes | NEX_WOD',
 });
+
 const Users = await useFetch('https://api.nexwod.app/users');
 const item = Users.data.value;
 const UsersId = await useFetch(`https://api.nexwod.app/users/:id`);
@@ -14,18 +16,23 @@ console.log(item);
 
 const subscriberOk = ref(false)
 
-const name= ref('')
-const lastName= ref('')
-const username= ref('')
-const email= ref('')
+const name = ref('')
+const lastName = ref('')
+const sex = ref('')
+const birthday = ref('')
+const whatsapp = ref('')
+const service = ref('')
+const target = ref('')
+const email = ref('')
+const username = ref('')
 const password = ref('')
-const periodStart= ref('')
-const periodEnd = ref('')
-const service= ref('')
-const status= ref('')
-const target= ref('')
-const day= ref('')
+const day = ref('')
 const time = ref('')
+const payDay = ref('')
+const periodStart = ref('')
+const periodEnd = ref('')
+const terms = ref('')
+const status = ref('')
 
 const switBlock = ref(true)
 const switList = ref(false)
@@ -71,8 +78,6 @@ function closeClient() {
 
 }
 
-
-
 async function submitForm() {
     try {
         const response = await fetch('https://api.nexwod.app/user', {
@@ -81,18 +86,23 @@ async function submitForm() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ 
-                name: name.value, 
+                name: name.value,
                 lastName: lastName.value,
-                username: username.value,
-                email: email.value,   
-                password: password.value,   
-                periodStart: periodStart.value, 
-                periodEnd: periodEnd.value,   
+                sex: sex.value,
+                birthday: birthday.value,
+                whatsapp: whatsapp.value,
                 service: service.value,
+                target: target.value,
+                email: email.value,
+                username: username.value,
+                password: password.value,
+                day: day.value,
+                time: time.value,
+                payDay: payDay.value,
+                periodStart: periodStart.value,
+                periodEnd: periodEnd.value,
+                terms: terms.value,
                 status: status.value,  
-                target: target.value,  
-                day: day.value, 
-                time: time.value    
             }),
         });
         

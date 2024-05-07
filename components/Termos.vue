@@ -5,7 +5,7 @@ const reg = route.params.id
 const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
-const data = await useFetch(`/api/${route.params.id}`)
+const data = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
 // const { data, pending, error, refresh } = await useFetch(`https://professorleandrocesar.com/usuarios/`, {})
 
 const photoOpen = ref(false);
@@ -16,8 +16,9 @@ function openPhoto() {
 const bodyOne = ref(true)
 function menu() {
   bodyOne.value = !bodyOne.value
-
 }
+
+const personal = 'Leandro Cesar Ramos da Costa'
 
 
 </script>
@@ -39,7 +40,7 @@ function menu() {
     </div>
     <div class="head-name">
       <div class="name">
-        Termos de uso
+        Contratos
       </div>
     </div>
 
@@ -52,14 +53,112 @@ function menu() {
     <div class="body-timeline">
       <div>
 
-        <h3>Termos de uso em construção!</h3>
+        <h3>Contrato de Prestação de Serviços de Personal Trainer</h3>
+
+        <h4>
+          Contratante: {{ data.data.value?.name }} {{ data.data.value?.lastName }}
+        </h4>
+        <h4>
+          Contratado: {{ personal }}
+        </h4>
+
+        <h4>1. Descrição dos Serviços:</h4>
+        <p>
+          O contratado se compromete a fornecer serviços de treinamento físico personalizado ao contratante, conforme
+          acordado entre as partes. Os detalhes específicos dos serviços, incluindo horários, locais e frequência das
+          sessões, estão descritos em anexos a este contrato.
+        </p>
+        <h4>
+          2. Honorários:
+        </h4>
+        <p>
+          O contratante concorda em pagar ao contratado a quantia de [valor] por [tipo de sessão], a ser pago
+          [mensalmente/semanalmente/diariamente], de acordo com a frequência acordada. O pagamento deverá ser efetuado
+          até o dia [data] de cada período de cobrança.
+        </p>
+        <h4>
+          3. Cancelamento e Reagendamento:
+        </h4>
+        <p>
+          O contratante concorda em fornecer um aviso prévio de pelo menos [número de dias] dias úteis antes do
+          cancelamento ou reagendamento de uma sessão. O contratado se reserva o direito de cobrar uma taxa de
+          cancelamento de [valor] em caso de cancelamento sem aviso prévio.
+        </p>
+        <h4>
+          4. Responsabilidades do Contratante:
+        </h4>
+        <p>
+          O contratante concorda em seguir as instruções do contratado durante as sessões de treinamento e a informar o
+          contratado sobre qualquer condição médica ou física que possa afetar sua capacidade de realizar os exercícios
+          propostos.
+        </p>
+        <h4>
+          5. Responsabilidades do Contratado:
+        </h4>
+        <p>
+          O contratado concorda em fornecer serviços de treinamento físico com profissionalismo e competência, levando
+          em consideração as necessidades e objetivos específicos do contratante.
+        </p>
+        <h4>
+          6. Confidencialidade:
+        </h4>
+        <p>
+          Ambas as partes concordam em manter todas as informações confidenciais trocadas durante a prestação dos
+          serviços.
+        </p>
+        <h4>
+          7. Lei Aplicável:
+        </h4>
+        <p>
+          Este contrato será regido e interpretado de acordo com as leis do [estado/país].
+        </p>
+        <h4>
+
+        </h4>
+        <p>
+
+        </p>
+        <h4>
+
+        </h4>
+        <p>
+
+        </p>
+        <h4>
+
+        </h4>
+        <p>
+
+        </p>
+        <h4>
+          8. Assinaturas:
+        </h4>
+        <p>
+          As partes concordam com os termos e condições deste contrato mediante suas assinaturas abaixo:
+        </p>
+        <p>
+          Contratante: [Assinatura] Contratado: [Assinatura]
+        </p>
+        <p>
+          Data: [Data de assinatura]
+        </p>
 
       </div>
 
     </div>
   </div>
+
 </template>
 <style scoped>
+h3 {
+  margin-bottom: 30px;
+  font-weight: bolder;
+}
+
+h4 {
+  margin: 20px;
+}
+
 .head-logo {
   display: flex;
   justify-content: space-between;
@@ -80,7 +179,7 @@ function menu() {
   height: 60px;
   width: 60px;
   color: #718096;
-  box-shadow: 1px 7px 20px #095D62;
+  box-shadow: 1px 7px 20px #34d399;
   margin: 1.5rem;
   border-radius: 7px;
   z-index: 10;
@@ -90,7 +189,7 @@ function menu() {
   height: 60px;
   width: 60px;
   border-radius: 7px;
-  border: #095D62 2px solid;
+  border: #34d399 2px solid;
   z-index: 100;
   opacity: 1;
 
@@ -128,11 +227,11 @@ function menu() {
 }
 
 .logo-nav-bar img {
-  box-shadow: 1px 7px 20px #095D62;
+  box-shadow: 1px 7px 20px #34d399;
   height: 300px;
   width: 300px;
   border-radius: 7px;
-  border: #095D62 2px solid;
+  border: #34d399 2px solid;
   z-index: 100;
   opacity: 1;
 
@@ -150,7 +249,7 @@ function menu() {
 }
 
 .button-client:hover {
-  color: #095D6280;
+  color: #34d39980;
 }
 
 .button-client .icon {
@@ -161,7 +260,7 @@ function menu() {
 }
 
 .button-client:hover .icon {
-  color: #095D6280;
+  color: #34d39980;
 }
 
 .head-name {
@@ -179,7 +278,7 @@ function menu() {
   margin: .2rem 1.5rem;
   font-weight: 700;
   letter-spacing: 1.5px;
-  color: #095D62;
+  color: #34d399;
 
 }
 
@@ -206,7 +305,7 @@ function menu() {
   height: 40px;
   width: 40px;
   color: #718096;
-  box-shadow: 1px 1px 15px #095D6250;
+  box-shadow: 1px 1px 15px #34d39950;
   transition: all 0.2s ease-in-out 0s;
   margin: 0rem 1.5rem;
   border-radius: 50%;
@@ -214,9 +313,8 @@ function menu() {
 }
 
 .whats:hover {
-  background-color: #095D6210;
-  color: #095D6280;
-  box-shadow: 1px 1px 15px #095D6280;
+  color: #34d39980;
+  box-shadow: 1px 1px 15px #34d39980;
 }
 
 .body-timeline {
@@ -240,7 +338,7 @@ function menu() {
   height: 100px;
   width: 100px;
   color: #718096;
-  box-shadow: 1px 7px 20px #095D62;
+  box-shadow: 1px 7px 20px #34d399;
   margin: 1.5rem;
   border-radius: 7px;
 }
@@ -249,7 +347,7 @@ function menu() {
   height: 100px;
   width: 100px;
   border-radius: 7px;
-  border: #095D62 2px solid;
+  border: #34d399 2px solid;
   opacity: 1;
 
 }
@@ -265,7 +363,7 @@ function menu() {
 }
 
 .link:hover {
-  color: #095D62;
+  color: #34d399;
 }
 
 
@@ -289,7 +387,7 @@ function menu() {
     height: 100px;
     width: 100px;
     border-radius: 7px;
-    border: #095D62 2px solid;
+    border: #34d399 2px solid;
 
   }
 
@@ -333,8 +431,8 @@ function menu() {
     margin: 1.5rem auto;
     cursor: pointer;
     transition: all .4s linear;
-    border: solid 1px #095D6210;
-    box-shadow: 0 0px 5px #095D6210;
+    border: solid 1px #34d39910;
+    box-shadow: 0 0px 5px #34d39910;
     background-color: #fff;
     cursor: pointer;
     text-align: center;
@@ -355,13 +453,13 @@ function menu() {
   .button-plus a:hover {
     margin: 0rem auto;
     transition: all .4s linear;
-    border: solid 1px #095D6210;
-    box-shadow: 0 0px 5px #095D6210;
+    border: solid 1px #34d39910;
+    box-shadow: 0 0px 5px #34d39910;
     background-color: #edf2f7;
     cursor: pointer;
     width: 100px;
     text-align: center;
-    color: #095D6280;
+    color: #34d39980;
     line-height: 18px;
     border-radius: 8px;
     transition: all 0.2s ease-in-out 0s;

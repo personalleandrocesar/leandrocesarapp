@@ -1,67 +1,87 @@
 <script setup>
 import { ref } from 'vue';
+// import { reloadNuxtApp } from "nuxt/app";
+
+useHead({
+    titleTemplate: 'Cadastro de Clientes | Personal Leandro Cesar',
+});
+
 const user = ref('');
-const password = ref('');
+const sexo = ref('');
 const client = useFetch('https://api.nexwod.app/users');
 
 const dontUser = ref(false);
 const dontPerson = ref(false);
 
-const enterClient = () => {
-  const userData = client.data.value;
-  const userExists = client.data.value.some(u => u.username === user.value && u.password === senha.value);
+const name= ref('')
+const lastName= ref('')
+const sex= ref('')
+const birthday= ref('')
+const whatsapp= ref('')
+const service= ref('')
+const target= ref('')
+const email= ref('')
+const username= ref('')
+const password = ref('')
+const day= ref('')
+const time = ref('')
+const payDay = ref('')
+const periodStart= ref('')
+const periodEnd = ref('')
+const terms= ref('')
+const status=ref('')
 
-  if (userExists) {
-    console.log("Usuário encontrado!");
-    // Faça a ação para redirecionar ou permitir o acesso do usuário à página
-    return navigateTo(`/user/${user.value}`);
-  } else {
-    console.log("Usuário não encontrado ou senha incorreta!");
-    // Mostre uma mensagem de erro ou realize outra ação adequada
-    dontUser.value = true;
-    setTimeout(() => {
-      dontUser.value = false;
-    }, 5000); // Define um timeout para limpar a mensagem após 5 segundos
+
+const subscriberOk = ref(false)
+
+async function submitForm() {
+  try {
+    const response = await fetch('https://api.nexwod.app/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name.value,
+        lastName: lastName.value,
+        sex: sex.value,
+        birthday: birthday.value,
+        whatsapp: whatsapp.value,
+        service: service.value,
+        target: target.value,
+        email: email.value,
+        username: username.value.replace(/\s/g, '').toLowerCase(),
+        password: password.value,
+        day: day.value,
+        time: time.value,
+        payDay: payDay.value,
+        periodStart: periodStart.value,
+        periodEnd: periodEnd.value,
+        terms: terms.value,
+        status: status.value,
+      }),
+    });
+
+    if (response.ok) {
+      console.log('Data sent successfully');
+      subscriberOk.value = true;
+      setTimeout(() => {
+        subscriberOk.value = false;
+        // reloadNuxtApp({
+        //   path: "/admin/clientes",
+        //   ttl: 1000, // default 10000
+        // });
+      }, 2000);
+    } else {
+      console.error('Failed to send data');
+    }
+  } catch (error) {
+    console.error('Error sending data:', error);
   }
-};
-const enterPersonal = () => {
-  const userData = client.data.value;
-  const userExists = (senha.value === 'Lc@340209755');
-
-  if (userExists) {
-    console.log("Usuário encontrado!");
-    // Faça a ação para redirecionar ou permitir o acesso do usuário à página
-    return navigateTo(`/admin`);
-  } else {
-    console.log("Usuário não encontrado ou senha incorreta!");
-    // Mostre uma mensagem de erro ou realize outra ação adequada
-    dontPerson.value = true;
-    setTimeout(() => {
-      dontPerson.value = false;
-    }, 5000); // Define um timeout para limpar a mensagem após 5 segundos
-  }
-};
-
-
-const trigger = () => {
-  enterClient()
-}
-const trig = () => {
-  enterPersonal()
 }
 
 const pop = useCookie('pop', { maxAge: 7889400 })
 pop.value = pop.value
-
-const popOk = () => {
-  return pop.value = "ok"
-}
-
-const popView = () => {
-  if (pop.value === 'ok') {
-    return false
-  } return true
-}
 
 const photoOpen = ref(false);
 function openPhoto() {
@@ -94,22 +114,7 @@ function swText() {
   pass.value = 'text'
 };
 
-const linkClient = ref(true)
-const linkPersonal = ref(false)
 const clientShow = ref(true)
-
-function buttonFeed() {
-  linkClient.value = true
-  linkPersonal.value = false
-  clientShow.value = true
-}
-
-function buttonPartner() {
-  linkClient.value = false
-  linkPersonal.value = true
-  clientShow.value = false
-}
-
 
 
 </script>
@@ -141,189 +146,173 @@ function buttonPartner() {
       </div>
     </div>
     <!-- Cliente -->
-    <div v-if='clientShow'>
-      <!-- Nome e sobrenome -->
-      <div class="inputs">
+    <form @submit.prevent="submitForm">
+      <div v-if='clientShow'>
+        <!-- Nome e sobrenome -->
+        <div class="inputs">
 
+          <div>
+
+            <span>Nome</span>
+            <input type="text" id="name" autofocus v-model="name" required autocomplete="nome">
+
+          </div>
+          <div>
+
+            <span>Sobrenome</span>
+            <input type="text" id="sobrenome" v-model="lastName" required autocomplete="sobrenome">
+
+          </div>
+        </div>
+
+        <!-- Sexo -->
+        <div class="inputs">
+          <div class="radio">
+
+            <input type="radio" name='sex' id="feminino" class="check" v-model="sex" required value=feminino
+              autocomplete="sexo" checked>
+            <label for="feminino">Feminino</label>
+
+          </div>
+          <div class="radio">
+
+            <input type="radio" name='sex' id="masculino" class="check" v-model="sex" required value="masculino"
+              autocomplete="sexo">
+            <label for="masculino">Masculino</label>
+
+          </div>
+
+
+        </div>
+        <!-- Data de nascimento + Whatsapp -->
+        <div class="inputs">
+
+          <div>
+            <span>Data de nascimento</span>
+            <input type="date" name="" id="nascimento" autofocus v-model="birthday" required autocomplete="nascimento">
+          </div>
+          <div>
+            <span>WhatsApp</span>
+            <input type="tel" name="" id="whatsapp" placeholder="(xx)xxxxx-xxxx" required v-model="whatsapp"
+              autocomplete="whatsapp">
+          </div>
+
+        </div>
+        <!-- Serviço e objetivo -->
+        <div class="inputs">
+
+          <div>
+            <span>Qual Serviço?</span>
+            <select name="service" id="servico" required class="select" placeholder='' v-model="service">
+              <option disabled value="">Selecione uma opção</option>
+              <option value="personal">Personal</option>
+              <option value="consultoria">Consultoria</option>
+            </select>
+          </div>
+
+          <div>
+
+            <span>Qual objetivo?</span>
+            <select name="target" id="target" class="select" placeholder='' required v-model="target">
+              <option disabled value="">Selecione uma opção</option>
+              <option value="hipertrofia">Hipertrofia</option>
+              <option value="emagrecimento">Emagrecimento</option>
+              <option value="acompanhamento">Só acompanhamento</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+
+        </div>
+        <!-- E-mail -->
+        <div class="inputs">
+          <div>
+
+            <span>E-mail</span>
+            <input type="text" name="" id="email" v-model="email" autocomplete="email" required>
+
+          </div>
+        </div>
+        <!-- Usuário e senha -->
+        <div class="inputs senha">
+          <div>
+            <span>Usuário</span>
+            <input type="text" required name="" id="usuario" v-model.trim="username" autocomplete="usuario">
+          </div>
+          <div class="senhaPs">
+            <span>Senha</span>
+            <input v-bind:type="pass" required name="" id="password" v-model="password" autocomplete="off">
+            <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
+            <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
+          </div>
+
+        </div>
+        <div class="inputs">
+          <div>
+
+            <span>Dias/semana</span>
+            <input type="number" name="" required id="servico" v-model="day" autocomplete="servico">
+
+          </div>
+          <div>
+
+            <span>Minutos/treino</span>
+            <input type="number" name="" required id="vencimento" v-model="time" autocomplete="vencimento">
+
+          </div>
+
+        </div>
+        <div class="inputs">
+          <div>
+
+            <span>Dia do Vencimento</span>
+            <input type="number" name="" required id="vencimento" v-model="payDay" autocomplete="vencimento">
+
+          </div>
+          <div>
+
+            <span>Início dos treinos</span>
+            <input type="date" name="" required id="servico" placeholder="Tempo/treino" v-model="periodStart"
+              autocomplete="servico">
+
+          </div>
+        </div>
         <div>
-
-          <span>Nome</span>
-          <input type="text" name="" id="nome" placeholder="" autofocus v-model="name" required autocomplete="nome">
 
         </div>
         <div>
 
-          <span>Sobrenome</span>
-          <input type="text" name="" id="sobrenome" placeholder="" v-model="lastName" autocomplete="sobrenome">
-
         </div>
+
+        <div class="check-terms inputs">
+          <input type="checkbox" id="terms" class="check" v-model="terms" required="true">
+          <h5>
+            <label for="terms">Aceito os</label>
+            <NuxtLink to="/termos-de-uso" class="terms">
+              Termos de uso
+            </NuxtLink>
+          </h5>
+        </div>
+        <div class="inputs">
+          <button class="login" type="submit">
+            ENVIAR
+            <Icon name="solar:login-3-bold" />
+          </button>
+        </div>
+        <br>
+        <br>
+        <br>
       </div>
+    </form>
 
-      <!-- Sexo -->
-      <div class="inputs">
-        <div class="radio">
-
-          <input type="radio" name='sex' id="feminino" class="check" v-model="sexo" autocomplete="sexo" checked>
-          <label for="feminino">Feminino</label>
-
-        </div>
-        <div class="radio">
-
-          <input type="radio" name='sex' id="masculino" class="check" v-model="sexo" autocomplete="sexo">
-          <label for="masculino">Masculino</label>
-
-        </div>
-
-
-      </div>
-      <!-- Data de nascimento + Whatsapp -->
-      <div class="inputs">
-
-        <div>
-          <span>Data de nascimento</span>
-          <input type="date" name="" id="nascimento" placeholder="" autofocus v-model="nascimento" required
-            autocomplete="nascimento">
-        </div>
-        <div>
-          <span>WhatsApp</span>
-          <input type="tel" name="" id="whatsapp" placeholder="(xx)xxxxx-xxxx" v-model="whatsapp"
-            autocomplete="whatsapp">
-        </div>
-
-      </div>
-      <!-- Serviço e objetivo -->
-      <div class="inputs">
-
-        <div>
-          <span>Qual Serviço?</span>
-          <select name="service" id="service" class="select" placeholder=''>
-            <option value=""></option>
-            <option value="personal">Personal</option>
-            <option value="consultoria">Consultoria</option>
-          </select>
-        </div>
-
-        <div>
-
-          <span>Qual Serviço?</span>
-          <select name="service" id="service" class="select" placeholder=''>
-            <option value=""></option>
-            <option value="hipertrofia">Hipertrofia</option>
-            <option value="emagrecimento">Emagrecimento</option>
-            <option value="acompanhamento">Só acompanhamento</option>
-            <option value="outro">Outro</option>
-          </select>
-        </div>
-
-      </div>
-      <!-- E-mail -->
-      <div class="inputs">
-        <div>
-
-          <span>E-mail</span>
-          <input type="text" name="" id="email" placeholder="" v-model="email" autocomplete="email">
-
-        </div>
-      </div>
-      <!-- Usuário e senha -->
-      <div class="inputs senha">
-        <div>
-          <span>Usuário</span>
-          <input type="text" name="" id="usuario" placeholder="" v-model="usuario" autocomplete="usuario">
-        </div>
-        <div>
-          <span>Senha</span>
-          <input v-bind:type="pass" name="" id="password" placeholder="" v-model="password" autocomplete="off">
-          <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
-          <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
-        </div>
-
-      </div>
-      <div class="inputs">
-        <div>
-
-          <span>Dias/semana</span>
-          <input type="number" name="" id="servico" placeholder="" v-model="servico" autocomplete="servico">
-
-        </div>
-        <div>
-
-          <span>Minutos/treino</span>
-          <input type="number" name="" id="vencimento" placeholder="" v-model="vencimento" autocomplete="vencimento">
-
-        </div>
-
-      </div>
-      <div class="inputs">
-        <div>
-
-          <span>Dia do Vencimento</span>
-          <input type="number" name="" id="vencimento" placeholder="" v-model="vencimento" autocomplete="vencimento">
-
-        </div>
-        <div>
-
-          <span>Início dos treinos</span>
-          <input type="date" name="" id="servico" placeholder="Tempo/treino" v-model="servico" autocomplete="servico">
-
-        </div>
-      </div>
+    <div v-if="subscriberOk" class="subscriberOk top">
       <div>
-
-      </div>
-      <div>
-
-      </div>
-
-      <div class="check-terms inputs">
-        <input type="checkbox" id="terms" class="check" v-model="terms">
-        <h5>
-          <label for="terms">Aceito os</label>
-          <NuxtLink class="terms">
-            Termos de uso
-          </NuxtLink>
-        </h5>
-      </div>
-      <div class="inputs">
-        <NuxtLink class='login' @click="enterClient">
-          ENVIAR
-          <Icon name="solar:login-3-bold" />
-        </NuxtLink>
-      </div>
-      <br>
-      <br>
-      <br>
-    </div>
-    <!-- Personal -->
-    <div v-else class="inputs">
-
-      <div class="senha">
-        <input v-bind:type="pass" name="" id="password" placeholder="Senha" v-model="senha" autocomplete="off">
-        <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
-        <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
-
-      </div>
-      <div>
-        <NuxtLink class='login' @click="enterPersonal">
-          LOGIN
-          <Icon name="solar:login-3-bold" />
-        </NuxtLink>
+        Inscrição realizada com Sucesso!
       </div>
     </div>
+
 
 
   </div>
-  <footer>
-
-    <div v-if="popView()" class="pop-up">
-      <p>
-        Neste app, usamos cookies e outras tecnologias semelhantes para melhorar sua
-        experiência de navegação e facilitar certos tipos de vantagens de navegação.
-        Ao clicar no botão abaixo, você está ciente e concordando com estas funcionalidades.
-      </p>
-      <div class="button-pop" @click="popOk()">PROSSEGUIR!</div>
-    </div>
-  </footer>
   <div class="color">
 
     <a @click="theme()" :model="$colorMode.value">
@@ -343,11 +332,32 @@ function buttonPartner() {
 </template>
 
 <style scoped>
+
+.subscriberOk {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 20%;
+  margin-left: 40%;
+  background-color: #34d399;
+  color: #fff;
+  text-shadow: 2px 2px 2px #111;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  border-radius: 8px;
+  padding: 8px 0px;
+  font-weight: bolder;
+}
 a {
   text-decoration: none;
   transition: all .3s linear;
   border: solid 2px transparent ;
 }
+
 .link {
    display: flex;
    justify-content: space-evenly;
@@ -362,17 +372,17 @@ a {
     text-align: center;
     cursor: pointer;
 }
-.link   a:hover { 
+
+.link a:hover { 
     border-bottom: solid 2px #00dc82;
     cursor: pointer;
 }
 
-
 .aActive {
     border-bottom: solid 2px #00dc82;
     color: #00dc82;
-    
 }
+
 .aActivee {
     border-bottom: solid 2px #00dc82;
     color: #00dc82;
@@ -386,14 +396,14 @@ a {
   z-index: 1;
   flex-wrap: wrap;
 }
-.senha {
+.senhaPs {
   position: relative;
 }
 
 #password-icon {
   position: absolute;
-  top: 34px;
-  right: 30px;
+  top: 24px;
+  right: 5px;
   z-index: 10000;
 }
 
