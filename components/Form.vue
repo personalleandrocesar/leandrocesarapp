@@ -205,8 +205,8 @@ const clientShow = ref(true)
             <span>Qual Serviço?</span>
             <select name="service" id="servico" required class="select" placeholder='' v-model="service">
               <option disabled value="">Selecione uma opção</option>
-              <option value="personal">Personal</option>
-              <option value="consultoria">Consultoria</option>
+              <option value="Personal">Personal</option>
+              <option value="Consultoria">Consultoria</option>
             </select>
           </div>
 
@@ -215,10 +215,10 @@ const clientShow = ref(true)
             <span>Qual objetivo?</span>
             <select name="target" id="target" class="select" placeholder='' required v-model="target">
               <option disabled value="">Selecione uma opção</option>
-              <option value="hipertrofia">Hipertrofia</option>
-              <option value="emagrecimento">Emagrecimento</option>
-              <option value="acompanhamento">Só acompanhamento</option>
-              <option value="outro">Outro</option>
+              <option value="Hipertrofia">Hipertrofia</option>
+              <option value="Emagrecimento">Emagrecimento</option>
+              <option value="Acompanhamento">Só acompanhamento</option>
+              <option value="Outro">Outro</option>
             </select>
           </div>
 
