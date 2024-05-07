@@ -6,6 +6,9 @@ useHead({
     titleTemplate: 'Cadastro de Clientes | Personal Leandro Cesar',
 });
 
+const user = ref('');
+const sexo = ref('');
+const client = useFetch('https://api.nexwod.app/users');
 
 const dontUser = ref(false);
 const dontPerson = ref(false);

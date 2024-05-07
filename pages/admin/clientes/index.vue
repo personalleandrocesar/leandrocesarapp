@@ -222,9 +222,6 @@ function formatarData(input) {
                             </th>
 
                             <th>
-                                <span>Username</span>
-                            </th>
-                            <th>
                                 <span>Nome</span>
                             </th>
                             <th>
@@ -234,25 +231,25 @@ function formatarData(input) {
                                 <span>Objetivo</span>
                             </th>
                             <th>
+                                <span>Período</span>
+                            </th>
+                            <th>
+                                <span>Venc.</span>
+                            </th>
+                            <th>
+                                <span>Nascimento</span>
+                            </th>
+                            <th>
+                                <span>E-mail</span>
+                            </th>
+                            <th>
                                 <span>Status</span>
-                            </th>
-                            <th>
-                                <span>Início</span>
-                            </th>
-                            <th>
-                                <span>Fim</span>
-                            </th>
-                            <th>
-                                <span>email</span>
                             </th>
                         </tr><!---->
                     </thead>
                     <tbody v-for="(item, index) in item" :key="index">
                         <tr @click="navigateTo(`/admin/clientes/${item.username}`)">
                             <td>{{ index +1 }}</td>
-                            <td>
-                                {{ item.username }}
-                            </td>
                             <td>
                                 {{ item.name }} {{ item.lastName }}
                             </td>
@@ -264,22 +261,25 @@ function formatarData(input) {
                             </td>
                             <td>
                                 <span>
-                                    {{ item.status }}
+                                    {{ item.periodStart }} <br> {{ item.periodEnd }}
                                 </span>
                             </td>
                             <td>
                                 <span>
-                                    {{ item.periodStart }}
+                                    {{ item.payDay }}
                                 </span>
                             </td>
                             <td>
-                                <span>
-                                    {{ item.periodEnd }}
-                                </span>
+                                {{ item.birthday }}
                             </td>
                             <td>
                                 <span>
                                     {{ item.email }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {{ item.status }}
                                 </span>
                             </td>
 
@@ -345,7 +345,7 @@ function formatarData(input) {
                         <div> <input type="text" placeholder="Tempo (minutos)" v-model="time" name="time" /> </div>
                         <div>
                             <span>Início do Período</span>
-                            <input type="date" v-model="periodStart" name="periodStart" /> 
+                            <input type="date" v-model="periodStart" name="periodStart" />
                         </div>
                         <div>
                             <span>Início do Período</span>
@@ -904,7 +904,7 @@ input {
     align-items: center;
     flex-wrap: wrap;
     height: 100px;
-    width: 150px;
+    width: 156px;
     margin: 2px;
     border-radius: 8px;
     border: solid 2px #04be7a60;
