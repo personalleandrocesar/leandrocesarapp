@@ -94,7 +94,7 @@ async function submitForm() {
                 service: service.value,
                 target: target.value,
                 email: email.value,
-                username: username.value,
+                username: username.value.replace(/\s/g, '').toLowerCase(),
                 password: password.value,
                 day: day.value,
                 time: time.value,
@@ -594,10 +594,10 @@ function formatarData(input) {
     z-index: 1;
     height: 40px;
     font-weight: bolder;
-    border-bottom: .10px solid #34d39940;
+    border-bottom: .10px solid #00DC8240;
     backdrop-filter: blur(45px);
-    border-bottom: solid 1px #34d39940;
-    border-right: solid 1px #34d39940;
+    border-bottom: solid 1px #00DC8240;
+    border-right: solid 1px #00DC8240;
 }
 
 .clients {
@@ -605,11 +605,11 @@ function formatarData(input) {
 }
 
 .clients span {
-    border: 1px solid #34d39990;
+    border: 1px solid #00DC8290;
     padding: 3px 6px;
     border-radius: 8px;
-    color: #34d399;
-    background-color: #34d39930;
+    color: #00DC82;
+    background-color: #00DC8230;
     margin-left: 3px;
 }
 
@@ -625,7 +625,7 @@ function formatarData(input) {
 .notifications:hover {
     padding: 4px 5px;
     border-radius: 8px;
-    color: #34d399;
+    color: #00DC82;
     background-color: #fff;
 }
 
@@ -641,10 +641,10 @@ function formatarData(input) {
     z-index: 1;
     height: 50px;
     font-weight: bolder;
-    border-bottom: .10px solid #34d39940;
+    border-bottom: .10px solid #00DC8240;
     backdrop-filter: blur(45px);
-    border-bottom: solid 1px #34d39940;
-        border-right: solid 1px #34d39940;
+    border-bottom: solid 1px #00DC8240;
+        border-right: solid 1px #00DC8240;
 }
 
 .users-list {
@@ -674,8 +674,8 @@ function formatarData(input) {
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
-    border: solid 1px #34d39910;
-    box-shadow: 0 0px 5px #34d39940;
+    border: solid 1px #00DC8210;
+    box-shadow: 0 0px 5px #00DC8240;
     backdrop-filter: blur(100px)
 }
 
@@ -694,14 +694,14 @@ function formatarData(input) {
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
-    border: solid 1px #34d39910;
-    box-shadow: 0 0px 5px #34d39940;
+    border: solid 1px #00DC8210;
+    box-shadow: 0 0px 5px #00DC8240;
     backdrop-filter: blur(100px)
 }
 
 .whats .icon,
 .color .icon {
-    color: #34d39990;
+    color: #00DC8290;
     zoom: 1;
 }
 .subscriberOk {
@@ -710,7 +710,7 @@ function formatarData(input) {
     right: 10px;
     width: 20%;
     margin-left: 40%;
-    background-color: #34d399;
+    background-color: #00DC82;
     color: #fff;
     text-shadow: 2px 2px 2px #111;
     z-index: 20;
@@ -987,7 +987,7 @@ input {
 }
 
 .title-user:hover {
-    background-color: #34d39960;
+    background-color: #00DC8260;
 }
 
 .title-user img {

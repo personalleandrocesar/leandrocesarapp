@@ -64,11 +64,12 @@ async function submitForm() {
       subscriberOk.value = true;
       setTimeout(() => {
         subscriberOk.value = false;
+        formShow.value = false;
         // reloadNuxtApp({
         //   path: "/admin/clientes",
         //   ttl: 1000, // default 10000
         // });
-      }, 2000);
+      }, 4000);
     } else {
       console.error('Failed to send data');
     }
@@ -111,17 +112,11 @@ function swText() {
   pass.value = 'text'
 };
 
-const clientShow = ref(true)
+const formShow = ref(true)
 
 
 </script>
 <template>
-  <div v-if='dontUser' class="dont-user top">
-    Usuário não encontrado!
-  </div>
-  <div v-if='dontPerson' class="dont-user top">
-    Personal não encontrado!
-  </div>
   <div>
     <div class="head-logo" id="sobre">
       <div class='logo'>
@@ -143,8 +138,8 @@ const clientShow = ref(true)
       </div>
     </div>
     <!-- Cliente -->
-    <form @submit.prevent="submitForm">
-      <div v-if='clientShow'>
+    <div v-if='formShow'>
+      <form @submit.prevent="submitForm">
         <!-- Nome e sobrenome -->
         <div class="inputs">
 
@@ -225,7 +220,7 @@ const clientShow = ref(true)
           <div>
 
             <span>E-mail</span>
-            <input type="text" name="" id="email" v-model="email" autocomplete="email" required>
+            <input type="text" name="" id="email" v-model="email" autocomplete="email">
 
           </div>
         </div>
@@ -298,12 +293,19 @@ const clientShow = ref(true)
         <br>
         <br>
         <br>
-      </div>
-    </form>
+      </form>
+    </div>
+    <div v-else>
+      <form @submit.prevent="submitForm">
+        <!-- Nome e sobrenome -->
+        <h3>Ficha de cadastro</h3>
+        
+      </form>
+    </div>
 
     <div v-if="subscriberOk" class="subscriberOk top">
       <div>
-        Inscrição realizada com Sucesso!
+        Cadastro realizado com Sucesso!
       </div>
     </div>
 
@@ -334,11 +336,11 @@ const clientShow = ref(true)
   position: fixed;
   top: 10px;
   right: 10px;
-  width: 20%;
   margin-left: 40%;
-  background-color: #34d399;
+  background-color: #00DC82;
   color: #fff;
-  text-shadow: 2px 2px 2px #111;
+  font-weight: bolder;
+  text-shadow: -1px 2px 5px  #111;
   z-index: 20;
   display: flex;
   justify-content: center;
@@ -346,7 +348,7 @@ const clientShow = ref(true)
   align-items: center;
   flex-wrap: nowrap;
   border-radius: 8px;
-  padding: 8px 0px;
+  padding: 8px 16px;
   font-weight: bolder;
 }
 a {
