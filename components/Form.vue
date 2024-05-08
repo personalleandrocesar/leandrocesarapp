@@ -666,7 +666,6 @@ h4:nth-child(1) {
   transition: all .4s linear;
   border: 0;
   color: inherit;
-  font-weight: bolder;
   background-color: transparent ;
   border-bottom: solid 2px #00DC82;
   border-radius: 5px ;
