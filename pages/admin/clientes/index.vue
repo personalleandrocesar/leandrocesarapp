@@ -178,17 +178,17 @@ function formatarData(input) {
             <div v-if="add">
                 <div v-if="block" class="users-list">
                     <div v-for="(item, index) in item" :key="index">
-    
+
                         <NuxtLink :to="`/admin/clientes/${item.username}`">
-    
+
                             <div class="title-user">
-    
+
                                 <img :src="`/admin/clientes/${item.foto}`">
                                 <h4>
                                     {{ item.name }} {{ item.lastName }}
                                 </h4>
                             </div>
-    
+
                         </NuxtLink>
                     </div>
                     <!-- <td>
@@ -196,30 +196,14 @@ function formatarData(input) {
                 </td> -->
                 </div>
                 <div v-else class="users-list">
-    
-                    <!-- <tr>
-                    </tr> -->
-                    <!-- <tr>
-                            <th>#</th>
-                            <th>Nome</th>
-                            <th>Sobrenome</th>
-                            <th>Usuário</th>
-                            <th>Email</th>
-                            <th>Início</th>
-                            <th>Fim</th>
-                            <th>Serviço</th>
-                            <th>Objetivo</th>
-                            <th>Status</th>
-                            <th>Dias</th>
-                            <th>Tempo</th>
-                        </tr> -->
+
                     <table>
                         <thead>
                             <tr class="">
                                 <th>
                                     <span>#</span>
                                 </th>
-    
+
                                 <th>
                                     <span>Nome</span>
                                 </th>
@@ -281,17 +265,17 @@ function formatarData(input) {
                                         {{ item.status }}
                                     </span>
                                 </td>
-    
+
                             </tr>
                         </tbody>
                     </table>
-    
-    
+
+
                 </div>
             </div>
             <div v-else class="main">
                 <div class="barTop center">
-    
+
                 </div>
                 <form @submit.prevent="submitForm">
                     <div class="center-start">
@@ -302,36 +286,29 @@ function formatarData(input) {
                             </div>
                             <div>
                                 <input class="file-cliente" type="file" display="none" />
-    
+
                             </div>
                         </div>
                         <div class="center-start-two inputs">
-                            <!-- <div>
-                                <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Nome" autofocus
-                                v-model="user" required autocomplete="username">
-                        </div>
-                        <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Sobrenome" autofocus
-                                v-model="user" required autocomplete="username">
-                        </div>
-                        <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
-                                v-model="user" required autocomplete="username">
-                        </div>
-                        <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="E-mail" autofocus
-                                v-model="user" required autocomplete="username">
-                        </div>
-                        <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Senha" autofocus
-                            v-model="user" required autocomplete="username">
-                        </div> -->
                             <div><input type="text" placeholder="Nome" v-model="name" name="name" /> </div>
                             <div><input type="text" placeholder="Sobrenome" v-model="lastName" name="lastName" /> </div>
+                            <div>
+
+                                    <input type="radio" name='sex' id="feminino" class="check" v-model="sex" required
+                                        value=feminino autocomplete="sexo" checked>
+                                    <label for="feminino">Feminino</label>
+
+                                    <input type="radio" name='sex' id="masculino" class="check" v-model="sex" required
+                                        value="masculino" autocomplete="sexo">
+                                    <label for="masculino">Masculino</label>
+
+
+
+                            </div>
                             <div><input type="text" placeholder="Usuário" v-model="username" name="username" /> </div>
                             <div><input type="email" placeholder="E-mail" v-model="email" name="email" /></div>
                             <div><input type="text" placeholder="Senha" v-model="password" name="password" /> </div>
-                        
+
                             <div><input type="text" placeholder="Serviço" v-model="service" name="service" /> </div>
                             <div><input type="text" placeholder="Objetivo" v-model="target" name="target" /> </div>
                             <div><input type="text" placeholder="Dias" v-model="day" name="day" /> </div>

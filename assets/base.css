@@ -70,6 +70,10 @@ body {
   font-size: 15px;
 }
 
+body button {
+  background-color: #ffffff;
+}
+
 .dark-mode body {
   background-color: var(--vt-c-black-soft);
   color: var(--vt-c-text-dark-1);
