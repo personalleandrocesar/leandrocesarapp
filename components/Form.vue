@@ -7,9 +7,6 @@ useHead({
 });
 
 
-const dontUser = ref(false);
-const dontPerson = ref(false);
-
 const name= ref('')
 const lastName= ref('')
 const sex= ref('')
