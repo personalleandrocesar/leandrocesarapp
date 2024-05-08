@@ -74,6 +74,11 @@ body button {
   background-color: #ffffff;
 }
 
+.dark-mode body button {
+  background-color: var(--vt-c-black);
+  color: var(--vt-c-text-dark-1);
+}
+
 .dark-mode body {
   background-color: var(--vt-c-black-soft);
   color: var(--vt-c-text-dark-1);

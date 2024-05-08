@@ -290,41 +290,146 @@ function formatarData(input) {
                             </div>
                         </div>
                         <div class="center-start-two inputs">
-                            <div><input type="text" placeholder="Nome" v-model="name" name="name" /> </div>
-                            <div><input type="text" placeholder="Sobrenome" v-model="lastName" name="lastName" /> </div>
-                            <div>
+                            <div class="inputs">
+
+                                <div>
+
+                                    <span>Nome</span>
+                                    <input type="text" id="name" autofocus v-model="name" required autocomplete="nome">
+
+                                </div>
+                                <div>
+
+                                    <span>Sobrenome</span>
+                                    <input type="text" id="sobrenome" v-model="lastName" required
+                                        autocomplete="sobrenome">
+
+                                </div>
+                            </div>
+
+                            <!-- Sexo -->
+                            <div class="inputs">
+                                <div class="radio">
 
                                     <input type="radio" name='sex' id="feminino" class="check" v-model="sex" required
                                         value=feminino autocomplete="sexo" checked>
                                     <label for="feminino">Feminino</label>
 
+                                </div>
+                                <div class="radio">
+
                                     <input type="radio" name='sex' id="masculino" class="check" v-model="sex" required
                                         value="masculino" autocomplete="sexo">
                                     <label for="masculino">Masculino</label>
 
+                                </div>
 
 
                             </div>
-                            <div><input type="text" placeholder="Usuário" v-model="username" name="username" /> </div>
-                            <div><input type="email" placeholder="E-mail" v-model="email" name="email" /></div>
-                            <div><input type="text" placeholder="Senha" v-model="password" name="password" /> </div>
+                            <!-- Data de nascimento + Whatsapp -->
+                            <div class="inputs">
 
-                            <div><input type="text" placeholder="Serviço" v-model="service" name="service" /> </div>
-                            <div><input type="text" placeholder="Objetivo" v-model="target" name="target" /> </div>
-                            <div><input type="text" placeholder="Dias" v-model="day" name="day" /> </div>
-                            <div> <input type="text" placeholder="Tempo (minutos)" v-model="time" name="time" /> </div>
-                            <div>
-                                <span>Início do Período</span>
-                                <input type="date" v-model="periodStart" name="periodStart" />
+                                <div>
+                                    <span>Data de nascimento</span>
+                                    <input type="date" name="" id="nascimento" autofocus v-model="birthday" required
+                                        autocomplete="nascimento">
+                                </div>
+                                <div>
+                                    <span>WhatsApp</span>
+                                    <input type="tel" name="" id="whatsapp" placeholder="(xx)xxxxx-xxxx" required
+                                        v-model="whatsapp" autocomplete="whatsapp">
+                                </div>
+
                             </div>
-                            <div>
-                                <span>Início do Período</span>
-                                <input type="date" v-model="periodEnd" name="periodEnd" />
+                            <!-- Serviço e objetivo -->
+                            <div class="inputs">
+
+                                <div>
+                                    <span>Qual Serviço?</span>
+                                    <select name="service" id="servico" required class="select" placeholder=''
+                                        v-model="service">
+                                        <option disabled value="">Selecione uma opção</option>
+                                        <option value="Personal">Personal</option>
+                                        <option value="Consultoria">Consultoria</option>
+                                    </select>
+                                </div>
+
+                                <div>
+
+                                    <span>Qual objetivo?</span>
+                                    <select name="target" id="target" class="select" placeholder='' required
+                                        v-model="target">
+                                        <option disabled value="">Selecione uma opção</option>
+                                        <option value="Hipertrofia">Hipertrofia</option>
+                                        <option value="Emagrecimento">Emagrecimento</option>
+                                        <option value="Acompanhamento">Só acompanhamento</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                                </div>
+
                             </div>
-                            <div><input type="text" placeholder="Status" v-model="status" name="status" /> </div>
-                        </div>
-                    </div>
-                    <button class="login" type="submit">Adicionar</button>
+                            <!-- E-mail -->
+                            <div class="inputs">
+                                <div>
+
+                                    <span>E-mail</span>
+                                    <input type="text" name="" id="email" v-model="email" autocomplete="email" required>
+
+                                </div>
+                            </div>
+                            <!-- Usuário e senha -->
+                            <div class="inputs senha">
+                                <div>
+                                    <span>Usuário</span>
+                                    <input type="text" required name="" id="usuario" v-model.trim="username"
+                                        autocomplete="usuario">
+                                </div>
+                                <div class="senhaPs">
+                                    <span>Senha</span>
+                                    <input v-bind:type="pass" required name="" id="password" v-model="password"
+                                        autocomplete="off">
+                                    <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold"
+                                        id="password-icon" />
+                                    <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
+                                </div>
+
+                            </div>
+                            <div class="inputs">
+                                <div>
+
+                                    <span>Dias/semana</span>
+                                    <input type="number" name="" required id="servico" v-model="day"
+                                        autocomplete="servico">
+
+                                </div>
+                                <div>
+
+                                    <span>Minutos/treino</span>
+                                    <input type="number" name="" required id="vencimento" v-model="time"
+                                        autocomplete="vencimento">
+
+                                </div>
+
+                            </div>
+                            <div class="inputs">
+                                <div>
+
+                                    <span>Dia do Vencimento</span>
+                                    <input type="number" name="" required id="vencimento" v-model="payDay"
+                                        autocomplete="vencimento">
+
+                                </div>
+                                <div>
+
+                                    <span>Início dos treinos</span>
+                                    <input type="date" name="" required id="servico" placeholder="Tempo/treino"
+                                        v-model="periodStart" autocomplete="servico">
+
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <button class="login" type="submit">Adicionar</button>
                 </form>
                 <br>
                 <br>

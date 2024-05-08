@@ -700,20 +700,20 @@ h4:nth-child(1) {
 
 .login {
   transition: all .4s linear;
-  border: solid 2px #00DC82;
-  cursor: pointer;
-  width: 140px;
-  text-align: center;
-  line-height: 18px;
-  border-radius: 88px;
-  font-weight: 600;
-  transition: all 0.2s ease-in-out 0s;
-  height: 30px;
-  font-size: 14px;
-  padding-inline: 16px;
-  padding-top: 6px;
-  padding-bottom: 8px;
-  margin: 1rem 1.5rem;
+    border: solid 2px #00DC82;
+    cursor: pointer;
+    width: 140px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 88px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+    padding-inline: 16px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    margin: 1rem 1.5rem;
 }
 
 .lost h5{
