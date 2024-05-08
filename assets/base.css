@@ -202,7 +202,7 @@ body input::placeholder {
   color: var(--vt-c-text-dark-1);
   background: var(--vt-c-black-soft);
 }
-.dark-mode body select option {
+body select option {
   background-color: #ffffff;
     color: var(--vt-c-text-light-2);
 }
