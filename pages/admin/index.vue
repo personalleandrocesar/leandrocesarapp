@@ -158,9 +158,9 @@ const options = {
                 </div>
             </div>
 
-        </div>
-        <div class='Doughnut'>
-            <Doughnut :data="data" :options="options" />
+            <div class='Doughnut'>
+                <Doughnut :data="data" :options="options" />
+            </div>
         </div>
     </div>
 </template>

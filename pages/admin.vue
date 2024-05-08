@@ -76,9 +76,6 @@ function openPhoto() {
                 <NuxtLink :to="`/admin/clientes`">
                     <Icon name='solar:users-group-two-rounded-bold' /> Clientes
                 </NuxtLink>
-                <NuxtLink :to="`/admin/espirita`">
-                    <Icon name='solar:user-speak-rounded-bold' /> espiritacristao.com
-                </NuxtLink>
             </div>
             <div class='logOut'>
                 <NuxtLink :to="`/`">

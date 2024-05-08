@@ -175,239 +175,233 @@ function formatarData(input) {
                 </div>
             </div>
 
-        </div>
-        <div v-if="add">
-            <div v-if="block" class="users-list">
-                <div v-for="(item, index) in item" :key="index">
-
-                    <NuxtLink :to="`/admin/clientes/${item.username}`">
-
-                        <div class="title-user">
-
-                            <img :src="`/admin/clientes/${item.foto}`">
-                            <h4>
-                                {{ item.name }} {{ item.lastName }}
-                            </h4>
-                        </div>
-
-                    </NuxtLink>
+            <div v-if="add">
+                <div v-if="block" class="users-list">
+                    <div v-for="(item, index) in item" :key="index">
+    
+                        <NuxtLink :to="`/admin/clientes/${item.username}`">
+    
+                            <div class="title-user">
+    
+                                <img :src="`/admin/clientes/${item.foto}`">
+                                <h4>
+                                    {{ item.name }} {{ item.lastName }}
+                                </h4>
+                            </div>
+    
+                        </NuxtLink>
+                    </div>
+                    <!-- <td>
+                    <button @click="salvarEdicao(email._id)">Salvar</button>
+                </td> -->
                 </div>
-                <!-- <td>
-                <button @click="salvarEdicao(email._id)">Salvar</button>
-            </td> -->
-            </div>
-            <div v-else class="users-list">
-
-                <!-- <tr>
-                </tr> -->
-                <!-- <tr>
-                        <th>#</th>
-                        <th>Nome</th>
-                        <th>Sobrenome</th>
-                        <th>Usuário</th>
-                        <th>Email</th>
-                        <th>Início</th>
-                        <th>Fim</th>
-                        <th>Serviço</th>
-                        <th>Objetivo</th>
-                        <th>Status</th>
-                        <th>Dias</th>
-                        <th>Tempo</th>
+                <div v-else class="users-list">
+    
+                    <!-- <tr>
                     </tr> -->
-                <table>
-                    <thead>
-                        <tr class="">
-                            <th>
-                                <span>#</span>
-                            </th>
-
-                            <th>
-                                <span>Nome</span>
-                            </th>
-                            <th>
-                                <span>Serviço</span>
-                            </th>
-                            <th>
-                                <span>Objetivo</span>
-                            </th>
-                            <th>
-                                <span>Período</span>
-                            </th>
-                            <th>
-                                <span>Venc.</span>
-                            </th>
-                            <th>
-                                <span>Nascimento</span>
-                            </th>
-                            <th>
-                                <span>E-mail</span>
-                            </th>
-                            <th>
-                                <span>Status</span>
-                            </th>
-                        </tr><!---->
-                    </thead>
-                    <tbody v-for="(item, index) in item" :key="index">
-                        <tr @click="navigateTo(`/admin/clientes/${item.username}`)">
-                            <td>{{ index +1 }}</td>
-                            <td>
-                                {{ item.name }} {{ item.lastName }}
-                            </td>
-                            <td>
-                                {{ item.service }}
-                            </td>
-                            <td>
-                                {{ item.target }}
-                            </td>
-                            <td>
-                                <span>
-                                    {{ item.periodStart }} <br> {{ item.periodEnd }}
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    {{ item.payDay }}
-                                </span>
-                            </td>
-                            <td>
-                                {{ item.birthday }}
-                            </td>
-                            <td>
-                                <span>
-                                    {{ item.email }}
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    {{ item.status }}
-                                </span>
-                            </td>
-
-                        </tr>
-                    </tbody>
-                </table>
-
-
-            </div>
-        </div>
-        <div v-else class="main">
-            <div class="barTop center">
-
-            </div>
-            <form @submit.prevent="submitForm">
-                <div class="center-start">
-                    <div class="center-start-one">
-                        <div>
-                            <img v-if="photoClient" class="cliente" :src="foto">
-                            <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
-                        </div>
-                        <div>
-                            <input class="file-cliente" type="file" display="none" />
-
-                        </div>
-                    </div>
-                    <div class="center-start-two inputs">
-                        <!-- <div>
-                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Nome" autofocus
-                            v-model="user" required autocomplete="username">
-                    </div>
-                    <div>
-                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Sobrenome" autofocus
-                            v-model="user" required autocomplete="username">
-                    </div>
-                    <div>
-                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
-                            v-model="user" required autocomplete="username">
-                    </div>
-                    <div>
-                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="E-mail" autofocus
-                            v-model="user" required autocomplete="username">
-                    </div>
-                    <div>
-                        <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Senha" autofocus
-                        v-model="user" required autocomplete="username">
-                    </div> -->
-                        <div><input type="text" placeholder="Nome" v-model="name" name="name" /> </div>
-                        <div><input type="text" placeholder="Sobrenome" v-model="lastName" name="lastName" /> </div>
-                        <div><input type="text" placeholder="Usuário" v-model="username" name="username" /> </div>
-                        <div><input type="email" placeholder="E-mail" v-model="email" name="email" /></div>
-                        <div><input type="text" placeholder="Senha" v-model="password" name="password" /> </div>
-                    </div>
-
+                    <!-- <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Sobrenome</th>
+                            <th>Usuário</th>
+                            <th>Email</th>
+                            <th>Início</th>
+                            <th>Fim</th>
+                            <th>Serviço</th>
+                            <th>Objetivo</th>
+                            <th>Status</th>
+                            <th>Dias</th>
+                            <th>Tempo</th>
+                        </tr> -->
+                    <table>
+                        <thead>
+                            <tr class="">
+                                <th>
+                                    <span>#</span>
+                                </th>
+    
+                                <th>
+                                    <span>Nome</span>
+                                </th>
+                                <th>
+                                    <span>Serviço</span>
+                                </th>
+                                <th>
+                                    <span>Objetivo</span>
+                                </th>
+                                <th>
+                                    <span>Período</span>
+                                </th>
+                                <th>
+                                    <span>Venc.</span>
+                                </th>
+                                <th>
+                                    <span>Nascimento</span>
+                                </th>
+                                <th>
+                                    <span>E-mail</span>
+                                </th>
+                                <th>
+                                    <span>Status</span>
+                                </th>
+                            </tr><!---->
+                        </thead>
+                        <tbody v-for="(item, index) in item" :key="index">
+                            <tr @click="navigateTo(`/admin/clientes/${item.username}`)">
+                                <td>{{ index +1 }}</td>
+                                <td>
+                                    {{ item.name }} {{ item.lastName }}
+                                </td>
+                                <td>
+                                    {{ item.service }}
+                                </td>
+                                <td>
+                                    {{ item.target }}
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ item.periodStart }} <br> {{ item.periodEnd }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ item.payDay }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ item.birthday }}
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ item.email }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ item.status }}
+                                    </span>
+                                </td>
+    
+                            </tr>
+                        </tbody>
+                    </table>
+    
+    
                 </div>
-                <div class="center-start">
-
-                    <div class="center-start-tree inputs">
-
-                        <div><input type="text" placeholder="Serviço" v-model="service" name="service" /> </div>
-                        <div><input type="text" placeholder="Objetivo" v-model="target" name="target" /> </div>
-                        <div><input type="text" placeholder="Dias" v-model="day" name="day" /> </div>
-                        <div> <input type="text" placeholder="Tempo (minutos)" v-model="time" name="time" /> </div>
-                        <div>
-                            <span>Início do Período</span>
-                            <input type="date" v-model="periodStart" name="periodStart" />
-                        </div>
-                        <div>
-                            <span>Início do Período</span>
-                            <input type="date" v-model="periodEnd" name="periodEnd" />
-                        </div>
-                        <div><input type="text" placeholder="Status" v-model="status" name="status" /> </div>
-                    </div>
+            </div>
+            <div v-else class="main">
+                <div class="barTop center">
+    
                 </div>
-                <button class="login" type="submit">Adicionar</button>
-            </form>
-            <br>
-            <br>
-            <br>
-            <!-- <div class="table-clients">
-
-
                 <form @submit.prevent="submitForm">
-                    <div class="table">
-                        <div class="row header">
-                            <div class="cell-two">Nome</div>
-                            <div class="cell-two">Sobrenome</div>
-                            <div class="cell-two">Usuário</div>
-                            <div class="cell-two">Email</div>
-                            <div class="cell-two">Senha</div>
-                            <div class="cell-two">Serviço</div>
+                    <div class="center-start">
+                        <div class="center-start-one">
+                            <div>
+                                <img v-if="photoClient" class="cliente" :src="foto">
+                                <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
+                            </div>
+                            <div>
+                                <input class="file-cliente" type="file" display="none" />
+    
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="cell-two"><input type="text" v-model="name" name="name" /> </div>
-                            <div class="cell-two"><input type="text" v-model="lastName" name="lastName" /> </div>
-                            <div class="cell-two"><input type="text" v-model="username" name="username" /> </div>
-                            <div class="cell-two"><input type="email" v-model="email" name="email" /></div>
-                            <div class="cell-two"><input type="text" v-model="password" name="password" /> </div>
-                            <div class="cell-two"><input type="text" v-model="service" name="service" /> </div>
+                        <div class="center-start-two inputs">
+                            <!-- <div>
+                                <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Nome" autofocus
+                                v-model="user" required autocomplete="username">
+                        </div>
+                        <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Sobrenome" autofocus
+                                v-model="user" required autocomplete="username">
+                        </div>
+                        <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Usuário" autofocus
+                                v-model="user" required autocomplete="username">
+                        </div>
+                        <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="E-mail" autofocus
+                                v-model="user" required autocomplete="username">
+                        </div>
+                        <div>
+                            <input type="email" @keyup.enter="trigger" name="" id="username" placeholder="Senha" autofocus
+                            v-model="user" required autocomplete="username">
+                        </div> -->
+                            <div><input type="text" placeholder="Nome" v-model="name" name="name" /> </div>
+                            <div><input type="text" placeholder="Sobrenome" v-model="lastName" name="lastName" /> </div>
+                            <div><input type="text" placeholder="Usuário" v-model="username" name="username" /> </div>
+                            <div><input type="email" placeholder="E-mail" v-model="email" name="email" /></div>
+                            <div><input type="text" placeholder="Senha" v-model="password" name="password" /> </div>
+                        
+                            <div><input type="text" placeholder="Serviço" v-model="service" name="service" /> </div>
+                            <div><input type="text" placeholder="Objetivo" v-model="target" name="target" /> </div>
+                            <div><input type="text" placeholder="Dias" v-model="day" name="day" /> </div>
+                            <div> <input type="text" placeholder="Tempo (minutos)" v-model="time" name="time" /> </div>
+                            <div>
+                                <span>Início do Período</span>
+                                <input type="date" v-model="periodStart" name="periodStart" />
+                            </div>
+                            <div>
+                                <span>Início do Período</span>
+                                <input type="date" v-model="periodEnd" name="periodEnd" />
+                            </div>
+                            <div><input type="text" placeholder="Status" v-model="status" name="status" /> </div>
                         </div>
                     </div>
-                    <div class="table">
-                        <div class="row header">
-                            <div class="cell-two">Início</div>
-                            <div class="cell-two">Fim</div>
-                            <div class="cell-two">Objetivo</div>
-                            <div class="cell-two">Status</div>
-                            <div class="cell-two">Dias</div>
-                            <div class="cell-two">Tempo</div>
-                        </div>
-                        <div class="row">
-                            <div class="cell-two"><input type="date" v-model="periodStart" name="periodStart" /> </div>
-                            <div class="cell-two"><input type="date" v-model="periodEnd" name="periodEnd" /> </div>
-                            <div class="cell-two"><input type="text" v-model="target" name="target" /> </div>
-                            <div class="cell-two"><input type="text" v-model="status" name="status" /> </div>
-                            <div class="cell-two"><input type="text" v-model="day" name="day" /> </div>
-                            <div class="cell-two"> <input type="text" v-model="time" name="time" /> </div>
-                        </div>
-                    </div>
-
-                    <button class="input" type="submit" @click="refreshAll">Adicionar</button>
+                    <button class="login" type="submit">Adicionar</button>
                 </form>
-                
-                
-            </div> -->
-            <div v-if="subscriberOk" class="subscriberOk top">
-                <div>
-                    Inscrição realizada com Sucesso!
+                <br>
+                <br>
+                <br>
+                <!-- <div class="table-clients">
+    
+    
+                    <form @submit.prevent="submitForm">
+                        <div class="table">
+                            <div class="row header">
+                                <div class="cell-two">Nome</div>
+                                <div class="cell-two">Sobrenome</div>
+                                <div class="cell-two">Usuário</div>
+                                <div class="cell-two">Email</div>
+                                <div class="cell-two">Senha</div>
+                                <div class="cell-two">Serviço</div>
+                            </div>
+                            <div class="row">
+                                <div class="cell-two"><input type="text" v-model="name" name="name" /> </div>
+                                <div class="cell-two"><input type="text" v-model="lastName" name="lastName" /> </div>
+                                <div class="cell-two"><input type="text" v-model="username" name="username" /> </div>
+                                <div class="cell-two"><input type="email" v-model="email" name="email" /></div>
+                                <div class="cell-two"><input type="text" v-model="password" name="password" /> </div>
+                                <div class="cell-two"><input type="text" v-model="service" name="service" /> </div>
+                            </div>
+                        </div>
+                        <div class="table">
+                            <div class="row header">
+                                <div class="cell-two">Início</div>
+                                <div class="cell-two">Fim</div>
+                                <div class="cell-two">Objetivo</div>
+                                <div class="cell-two">Status</div>
+                                <div class="cell-two">Dias</div>
+                                <div class="cell-two">Tempo</div>
+                            </div>
+                            <div class="row">
+                                <div class="cell-two"><input type="date" v-model="periodStart" name="periodStart" /> </div>
+                                <div class="cell-two"><input type="date" v-model="periodEnd" name="periodEnd" /> </div>
+                                <div class="cell-two"><input type="text" v-model="target" name="target" /> </div>
+                                <div class="cell-two"><input type="text" v-model="status" name="status" /> </div>
+                                <div class="cell-two"><input type="text" v-model="day" name="day" /> </div>
+                                <div class="cell-two"> <input type="text" v-model="time" name="time" /> </div>
+                            </div>
+                        </div>
+    
+                        <button class="input" type="submit" @click="refreshAll">Adicionar</button>
+                    </form>
+                    
+                    
+                </div> -->
+                <div v-if="subscriberOk" class="subscriberOk top">
+                    <div>
+                        Inscrição realizada com Sucesso!
+                    </div>
                 </div>
             </div>
         </div>
