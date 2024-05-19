@@ -6,7 +6,7 @@ useHead({
     titleTemplate: 'Clientes | NEX_WOD',
 });
 
-const Users = await useFetch('https://api.nexwod.app/users');
+const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
 const item = Users.data.value;
 
 console.log(item);
@@ -162,12 +162,12 @@ function formatarData(input) {
                     </div>
                 </div>
                 <div>
-                    <div v-if="addCloseClient" class="add-client" @click="addClient">
-                        <Icon name='material-symbols:person-add-rounded' /> Adicionar Cliente
+                    <div v-if="addCloseClient" class="add-client" @click="addClient">Adicionar 
+                        <Icon name='material-symbols:add' />
                     </div>
                     <!-- parei aqui -->
-                    <div v-else-if="closeAddClient" class="close-client" @click="closeClient">
-                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+                    <div v-else-if="closeAddClient" class="close-client" @click="closeClient">Fechar
+                        <Icon name='material-symbols:cancel-rounded' />
                     </div>
                 </div>
             </div>
@@ -231,7 +231,7 @@ function formatarData(input) {
                             <tr @click="navigateTo(`/admin/clientes/${item.username}`)">
                                 <td>{{ index +1 }}</td>
                                 <td>
-                                    {{ item.name }} {{ item.lastName }}
+                                    {{ item }} {{ item.lastName }}
                                 </td>
                                 <td>
                                     {{ item.service }}
@@ -328,7 +328,7 @@ function formatarData(input) {
 
                                 <div>
                                     <span>Data de nascimento</span>
-                                    <input type="date" name="" id="nascimento" v-model="birthday" required
+                                    <input type="date" name="" id="nascimento"  v-model="birthday" required
                                         autocomplete="nascimento">
                                 </div>
                                 <div>
@@ -423,10 +423,10 @@ function formatarData(input) {
                                         v-model="periodStart" autocomplete="servico">
 
                                 </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <button class="login" type="submit">Adicionar</button>
+                            </div>
+                            <button class="login" type="submit">Adicionar</button>
                 </form>
                 <br>
                 <br>

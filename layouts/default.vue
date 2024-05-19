@@ -485,7 +485,7 @@ const navD = ref(state.value === 4)
     position: fixed;
     bottom: 0px;
     height: calc(100% - 0px);
-    width: 100%;
+    width: calc(100% - 100px);
     background:  linear-gradient(to bottom right, #34d399 0%,#34d39980 50%,#00f2ff90 100%);
     backdrop-filter: blur(5px);
     z-index: 1004;

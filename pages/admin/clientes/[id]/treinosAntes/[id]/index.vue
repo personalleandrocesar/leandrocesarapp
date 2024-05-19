@@ -8,6 +8,9 @@ useHead({
 
 const Users = await useFetch('https://api.nexwod.app/users');
 const item = Users.data.value;
+const UsersId = await useFetch(`https://api.nexwod.app/users/:id`);
+
+console.log(UsersId.data.value);
 
 console.log(item);
 
@@ -162,12 +165,12 @@ function formatarData(input) {
                     </div>
                 </div>
                 <div>
-                    <div v-if="addCloseClient" class="add-client" @click="addClient">
-                        <Icon name='material-symbols:person-add-rounded' /> Adicionar Cliente
+                    <div v-if="addCloseClient" class="add-client" @click="addClient">Adicionar Cliente
+                        <Icon name='material-symbols:add' />
                     </div>
                     <!-- parei aqui -->
-                    <div v-else-if="closeAddClient" class="close-client" @click="closeClient">
-                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+                    <div v-else-if="closeAddClient" class="close-client" @click="closeClient">Fechar
+                        <Icon name='material-symbols:cancel-rounded' />
                     </div>
                 </div>
             </div>
@@ -328,7 +331,7 @@ function formatarData(input) {
 
                                 <div>
                                     <span>Data de nascimento</span>
-                                    <input type="date" name="" id="nascimento" v-model="birthday" required
+                                    <input type="date" name="" id="nascimento"  v-model="birthday" required
                                         autocomplete="nascimento">
                                 </div>
                                 <div>
@@ -423,10 +426,10 @@ function formatarData(input) {
                                         v-model="periodStart" autocomplete="servico">
 
                                 </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <button class="login" type="submit">Adicionar</button>
+                            </div>
+                            <button class="login" type="submit">Adicionar</button>
                 </form>
                 <br>
                 <br>
