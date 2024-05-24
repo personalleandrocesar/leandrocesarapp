@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
+const route = useRoute();
 
 useHead({
     titleTemplate: 'Clientes | NEX_WOD',
@@ -9,7 +10,8 @@ useHead({
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
 const item = Users.data.value;
 
-console.log(item);
+
+console.log(route.params);
 
 const subscriberOk = ref(false)
 
