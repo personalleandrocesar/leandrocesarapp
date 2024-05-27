@@ -11,7 +11,7 @@ const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/
 const item = Users.data.value;
 const qtTreinos = Treinos.data.value;
 
-console.log(item);
+console.log(qtTreinos.name);
 
 const subscriberOk = ref(false)
 
@@ -41,10 +41,10 @@ async function submitTreino() {
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
-                // reloadNuxtApp({
-                //     path: `/admin/clientes/${item.username}/treinos/${items.name}`,
-                //     ttl: 1000, // default 10000
-                // });
+                reloadNuxtApp({
+                    path: `/admin/clientes/${item.username}/treinos`,
+                    ttl: 1000, // default 10000
+                });
             }, 1000);
         } else {
             console.error('Failed to delete data');
@@ -153,6 +153,7 @@ const newTrainning = () => {
                 <div class="new-form-squared">
                     <form @submit.prevent="submitTreino">
                         <p>Nome do treino</p>
+                        <input type="date" name="" id="" v-model="items.name">
                         <input type="date" name="" id="" v-model="items.name">
                         <button class="login" type="submit">Adicionar</button>
                     </form>

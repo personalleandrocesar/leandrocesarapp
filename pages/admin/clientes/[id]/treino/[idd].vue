@@ -73,7 +73,7 @@ function addClient() {
 async function submitTreino() {
     try {
         const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos/`, {
-            method: 'put',
+            method: 'post',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -127,74 +127,6 @@ function menu() {
 
 }
 
-
-const exe = ref([
-    { exercicio: 'Extensora' },
-    { exercicio: 'Puxada p/ frente' },
-    { exercicio: 'Remada na polia baixa' },
-    { exercicio: 'Desenvolvimento de ombros (AP)' },
-    { exercicio: 'Supino maquina' },
-    { exercicio: 'Tríceps mergulho no graviton' },
-    { exercicio: 'Remada no aparelho' },
-    { exercicio: 'Rabdominal Infra' },
-    { exercicio: 'abdominal Infra na Paralela' },
-    { exercicio: 'Abdominal Máquina' },
-    { exercicio: 'Abdominal Oblíquo no solo' },
-    { exercicio: 'Abdominal Remador completo' },
-    { exercicio: 'Abdominal supra' },
-    { exercicio: 'Abdução de quadril na polia baixa' },
-    { exercicio: 'Cadeira Abdutora' },
-    { exercicio: 'Cadeira adutora' },
-    { exercicio: 'Agachament Lunge' },
-    { exercicio: 'Desenvolvimemto Arnold' },
-    { exercicio: 'Back Squat' },
-    { exercicio: 'Bíceps Aparelho' },
-    { exercicio: 'Bíceps em pé(HBM)' },
-    { exercicio: 'Bíceps Invertido (HBW)' },
-    { exercicio: 'Bíceps Martelo' },
-    { exercicio: 'Bíceps Sentado' },
-    { exercicio: 'Agachamento Búlgaro' },
-    { exercicio: 'Extensão de tronco (Cadeira Romana)' },
-    { exercicio: 'Crucifixo Inverso (Ap)' },
-    { exercicio: 'Crucifixo Inverso (HBC)' },
-    { exercicio: 'Crucifixo Peitoral Reto (HBC)' },
-    { exercicio: 'Desenvolvimento de Ombros (HBC)' },
-    { exercicio: 'Desenvolvimento de Ombros (AP)' },
-    { exercicio: 'Desenvolvimento de Ombros (alternando)' },
-    { exercicio: 'Duck Walk' },
-    { exercicio: 'Dumbbel Lunge' },
-    { exercicio: 'Flexão de Ombros (HBC)' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-])
 
 
 
@@ -294,7 +226,7 @@ function moveItemDown(index) {
             </h1>
             <h1>Enviar Treino</h1>
 
-            <h5>{{ Users.data.value.treinos }}</h5>
+            <h5>{{ Users.data.value.treinos.name }}</h5>
 
             <br>
             <br>
