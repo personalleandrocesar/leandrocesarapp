@@ -1,152 +1,266 @@
+<script>
+export default {
+    mounted() {
+        const inputField = document.getElementById('inputField');
+        const dropdownList = document.getElementById('dropdownList');
+
+        // Simular dados do banco de dados (substitua com seus próprios dados)
+        const databaseData = ['Extensora', 'Puxada p/ frente', 'Desenvolvimento de ombros (AP)',
+            'Supino maquina',];
+        // const databaseData = ['Apple', 'Banana', 'Orange', 'Pineapple', 'Grape', 'Strawberry'];
+
+        // Função para filtrar e exibir os itens da lista suspensa
+        function filterDropdownList() {
+            const searchText = inputField.value.toLowerCase(); // Texto digitado no campo de entrada, em minúsculas
+            const filteredData = databaseData.filter(item => item.toLowerCase().includes(searchText)); // Filtrar os dados com base no texto digitado
+            dropdownList.innerHTML = ''; // Limpar a lista suspensa
+            filteredData.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                dropdownList.appendChild(li);
+            });
+            if (searchText) {
+                dropdownList.style.display = 'block'; // Exibir a lista suspensa se houver texto digitado
+            } else {
+                dropdownList.style.display = 'none'; // Esconder a lista suspensa se não houver texto digitado
+            }
+        }
+
+        // Evento de digitação no campo de entrada
+        inputField.addEventListener('input', filterDropdownList);
+
+        // Evento de clique em um item da lista suspensa
+        dropdownList.addEventListener('click', function (e) {
+            if (e.target.tagName === 'LI') {
+                inputField.value = e.target.textContent; // Adicionar texto ao campo de entrada
+                dropdownList.style.display = 'none'; // Esconder a lista suspensa
+            }
+        });
+
+        // Evento de clique fora do campo de entrada
+        document.addEventListener('click', function (e) {
+            if (!e.target.matches('#inputField') && !e.target.matches('#dropdownList')) {
+                dropdownList.style.display = 'none'; // Esconder a lista suspensa
+            }
+        });
+    }
+}
+</script>
+
 <script setup>
 import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
-const route = useRoute();
-
 useHead({
     titleTemplate: 'Clientes | NEX_WOD',
 });
 
-const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
+const route = useRoute();
+const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
+const UsersTrainnig = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treino`);
 const item = Users.data.value;
 
+const treinos = ref('')
 
-console.log(route.params);
+console.log(item);
 
 const subscriberOk = ref(false)
 
-const name = ref('')
-const lastName = ref('')
-const sex = ref('')
-const birthday = ref('')
-const whatsapp = ref('')
-const service = ref('')
-const target = ref('')
-const email = ref('')
-const username = ref('')
-const password = ref('')
-const day = ref('')
-const time = ref('')
-const payDay = ref('')
-const periodStart = ref('')
-const periodEnd = ref('')
-const terms = ref('')
-const status = ref('')
-
-const switBlock = ref(true)
-const switList = ref(false)
-const addCloseClient = ref(true)
-const closeAddClient = ref(false)
 const add = ref(true)
-const block = ref(false)
-function switchButtonBlock() {
-    switBlock.value = false
-    switList.value = true
-    block.value = !block.value
-}
-function switchButtonList() {
-    switBlock.value = true
-    switList.value = false
-    block.value = !block.value
-}
-
 function addClient() {
-    add.value = false
-    addCloseClient.value = false
-    closeAddClient.value = true
-    // colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'
-    switBlock.value = false
-    switList.value = false
-    block.value = true
-}
-function closeClient() {
-    add.value = true
-    addCloseClient.value = true
-    closeAddClient.value = false
-    // colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'
-    switBlock.value = true
-    switList.value = false
-    block.value = false
-    // if (switBlock.value === true  ) {
-    //     return switBlock.value = true,
-    //     switList.value = false
-    // } else (switList === true) {
-    //     return switList.value = true,
-    //     switBlock.value = false
-    // }
-
+    add.value = !add.value
 }
 
-async function submitForm() {
+async function submitTreino() {
     try {
-        const response = await fetch('https://api.nexwod.app/user', {
-            method: 'POST',
+        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos/`, {
+            method: 'put',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ 
-                name: name.value,
-                lastName: lastName.value,
-                sex: sex.value,
-                birthday: birthday.value,
-                whatsapp: whatsapp.value,
-                service: service.value,
-                target: target.value,
-                email: email.value,
-                username: username.value.replace(/\s/g, '').toLowerCase(),
-                password: password.value,
-                day: day.value,
-                time: time.value,
-                payDay: payDay.value,
-                periodStart: periodStart.value,
-                periodEnd: periodEnd.value,
-                terms: terms.value,
-                status: status.value,  
+            body: JSON.stringify({
+                treino: items.value
             }),
         });
-        
+        localStorage.setItem('item', JSON.stringify(items.value));
         if (response.ok) {
-            console.log('Data sent successfully');
+            console.log('Data delete successfully');
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
                 reloadNuxtApp({
-                    path: "/admin/clientes",
+                    path: `/admin/clientes/${item.username}/treinos`,
                     ttl: 1000, // default 10000
                 });
-            }, 2000);
+            }, 1000);
         } else {
-            console.error('Failed to send data');
+            console.error('Failed to delete data');
         }
     } catch (error) {
-        console.error('Error sending data:', error);
+        console.error('Error delete data:', error);
     }
 }
 
-function formatarData(input) {
-    // Obtém a data do input
-    let data = new Date(input.value);
+const reg = route.params.id
+const logon = useCookie('logon')
+// const logon = useCookie('logon', { maxAge: 4800})
+logon.value = reg
 
-    // Formata a data como DD-MM-YYYY
-    let dia = data.getDate().toString().padStart(2, '0');
-    let mes = (data.getMonth() + 1).toString().padStart(2, '0');
-    let ano = data.getFullYear();
+const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
+const status = dataConf.data.value?.status
+const photoOpen = ref(false);
+function openPhoto() {
+    photoOpen.value = !photoOpen.value;
+}
 
-    // Define a data formatada de volta no input
-    input.value = `${dia}-${mes}-${ano}`;
+// talvez não precise do código abaixo
+const logOff = () => {
+    logon.value = null
+}
+
+const tag = useCookie('tag')
+tag.value = tag.value
+
+
+const bodyOne = ref(true)
+function menu() {
+    bodyOne.value = !bodyOne.value
+
+}
+
+
+const exe = ref([
+    { exercicio: 'Extensora' },
+    { exercicio: 'Puxada p/ frente' },
+    { exercicio: 'Remada na polia baixa' },
+    { exercicio: 'Desenvolvimento de ombros (AP)' },
+    { exercicio: 'Supino maquina' },
+    { exercicio: 'Tríceps mergulho no graviton' },
+    { exercicio: 'Remada no aparelho' },
+    { exercicio: 'Rabdominal Infra' },
+    { exercicio: 'abdominal Infra na Paralela' },
+    { exercicio: 'Abdominal Máquina' },
+    { exercicio: 'Abdominal Oblíquo no solo' },
+    { exercicio: 'Abdominal Remador completo' },
+    { exercicio: 'Abdominal supra' },
+    { exercicio: 'Abdução de quadril na polia baixa' },
+    { exercicio: 'Cadeira Abdutora' },
+    { exercicio: 'Cadeira adutora' },
+    { exercicio: 'Agachament Lunge' },
+    { exercicio: 'Desenvolvimemto Arnold' },
+    { exercicio: 'Back Squat' },
+    { exercicio: 'Bíceps Aparelho' },
+    { exercicio: 'Bíceps em pé(HBM)' },
+    { exercicio: 'Bíceps Invertido (HBW)' },
+    { exercicio: 'Bíceps Martelo' },
+    { exercicio: 'Bíceps Sentado' },
+    { exercicio: 'Agachamento Búlgaro' },
+    { exercicio: 'Extensão de tronco (Cadeira Romana)' },
+    { exercicio: 'Crucifixo Inverso (Ap)' },
+    { exercicio: 'Crucifixo Inverso (HBC)' },
+    { exercicio: 'Crucifixo Peitoral Reto (HBC)' },
+    { exercicio: 'Desenvolvimento de Ombros (HBC)' },
+    { exercicio: 'Desenvolvimento de Ombros (AP)' },
+    { exercicio: 'Desenvolvimento de Ombros (alternando)' },
+    { exercicio: 'Duck Walk' },
+    { exercicio: 'Dumbbel Lunge' },
+    { exercicio: 'Flexão de Ombros (HBC)' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+    { exercicio: '' },
+])
+
+
+
+const items = ref([
+    { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://m.leandrocesar.com/exe/${item.photo}.gif`' }
+
+]);
+
+function addItem() {
+    items.value.push({ id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: '' });
+}
+
+
+function deleteItem(index) {
+    items.value.splice(index, 1);
+}
+
+function clear() {
+    items.value = ([
+        { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: `` }
+
+    ])
+}
+
+
+onMounted(() => {
+    const storedItems = JSON.parse(localStorage.getItem('item'));
+    if (storedItems) {
+        items.value = storedItems;
+    }
+});
+
+
+
+onUpdated(() => {
+    localStorage.setItem('item', JSON.stringify(items.value));
+})
+
+function moveItemUp(index) {
+    if (index <= 0) return;
+    const item = items.value[index];
+    items.value.splice(index, 1);
+    items.value.splice(index - 1, 0, item);
+}
+
+function moveItemDown(index) {
+    if (index >= items.value.length - 1) return;
+    const item = items.value[index];
+    items.value.splice(index, 1);
+    items.value.splice(index + 1, 0, item);
 }
 
 
 </script>
-
 <template>
-
+    <div v-if="subscriberOk" class="subscriberOk top">
+        <div>
+            Série Atualizada!
+        </div>
+    </div>
     <div id="grid">
         <div id="areaA">
             <div class="nav-top">
                 <div class="clients">
-                    <Icon name='solar:users-group-two-rounded-bold' /> Clientes <span> {{ Users.data.value.length }}
-                    </span>
+                    <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
+        Users.data.value.lastName }}
                 </div>
                 <div>
                     <div class="notifications">
@@ -155,432 +269,98 @@ function formatarData(input) {
                 </div>
             </div>
             <div class="nav-users">
-                <div class="users-conf">
-                    <div v-if="switBlock" class="filter" @click="switchButtonBlock">
-                        <Icon name='solar:widget-linear' /> Blocos
-                    </div>
-                    <div v-else-if="switList" class="filter" @click="switchButtonList">
-                        <Icon name='material-symbols:view-list-outline' /> Lista
-                    </div>
+                <div class='actions'>
+                    <NuxtLink :to="`/admin/clientes/${item.username}`">
+                        <div class="actions-button">
+                            <Icon name='material-symbols:shield-person' /> Resumo
+                        </div>
+                    </NuxtLink>
+                    <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
+                        <div class="actions-button">
+                            <Icon name='solar:dumbbell-large-bold' /> Treinos
+                        </div>
+                    </NuxtLink>
+                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                        <div class="actions-button">
+                            <Icon name='solar:clipboard-heart-bold' /> Avaliações
+                        </div>
+                    </NuxtLink>
                 </div>
-                <div>
-                    <div v-if="addCloseClient" class="add-client" @click="addClient">Adicionar 
-                        <Icon name='material-symbols:add' />
-                    </div>
-                    <!-- parei aqui -->
-                    <div v-else-if="closeAddClient" class="close-client" @click="closeClient">Fechar
-                        <Icon name='material-symbols:cancel-rounded' />
-                    </div>
+                <div class='actions-user'>
                 </div>
             </div>
+            <h1>
+                Treinos
+            </h1>
+            <h1>Enviar Treino</h1>
 
-            <div v-if="add">
-                <div v-if="block" class="users-list">
-                    <div v-for="(item, index) in item" :key="index">
+            <h5>{{ Users.data.value.treinos }}</h5>
 
-                        <NuxtLink :to="`/admin/clientes/${item.username}`">
+            <br>
+            <br>
+            <br>
+            <form @submit.prevent="submitTreino">
+                <table>
+                    <thead>
+                        <th></th>
+                        <th>Exercício</th>
+                        <th>Sets</th>
+                        <th>Reps</th>
+                        <th>Intervalo</th>
+                        <th>Observações</th>
+                        <th>Imagem</th>
+                        <th>Deletar?</th>
+                    </thead>
+                    <tbody>
 
-                            <div class="title-user">
 
-                                <img :src="`/admin/clientes/${item.foto}`">
-                                <h4>
-                                    {{ item.name }} {{ item.lastName }}
-                                </h4>
-                            </div>
 
-                        </NuxtLink>
-                    </div>
-                    <!-- <td>
-                    <button @click="salvarEdicao(email._id)">Salvar</button>
-                </td> -->
-                </div>
-                <div v-else class="users-list">
+                        <tr v-for="(item, index) in items" :key="index">
 
-                    <table>
-                        <thead>
-                            <tr class="">
-                                <th>
-                                    <span>#</span>
-                                </th>
+                            <input type="hidden" :value.v-model="item.id = index + 1" readonly>{{ item.id }}
+                            <input type="hidden"
+                                :value.v-model="item.num = 'Exercício ' + (index < 9 ? '' + (index + 1) : (index + 1))">
+                            <td>
+                                <input type="text" v-model="item.nome" id="inputField">
+                                <ul id="dropdownList" class="list-susp"></ul>
+                            </td>
+                            <td><input type="number" v-model="item.sets"></td>
+                            <td> <input type="text" v-model="item.reps"></td>
+                            <td> <input type="text" v-model="item.rest"></td>
+                            <td><textarea id="story" name="story" rows="2" cols="20" v-model="item.obs"></textarea></td>
+                            <td><input type="text" v-model="item.photo"></td>
+                            <input type="hidden" :value="item.img = `https://nexwod.app/exe/${item.photo}.gif`"
+                                readonly>
+                            <button v-if="index > 0" @click="moveItemUp(index)">Subir</button>
+                            <button v-if="index < items.length - 1" @click="moveItemDown(index)">Descer</button>
+                            <button class="add-client" type="button" @click="deleteItem(index)">X</button>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="buttons">
 
-                                <th>
-                                    <span>Nome</span>
-                                </th>
-                                <th>
-                                    <span>Serviço</span>
-                                </th>
-                                <th>
-                                    <span>Objetivo</span>
-                                </th>
-                                <th>
-                                    <span>Período</span>
-                                </th>
-                                <th>
-                                    <span>Venc.</span>
-                                </th>
-                                <th>
-                                    <span>Nascimento</span>
-                                </th>
-                                <th>
-                                    <span>E-mail</span>
-                                </th>
-                                <th>
-                                    <span>Status</span>
-                                </th>
-                            </tr><!---->
-                        </thead>
-                        <tbody v-for="(item, index) in item" :key="index">
-                            <tr @click="navigateTo(`/admin/clientes/${item.username}`)">
-                                <td>{{ index +1 }}</td>
-                                <td>
-                                    {{ item }} {{ item.lastName }}
-                                </td>
-                                <td>
-                                    {{ item.service }}
-                                </td>
-                                <td>
-                                    {{ item.target }}
-                                </td>
-                                <td>
-                                    <span>
-                                        {{ item.periodStart }} <br> {{ item.periodEnd }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span>
-                                        {{ item.payDay }}
-                                    </span>
-                                </td>
-                                <td>
-                                    {{ item.birthday }}
-                                </td>
-                                <td>
-                                    <span>
-                                        {{ item.email }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span>
-                                        {{ item.status }}
-                                    </span>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-
+                    <button class="add-client" type="button" @click="addItem">Add Item</button>
+                    <br>
+                    <br>
+                    <button class="input" type="submit">Submit</button>
 
                 </div>
-            </div>
-            <div v-else class="main">
-                <div class="barTop center">
 
-                </div>
-                <form @submit.prevent="submitForm">
-                    <div class="center-start">
-                        <div class="center-start-one">
-                            <div>
-                                <img v-if="photoClient" class="cliente" :src="foto">
-                                <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
-                            </div>
-                            <div>
-                                <input class="file-cliente" type="file" display="none" />
+            </form>
 
-                            </div>
-                        </div>
-                        <div class="center-start-two inputs">
-                            <div class="inputs">
-
-                                <div>
-
-                                    <span>Nome</span>
-                                    <input type="text" id="name" autofocus v-model="name" required autocomplete="nome">
-
-                                </div>
-                                <div>
-
-                                    <span>Sobrenome</span>
-                                    <input type="text" id="sobrenome" v-model="lastName" required
-                                        autocomplete="sobrenome">
-
-                                </div>
-                            </div>
-
-                            <!-- Sexo -->
-                            <div class="inputs">
-                                <div class="radio">
-
-                                    <input type="radio" name='sex' id="feminino" class="check" v-model="sex" required
-                                        value=feminino autocomplete="sexo" checked>
-                                    <label for="feminino">Feminino</label>
-
-                                </div>
-                                <div class="radio">
-
-                                    <input type="radio" name='sex' id="masculino" class="check" v-model="sex" required
-                                        value="masculino" autocomplete="sexo">
-                                    <label for="masculino">Masculino</label>
-
-                                </div>
+            <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button>
 
 
-                            </div>
-                            <!-- Data de nascimento + Whatsapp -->
-                            <div class="inputs">
 
-                                <div>
-                                    <span>Data de nascimento</span>
-                                    <input type="date" name="" id="nascimento"  v-model="birthday" required
-                                        autocomplete="nascimento">
-                                </div>
-                                <div>
-                                    <span>WhatsApp</span>
-                                    <input type="tel" name="" id="whatsapp" placeholder="(xx)xxxxx-xxxx" required
-                                        v-model="whatsapp" autocomplete="whatsapp">
-                                </div>
 
-                            </div>
-                            <!-- Serviço e objetivo -->
-                            <div class="inputs">
 
-                                <div>
-                                    <span>Qual Serviço?</span>
-                                    <select name="service" id="servico" required class="select" placeholder=''
-                                        v-model="service">
-                                        <option disabled value="">Selecione uma opção</option>
-                                        <option value="Personal">Personal</option>
-                                        <option value="Consultoria">Consultoria</option>
-                                    </select>
-                                </div>
 
-                                <div>
 
-                                    <span>Qual objetivo?</span>
-                                    <select name="target" id="target" class="select" placeholder='' required
-                                        v-model="target">
-                                        <option disabled value="">Selecione uma opção</option>
-                                        <option value="Hipertrofia">Hipertrofia</option>
-                                        <option value="Emagrecimento">Emagrecimento</option>
-                                        <option value="Acompanhamento">Só acompanhamento</option>
-                                        <option value="Outro">Outro</option>
-                                    </select>
-                                </div>
 
-                            </div>
-                            <!-- E-mail -->
-                            <div class="inputs">
-                                <div>
-
-                                    <span>E-mail</span>
-                                    <input type="text" name="" id="email" v-model="email" autocomplete="email" required>
-
-                                </div>
-                            </div>
-                            <!-- Usuário e senha -->
-                            <div class="inputs senha">
-                                <div>
-                                    <span>Usuário</span>
-                                    <input type="text" required name="" id="usuario" v-model.trim="username"
-                                        autocomplete="usuario">
-                                </div>
-                                <div class="senhaPs">
-                                    <span>Senha</span>
-                                    <input v-bind:type="pass" required name="" id="password" v-model="password"
-                                        autocomplete="off">
-                                    <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold"
-                                        id="password-icon" />
-                                    <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
-                                </div>
-
-                            </div>
-                            <div class="inputs">
-                                <div>
-
-                                    <span>Dias/semana</span>
-                                    <input type="number" name="" required id="servico" v-model="day"
-                                        autocomplete="servico">
-
-                                </div>
-                                <div>
-
-                                    <span>Minutos/treino</span>
-                                    <input type="number" name="" required id="vencimento" v-model="time"
-                                        autocomplete="vencimento">
-
-                                </div>
-
-                            </div>
-                            <div class="inputs">
-                                <div>
-
-                                    <span>Dia do Vencimento</span>
-                                    <input type="number" name="" required id="vencimento" v-model="payDay"
-                                        autocomplete="vencimento">
-
-                                </div>
-                                <div>
-
-                                    <span>Início dos treinos</span>
-                                    <input type="date" name="" required id="servico" placeholder="Tempo/treino"
-                                        v-model="periodStart" autocomplete="servico">
-
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                            <button class="login" type="submit">Adicionar</button>
-                </form>
-                <br>
-                <br>
-                <br>
-                <!-- <div class="table-clients">
-    
-    
-                    <form @submit.prevent="submitForm">
-                        <div class="table">
-                            <div class="row header">
-                                <div class="cell-two">Nome</div>
-                                <div class="cell-two">Sobrenome</div>
-                                <div class="cell-two">Usuário</div>
-                                <div class="cell-two">Email</div>
-                                <div class="cell-two">Senha</div>
-                                <div class="cell-two">Serviço</div>
-                            </div>
-                            <div class="row">
-                                <div class="cell-two"><input type="text" v-model="name" name="name" /> </div>
-                                <div class="cell-two"><input type="text" v-model="lastName" name="lastName" /> </div>
-                                <div class="cell-two"><input type="text" v-model="username" name="username" /> </div>
-                                <div class="cell-two"><input type="email" v-model="email" name="email" /></div>
-                                <div class="cell-two"><input type="text" v-model="password" name="password" /> </div>
-                                <div class="cell-two"><input type="text" v-model="service" name="service" /> </div>
-                            </div>
-                        </div>
-                        <div class="table">
-                            <div class="row header">
-                                <div class="cell-two">Início</div>
-                                <div class="cell-two">Fim</div>
-                                <div class="cell-two">Objetivo</div>
-                                <div class="cell-two">Status</div>
-                                <div class="cell-two">Dias</div>
-                                <div class="cell-two">Tempo</div>
-                            </div>
-                            <div class="row">
-                                <div class="cell-two"><input type="date" v-model="periodStart" name="periodStart" /> </div>
-                                <div class="cell-two"><input type="date" v-model="periodEnd" name="periodEnd" /> </div>
-                                <div class="cell-two"><input type="text" v-model="target" name="target" /> </div>
-                                <div class="cell-two"><input type="text" v-model="status" name="status" /> </div>
-                                <div class="cell-two"><input type="text" v-model="day" name="day" /> </div>
-                                <div class="cell-two"> <input type="text" v-model="time" name="time" /> </div>
-                            </div>
-                        </div>
-    
-                        <button class="input" type="submit" @click="refreshAll">Adicionar</button>
-                    </form>
-                    
-                    
-                </div> -->
-                <div v-if="subscriberOk" class="subscriberOk top">
-                    <div>
-                        Inscrição realizada com Sucesso!
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>
 <style scoped>
-.login {
-    transition: all .4s linear;
-    border: solid 2px #00DC82;
-    cursor: pointer;
-    width: 140px;
-    text-align: center;
-    line-height: 18px;
-    border-radius: 88px;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out 0s;
-    height: 30px;
-    font-size: 14px;
-    padding-inline: 16px;
-    padding-top: 6px;
-    padding-bottom: 8px;
-    margin: 0rem 1.5rem;
-}
-
-.lost h5 {
-    font-size: .6rem;
-}
-
-.login .icon {
-    margin: -2px 0px 2px 4px;
-    transition: transform .3s linear;
-}
-
-.login:hover {
-    cursor: pointer;
-    background-color: #00DC82;
-    color: #fff;
-}
-
-.login:hover .icon {
-    margin: -2px 0px 2px 4px;
-    transform: translateX(6px);
-}
-.inputs {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.inputs div {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-.inputs input {
-  margin: .5rem auto;
-  transition: all .4s linear;
-  border-bottom: solid 2px #00DC82;
-  text-align: left;
-  line-height: 18px;
-  font-weight: 600;
-  border-radius: 4px;
-  transition: all 0.2s ease-in-out 0s;
-  height: 34px;
-  font-size: 14px;
-  padding-inline: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.inputs input:focus-visible {
-    border: solid 1px #00DC82;
-    background-color: #00DC8210;
-}
-
-.inputs input:active {
-    border-color: #00DC8280;
-}
-
-.inputs input:hover {
-    background-color: #00DC8240;
-    cursor:pointer;
-}
-
-
-.inputs input:focus {
-    border: 0 none;
-    border-bottom: solid 2px #00DC82;
-    outline: 0;
-}
-.Doughnut {
-    width: 320px;
-    height: 320px;
-}
 .nav-top {
     position: sticky;
     top: 0px;
@@ -593,10 +373,30 @@ function formatarData(input) {
     z-index: 1;
     height: 40px;
     font-weight: bolder;
-    border-bottom: .10px solid #00DC8240;
+    border-bottom: .10px solid #34d39940;
     backdrop-filter: blur(45px);
-    border-bottom: solid 1px #00DC8240;
-    border-right: solid 1px #00DC8240;
+    border-bottom: solid 1px #34d39940;
+    border-right: solid 1px #34d39940;
+}
+
+.subscriberOk {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 20%;
+    margin-left: 40%;
+    background-color: #34d399;
+    color: #fff;
+    text-shadow: 2px 2px 2px #111;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    border-radius: 3px;
+    font-weight: bolder;
+    padding: 8px 0px;
 }
 
 .clients {
@@ -604,11 +404,11 @@ function formatarData(input) {
 }
 
 .clients span {
-    border: 1px solid #00DC8290;
+    border: 1px solid #34d39990;
     padding: 3px 6px;
     border-radius: 8px;
-    color: #00DC82;
-    background-color: #00DC8230;
+    color: #34d399;
+    background-color: #34d39930;
     margin-left: 3px;
 }
 
@@ -624,7 +424,7 @@ function formatarData(input) {
 .notifications:hover {
     padding: 4px 5px;
     border-radius: 8px;
-    color: #00DC82;
+    color: #34d399;
     background-color: #fff;
 }
 
@@ -638,12 +438,128 @@ function formatarData(input) {
     flex-wrap: wrap;
     width: 100%;
     z-index: 1;
-    height: 50px;
+    height: 35px;
     font-weight: bolder;
-    border-bottom: .10px solid #00DC8240;
+    margin-bottom: 1rem;
+    border-bottom: .10px solid #34d39940;
     backdrop-filter: blur(45px);
-    border-bottom: solid 1px #00DC8240;
-        border-right: solid 1px #00DC8240;
+    border-bottom: solid 1px #34d39940;
+    border-right: solid 1px #34d39940;
+}
+
+.users-conf {
+    margin: 16px;
+}
+
+.users-conf span {
+    border: 1px solid #34d39990;
+    padding: 8px;
+    border-radius: 8px;
+    color: #34d399;
+    background-color: #34d39930;
+    margin-left: 3px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-content: baseline;
+    margin: 0;
+}
+
+.actions a {
+    border: solid 1px #34d39910;
+    background-color: transparent;
+    padding: 4px 35px;
+    margin: 2.5px 10px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+
+.actions a:hover {
+    border: solid 1px #34d39960;
+    background-color: #34d39960;
+}
+
+.actions a.router-link-exact-active {
+    background: #34d39990;
+    border: solid 1px #34d399;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.actions-button a.router-link-exact-active:hover {
+    background: #34d39990;
+    ;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.actions-button a.router-link-exact-active:hover::after {
+    background-color: var(--color-background);
+    color: #34d399;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+form {
+
+    padding: 0;
+}
+
+.actions-user {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-content: baseline;
+    margin: 0;
+}
+
+.update-button {
+    border: solid 1px #fadb4080;
+    background-color: #fadb4080;
+    padding: 5px 5px;
+    margin: 9px 4px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+.update-button:hover {
+    border: solid 1px #fadb40;
+    padding: 5px 5px;
+    border-radius: 8px;
+    color: #000;
+    background-color: #fadb40;
+}
+
+.delete-button {
+    border: solid 1px #ff190080;
+    background-color: #ff190080;
+    padding: 5px 5px;
+    margin: 9px 4px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    border: solid 1px #ff1900;
+    padding: 5px 5px;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #ff1900;
 }
 
 .users-list {
@@ -673,8 +589,8 @@ function formatarData(input) {
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
-    border: solid 1px #00DC8210;
-    box-shadow: 0 0px 5px #00DC8240;
+    border: solid 1px #34d39910;
+    box-shadow: 0 0px 5px #34d39940;
     backdrop-filter: blur(100px)
 }
 
@@ -693,541 +609,14 @@ function formatarData(input) {
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
-    border: solid 1px #00DC8210;
-    box-shadow: 0 0px 5px #00DC8240;
+    border: solid 1px #34d39910;
+    box-shadow: 0 0px 5px #34d39940;
     backdrop-filter: blur(100px)
 }
 
 .whats .icon,
 .color .icon {
-    color: #00DC8290;
+    color: #34d39990;
     zoom: 1;
-}
-.subscriberOk {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 20%;
-    margin-left: 40%;
-    background-color: #00DC82;
-    color: #fff;
-    text-shadow: 2px 2px 2px #111;
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    border-radius: 8px;
-    padding: 8px 0px;
-    font-weight: bolder;
-}
-#customers {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#customers th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #04be7a80;
-font-weight: bolder;
-}
-
-#customers td,
-#customers th {
-    border: 1px solid #04be7a40;
-    padding: 8px;
-    color: white;
-    font-weight: bolder;
-}
-
-#customers tr:nth-child(1) {
-    background-color: #04be7a30;
-    }
-#customers tr:nth-child(2n) {
-    background-color: #04be7a30;
-    }
-    
-    #customers tr:hover {
-        background-color: #04be7a50 ;
-    }
-    
-input {
-    padding: 5px 15px;
-    font-size: 1rem;
-    font-weight: bolder;
-}
-
-::placeholder {
-    font-size: 1rem;
-    font-weight: bolder;
-}
-.row {
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid #04be7a40;
-    font-size: 1rem;
-}
-
-.row:nth-child(1) {
-    position: sticky;
-    top: 90px;
-    font-size: 1.1rem;
-    font-weight: bolder;
-}
-
-.row:nth-child(2n) {
-    background-color: #04be7a10;
-
-}
-
-.header {
-    font-weight: bold;
-}
-
-.cell {
-    flex: 1;
-    overflow: hidden;
-    border-right: 1px solid #04be7a40;
-}
-
-.cell:nth-child(1) {
-    flex: .17;
-}
-
-
-
-.cell:nth-child(2),
-.cell:nth-child(3),
-.cell:nth-child(4),
-.cell:nth-child(6),
-.cell:nth-child(7),
-.cell:nth-child(8),
-.cell:nth-child(9),
-.cell:nth-child(10),
-.cell:nth-child(11) {
-    flex: 2;
-}
-
-
-.cell-two {
-    flex: 1;
-    overflow: hidden;
-    border-right: 1px solid #04be7a40;
-}
-
-.cell-two:nth-child(1) {
-    flex: 1;
-}
-
-.cell-two:nth-child(2),
-.cell-two:nth-child(3),
-.cell-two:nth-child(4),
-.cell-two:nth-child(6),
-.cell-two:nth-child(7),
-.cell-two:nth-child(8),
-.cell-two:nth-child(9),
-.cell-two:nth-child(10) {
-    flex: .4;
-}
-
-.cell-two:nth-child(10) {
-    flex: .2;
-}
-
-.main {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.nav-top {
-    position: sticky;
-    top: 0px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 100%;
-    z-index: 1;
-    height: 40px;
-    font-weight: bolder;
-    border-bottom: solid 1px #00fa9e40;
-    border-right: solid 1px #04be7a40;
-    backdrop-filter: blur(45px);
-}
-
-.clients {
-    margin: 11px;
-}
-
-.clients span {
-    border: 1px solid #04be7a40;
-    padding: 3px 6px;
-    border-radius: 8px;
-    color: #04be7a;
-    background-color: #04be7a40;
-    margin-left: 3px;
-}
-
-.add-client {
-    border: solid 1px #04be7a90;
-    background-color: #04be7a;
-    padding: 5px 7px;
-    margin: 1.5px 6px;
-    border-radius: 8px;
-    transition: all .3s linear;
-    cursor: pointer;
-    color: #fff;
-}
-
-.add-client:hover {
-    border: solid 1px #04be7a90 ;
-    border-radius: 8px;
-    color: #04be7a;
-    background-color: #fff;
-}
-
-.close-client {
-    border: solid 1px #04be7a90;
-    background-color: #04be7a;
-    padding: 5px 42px;
-        margin: 1.5px 6px;
-    border-radius: 8px;
-    transition: all .3s linear;
-    cursor: pointer;
-    color: #fff;
-}
-
-.close-client:hover {
-    border: solid 1px #04be7a90 ;
-    border-radius: 8px;
-    color: #04be7a;
-    background-color: #fff;
-}
-
-.nav-users {
-    position: sticky;
-    top: 40px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 100%;
-    z-index: 1;
-    height: 35px;
-    font-weight: bolder;
-    border-bottom: solid 1px #04be7a40;
-    border-right: solid 1px #04be7a40;
-    backdrop-filter: blur(45px);
-}
-
-.users-conf {
-    margin: -1px;
-}
-
-.users-conf span {
-    border: 1px solid #04be7a90;
-    padding: 2px;
-    border-radius: 8px;
-    color: #04be7a;
-    background-color: #04be7a30;
-    margin-left: 3px;
-}
-
-.filter {
-    border: solid 1px #04be7a90;
-    padding: 4px 12px;
-    margin: 4px 14px;
-    border-radius: 8px;
-    transition: all .3s linear;
-    cursor: pointer;
-    background-color: #04be7a10;
-}
-
-.filter:hover {
-    color: #fff;
-    background-color: #04be7a90;
-}
-
-.users-list {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    z-index: 1;
-    width: 100%;
-}
-
-.thed {
-    position: sticky;
-    top: 90px;
-}
-
-.title-user {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    height: 100px;
-    width: 156px;
-    margin: 2px;
-    border-radius: 8px;
-    border: solid 2px #04be7a60;
-}
-
-.title-user:hover {
-    background-color: #00DC8260;
-}
-
-.title-user img {
-    height: 35px;
-    width: 35px;
-    background-color: #04be7a60;
-    border: 3px solid #04be7a;
-    border-radius: 8px;
-}
-
-.title-user h4 {
-    text-align: center;
-    font-size:.8rem;
-}
-
-
-.form-cliente {
-    border-radius: 50%;
-    border: solid 3px #04be7a;
-}
-
-.cliente {
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    color: #04be7a;
-}
-
-
-.file-cliente {
-    margin-top: -20px;
-    margin-left: 20px;
-    zoom: .8;
-}
-
-
-
-.close {
-    zoom: 1.6;
-}
-
-
-.length-full {
-    color: #fff;
-}
-
-.users-full h1 {
-    font-size: 3rem;
-    margin-bottom: -1rem;
-}
-
-.users-full-status {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    color: #04be7a;
-}
-
-.button {
-    height: 35px;
-    width: 55px;
-    text-align: center;
-    padding-top: 4px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.green {
-    color: #00ff00;
-}
-
-.red {
-    color: #cf0000;
-}
-
-.users-full-status h1 {
-    font-size: 1.3rem;
-}
-
-.users-full-status h2 {
-    font-size: 1.2rem;
-}
-
-
-.center {
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: row;
-    align-content: space-evenly;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    padding-top: 5px;
-    margin-bottom: 1rem;
-}
-
-.center-start{
-    display: flex;
-        justify-content: flex-start;
-        flex-direction: row;
-        align-content: flex-start;
-        align-items: center;
-        flex-wrap: nowrap;
-        width: 100%;
-        margin-bottom: 4rem;
-}
-.center-start-one {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.center-start-two {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: -20px;
-}
-.center-start-tree {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: -60px 0 -50px 10px;
-}
-.center-start-tree span{
-    margin: 5px 0px -10px 12px;
-    font-weight: bolder ;
-}
-
-.center-start div a {
-    margin: 0 20px;
-}
-
-.center-start input {
-    margin: 10px ;
-}
-
-.others {
-    z-index: 1;
-}
-
-.table-clients {
-    width: 100%;
-    z-index: 1;
-    margin-top: -2rem;
-}
-
-.others-full {
-    z-index: 1;
-    background-color: #04be7a50;
-}
-
-.others-details {
-    margin: 0 .5%;
-    z-index: 1;
-    background-color: #04be7a30;
-    border: solid 3px #04be7a40;
-    border-radius: 3px;
-}
-
-.list {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    align-items: flex-start;
-    width: 100%;
-    height: 100%;
-}
-
-
-.head-logo {
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.logo {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    background-color: var(--color-background);
-    height: 46px;
-    width: 46px;
-    color: #718096;
-    box-shadow: 0px 7px 20px #04be7a;
-    border-radius: 8px;
-    margin: 1rem;
-    z-index: 10;
-}
-
-.logo img {
-    height: 46px;
-    width: 46px;
-    border-radius: 8px;
-    border: #04be7a 2px solid;
-    z-index: 100;
-    opacity: 1;
-}
-
-.head-name {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    font-family: ' gagalin';
-}
-.table {
-    display: flex;
-    flex-direction: column;
-}
-
-.row {
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid #04be7a40;
-    font-size: 1rem;
-}
-
-.row:nth-child(1) {
-    background-color: #04be7a90;
-    position: sticky;
-    top: 90px;
-    font-size: 1.1rem;
-    font-weight: bolder;
-}
-
-.row:nth-child(2n) {
-    background-color: #04be7a10;
-
 }
 </style>
