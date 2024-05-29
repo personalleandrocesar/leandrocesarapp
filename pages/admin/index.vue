@@ -126,6 +126,43 @@ const options = {
     }
 }
 // Doughnut Chart fim
+const dataTarget = {
+  labels: [
+    `Personal (${servicesCount.Personal})`,
+    `Consultoria (${servicesCount.Consultoria})`, 
+    `Avaliação Física (${servicesCount.Avaliação})`],
+  datasets: [
+      {
+          backgroundColor: ['#09df00', '#34d399', '#095d62'],
+        data: [servicesCount.Personal, servicesCount.Consultoria, servicesCount.Avaliação],
+        borderRadius: 8,
+        rotation: 260,
+    }
+  ]
+}
+
+const optionsTarget = {
+  responsive: true,
+  maintainAspectRatio: false,
+    plugins: {
+        title: {
+            display: true,
+            text: `Quantidade de Clientes: ${ Users.data.value.length }`,
+            font: {
+                size: 17,
+            }
+        },
+        legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 13
+                    }
+                }
+            }
+    }
+}
+// Doughnut Chart fim
 
 
 </script>
@@ -160,6 +197,9 @@ const options = {
 
             <div class='Doughnut'>
                 <Doughnut :data="data" :options="options" />
+            </div>
+            <div class='Doughnut'>
+                <Doughnut :data="dataTarget" :options="optionsTarget" />
             </div>
         </div>
     </div>
