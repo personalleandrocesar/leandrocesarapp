@@ -160,16 +160,24 @@ const newTrainning = () => {
                         </select>
                         <label for="options">mês: </label>
                         <select id="options" name="options" v-model="items.name">
+                            <option value="option1">Janeiro</option>
+                            <option value="option1">Fevereiro</option>
+                            <option value="option1">Março</option>
+                            <option value="option1">Abril</option>
+                            <option value="option1">Maio</option>
+                            <option value="option1">Junho</option>
+                            <option value="option1">Julho</option>
+                            <option value="option1">Agosto</option>
+                            <option value="option1">Setembro</option>
+                            <option value="option1">Outubro</option>
+                            <option value="option1">Novembro</option>
+                            <option value="option1">Dezembro</option>
+                        </select>
+                        <label for=" options">Ano: </label>
+                        <select id="options" name="options" v-model="items.name">
                             <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
                             </option>
                         </select>
-                        <label for=" options">Ano: </label>
-                                <select id="options" name="options" v-model="items.name">
-                                    <option value="option1">Option 1</option>
-                                    <option value="option2">Option 2</option>
-                                    <option value="option3">Option 3</option>
-                                    <option value="option4">Option 4</option>
-                                </select>
                                 <!-- <input type="month" name="" id="" v-model="items.name"> -->
                                 <button class="login" type="submit">Adicionar</button>
                     </form>
