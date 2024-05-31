@@ -198,9 +198,6 @@ const optionsTarget = {
             <div class='Doughnut'>
                 <Doughnut :data="data" :options="options" />
             </div>
-            <div class='Doughnut'>
-                <Doughnut :data="dataTarget" :options="optionsTarget" />
-            </div>
         </div>
     </div>
 </template>
