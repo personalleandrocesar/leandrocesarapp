@@ -154,11 +154,9 @@ const newTrainning = () => {
                     <form @submit.prevent="submitTreino">
                         <p>Nome do treino</p>
                         <!-- <input type="text" name="" id="" v-model="items.name"> -->
-                        <label for="options">dia: </label>
                         <select id="options" name="options" v-model="items.name">
                             <option v-for="day in 31" :key="day">{{ day }}</option>
                         </select>
-                        <label for="options">mês: </label>
                         <select id="options" name="options" v-model="items.name">
                             <option value="option1">Janeiro</option>
                             <option value="option1">Fevereiro</option>
@@ -173,11 +171,11 @@ const newTrainning = () => {
                             <option value="option1">Novembro</option>
                             <option value="option1">Dezembro</option>
                         </select>
-                        <label for=" options">Ano: </label>
                         <select id="options" name="options" v-model="items.name">
                             <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
                             </option>
                         </select>
+                        
                                 <!-- <input type="month" name="" id="" v-model="items.name"> -->
                                 <button class="login" type="submit">Adicionar</button>
                     </form>
