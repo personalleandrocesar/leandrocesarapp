@@ -21,7 +21,8 @@ function addClient() {
 }
 
 const items = ref(
-    { name: '' }
+    { name: '' },
+    { date: '' }
 
 );
 
@@ -153,8 +154,9 @@ const newTrainning = () => {
                 <div class="new-form-squared">
                     <form @submit.prevent="submitTreino">
                         <p>Nome do treino</p>
-                        <!-- <input type="text" name="" id="" v-model="items.name"> -->
-                        <select id="options" name="options" v-model="items.name">
+                        <input type="text" name="" id="" v-model="items.name">
+                        <input type="date" name="" id="" v-model="items.date">
+                        <!-- <select id="options" name="options" v-model="items.name">
                             <option v-for="day in 31" :key="day">{{ day }}</option>
                         </select>
                         <select id="options" name="options" v-model="items.name">
@@ -174,7 +176,7 @@ const newTrainning = () => {
                         <select id="options" name="options" v-model="items.name">
                             <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
                             </option>
-                        </select>
+                        </select> -->
                         
                                 <!-- <input type="month" name="" id="" v-model="items.name"> -->
                                 <button class="login" type="submit">Adicionar</button>

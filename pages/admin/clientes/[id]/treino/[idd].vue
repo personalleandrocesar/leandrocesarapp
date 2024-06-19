@@ -1,52 +1,3 @@
-<script>
-export default {
-    mounted() {
-        const inputField = document.getElementById('inputField');
-        const dropdownList = document.getElementById('dropdownList');
-
-        // Simular dados do banco de dados (substitua com seus próprios dados)
-        const databaseData = ['Extensora', 'Puxada p/ frente', 'Desenvolvimento de ombros (AP)',
-            'Supino maquina',];
-        // const databaseData = ['Apple', 'Banana', 'Orange', 'Pineapple', 'Grape', 'Strawberry'];
-
-        // Função para filtrar e exibir os itens da lista suspensa
-        function filterDropdownList() {
-            const searchText = inputField.value.toLowerCase(); // Texto digitado no campo de entrada, em minúsculas
-            const filteredData = databaseData.filter(item => item.toLowerCase().includes(searchText)); // Filtrar os dados com base no texto digitado
-            dropdownList.innerHTML = ''; // Limpar a lista suspensa
-            filteredData.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                dropdownList.appendChild(li);
-            });
-            if (searchText) {
-                dropdownList.style.display = 'block'; // Exibir a lista suspensa se houver texto digitado
-            } else {
-                dropdownList.style.display = 'none'; // Esconder a lista suspensa se não houver texto digitado
-            }
-        }
-
-        // Evento de digitação no campo de entrada
-        inputField.addEventListener('input', filterDropdownList);
-
-        // Evento de clique em um item da lista suspensa
-        dropdownList.addEventListener('click', function (e) {
-            if (e.target.tagName === 'LI') {
-                inputField.value = e.target.textContent; // Adicionar texto ao campo de entrada
-                dropdownList.style.display = 'none'; // Esconder a lista suspensa
-            }
-        });
-
-        // Evento de clique fora do campo de entrada
-        document.addEventListener('click', function (e) {
-            if (!e.target.matches('#inputField') && !e.target.matches('#dropdownList')) {
-                dropdownList.style.display = 'none'; // Esconder a lista suspensa
-            }
-        });
-    }
-}
-</script>
-
 <script setup>
 import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
@@ -56,12 +7,11 @@ useHead({
 
 const route = useRoute();
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
-const UsersTrainnig = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treino`);
+const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
 const item = Users.data.value;
+const qtTreinos = Treinos.data.value;
 
-const treinos = ref('')
-
-console.log(item);
+console.log(qtTreinos.name);
 
 const subscriberOk = ref(false)
 
@@ -70,9 +20,14 @@ function addClient() {
     add.value = !add.value
 }
 
+const items = ref(
+    { name: '' }
+
+);
+
 async function submitTreino() {
     try {
-        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos/`, {
+        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +36,6 @@ async function submitTreino() {
                 treino: items.value
             }),
         });
-        localStorage.setItem('item', JSON.stringify(items.value));
         if (response.ok) {
             console.log('Data delete successfully');
             subscriberOk.value = true;
@@ -127,56 +81,11 @@ function menu() {
 
 }
 
-
-
-
-const items = ref([
-    { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://m.leandrocesar.com/exe/${item.photo}.gif`' }
-
-]);
-
-function addItem() {
-    items.value.push({ id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: '' });
-}
-
-
-function deleteItem(index) {
-    items.value.splice(index, 1);
-}
-
-function clear() {
-    items.value = ([
-        { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: `` }
-
-    ])
-}
-
-
-onMounted(() => {
-    const storedItems = JSON.parse(localStorage.getItem('item'));
-    if (storedItems) {
-        items.value = storedItems;
-    }
-});
-
-
-
-onUpdated(() => {
-    localStorage.setItem('item', JSON.stringify(items.value));
-})
-
-function moveItemUp(index) {
-    if (index <= 0) return;
-    const item = items.value[index];
-    items.value.splice(index, 1);
-    items.value.splice(index - 1, 0, item);
-}
-
-function moveItemDown(index) {
-    if (index >= items.value.length - 1) return;
-    const item = items.value[index];
-    items.value.splice(index, 1);
-    items.value.splice(index + 1, 0, item);
+const newForm = ref(true)
+const addCloseTrainning = ref(true)
+const newTrainning = () => {
+    newForm.value = !newForm.value
+    addCloseTrainning.value = !addCloseTrainning.value
 }
 
 
@@ -184,7 +93,7 @@ function moveItemDown(index) {
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Série Atualizada!
+            Usuário deletado com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -219,80 +128,100 @@ function moveItemDown(index) {
                     </NuxtLink>
                 </div>
                 <div class='actions-user'>
+                    <div>
+                        <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
+                            <Icon name='material-symbols:add-notes' /> Novo Treino
+                        </div>
+                        <!-- parei aqui -->
+                        <div v-else class="new-user" @click="newTrainning">
+                            <Icon name='material-symbols:cancel-rounded' /> Fechar
+                        </div>
+                    </div>
                 </div>
             </div>
-            <h1>
-                Treinos
-            </h1>
-            <h1>Enviar Treino</h1>
 
-            <h5>{{ Users.data.value.treinos.name }}</h5>
+            <div v-if="newForm">
 
-            <br>
-            <br>
-            <br>
-            <form @submit.prevent="submitTreino">
-                <table>
-                    <thead>
-                        <th></th>
-                        <th>Exercício</th>
-                        <th>Sets</th>
-                        <th>Reps</th>
-                        <th>Intervalo</th>
-                        <th>Observações</th>
-                        <th>Imagem</th>
-                        <th>Deletar?</th>
-                    </thead>
-                    <tbody>
+                <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
+                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}`)">
+                        {{ qtTreinos.name }}
 
+                    </span>
+                </h1>
+            </div>
+            <div v-else class="new-form">
+                <div class="new-form-squared">
+                    <form @submit.prevent="submitTreino">
+                        <p>Nome do treino</p>
+                        <!-- <input type="text" name="" id="" v-model="items.name"> -->
+                        <select id="options" name="options" v-model="items.name">
+                            <option v-for="day in 31" :key="day">{{ day }}</option>
+                        </select>
+                        <select id="options" name="options" v-model="items.name">
+                            <option value="option1">Janeiro</option>
+                            <option value="option1">Fevereiro</option>
+                            <option value="option1">Março</option>
+                            <option value="option1">Abril</option>
+                            <option value="option1">Maio</option>
+                            <option value="option1">Junho</option>
+                            <option value="option1">Julho</option>
+                            <option value="option1">Agosto</option>
+                            <option value="option1">Setembro</option>
+                            <option value="option1">Outubro</option>
+                            <option value="option1">Novembro</option>
+                            <option value="option1">Dezembro</option>
+                        </select>
+                        <select id="options" name="options" v-model="items.name">
+                            <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
+                            </option>
+                        </select>
 
-
-                        <tr v-for="(item, index) in items" :key="index">
-
-                            <input type="hidden" :value.v-model="item.id = index + 1" readonly>{{ item.id }}
-                            <input type="hidden"
-                                :value.v-model="item.num = 'Exercício ' + (index < 9 ? '' + (index + 1) : (index + 1))">
-                            <td>
-                                <input type="text" v-model="item.nome" id="inputField">
-                                <ul id="dropdownList" class="list-susp"></ul>
-                            </td>
-                            <td><input type="number" v-model="item.sets"></td>
-                            <td> <input type="text" v-model="item.reps"></td>
-                            <td> <input type="text" v-model="item.rest"></td>
-                            <td><textarea id="story" name="story" rows="2" cols="20" v-model="item.obs"></textarea></td>
-                            <td><input type="text" v-model="item.photo"></td>
-                            <input type="hidden" :value="item.img = `https://nexwod.app/exe/${item.photo}.gif`"
-                                readonly>
-                            <button v-if="index > 0" @click="moveItemUp(index)">Subir</button>
-                            <button v-if="index < items.length - 1" @click="moveItemDown(index)">Descer</button>
-                            <button class="add-client" type="button" @click="deleteItem(index)">X</button>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="buttons">
-
-                    <button class="add-client" type="button" @click="addItem">Add Item</button>
-                    <br>
-                    <br>
-                    <button class="input" type="submit">Submit</button>
+                        <!-- <input type="month" name="" id="" v-model="items.name"> -->
+                        <button class="login" type="submit">Adicionar</button>
+                    </form>
 
                 </div>
-
-            </form>
-
-            <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button>
-
-
-
-
-
-
-
+            </div>
 
         </div>
     </div>
 </template>
 <style scoped>
+.new-form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    transform: translateX(0%);
+    position: fixed;
+    top: 87px;
+    height: calc(100% - 98px);
+    width: calc(100% - 245px);
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39940 50%, #00f2ff10 100%);
+    backdrop-filter: blur(5px);
+    z-index: 1004;
+}
+
+.new-form-squared {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    transform: translateX(0%);
+    position: fixed;
+    top: calc(3 *50px);
+    height: calc(100% - (3 * 98px));
+    width: calc(100% - (490px + 245px));
+    border: .10px solid #34d399;
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39980 50%, #00f2ff20 100%);
+    backdrop-filter: blur(5px);
+    z-index: 1004;
+}
+
 .nav-top {
     position: sticky;
     top: 0px;
@@ -314,10 +243,10 @@ function moveItemDown(index) {
 .subscriberOk {
     position: fixed;
     top: 10px;
-    right: 10px;
+    right: 2%;
     width: 20%;
     margin-left: 40%;
-    background-color: #34d399;
+    background-color: #ff1900;
     color: #fff;
     text-shadow: 2px 2px 2px #111;
     z-index: 20;
@@ -442,11 +371,6 @@ function moveItemDown(index) {
     cursor: pointer;
 }
 
-form {
-
-    padding: 0;
-}
-
 .actions-user {
     display: flex;
     justify-content: center;
@@ -461,8 +385,8 @@ form {
 .update-button {
     border: solid 1px #fadb4080;
     background-color: #fadb4080;
-    padding: 5px 5px;
-    margin: 9px 4px;
+    padding: 4px 15px;
+    margin: 2.5px 0px;
     border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
@@ -470,28 +394,26 @@ form {
 
 .update-button:hover {
     border: solid 1px #fadb40;
-    padding: 5px 5px;
     border-radius: 8px;
     color: #000;
     background-color: #fadb40;
 }
 
-.delete-button {
-    border: solid 1px #ff190080;
-    background-color: #ff190080;
-    padding: 5px 5px;
-    margin: 9px 4px;
+.new-user {
+    border: solid 1px #04be7a90;
+    background-color: #04be7a;
+    padding: 4px 15px;
+    margin: 2.5px 10px;
     border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
 }
 
-.delete-button:hover {
-    border: solid 1px #ff1900;
-    padding: 5px 5px;
+.new-user:hover {
+    border: solid 1px #04be7a90;
     border-radius: 8px;
-    color: #fff;
-    background-color: #ff1900;
+    color: #04be7a;
+    background-color: #fff;
 }
 
 .users-list {
