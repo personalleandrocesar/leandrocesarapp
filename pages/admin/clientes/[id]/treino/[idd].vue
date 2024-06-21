@@ -21,7 +21,11 @@ function addClient() {
 }
 
 const items = ref(
-    { name: '' }
+    { name: '', set: [
+            { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://m.leandrocesar.com/exe/${item.photo}.gif`' }
+
+        ]  
+    }
 
 );
 
@@ -59,7 +63,7 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
+const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`)
 const status = dataConf.data.value?.status
 const photoOpen = ref(false);
 function openPhoto() {
@@ -101,7 +105,7 @@ const newTrainning = () => {
             <div class="nav-top">
                 <div class="clients">
                     <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-        Users.data.value.lastName }}
+        Users.data.value.lastName }} - Treino: {{ route.params.idd}}
                 </div>
                 <div>
                     <div class="notifications">
@@ -144,7 +148,7 @@ const newTrainning = () => {
 
                 <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
                     <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}`)">
-                        {{ qtTreinos.name }}
+                        {{ qtTreinos }}
 
                     </span>
                 </h1>

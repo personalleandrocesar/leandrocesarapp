@@ -21,8 +21,9 @@ function addClient() {
 }
 
 const items = ref(
-    { name: '' },
-    { date: '' }
+    {
+        name: '', 
+    }
 
 );
 
@@ -94,7 +95,7 @@ const newTrainning = () => {
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Usuário deletado com Sucesso!
+            Série Criada com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -143,9 +144,18 @@ const newTrainning = () => {
 
             <div v-if="newForm">
 
+                <h1>
+                    Treinos:
+
+                </h1>
                 <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
                     <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}`)">
-                        {{ qtTreinos.name }}
+                        <ul>
+                            <li>
+                                {{ qtTreinos.name }}
+
+                            </li>
+                        </ul>
 
                     </span>
                 </h1>
@@ -155,7 +165,6 @@ const newTrainning = () => {
                     <form @submit.prevent="submitTreino">
                         <p>Nome do treino</p>
                         <input type="text" name="" id="" v-model="items.name">
-                        <input type="date" name="" id="" v-model="items.date">
                         <!-- <select id="options" name="options" v-model="items.name">
                             <option v-for="day in 31" :key="day">{{ day }}</option>
                         </select>
@@ -246,7 +255,7 @@ const newTrainning = () => {
     right: 2%;
     width: 20%;
     margin-left: 40%;
-    background-color: #ff1900;
+    background-color: #00DC82;
     color: #fff;
     text-shadow: 2px 2px 2px #111;
     z-index: 20;
