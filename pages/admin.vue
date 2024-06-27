@@ -88,6 +88,13 @@ function openPhoto() {
         </div>
     </div>
 
+    <div id='grid-two'>
+
+        <NuxtLayout :name='layout'></NuxtLayout>
+        <NuxtPage/>
+    </div>
+
+
 
     <div class="color">
         <a @click="theme()" :model="$colorMode.value">
@@ -118,6 +125,12 @@ function openPhoto() {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+}
+
+@media (max-width: 650px) {
+    #grid {
+        display: none;
+    }
 }
 
 .logOut {

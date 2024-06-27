@@ -54,16 +54,16 @@ function menu() {
 const colorMode = useColorMode()
 
 function theme() {
-  colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
-} 
+    colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
+}
 
 const colorCookie = useCookie('colorCookie')
 if (colorMode.value === "dark") {
-  colorCookie.value = "darkCookie"  
+    colorCookie.value = "darkCookie"
 } else {
- colorCookie.value = "lightCookie"
+    colorCookie.value = "lightCookie"
 }
-colorCookie.value === "darkCookie" ? colorMode.value = "dark" : colorMode.value ="light"
+colorCookie.value === "darkCookie" ? colorMode.value = "dark" : colorMode.value = "light"
 
 const state = useCookie('state')
 state.value = state.value
@@ -79,41 +79,350 @@ const navD = ref(state.value === 4)
     <div v-if="bodyOne">
 
         <div id="nav-container" class='nav'>
-            <div>
+
+            <div v-if="navA">
                 <div class="nav-bottom">
-                    <NuxtLink :to="`/admin`">
-                        <Icon name='solar:home-smile-bold' /> Home
+                    <NuxtLink :to="`/user/${route.params.id}`">
+                        <Icon name='solar:home-smile-bold' />
                     </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes`">
-                        <Icon name='solar:dumbbell-large-bold' /> Clientes
+                    <NuxtLink :to="`/user/${route.params.id}/treino`">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/user/${route.params.id}/treino/a`">
+                        <Icon name='mdi:alpha-a-box' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+                        <Icon name='solar:clipboard-heart-bold' />
                     </NuxtLink>
                 </div>
             </div>
-            <div>    
-                <NuxtLink>
-                    <Icon name="solar:hamburger-menu-bold" /> Log out
-                </NuxtLink>    
+
+            <div v-else-if="navB">
+                <div class="nav-bottom">
+                    <NuxtLink :to="`/user/${route.params.id}`">
+                        <Icon name='solar:home-smile-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/treino`">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/user/${route.params.id}/treino/b`">
+                        <Icon name='mdi:alpha-b-box' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+                        <Icon name='solar:clipboard-heart-bold' />
+                    </NuxtLink>
+                </div>
+            </div>
+            <div v-else-if="navC">
+                <div class="nav-bottom">
+                    <NuxtLink :to="`/user/${route.params.id}`">
+                        <Icon name='solar:home-smile-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/treino`">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/user/${route.params.id}/treino/c`">
+                        <Icon name='mdi:alpha-c-box' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+                        <Icon name='solar:clipboard-heart-bold' />
+                    </NuxtLink>
+                </div>
+            </div>
+            <div v-else-if="navD">
+                <div class="nav-bottom">
+                    <NuxtLink :to="`/user/${route.params.id}`">
+                        <Icon name='solar:home-smile-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/treino`">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/user/${route.params.id}/treino/d`">
+                        <Icon name='mdi:alpha-d-box' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+                        <Icon name='solar:clipboard-heart-bold' />
+                    </NuxtLink>
+                </div>
+            </div>
+            <div v-else>
+                <div class="nav-bottom">
+                    <NuxtLink :to="`/user/${route.params.id}`" @click.native="scrollToTop()">
+                        <Icon name='solar:home-smile-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/treino`" @click.native="scrollToTop()">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/cardio`" @click.native="scrollToTop()">
+                        <Icon name='material-symbols:cardiology' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
+                        <Icon name='solar:clipboard-heart-bold' />
+                    </NuxtLink>
+                </div>
+            </div>
+
+            <div>
+
+                <NuxtLink @click="menu()" class="button-client">
+                    <Icon name="solar:hamburger-menu-bold" />
+                </NuxtLink>
+
             </div>
         </div>
-        
+
+        <div v-if="route.path === `/user/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-logo"
+            id="sobre">
+            <NuxtLink @click="menu()" class="button-client">
+            </NuxtLink>
+            <div class='logo'>
+                <img @click="openPhoto()" :src="dataConf.data.value?.foto">
+            </div>
+        </div>
+        <div v-if="photoOpen" class="nav-bar">
+            <div class='logo-nav-bar'>
+                <img @click="openPhoto" :src="dataConf.data.value?.foto">
+            </div>
+        </div>
+        <div v-if="route.path === `/user/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-name">
+            <div class="name">
+                Olá, {{ dataConf.data.value?.name }}
+            </div>
+        </div>
+        <div class="color">
+
+            <a @click="theme()" :model="$colorMode.value">
+                <Icon
+                    :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
+            </a>
+
+        </div>
+        <div class="whats">
+
+
+            <a
+                href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20Leandro%20Cesar,%20fiquei%20interessado(a)%20nos%20seus%20Servi%C3%A7os,%20me%20chamo%20">
+                <Icon name="ic:outline-whatsapp" />
+            </a>
+        </div>
+
+
         <slot />
     </div>
-    <div class="color">
-        <a @click="theme()" :model="$colorMode.value" >
-            <Icon :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'"/>             
-        </a>
-    </div>   
-    <div class="whats">
-        <a
-            href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20Leandro%20Cesar,%20fiquei%20interessado(a)%20nos%20seus%20Servi%C3%A7os,%20me%20chamo%20">
-            <Icon name="ic:outline-whatsapp" />
-        </a>
-    </div>   
+
+
+
+    <div v-else>
+        <div id="nav-container" class='nav'>
+
+            <div v-if="navA">
+                <div class="nav-bottom">
+                    <NuxtLink :to="`/user/${route.params.id}`">
+                        <Icon name='solar:home-smile-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/treino`">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/user/${route.params.id}/treino/a`">
+                        <Icon name='mdi:alpha-a-box' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+                        <Icon name='solar:clipboard-heart-bold' />
+                    </NuxtLink>
+                </div>
+            </div>
+
+            <div v-else-if="navB">
+                <div class="nav-bottom">
+                    <NuxtLink :to="`/user/${route.params.id}`">
+                        <Icon name='solar:home-smile-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/treino`">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/user/${route.params.id}/treino/b`">
+                        <Icon name='mdi:alpha-b-box' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+                        <Icon name='solar:clipboard-heart-bold' />
+                    </NuxtLink>
+                </div>
+            </div>
+            <div v-else-if="navC">
+                <div class="nav-bottom">
+                    <NuxtLink :to="`/user/${route.params.id}`">
+                        <Icon name='solar:home-smile-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/treino`">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/user/${route.params.id}/treino/c`">
+                        <Icon name='mdi:alpha-c-box' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+                        <Icon name='solar:clipboard-heart-bold' />
+                    </NuxtLink>
+                </div>
+            </div>
+            <div v-else-if="navD">
+                <div class="nav-bottom">
+                    <NuxtLink :to="`/user/${route.params.id}`">
+                        <Icon name='solar:home-smile-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/treino`">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/user/${route.params.id}/treino/d`">
+                        <Icon name='mdi:alpha-d-box' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+                        <Icon name='solar:clipboard-heart-bold' />
+                    </NuxtLink>
+                </div>
+            </div>
+            <div v-else>
+                <div class="nav-bottom">
+                    <NuxtLink :to="`/user/${route.params.id}`" @click.native="scrollToTop()">
+                        <Icon name='solar:home-smile-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/treino`" @click.native="scrollToTop()">
+                        <Icon name='solar:dumbbell-large-bold' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/cardio`" @click.native="scrollToTop()">
+                        <Icon name='material-symbols:cardiology' />
+                    </NuxtLink>
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
+                        <Icon name='solar:clipboard-heart-bold' />
+                    </NuxtLink>
+                </div>
+            </div>
+
+            <div>
+
+                <NuxtLink @click="menu()" class="button-client">
+                    <Icon name="solar:close-square-bold" />
+                </NuxtLink>
+
+            </div>
+        </div>
+        <div class="head-logo" id="sobre">
+            <NuxtLink @click="menu()" class="button-client">
+            </NuxtLink>
+            <div class='logo'>
+                <img @click="openPhoto()" :src="dataConf.data.value?.foto">
+            </div>
+            <div v-if="photoOpen" class="nav-bar">
+                <div class='logo-nav-bar'>
+                    <img @click="openPhoto" :src="dataConf.data.value?.foto">
+                </div>
+            </div>
+        </div>
+        <div class="head-name">
+            <div class="name">
+                {{ dataConf.data.value?.name }} {{ dataConf.data.value?.lastName }}
+            </div>
+            <div class="email">{{ dataConf.data.value?.email }}</div>
+        </div>
+        <div>
+            <p class="section-title">Ciclos</p>
+            <p class="section-subtitle">Contrato atual: {{ dataConf.data.value?.periodStart }} - {{
+        dataConf.data.value?.periodEnd }}</p>
+            <p v-if="dataConf.data.value?.service" class="section-subtitle-two">Serviço: {{ dataConf.data.value?.service
+                }}</p>
+
+            <p v-if="status === 1" class="section-option pending">
+                <Icon name="solar:danger-square-outline" /> Pendente!
+            </p>
+            <p v-else-if="status === 0" class="section-option bloqued">
+                <Icon name="solar:close-square-outline" /> Bloqueado!
+            </p>
+            <p v-else class="section-option verified">
+                <Icon name="solar:check-square-outline" /> Verificado!
+            </p>
+            <div class="conf">
+                <NuxtLink class="menu-square">
+                    <div>
+                        <div>
+                            <p>
+                                <Icon name="solar:dumbbell-large-bold" />
+                                Treino
+                            </p>
+                        </div>
+                        <div>
+                            Atual: {{ dataConf.data.value?.treinoActual }}
+                        </div>
+                        <div>
+                            Próximo: {{ dataConf.data.value?.treinoNext }}
+                        </div>
+                    </div>
+                </NuxtLink>
+                <NuxtLink v-if="dataConf.data.value?.valuationActual" class="menu-square">
+                    <div>
+                        <div>
+                            <p>
+                                <Icon name="solar:clipboard-heart-bold" />
+                                Avaliação
+                            </p>
+                        </div>
+                        <div>
+                            Atual: {{ dataConf.data.value?.valuationActual }}
+                        </div>
+                        <div>
+                            Próxima: {{ dataConf.data.value?.valuationNext }}
+                        </div>
+                    </div>
+                </NuxtLink>
+            </div>
+            <!-- Hístórico -->
+            <NuxtLink class="menu-button">
+                <div>
+                    <Icon name="solar:history-outline" />
+                    <p>
+                        Histórico
+                    </p>
+                </div>
+                <Icon name="ic:baseline-keyboard-arrow-right" />
+            </NuxtLink>
+            <!-- Histórico fim -->
+
+            <!-- Documentos -->
+            <p class="section-title">Documentos</p>
+            <NuxtLink :to="`/user/${route.params.id}/contratos`" class="menu-button">
+                <div>
+                    <Icon name="solar:document-add-linear" />
+                    <p>
+                        Contratos
+                    </p>
+                </div>
+                <Icon name="ic:baseline-keyboard-arrow-right" />
+            </NuxtLink>
+            <NuxtLink :to="`/user/${route.params.id}/termos-de-uso`" class="menu-button">
+                <div>
+                    <Icon name="solar:document-text-linear" />
+                    <p>
+                        Termos de uso
+                    </p>
+                </div>
+                <Icon name="ic:baseline-keyboard-arrow-right" />
+            </NuxtLink>
+            <!-- Documentos fim -->
+
+            <!-- ícones de rede sociais -->
+
+            <!--  -->
+
+            <!-- Botão Logout -->
+            <NuxtLink to="/" class="logout" @click="logOff()">
+                LOUGOUT
+                <Icon name="solar:logout-3-bold" />
+            </NuxtLink>
+        </div>
+    </div>
 </template>
 <style scoped>
 .head-logo {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     flex-direction: row-reverse;
     align-items: flex-start;
     z-index: 1;
@@ -126,16 +435,16 @@ const navD = ref(state.value === 4)
 }
 
 .logo {
-   display: flex;
+    display: flex;
     justify-content: center;
     flex-direction: flex-start;
     align-items: center;
     flex-wrap: wrap;
     height: 55px;
     width: 55px;
-    background:  linear-gradient(to bottom right, #34d399 0%,#34d39970 50%,#00f2ff90 100%);
+    background: linear-gradient(to bottom right, #34d399 0%, #34d39970 50%, #00f2ff90 100%);
     margin: 1.5rem;
-    border-radius: 7px ; 
+    border-radius: 7px;
     z-index: 10;
 }
 
@@ -173,12 +482,13 @@ const navD = ref(state.value === 4)
     position: fixed;
     bottom: 0px;
     height: calc(100% - 0px);
-    width: 100%;
-    background:  linear-gradient(to bottom right, #34d399 0%,#34d39980 50%,#00f2ff90 100%);
+    width: calc(100% - 100px);
+    background: linear-gradient(to bottom right, #34d399 0%, #34d39980 50%, #00f2ff90 100%);
     backdrop-filter: blur(5px);
     z-index: 1004;
-    
+
 }
+
 .logo-nav-bar img {
     height: 300px;
     width: 300px;
@@ -186,7 +496,7 @@ const navD = ref(state.value === 4)
     border: #34d399 1px solid;
     opacity: 1;
     z-index: 100;
-    
+
 }
 
 .button-client {
@@ -378,7 +688,7 @@ const navD = ref(state.value === 4)
     justify-content: space-between;
     font-weight: 800;
     width: 100%;
-    padding:  6px 2px 2px 2px;
+    padding: 6px 2px 2px 2px;
     margin: 5px auto;
     border: solid 1px #34d39910;
     border-bottom: solid .1px #34d39940;
@@ -459,125 +769,68 @@ const navD = ref(state.value === 4)
 .nav {
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    transition: all .4s linear;
-    position: fixed;
-    top: 0px;
-    margin: 0px auto 0px auto;
-    box-shadow: 0 0px 5px #00f2ff10;
-    border-right: solid 1px #34d39940;
-    height: 100vh;
-    border-radius: 2px;
-    z-index: 101;
-    width: 220px;
-    backdrop-filter: blur(100px);
-    font-weight: bolder;
-    width: 14rem;
-}
-.nav a {
-    width: 14rem;
-    text-decoration: none;
-    cursor: pointer;
-    display: flex;
-    justify-content: flex-start;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    padding: 12px;
-    border-bottom: solid 1px #34d39940;
+    transition: all .4s linear;
+    position: sticky;
+    top: 20px;
+    margin: 16px auto;
+    box-shadow: 0 0px 5px #00f2ff10;
+    border: solid 1px #34d39940;
+    width: 90%;
+    height: 50px;
+    border-radius: 10px;
+    z-index: 101;
+    padding: 12.2px 8px 12px 12px;
+    backdrop-filter: blur(100px)
+}
+
+.nav a {
+    margin: 0 2px;
+    padding: 12.2px 8px 12px 12px;
+    padding: 12.2px 8px 9px 8px;
+    padding: 13px 14.5px 14.5px 14.5px;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .nav a.router-link-exact-active {
-    border-bottom: solid 1px #fff;
-    background: linear-gradient(to bottom right, #34d399 0%,#34d399 50%,#34d399 100%);
-    color: #fff;
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
+    margin: 0 2px;
+    color: #34d399;
+    padding: 13px 14.5px 14.5px 14.5px;
+
+    border-radius: 9px;
     text-decoration: none;
     cursor: pointer;
 }
 
 .nav a.router-link-exact-active:hover {
-    background: linear-gradient(to bottom right, #34d399 0%,#34d399 50%,#34d399 100%);
-    color: #fff;
+    margin: 0 2px;
+    padding: 13px 14.5px 14.5px 14.5px;
+    color: #34d399;
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
+    color: #34d399;
+    border-radius: 9px;
     text-decoration: none;
     cursor: pointer;
 }
 
 .nav a.router-link-exact-active:hover::after {
+    position: absolute;
+    top: 60px;
+    left: 20px;
     background-color: var(--color-background);
     color: #34d399;
+    border-radius: 9px;
     text-decoration: none;
     cursor: pointer;
 }
 
 .nav a:hover {
     background-color: transparent;
-    background: linear-gradient(to right, #eee 0%,#eee 50%,#34d39995 100%);
     color: #34d399;
-}
-
-.navB {
-    transition: all .4s linear;
-    position: fixed;
-    top: 0px;
-    margin: 0 0 0 220px;
-    box-shadow: 0 0px 5px #00f2ff10;
-    border-right: solid 1px #34d39940;
-    height: 48px;
-    border-radius: 2px;
-    z-index: 101;
-    width: calc(100% - 220px);
-    backdrop-filter: blur(100px);
-    border-bottom: solid 1px #34d39940;
-}
-.navB div {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    transition: all .4s linear;
-    
-}
-.navB a {
-    text-decoration: none;
-    cursor: pointer;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    font-weight: bolder;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 6px;
-    margin: 6px 10px 0 0;
-    border-radius: 8px;
-}
-
-.navB a.router-link-exact-active {
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.navB a.router-link-exact-active:hover {
-    background: linear-gradient(to bottom right, #34d399 0%,#34d399 50%,#34d399 100%);
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.navB a.router-link-exact-active:hover::after {
-    background-color: var(--color-background);
-    color: #34d399;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.navB a:hover {
-    background-color: transparent;
-    background: linear-gradient(to bottom right, #fff 0%,#fff 50%,#fff 100%);
-    color: #34d399;
-    font-weight: bolder;
 }
 
 .color {
@@ -586,19 +839,20 @@ const navD = ref(state.value === 4)
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-  position: fixed;
-  height: 35px;
-  width: 35px;
-  transition: all 0.2s ease-in-out 0s;
-  bottom: 6rem;
-  right:1.5rem;
-  border-radius: 9px;
-  cursor: pointer;
-  z-index: 100;
-  border: solid 1px #34d39910;
-  box-shadow: 0 0px 5px #34d39940;
-  backdrop-filter: blur(100px)
+    position: fixed;
+    height: 35px;
+    width: 35px;
+    transition: all 0.2s ease-in-out 0s;
+    bottom: 6rem;
+    right: 1.5rem;
+    border-radius: 9px;
+    cursor: pointer;
+    z-index: 100;
+    border: solid 1px #34d39910;
+    box-shadow: 0 0px 5px #34d39940;
+    backdrop-filter: blur(100px)
 }
+
 .whats {
     display: flex;
     justify-content: space-around;
@@ -610,7 +864,7 @@ const navD = ref(state.value === 4)
     width: 35px;
     transition: all 0.2s ease-in-out 0s;
     bottom: 3.5rem;
-    right:1.5rem;
+    right: 1.5rem;
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
@@ -618,9 +872,10 @@ const navD = ref(state.value === 4)
     box-shadow: 0 0px 5px #34d39940;
     backdrop-filter: blur(100px)
 }
-.whats .icon, .color .icon {
-  color: #34d39990;
-  zoom: 1;
-}
 
+.whats .icon,
+.color .icon {
+    color: #34d39990;
+    zoom: 1;
+}
 </style>

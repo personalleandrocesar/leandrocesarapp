@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+const layout = "duo"
 
 useHead({
     titleTemplate: 'Clientes | NEX_WOD',
@@ -168,38 +169,38 @@ const optionsTarget = {
 </script>
 
 <template>
-
-    <div id="grid">
-        <div id="areaA">
-            <div class="nav-top">
-                <div class="clients">
-                    <Icon name='material-symbols:data-usage' /> Início
-                </div>
-                <div>
-                    <div class="notifications" @click="addClient">
-                        <Icon name='mingcute:notification-newdot-fill' />
+    
+        <div id="grid">
+            <div id="areaA">
+                <div class="nav-top">
+                    <div class="clients">
+                        <Icon name='material-symbols:data-usage' /> Início
+                    </div>
+                    <div>
+                        <div class="notifications" @click="addClient">
+                            <Icon name='mingcute:notification-newdot-fill' />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="nav-users">
-                <div class="users-conf">
-                    <!-- Clientes <span> {{ Users.data.value.length  }} </span> -->
-                </div>
-                <div>
-                    <!-- <div v-if="swit" class="filter" @click="switchButton">
+                <div class="nav-users">
+                    <div class="users-conf">
+                        <!-- Clientes <span> {{ Users.data.value.length  }} </span> -->
+                    </div>
+                    <div>
+                        <!-- <div v-if="swit" class="filter" @click="switchButton">
                         <Icon name='material-symbols:view-list-outline' /> Lista
                     </div>
                     <div v-else class="filter" @click="switchButton">
                         <Icon name='solar:widget-linear' /> Blocos
                     </div> -->
+                    </div>
+                </div>
+
+                <div class='Doughnut'>
+                    <Doughnut :data="data" :options="options" />
                 </div>
             </div>
-
-            <div class='Doughnut'>
-                <Doughnut :data="data" :options="options" />
-            </div>
         </div>
-    </div>
 </template>
 <style scoped>
 .Doughnut {
