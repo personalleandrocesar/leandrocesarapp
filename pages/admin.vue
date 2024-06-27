@@ -64,6 +64,18 @@ function menu() {
     bodyOne.value = !bodyOne.value
 
 }
+
+function inicio() {
+    navigateTo('/admin') 
+    bodyOne.value = !bodyOne.value
+}
+
+function clientes() {
+    navigateTo('/admin/clientes') 
+    bodyOne.value = !bodyOne.value
+}
+
+
 const colorMode = useColorMode()
 
 function theme() {
@@ -107,7 +119,7 @@ const navD = ref(state.value === 4)
     <div id="grid">
         <div id="areaA">
             <div>
-                <NuxtLink :to="`/admin`">
+                <NuxtLink @click='inicio()'>
                     <Icon name='material-symbols:data-usage' /> Início
                 </NuxtLink>
                 <NuxtLink :to="`/admin/clientes`">
@@ -131,17 +143,6 @@ const navD = ref(state.value === 4)
 
             <div id="nav-container" class='nav'>
 
-                <div v-if="navA">
-                    <div class="nav-bottom">
-                        <NuxtLink :to="`/admin`">
-                            <Icon name='material-symbols:data-usage' /> Início
-                        </NuxtLink>
-                        <NuxtLink :to="`/admin/clientes`">
-                            <Icon name='solar:users-group-two-rounded-bold' /> Clientes
-                        </NuxtLink>
-                    </div>
-                </div>
-
                 <div>
 
                     <NuxtLink @click="menu()" class="button-client">
@@ -149,6 +150,7 @@ const navD = ref(state.value === 4)
                     </NuxtLink>
 
                 </div>
+
             </div>
 
             <div class="color">
@@ -169,24 +171,13 @@ const navD = ref(state.value === 4)
             </div>
 
 
-            <NuxtPage/>
+            <NuxtPage />
         </div>
 
 
 
         <div v-else>
             <div id="nav-container" class='nav'>
-
-                <div v-if="navA">
-                    <div class="nav-bottom">
-                        <NuxtLink :to="`/admin`">
-                            <Icon name='material-symbols:data-usage' /> Início
-                        </NuxtLink>
-                        <NuxtLink :to="`/admin/clientes`">
-                            <Icon name='solar:users-group-two-rounded-bold' /> Clientes
-                        </NuxtLink>
-                    </div>
-                </div>
 
                 <div>
 
@@ -195,6 +186,8 @@ const navD = ref(state.value === 4)
                     </NuxtLink>
 
                 </div>
+
+
             </div>
             <div class="head-logo" id="sobre">
                 <NuxtLink @click="menu()" class="button-client">
@@ -208,91 +201,24 @@ const navD = ref(state.value === 4)
                     </div>
                 </div>
             </div>
-            <div class="head-name">
-                <div class="name">
-                    {{ dataConf.data.value?.name }} {{ dataConf.data.value?.lastName }}
-                </div>
-                <div class="email">{{ dataConf.data.value?.email }}</div>
-            </div>
             <div>
-                <p class="section-title">Ciclos</p>
-                <p class="section-subtitle">Contrato atual: {{ dataConf.data.value?.periodStart }} - {{
-                    dataConf.data.value?.periodEnd }}</p>
-                <p v-if="dataConf.data.value?.service" class="section-subtitle-two">Serviço: {{
-                    dataConf.data.value?.service
-                    }}</p>
-
-                <p v-if="status === 1" class="section-option pending">
-                    <Icon name="solar:danger-square-outline" /> Pendente!
-                </p>
-                <p v-else-if="status === 0" class="section-option bloqued">
-                    <Icon name="solar:close-square-outline" /> Bloqueado!
-                </p>
-                <p v-else class="section-option verified">
-                    <Icon name="solar:check-square-outline" /> Verificado!
-                </p>
-                <div class="conf">
-                    <NuxtLink class="menu-square">
-                        <div>
-                            <div>
-                                <p>
-                                    <Icon name="solar:dumbbell-large-bold" />
-                                    Treino
-                                </p>
-                            </div>
-                            <div>
-                                Atual: {{ dataConf.data.value?.treinoActual }}
-                            </div>
-                            <div>
-                                Próximo: {{ dataConf.data.value?.treinoNext }}
-                            </div>
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink v-if="dataConf.data.value?.valuationActual" class="menu-square">
-                        <div>
-                            <div>
-                                <p>
-                                    <Icon name="solar:clipboard-heart-bold" />
-                                    Avaliação
-                                </p>
-                            </div>
-                            <div>
-                                Atual: {{ dataConf.data.value?.valuationActual }}
-                            </div>
-                            <div>
-                                Próxima: {{ dataConf.data.value?.valuationNext }}
-                            </div>
-                        </div>
-                    </NuxtLink>
-                </div>
                 <!-- Hístórico -->
-                <NuxtLink class="menu-button">
+                <NuxtLink @click='inicio()' class="menu-button">
                     <div>
-                        <Icon name="solar:history-outline" />
+                        <Icon name="material-symbols:data-usage" />
                         <p>
-                            Histórico
+                            Início
                         </p>
                     </div>
                     <Icon name="ic:baseline-keyboard-arrow-right" />
                 </NuxtLink>
                 <!-- Histórico fim -->
 
-                <!-- Documentos -->
-                <p class="section-title">Documentos</p>
-                <NuxtLink :to="`/user/${route.params.id}/contratos`" class="menu-button">
+                <NuxtLink @click='clientes()' class="menu-button">
                     <div>
-                        <Icon name="solar:document-add-linear" />
+                        <Icon name="solar:users-group-two-rounded-bold" />
                         <p>
-                            Contratos
-                        </p>
-                    </div>
-                    <Icon name="ic:baseline-keyboard-arrow-right" />
-                </NuxtLink>
-                <NuxtLink :to="`/user/${route.params.id}/termos-de-uso`" class="menu-button">
-                    <div>
-                        <Icon name="solar:document-text-linear" />
-                        <p>
-                            Termos de uso
+                            Clientes
                         </p>
                     </div>
                     <Icon name="ic:baseline-keyboard-arrow-right" />
