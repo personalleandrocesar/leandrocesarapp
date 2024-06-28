@@ -203,6 +203,13 @@ const items = ref([
 
 ]);
 
+// {
+//         treino: [
+//             {name: '',},
+//             { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://m.leandrocesar.com/exe/${item.photo}.gif`' }
+//         ]
+//     },
+
 function addItem() {
     items.value.push({ id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: '' });
 }
