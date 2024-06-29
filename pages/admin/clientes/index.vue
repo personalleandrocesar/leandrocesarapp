@@ -1082,6 +1082,12 @@ input {
         width: 100%;
         margin-bottom: 4rem;
 }
+
+@media (max-width: 650px) {
+    .center-start-one {
+        display: none;
+    }
+}
 .center-start-one {
     display: flex;
     justify-content: flex-start;

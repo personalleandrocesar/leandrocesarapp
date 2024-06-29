@@ -117,7 +117,7 @@ function menu() {
                     </div>
                 </div>
             </div>
-            <img :src="`/admin/clientes/${Users.data.value.foto}`">
+            <img class='none' :src="`/admin/clientes/${Users.data.value.foto}`">
             <div>
                 <h1>
                     {{ Users.data.value.name }} {{ Users.data.value.lastName }}
@@ -148,6 +148,12 @@ function menu() {
     </div>
 </template>
 <style scoped>
+
+@media (max-width: 650px) {
+    .none {
+        display: none;
+    }
+}
 .nav-top {
     position: sticky;
     top: 0px;
