@@ -66,13 +66,13 @@ function menu() {
 }
 
 function inicio() {
-    navigateTo('/admin') 
     bodyOne.value = !bodyOne.value
+    navigateTo('/admin') 
 }
 
 function clientes() {
-    navigateTo('/admin/clientes') 
     bodyOne.value = !bodyOne.value
+    navigateTo('/admin/clientes') 
 }
 
 
@@ -150,6 +150,14 @@ const navD = ref(state.value === 4)
                     </NuxtLink>
 
                 </div>
+                <div>
+
+                    <a @click="theme()" :model="$colorMode.value">
+                        <Icon
+                            :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
+                    </a>
+
+                </div>
 
             </div>
 
@@ -186,6 +194,14 @@ const navD = ref(state.value === 4)
                     </NuxtLink>
 
                 </div>
+                <div>
+
+                    <a @click="theme()" :model="$colorMode.value">
+                        <Icon
+                            :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
+                    </a>
+
+                </div>
 
 
             </div>
@@ -193,7 +209,7 @@ const navD = ref(state.value === 4)
                 <NuxtLink @click="menu()" class="button-client">
                 </NuxtLink>
                 <div class='logo'>
-                    <img @click="openPhoto()" :src="dataConf.data.value?.foto">
+                    <!-- <img @click="openPhoto()" :src="dataConf.data.value?.foto"> -->
                 </div>
                 <div v-if="photoOpen" class="nav-bar">
                     <div class='logo-nav-bar'>
@@ -240,18 +256,6 @@ const navD = ref(state.value === 4)
 
 
 
-    <div class="color">
-        <a @click="theme()" :model="$colorMode.value">
-            <Icon
-                :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
-        </a>
-    </div>
-    <div class="whats">
-        <a
-            href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20Leandro%20Cesar,%20fiquei%20interessado(a)%20nos%20seus%20Servi%C3%A7os,%20me%20chamo%20">
-            <Icon name="ic:outline-whatsapp" />
-        </a>
-    </div>
 </template>
 <style scoped>
 #grid {
@@ -273,6 +277,10 @@ const navD = ref(state.value === 4)
 
 @media (max-width: 650px) {
     #grid {
+        display: none;
+    }
+
+    .nav {
         display: none;
     }
 }
@@ -952,6 +960,8 @@ const navD = ref(state.value === 4)
     background-color: transparent;
     color: #34d399;
 }
+
+
 
 .color {
     display: flex;

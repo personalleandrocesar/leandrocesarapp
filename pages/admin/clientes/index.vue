@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
 
 useHead({
-    titleTemplate: 'Clientes | NEX_WOD',
+    titleTemplate: 'Clientes | Leandro Cesar - App',
 });
 
 const Users = await useFetch('https://api.nexwod.app/users');
@@ -207,19 +207,19 @@ function formatarData(input) {
                                 <th>
                                     <span>Serviço</span>
                                 </th>
-                                <th>
+                                <th class='none'>
                                     <span>Objetivo</span>
                                 </th>
                                 <th>
                                     <span>Período</span>
                                 </th>
-                                <th>
+                                <th class='none'>
                                     <span>Venc.</span>
                                 </th>
-                                <th>
+                                <th class='none'>
                                     <span>Nascimento</span>
                                 </th>
-                                <th>
+                                <th class='none'>
                                     <span>E-mail</span>
                                 </th>
                                 <th>
@@ -236,7 +236,7 @@ function formatarData(input) {
                                 <td>
                                     {{ item.service }}
                                 </td>
-                                <td>
+                                <td class='none'>
                                     {{ item.target }}
                                 </td>
                                 <td>
@@ -244,15 +244,15 @@ function formatarData(input) {
                                         {{ item.periodStart }} <br> {{ item.periodEnd }}
                                     </span>
                                 </td>
-                                <td>
+                                <td class='none'>
                                     <span>
                                         {{ item.payDay }}
                                     </span>
                                 </td>
-                                <td>
+                                <td class='none'>
                                     {{ item.birthday }}
                                 </td>
-                                <td>
+                                <td class='none'>
                                     <span>
                                         {{ item.email }}
                                     </span>
@@ -487,22 +487,11 @@ function formatarData(input) {
     </div>
 </template>
 <style scoped>
-.login {
-    transition: all .4s linear;
-    border: solid 2px #00DC82;
-    cursor: pointer;
-    width: 140px;
-    text-align: center;
-    line-height: 18px;
-    border-radius: 88px;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out 0s;
-    height: 30px;
-    font-size: 14px;
-    padding-inline: 16px;
-    padding-top: 6px;
-    padding-bottom: 8px;
-    margin: 0rem 1.5rem;
+
+@media (max-width: 650px) {
+    .none {
+        display: none;
+    }
 }
 
 .lost h5 {

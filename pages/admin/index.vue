@@ -3,7 +3,7 @@ import { ref } from 'vue';
 const layout = "duo"
 
 useHead({
-    titleTemplate: 'Clientes | NEX_WOD',
+    titleTemplate: 'Leandro Cesar - App',
 });
 
 
@@ -182,19 +182,19 @@ const optionsTarget = {
                         </div>
                     </div>
                 </div>
-                <div class="nav-users">
+                <!-- <div class="nav-users">
                     <div class="users-conf">
-                        <!-- Clientes <span> {{ Users.data.value.length  }} </span> -->
+                        Clientes <span> {{ Users.data.value.length  }} </span>
                     </div>
                     <div>
-                        <!-- <div v-if="swit" class="filter" @click="switchButton">
+                        <div v-if="swit" class="filter" @click="switchButton">
                         <Icon name='material-symbols:view-list-outline' /> Lista
                     </div>
                     <div v-else class="filter" @click="switchButton">
                         <Icon name='solar:widget-linear' /> Blocos
-                    </div> -->
                     </div>
-                </div>
+                    </div>
+                </div> -->
 
                 <div class='Doughnut'>
                     <Doughnut :data="data" :options="options" />
@@ -207,6 +207,14 @@ const optionsTarget = {
     width: 320px;
     height: 320px;
 }
+
+@media (max-width: 650px) {
+    .Doughnut {
+        width: 230px;
+        height: 230px;
+    }
+}
+
 .nav-top {
     position: sticky;
     top: 0px;
