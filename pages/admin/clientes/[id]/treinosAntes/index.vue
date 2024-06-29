@@ -1,4 +1,4 @@
-<!-- <script>
+<script>
 export default {
     mounted() {
         const inputField = document.getElementById('inputField');
@@ -45,7 +45,7 @@ export default {
         });
     }
 }
-</script> -->
+</script>
 
 <script setup>
 import { ref } from 'vue';
@@ -199,16 +199,8 @@ const exe = ref([
 
 
 const items = ref([
-    {
-        "nome": "Um",
-        "data": '29-06-24',
-        "treino": [
-            {
-                "nome": "Série A",
-                "num": "",
-            },
-        ]
-    },
+    { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://m.leandrocesar.com/exe/${item.photo}.gif`' }
+
 ]);
 
 const exemploOne = ref([
@@ -220,15 +212,15 @@ const exemploOne = ref([
         {
         "nome": "Um",
         "data": '29-06-24',
-        "treino": [
+        "projetos": [
+            {
+            "nome": "Projeto A",
+            "status": "Em andamento"
+            },
             {
             "nome": "Projeto B",
-            },
-            {
-            "nome": "Série A",
-            "num": "",
-            "nome": "",
-            },
+            "status": "Concluído"
+            }
         ]
         },
         {
@@ -360,13 +352,6 @@ function moveItemDown(index) {
 
                         <tr v-for="(item, index) in items" :key="index">
 
-                            <td> <input type="text" v-model="item.nome"></td>
-                            <td> <input type="text" v-model="item.data"></td>
-                            <td> <input type="text" v-model="item.treino.nome"></td>
-                            <td> <input type="text" v-model="item.treino.num"></td>
-                        </tr>
-                        <!-- <tr v-for="(item, index) in items" :key="index">
-
                             <input type="hidden" :value.v-model="item.id = index + 1" readonly>{{ item.id }}
                             <input type="hidden"
                                 :value.v-model="item.num = 'Exercício ' + (index < 9 ? '' + (index + 1) : (index + 1))">
@@ -384,7 +369,7 @@ function moveItemDown(index) {
                             <button v-if="index > 0" @click="moveItemUp(index)">Subir</button>
                             <button v-if="index < items.length - 1" @click="moveItemDown(index)">Descer</button>
                             <button class="add-client" type="button" @click="deleteItem(index)">X</button>
-                        </tr> -->
+                        </tr>
                     </tbody>
                 </table>
                 <div class="buttons">
