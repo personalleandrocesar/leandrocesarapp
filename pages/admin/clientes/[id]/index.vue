@@ -112,6 +112,12 @@ useHead({
                             <Icon name='solar:clipboard-heart-bold' />
                         </div>
                     </NuxtLink>
+                    <div class="reward-update">
+                        <Icon name='material-symbols:person-edit' />
+                    </div>
+                    <div class="reward-delete" @click="deleteUser">
+                        <Icon name='material-symbols:person-off-rounded' />
+                    </div>
                 </div>
                 <div class='actions'>
                     <NuxtLink :to="`/admin/clientes/${item.username}`">
@@ -340,7 +346,7 @@ useHead({
     border: solid 1px #34d39910;
     background-color: transparent;
     padding: 4px 15px;
-    margin: 2.5px 10px;
+    margin: 2.5px 7px;
     border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
@@ -411,6 +417,38 @@ useHead({
 }
 
 .delete-button:hover {
+    border: solid 1px #ff1900;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #ff1900;
+}
+.reward-update {
+    border: solid 1px #fadb4080;
+    background-color: #fadb4080;
+    padding: 4px 15px;
+        margin: 2.5px 7px;
+        border-radius: 8px;
+        transition: all .3s linear;
+        cursor: pointer;
+}
+
+.reward-update:hover {
+    border: solid 1px #fadb40;
+    border-radius: 8px;
+    color: #000;
+    background-color: #fadb40;
+}
+.reward-delete {
+    border: solid 1px #ff190080;
+    background-color: #ff190080;
+    padding: 4px 15px;
+    margin: 2.5px 7px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+.reward-delete:hover {
     border: solid 1px #ff1900;
     border-radius: 8px;
     color: #fff;
