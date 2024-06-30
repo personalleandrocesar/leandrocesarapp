@@ -71,7 +71,7 @@ function menu() {
 
 useHead({
     titleTemplate: `${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
-});
+})
 </script>
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
@@ -176,14 +176,22 @@ useHead({
     </div>
 </template>
 <style scoped>
+.none,
+.nav-users .reward {
+    display: none;
+}
+
 @media (max-width: 650px) {
-    .none {
+    .none{
         display: none;
     }
 }
 @media (max-width: 1020px) {
     .nav-users .actions, .actions-user .update-button, .actions-user .delete-button {
         display: none;
+    }
+    .nav-users .reward{
+        display: inherit;
     }
 }
 .nav-top {
