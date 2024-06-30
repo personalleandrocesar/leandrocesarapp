@@ -163,7 +163,7 @@ function formatarData(input) {
                 </div>
                 <div>
                     <div v-if="addCloseClient" class="add-client add-client-max" @click="addClient">
-                        <Icon name='material-symbols:person-add-rounded' />  Cliente
+                        <Icon name='material-symbols:person-add-rounded' /> Cliente
                     </div>
                     <div v-if="addCloseClient" class="add-client add-client-mini" @click="addClient">
                         <Icon name='material-symbols:person-add-rounded' /> Adicionar Cliente
@@ -278,158 +278,156 @@ function formatarData(input) {
 
                 </div>
                 <form @submit.prevent="submitForm">
-                    <div class="center-start">
-                        <div class="center-start-one">
-                            <div>
-                                <img v-if="photoClient" class="cliente" :src="foto">
-                                <Icon v-else class="cliente" name="material-symbols:account-circle-full" />
-                            </div>
-                            <div>
-                                <input class="file-cliente" type="file" display="none" />
+                    <!-- Nome e sobrenome -->
+                    <div class="inputs">
 
-                            </div>
+                        <div>
+
+                            <span>Nome</span>
+                            <input type="text" id="name" autofocus v-model="name" required autocomplete="nome">
+
                         </div>
-                        <div class="center-start-two inputs">
-                            <div class="inputs">
+                        <div>
 
-                                <div>
+                            <span>Sobrenome</span>
+                            <input type="text" id="sobrenome" v-model="lastName" required autocomplete="sobrenome">
 
-                                    <span>Nome</span>
-                                    <input type="text" id="name" autofocus v-model="name" required autocomplete="nome">
-
-                                </div>
-                                <div>
-
-                                    <span>Sobrenome</span>
-                                    <input type="text" id="sobrenome" v-model="lastName" required
-                                        autocomplete="sobrenome">
-
-                                </div>
-                            </div>
-
-                            <!-- Sexo -->
-                            <div class="inputs">
-                                <div class="radio">
-
-                                    <input type="radio" name='sex' id="feminino" class="check" v-model="sex" required
-                                        value=feminino autocomplete="sexo" checked>
-                                    <label for="feminino">Feminino</label>
-
-                                </div>
-                                <div class="radio">
-
-                                    <input type="radio" name='sex' id="masculino" class="check" v-model="sex" required
-                                        value="masculino" autocomplete="sexo">
-                                    <label for="masculino">Masculino</label>
-
-                                </div>
-
-
-                            </div>
-                            <!-- Data de nascimento + Whatsapp -->
-                            <div class="inputs">
-
-                                <div>
-                                    <span>Data de nascimento</span>
-                                    <input type="date" name="" id="nascimento" v-model="birthday" required
-                                        autocomplete="nascimento">
-                                </div>
-                                <div>
-                                    <span>WhatsApp</span>
-                                    <input type="tel" name="" id="whatsapp" placeholder="(xx)xxxxx-xxxx" required
-                                        v-model="whatsapp" autocomplete="whatsapp">
-                                </div>
-
-                            </div>
-                            <!-- Serviço e objetivo -->
-                            <div class="inputs">
-
-                                <div>
-                                    <span>Qual Serviço?</span>
-                                    <select name="service" id="servico" required class="select" placeholder=''
-                                        v-model="service">
-                                        <option disabled value="">Selecione uma opção</option>
-                                        <option value="Personal">Personal</option>
-                                        <option value="Consultoria">Consultoria</option>
-                                    </select>
-                                </div>
-
-                                <div>
-
-                                    <span>Qual objetivo?</span>
-                                    <select name="target" id="target" class="select" placeholder='' required
-                                        v-model="target">
-                                        <option disabled value="">Selecione uma opção</option>
-                                        <option value="Hipertrofia">Hipertrofia</option>
-                                        <option value="Emagrecimento">Emagrecimento</option>
-                                        <option value="Acompanhamento">Só acompanhamento</option>
-                                        <option value="Outro">Outro</option>
-                                    </select>
-                                </div>
-
-                            </div>
-                            <!-- E-mail -->
-                            <div class="inputs">
-                                <div>
-
-                                    <span>E-mail</span>
-                                    <input type="text" name="" id="email" v-model="email" autocomplete="email" required>
-
-                                </div>
-                            </div>
-                            <!-- Usuário e senha -->
-                            <div class="inputs senha">
-                                <div>
-                                    <span>Usuário</span>
-                                    <input type="text" required name="" id="usuario" v-model.trim="username"
-                                        autocomplete="usuario">
-                                </div>
-                                <div class="senhaPs">
-                                    <span>Senha</span>
-                                    <input v-bind:type="pass" required name="" id="password" v-model="password"
-                                        autocomplete="off">
-                                    <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold"
-                                        id="password-icon" />
-                                    <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
-                                </div>
-
-                            </div>
-                            <div class="inputs">
-                                <div>
-
-                                    <span>Dias/semana</span>
-                                    <input type="number" name="" required id="servico" v-model="day"
-                                        autocomplete="servico">
-
-                                </div>
-                                <div>
-
-                                    <span>Minutos/treino</span>
-                                    <input type="number" name="" required id="vencimento" v-model="time"
-                                        autocomplete="vencimento">
-
-                                </div>
-
-                            </div>
-                            <div class="inputs">
-                                <div>
-
-                                    <span>Dia do Vencimento</span>
-                                    <input type="number" name="" required id="vencimento" v-model="payDay"
-                                        autocomplete="vencimento">
-
-                                </div>
-                                <div>
-
-                                    <span>Início dos treinos</span>
-                                    <input type="date" name="" required id="servico" placeholder="Tempo/treino"
-                                        v-model="periodStart" autocomplete="servico">
-
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <button class="login" type="submit">Adicionar</button>
+
+                    <!-- Sexo -->
+                    <div class="inputs">
+                        <div class="radio">
+
+                            <input type="radio" name='sex' id="feminino" class="check" v-model="sex" required
+                                value=feminino autocomplete="sexo" checked>
+                            <label for="feminino">Feminino</label>
+
+                        </div>
+                        <div class="radio">
+
+                            <input type="radio" name='sex' id="masculino" class="check" v-model="sex" required
+                                value="masculino" autocomplete="sexo">
+                            <label for="masculino">Masculino</label>
+
+                        </div>
+
+
+                    </div>
+                    <!-- Data de nascimento + Whatsapp -->
+                    <div class="inputs">
+
+                        <div>
+                            <span>Data de nascimento</span>
+                            <input type="date" name="" id="nascimento" autofocus v-model="birthday" required
+                                autocomplete="nascimento">
+                        </div>
+                        <div>
+                            <span>WhatsApp</span>
+                            <input type="tel" name="" id="whatsapp" placeholder="(xx)xxxxx-xxxx" required
+                                v-model="whatsapp" autocomplete="whatsapp">
+                        </div>
+
+                    </div>
+                    <!-- Serviço e objetivo -->
+                    <div class="inputs">
+
+                        <div>
+                            <span>Qual Serviço?</span>
+                            <select name="service" id="servico" required class="select" placeholder=''
+                                v-model="service">
+                                <option disabled value="">Selecione uma opção</option>
+                                <option value="Personal">Personal</option>
+                                <option value="Consultoria">Consultoria</option>
+                            </select>
+                        </div>
+
+                        <div>
+
+                            <span>Qual objetivo?</span>
+                            <select name="target" id="target" class="select" placeholder='' required v-model="target">
+                                <option disabled value="">Selecione uma opção</option>
+                                <option value="Hipertrofia">Hipertrofia</option>
+                                <option value="Emagrecimento">Emagrecimento</option>
+                                <option value="Acompanhamento">Só acompanhamento</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <!-- E-mail -->
+                    <div class="inputs">
+                        <div>
+
+                            <span>E-mail</span>
+                            <input type="text" name="" id="email" v-model="email" autocomplete="email">
+
+                        </div>
+                    </div>
+                    <!-- Usuário e senha -->
+                    <div class="inputs senha">
+                        <div>
+                            <span>Usuário</span>
+                            <input type="text" required name="" id="usuario" v-model.trim="username"
+                                autocomplete="usuario">
+                        </div>
+                        <div class="senhaPs">
+                            <span>Senha</span>
+                            <input v-bind:type="pass" required name="" id="password" v-model="password"
+                                autocomplete="off">
+                            <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
+                            <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
+                        </div>
+
+                    </div>
+                    <div class="inputs">
+                        <div>
+
+                            <span>Dias/semana</span>
+                            <input type="number" name="" required id="servico" v-model="day" autocomplete="servico">
+
+                        </div>
+                        <div>
+
+                            <span>Minutos/treino</span>
+                            <input type="number" name="" required id="vencimento" v-model="time"
+                                autocomplete="vencimento">
+
+                        </div>
+
+                    </div>
+                    <div class="inputs">
+                        <div>
+
+                            <span>Dia do Vencimento</span>
+                            <input type="number" name="" required id="vencimento" v-model="payDay"
+                                autocomplete="vencimento">
+
+                        </div>
+                        <div>
+
+                            <span>Início dos treinos</span>
+                            <input type="date" name="" required id="servico" placeholder="Tempo/treino"
+                                v-model="periodStart" autocomplete="servico">
+
+                        </div>
+                    </div>
+                    <div>
+
+                    </div>
+                    <div>
+
+                    </div>
+
+                    <div class="inputs">
+                        <button class="login" type="submit">
+                            ENVIAR
+                            <Icon name="solar:login-3-bold" />
+                        </button>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
                 </form>
                 <br>
                 <br>
@@ -528,55 +526,199 @@ function formatarData(input) {
     transform: translateX(6px);
 }
 .inputs {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 14px;
 }
 
 .inputs div {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-.inputs input {
-  margin: .5rem auto;
-  transition: all .4s linear;
-  border-bottom: solid 2px #00DC82;
-  text-align: left;
-  line-height: 18px;
-  font-weight: 600;
-  border-radius: 4px;
-  transition: all 0.2s ease-in-out 0s;
-  height: 34px;
-  font-size: 14px;
-  padding-inline: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: .5rem
 }
 
-.inputs input:focus-visible {
+.inputs #masculino.check,
+.inputs #feminino.check {
+    text-decoration: underline;
+    margin: -15px -94px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs .radio {
+    margin: 30px 30px 15px 30px;
+}
+
+
+.inputs .terms {
+    text-decoration: underline;
+    color: #00dc82;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs #terms.check {
+    text-decoration: underline;
+    margin: 10px -64px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.dont-user {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 200px;
+    background-color: #ff1900;
+    color: #fff;
+    text-shadow: 2px 2px 2px #111;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    border-radius: 5px;
+    font-weight: bolder;
+    padding: 8px 0px;
+}
+
+input {
+    transition: all .4s linear;
+    border-bottom: solid 2px #00DC82;
+    text-align: left;
+    width: 160px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.inputs #username {
+    width: 190px
+}
+
+.inputs #lastName {
+    width: 130px
+}
+
+.inputs #email {
+    width: 335px
+}
+
+.inputs div h4 {
+    text-align: left;
+}
+
+input:focus-visible {
     border: solid 1px #00DC82;
-    background-color: #00DC8210;
 }
 
-.inputs input:active {
+input:active {
     border-color: #00DC8280;
 }
 
-.inputs input:hover {
-    background-color: #00DC8240;
-    cursor:pointer;
+input:hover {
+    background-color: #00DC8210;
 }
 
 
-.inputs input:focus {
+input:focus {
     border: 0 none;
     border-bottom: solid 2px #00DC82;
     outline: 0;
+}
+
+
+h4 {
+    transition: all .3s linear;
+    margin: 0 0 0 10px;
+    text-align: left;
+}
+
+h4:nth-child(1) {
+    transition: all .3s linear;
+    margin: 20px 0 0 10px;
+}
+
+
+.select {
+    transition: all .4s linear;
+    border: 0;
+    color: inherit;
+    background-color: transparent;
+    border-bottom: solid 2px #00DC82;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 160px;
+    text-align: left;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.select:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+.select:focus-visible {
+    background-color: #00DC8210;
+}
+
+.select:active {
+    background-color: #00DC8210;
+}
+
+.select:hover {
+    background-color: #00DC8210;
+}
+
+.login {
+    transition: all .4s linear;
+    border: solid 2px #00DC82;
+    cursor: pointer;
+    width: 140px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 88px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+    padding-inline: 16px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    margin: 1rem 1.5rem;
+}
+
+.lost h5 {
+    font-size: .6rem;
+}
+
+.login .icon {
+    margin: -2px 0px 2px 4px;
+    transition: transform .3s linear;
+}
+
+.login:hover {
+    cursor: pointer;
+    background-color: #00DC82;
+    color: #fff;
+}
+
+.login:hover .icon {
+    margin: -2px 0px 2px 4px;
+    transform: translateX(6px);
 }
 .Doughnut {
     width: 320px;
