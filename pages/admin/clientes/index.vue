@@ -211,9 +211,6 @@ function formatarData(input) {
                                     <span>Serviço</span>
                                 </th>
                                 <th class='none'>
-                                    <span>Objetivo</span>
-                                </th>
-                                <th class='none'>
                                     <span>Período</span>
                                 </th>
                                 <th class='none'>
@@ -236,11 +233,8 @@ function formatarData(input) {
                                 <td>
                                     {{ item.name }} {{ item.lastName }}
                                 </td>
-                                <td>
-                                    {{ item.service }}
-                                </td>
-                                <td class='none'>
-                                    {{ item.target }}
+                                    <td>
+                                        {{ item.service }}
                                 </td>
                                 <td class='none'>
                                     <span>

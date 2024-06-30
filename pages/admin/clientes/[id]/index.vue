@@ -1,11 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
-useHead({
-    titleTemplate: 'Clientes | NEX_WOD',
-});
-
 const route = useRoute();
+
+
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
 const item = Users.data.value;
 
@@ -70,6 +68,10 @@ function menu() {
     bodyOne.value = !bodyOne.value
 
 }
+
+useHead({
+    titleTemplate: `${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
+});
 </script>
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
@@ -91,6 +93,26 @@ function menu() {
                 </div>
             </div>
             <div class="nav-users">
+                <div class='reward'>
+                    <a @click="$router.go(-1)">
+                        <Icon name="tabler:arrow-big-left-lines-filled" />
+                    </a>
+                    <NuxtLink :to="`/admin/clientes/${item.username}`">
+                        <div class="reward-button">
+                            <Icon name='material-symbols:shield-person' />
+                        </div>
+                    </NuxtLink>
+                    <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
+                        <div class="reward-button">
+                            <Icon name='solar:dumbbell-large-bold' />
+                        </div>
+                    </NuxtLink>
+                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                        <div class="reward-button">
+                            <Icon name='solar:clipboard-heart-bold' />
+                        </div>
+                    </NuxtLink>
+                </div>
                 <div class='actions'>
                     <NuxtLink :to="`/admin/clientes/${item.username}`">
                         <div class="actions-button">
@@ -127,7 +149,7 @@ function menu() {
                 </h1>
 
             </div>
-            
+
             <p>Sexo: {{Users.data.value.sex }}</p>
             <p>Nascimento: {{Users.data.value.birthday }}</p>
             <p>WhatsApp: {{Users.data.value.whatsapp }}</p>
@@ -148,9 +170,13 @@ function menu() {
     </div>
 </template>
 <style scoped>
-
 @media (max-width: 650px) {
     .none {
+        display: none;
+    }
+}
+@media (max-width: 1020px) {
+    .nav-users .actions, .actions-user .update-button, .actions-user .delete-button {
         display: none;
     }
 }
@@ -298,8 +324,57 @@ function menu() {
     text-decoration: none;
     cursor: pointer;
 }
+.reward {
+    display: flex;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: space-between; 
+        align-content: baseline;
+        margin: 0;
+        overflow-x: auto;
+}
 
-.actions-user {
+.reward a  {
+    border: solid 1px #34d39910;
+    background-color: transparent;
+    padding: 4px 15px;
+    margin: 2.5px 10px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+
+.reward a:hover {
+    border: solid 1px #34d39960;
+    background-color: #34d39960;
+}
+
+.reward a.router-link-exact-active {
+    background: #34d39990;
+    border: solid 1px #34d399;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.reward-button a.router-link-exact-active:hover {
+    background: #34d39990;;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.reward-button a.router-link-exact-active:hover::after {
+    background-color: var(--color-background);
+    color: #34d399;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.reward-user {
     display: flex;
         justify-content: center;
         flex-direction: row;

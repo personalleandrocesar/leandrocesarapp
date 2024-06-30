@@ -25,7 +25,7 @@ export default {
 <script setup>
 import { ref } from 'vue';
 useHead({
-    titleTemplate: 'Clientes | NEX_WOD',
+    titleTemplate: 'Clientes | Leandro Cesar - App',
 });
 
 const route = useRoute();
@@ -160,6 +160,7 @@ const navD = ref(state.value === 4)
                 </div>
 
             </div>
+
 
 
             <NuxtPage />
