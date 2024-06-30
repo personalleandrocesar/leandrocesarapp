@@ -162,7 +162,10 @@ function formatarData(input) {
                     </div>
                 </div>
                 <div>
-                    <div v-if="addCloseClient" class="add-client" @click="addClient">
+                    <div v-if="addCloseClient" class="add-client add-client-max" @click="addClient">
+                        <Icon name='material-symbols:person-add-rounded' />  Cliente
+                    </div>
+                    <div v-if="addCloseClient" class="add-client add-client-mini" @click="addClient">
                         <Icon name='material-symbols:person-add-rounded' /> Adicionar Cliente
                     </div>
                     <!-- parei aqui -->
@@ -210,7 +213,7 @@ function formatarData(input) {
                                 <th class='none'>
                                     <span>Objetivo</span>
                                 </th>
-                                <th>
+                                <th class='none'>
                                     <span>Período</span>
                                 </th>
                                 <th class='none'>
@@ -222,7 +225,7 @@ function formatarData(input) {
                                 <th class='none'>
                                     <span>E-mail</span>
                                 </th>
-                                <th>
+                                <th class='none'>
                                     <span>Status</span>
                                 </th>
                             </tr><!---->
@@ -239,7 +242,7 @@ function formatarData(input) {
                                 <td class='none'>
                                     {{ item.target }}
                                 </td>
-                                <td>
+                                <td class='none'>
                                     <span>
                                         {{ item.periodStart }} <br> {{ item.periodEnd }}
                                     </span>
@@ -257,7 +260,7 @@ function formatarData(input) {
                                         {{ item.email }}
                                     </span>
                                 </td>
-                                <td>
+                                <td class='none'>
                                     <span>
                                         {{ item.status }}
                                     </span>
@@ -487,11 +490,22 @@ function formatarData(input) {
     </div>
 </template>
 <style scoped>
+.add-client-max {
+    display:none;
+}
 
 @media (max-width: 650px) {
     .none {
         display: none;
     }
+
+    .add-client-mini {
+        display: none;
+    }
+
+        .add-client-max {
+            display: inherit;
+        }
 }
 
 .lost h5 {

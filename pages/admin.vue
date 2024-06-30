@@ -275,14 +275,19 @@ const navD = ref(state.value === 4)
     flex-direction: column;
 }
 
+#grid-two {
+    display: none;
+}
+
 @media (max-width: 650px) {
     #grid {
         display: none;
     }
 
-    .nav {
-        display: none;
+    #grid-two {
+        display: inherit ;
     }
+
 }
 
 .logOut {
