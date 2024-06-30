@@ -161,22 +161,6 @@ const navD = ref(state.value === 4)
 
             </div>
 
-            <div class="color">
-
-                <a @click="theme()" :model="$colorMode.value">
-                    <Icon
-                        :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
-                </a>
-
-            </div>
-            <div class="whats">
-
-
-                <a
-                    href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20Leandro%20Cesar,%20fiquei%20interessado(a)%20nos%20seus%20Servi%C3%A7os,%20me%20chamo%20">
-                    <Icon name="ic:outline-whatsapp" />
-                </a>
-            </div>
 
 
             <NuxtPage />
@@ -187,21 +171,21 @@ const navD = ref(state.value === 4)
         <div v-else>
             <div id="nav-container" class='nav'>
 
-                <div>
+                    <div>
 
-                    <NuxtLink @click="menu()" class="button-client">
-                        <Icon name="solar:close-square-bold" />
-                    </NuxtLink>
+                        <NuxtLink @click="menu()" class="button-client">
+                            <Icon name="solar:close-square-bold" />
+                        </NuxtLink>
 
-                </div>
-                <div>
+                    </div>
+                    <div>
 
-                    <a @click="theme()" :model="$colorMode.value">
-                        <Icon
-                            :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
-                    </a>
+                        <a @click="theme()" :model="$colorMode.value">
+                            <Icon
+                                :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
+                        </a>
 
-                </div>
+                    </div>
 
 
             </div>
