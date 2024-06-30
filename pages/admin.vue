@@ -162,7 +162,6 @@ const navD = ref(state.value === 4)
             </div>
 
 
-
             <NuxtPage />
         </div>
 
