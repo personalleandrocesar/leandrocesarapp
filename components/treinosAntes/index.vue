@@ -203,40 +203,20 @@ const items = ref([
 
 ]);
 
-const exemploOne = ref([
-    {
-    "Nome": "Leandro Cesar",
-    "idade": 37,
-    "service": "Personal",
-    "Treinos": [
+const doc = {
+    "treinos": [
         {
-        "nome": "Um",
-        "data": '29-06-24',
-        "projetos": [
-            {
-            "nome": "Projeto A",
-            "status": "Em andamento"
-            },
-            {
-            "nome": "Projeto B",
-            "status": "Concluído"
-            }
-        ]
-        },
-        {
-        "nome": "Carlos",
-        "cargo": "Gerente",
-        "projetos": [
-            {
-            "nome": "Projeto C",
-            "status": "Em planejamento"
-            }
-        ]
+            "name": "Treino 1",
+            "series": [
+                {
+                    "name": "Série A",
+                    "date": "30-06-2024",
+                },
+            
+            ]
         }
     ]
-    }
-
-]);
+};
 
 function addItem() {
     items.value.push({ id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: '' });

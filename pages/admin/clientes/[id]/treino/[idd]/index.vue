@@ -5,10 +5,14 @@ import { reloadNuxtApp } from "nuxt/app";
 
 const route = useRoute();
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
-const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
-const item = Users.data.value;
-const qtTreinos = Treinos.data.value;
+const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`);
+const Series = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
 
+const item = Users.data.value;
+const qtTreino = Treinos.data.value;
+const qtTreinos = Treinos.data.value.series;
+
+const qtSeries = Series.data.value;
 
 const subscriberOk = ref(false)
 
@@ -16,10 +20,27 @@ const add = ref(true)
 function addClient() {
     add.value = !add.value
 }
-    
+
 const items = ref(
     {
-        name: '', 
+        "name": "Treino atual",
+        "series": [
+            {
+                "name": "SerieA",
+                "date": "30-06-2024",
+                "set": [
+                    { "id": '1', "exercício": 'Mesa Flexora', "sets": 3, "reps": 12 }
+                ]
+            },
+            {
+                "name": "SerieB",
+                "date": "30-06-2024",
+                "set": [
+                    { "id": '1', "exercício": 'extensora', "sets": 3, "reps": 12 }
+                ]
+            },
+
+        ]
     }
 
 );
@@ -150,13 +171,10 @@ useHead({
 
                 </h1>
                 <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
-                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}`)">
-                        <ul>
-                            <li>
-                                {{ qtTreinos.name }}
+                    <span
+                        @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreino.name}/${qtTreinos.name}`)">
 
-                            </li>
-                        </ul>
+                        {{ qtTreinos.name }}
 
                     </span>
                 </h1>
@@ -187,9 +205,9 @@ useHead({
                             <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
                             </option>
                         </select> -->
-                        
-                                <!-- <input type="month" name="" id="" v-model="items.name"> -->
-                                <button class="login" type="submit">Adicionar</button>
+
+                        <!-- <input type="month" name="" id="" v-model="items.name"> -->
+                        <button class="login" type="submit">Adicionar</button>
                     </form>
 
                 </div>
@@ -199,39 +217,41 @@ useHead({
     </div>
 </template>
 <style scoped>
-.new-form{
+.new-form {
     display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        flex-wrap: wrap;
-        transform: translateX(0%);
-        position: fixed;
-        top: 87px;
-        height: calc(100% - 98px);
-        width: calc(100% - 245px);
-    border-radius: 5px ; 
-        background: linear-gradient(to bottom right, #34d39910 0%, #34d39940 50%, #00f2ff10 100%);
-        backdrop-filter: blur(5px);
-        z-index: 1004;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    transform: translateX(0%);
+    position: fixed;
+    top: 87px;
+    height: calc(100% - 98px);
+    width: calc(100% - 245px);
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39940 50%, #00f2ff10 100%);
+    backdrop-filter: blur(5px);
+    z-index: 1004;
 }
-.new-form-squared{
+
+.new-form-squared {
     display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        flex-wrap: wrap;
-        transform: translateX(0%);
-        position: fixed;
-        top: calc(3 *50px);
-        height: calc(100% - (3 * 98px));
-        width: calc(100% - (490px + 245px));
-        border: .10px solid #34d399;
-    border-radius: 5px ; 
-        background: linear-gradient(to bottom right, #34d39910 0%, #34d39980 50%, #00f2ff20 100%);
-        backdrop-filter: blur(5px);
-        z-index: 1004;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    transform: translateX(0%);
+    position: fixed;
+    top: calc(3 *50px);
+    height: calc(100% - (3 * 98px));
+    width: calc(100% - (490px + 245px));
+    border: .10px solid #34d399;
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39980 50%, #00f2ff20 100%);
+    backdrop-filter: blur(5px);
+    z-index: 1004;
 }
+
 .nav-top {
     position: sticky;
     top: 0px;
@@ -411,7 +431,7 @@ useHead({
 
 .new-user {
     border: solid 1px #04be7a90;
-        background-color: #04be7a;
+    background-color: #04be7a;
     padding: 4px 15px;
     margin: 2.5px 10px;
     border-radius: 8px;
@@ -420,7 +440,7 @@ useHead({
 }
 
 .new-user:hover {
-border: solid 1px #04be7a90;
+    border: solid 1px #04be7a90;
     border-radius: 8px;
     color: #04be7a;
     background-color: #fff;

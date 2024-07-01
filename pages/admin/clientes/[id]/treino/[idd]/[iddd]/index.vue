@@ -1,17 +1,16 @@
 <script setup>
 import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
-useHead({
-    titleTemplate: 'Clientes | NEX_WOD',
-});
+
 
 const route = useRoute();
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
-const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
+const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`);
+const Series = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
 const item = Users.data.value;
 const qtTreinos = Treinos.data.value;
+const qtSeries = Series.data.value;
 
-console.log(qtTreinos.name);
 
 const subscriberOk = ref(false)
 
@@ -21,10 +20,25 @@ function addClient() {
 }
 
 const items = ref(
-    { name: '', set: [
-            { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://m.leandrocesar.com/exe/${item.photo}.gif`' }
+    {
+        "name": "Treino atual",
+        "series": [
+            {
+                "name": "SerieA",
+                "date": "30-06-2024",
+                "set": [
+                    { "id": '1', "exercício": 'Mesa Flexora', "sets": 3, "reps": 12 }
+                ]
+            },
+            {
+                "name": "SerieB",
+                "date": "30-06-2024",
+                "set": [
+                    { "id": '1', "exercício": 'extensora', "sets": 3, "reps": 12 }
+                ]
+            },
 
-        ]  
+        ]
     }
 
 );
@@ -41,7 +55,7 @@ async function submitTreino() {
             }),
         });
         if (response.ok) {
-            console.log('Data delete successfully');
+            console.log('Create Serie successfully');
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
@@ -51,20 +65,20 @@ async function submitTreino() {
                 });
             }, 1000);
         } else {
-            console.error('Failed to delete data');
+            console.error('Failed to Create Serie');
         }
     } catch (error) {
-        console.error('Error delete data:', error);
+        console.error('Error Create Serie:', error);
     }
 }
 
-const reg = route.params.id
 const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
-logon.value = reg
-
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`)
+const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.idd}`)
 const status = dataConf.data.value?.status
+
+
+
 const photoOpen = ref(false);
 function openPhoto() {
     photoOpen.value = !photoOpen.value;
@@ -92,12 +106,16 @@ const newTrainning = () => {
     addCloseTrainning.value = !addCloseTrainning.value
 }
 
+useHead({
+    titleTemplate: `${route.params.idd} - Treinos - ${Users.data.value?.name} ${Users.data.value?.lastName} | Clientes | NEX_WOD`,
+})
+
 
 </script>
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Usuário deletado com Sucesso!
+            Série criada com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -105,7 +123,7 @@ const newTrainning = () => {
             <div class="nav-top">
                 <div class="clients">
                     <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-        Users.data.value.lastName }} - Treino: {{ route.params.idd}}
+        Users.data.value.lastName }} - Treino: {{ route.params.iddd }}
                 </div>
                 <div>
                     <div class="notifications">
@@ -145,10 +163,12 @@ const newTrainning = () => {
             </div>
 
             <div v-if="newForm">
-
-                <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
-                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}`)">
-                        {{ qtTreinos }}
+                {{ qtSeries.name }} - {{ qtSeries.date }}
+                <br>
+                {{ qtSeries.set[0].id  }} - {{ qtSeries.set[0].exercício  }}
+                <h1 v-for="(qtSeries, index) in qtSeries" :key="index">
+                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}/${qtSeries.name}`)">
+                        
 
                     </span>
                 </h1>
@@ -157,28 +177,7 @@ const newTrainning = () => {
                 <div class="new-form-squared">
                     <form @submit.prevent="submitTreino">
                         <p>Nome do treino</p>
-                        <!-- <input type="text" name="" id="" v-model="items.name"> -->
-                        <select id="options" name="options" v-model="items.name">
-                            <option v-for="day in 31" :key="day">{{ day }}</option>
-                        </select>
-                        <select id="options" name="options" v-model="items.name">
-                            <option value="option1">Janeiro</option>
-                            <option value="option1">Fevereiro</option>
-                            <option value="option1">Março</option>
-                            <option value="option1">Abril</option>
-                            <option value="option1">Maio</option>
-                            <option value="option1">Junho</option>
-                            <option value="option1">Julho</option>
-                            <option value="option1">Agosto</option>
-                            <option value="option1">Setembro</option>
-                            <option value="option1">Outubro</option>
-                            <option value="option1">Novembro</option>
-                            <option value="option1">Dezembro</option>
-                        </select>
-                        <select id="options" name="options" v-model="items.name">
-                            <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
-                            </option>
-                        </select>
+                        <input type="text" name="" id="" v-model="items.name">
 
                         <!-- <input type="month" name="" id="" v-model="items.name"> -->
                         <button class="login" type="submit">Adicionar</button>

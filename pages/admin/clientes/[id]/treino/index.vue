@@ -5,9 +5,11 @@ import { reloadNuxtApp } from "nuxt/app";
 
 const route = useRoute();
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
-const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
+const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`);
+const Series = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
 const item = Users.data.value;
 const qtTreinos = Treinos.data.value;
+const qtSeries = Series.data.value;
 
 
 const subscriberOk = ref(false)
@@ -16,10 +18,27 @@ const add = ref(true)
 function addClient() {
     add.value = !add.value
 }
-    
+
 const items = ref(
     {
-        name: '', 
+        "name": "Treino atual",
+        "series": [
+            {
+                "name": "SerieA",
+                "date": "30-06-2024",
+                "set": [
+                    { "id": '1', "exercício": 'Mesa Flexora', "sets": 3, "reps": 12 }
+                ]
+            },
+            {
+                "name": "SerieB",
+                "date": "30-06-2024",
+                "set": [
+                    { "id": '1', "exercício": 'extensora', "sets": 3, "reps": 12 }
+                ]
+            },
+
+        ]
     }
 
 );
@@ -36,7 +55,7 @@ async function submitTreino() {
             }),
         });
         if (response.ok) {
-            console.log('Create Trainning successfully');
+            console.log('Create Serie successfully');
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
@@ -46,20 +65,20 @@ async function submitTreino() {
                 });
             }, 1000);
         } else {
-            console.error('Failed to Create Trainning');
+            console.error('Failed to Create Serie');
         }
     } catch (error) {
-        console.error('Error Create Trainning:', error);
+        console.error('Error Create Serie:', error);
     }
 }
 
-const reg = route.params.id
 const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
-logon.value = reg
-
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
+const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.idd}`)
 const status = dataConf.data.value?.status
+
+
+
 const photoOpen = ref(false);
 function openPhoto() {
     photoOpen.value = !photoOpen.value;
@@ -88,7 +107,7 @@ const newTrainning = () => {
 }
 
 useHead({
-    titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
+    titleTemplate: `${route.params.idd} - Treinos - ${Users.data.value?.name} ${Users.data.value?.lastName} | Clientes | NEX_WOD`,
 })
 
 
@@ -96,7 +115,7 @@ useHead({
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Treino Criado com Sucesso!
+            Série criada com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -104,7 +123,7 @@ useHead({
             <div class="nav-top">
                 <div class="clients">
                     <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-                    Users.data.value.lastName }}
+        Users.data.value.lastName }} - Treino: {{ route.params.idd }}
                 </div>
                 <div>
                     <div class="notifications">
@@ -145,18 +164,11 @@ useHead({
 
             <div v-if="newForm">
 
-                <h1>
-                    Treinos:
+                <h1 v-for="(qtSeries, index) in qtSeries" :key="index">
+                    <span
+                        @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}/${qtSeries.name}`)">
 
-                </h1>
-                <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
-                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}`)">
-                        <ul>
-                            <li>
-                                {{ qtTreinos.name }}
-
-                            </li>
-                        </ul>
+                        {{ qtSeries }}
 
                     </span>
                 </h1>
@@ -166,30 +178,9 @@ useHead({
                     <form @submit.prevent="submitTreino">
                         <p>Nome do treino</p>
                         <input type="text" name="" id="" v-model="items.name">
-                        <!-- <select id="options" name="options" v-model="items.name">
-                            <option v-for="day in 31" :key="day">{{ day }}</option>
-                        </select>
-                        <select id="options" name="options" v-model="items.name">
-                            <option value="option1">Janeiro</option>
-                            <option value="option1">Fevereiro</option>
-                            <option value="option1">Março</option>
-                            <option value="option1">Abril</option>
-                            <option value="option1">Maio</option>
-                            <option value="option1">Junho</option>
-                            <option value="option1">Julho</option>
-                            <option value="option1">Agosto</option>
-                            <option value="option1">Setembro</option>
-                            <option value="option1">Outubro</option>
-                            <option value="option1">Novembro</option>
-                            <option value="option1">Dezembro</option>
-                        </select>
-                        <select id="options" name="options" v-model="items.name">
-                            <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
-                            </option>
-                        </select> -->
-                        
-                                <!-- <input type="month" name="" id="" v-model="items.name"> -->
-                                <button class="login" type="submit">Adicionar</button>
+
+                        <!-- <input type="month" name="" id="" v-model="items.name"> -->
+                        <button class="login" type="submit">Adicionar</button>
                     </form>
 
                 </div>
@@ -199,39 +190,41 @@ useHead({
     </div>
 </template>
 <style scoped>
-.new-form{
+.new-form {
     display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        flex-wrap: wrap;
-        transform: translateX(0%);
-        position: fixed;
-        top: 87px;
-        height: calc(100% - 98px);
-        width: calc(100% - 245px);
-    border-radius: 5px ; 
-        background: linear-gradient(to bottom right, #34d39910 0%, #34d39940 50%, #00f2ff10 100%);
-        backdrop-filter: blur(5px);
-        z-index: 1004;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    transform: translateX(0%);
+    position: fixed;
+    top: 87px;
+    height: calc(100% - 98px);
+    width: calc(100% - 245px);
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39940 50%, #00f2ff10 100%);
+    backdrop-filter: blur(5px);
+    z-index: 1004;
 }
-.new-form-squared{
+
+.new-form-squared {
     display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        flex-wrap: wrap;
-        transform: translateX(0%);
-        position: fixed;
-        top: calc(3 *50px);
-        height: calc(100% - (3 * 98px));
-        width: calc(100% - (490px + 245px));
-        border: .10px solid #34d399;
-    border-radius: 5px ; 
-        background: linear-gradient(to bottom right, #34d39910 0%, #34d39980 50%, #00f2ff20 100%);
-        backdrop-filter: blur(5px);
-        z-index: 1004;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    transform: translateX(0%);
+    position: fixed;
+    top: calc(3 *50px);
+    height: calc(100% - (3 * 98px));
+    width: calc(100% - (490px + 245px));
+    border: .10px solid #34d399;
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39980 50%, #00f2ff20 100%);
+    backdrop-filter: blur(5px);
+    z-index: 1004;
 }
+
 .nav-top {
     position: sticky;
     top: 0px;
@@ -256,7 +249,7 @@ useHead({
     right: 2%;
     width: 20%;
     margin-left: 40%;
-    background-color: #00DC82;
+    background-color: #ff1900;
     color: #fff;
     text-shadow: 2px 2px 2px #111;
     z-index: 20;
@@ -411,7 +404,7 @@ useHead({
 
 .new-user {
     border: solid 1px #04be7a90;
-        background-color: #04be7a;
+    background-color: #04be7a;
     padding: 4px 15px;
     margin: 2.5px 10px;
     border-radius: 8px;
@@ -420,7 +413,7 @@ useHead({
 }
 
 .new-user:hover {
-border: solid 1px #04be7a90;
+    border: solid 1px #04be7a90;
     border-radius: 8px;
     color: #04be7a;
     background-color: #fff;

@@ -9,7 +9,6 @@ useHead({
 const Users = await useFetch('https://api.nexwod.app/users');
 const item = Users.data.value;
 
-console.log(item);
 
 const subscriberOk = ref(false)
 
@@ -233,8 +232,8 @@ function formatarData(input) {
                                 <td>
                                     {{ item.name }} {{ item.lastName }}
                                 </td>
-                                    <td>
-                                        {{ item.service }}
+                                <td>
+                                    {{ item.service }}
                                 </td>
                                 <td class='none'>
                                     <span>
@@ -369,8 +368,6 @@ function formatarData(input) {
                             <span>Senha</span>
                             <input v-bind:type="pass" required name="" id="password" v-model="password"
                                 autocomplete="off">
-                            <Icon @click="swText" v-if="passView" name="ph:lock-key-open-bold" id="password-icon" />
-                            <Icon @click="swPass" v-else name="ph:lock-key-fill" id="password-icon" />
                         </div>
 
                     </div>
@@ -415,8 +412,8 @@ function formatarData(input) {
 
                     <div class="inputs">
                         <button class="login" type="submit">
-                            ENVIAR
-                            <Icon name="solar:login-3-bold" />
+                            Criar
+                            <Icon name="material-symbols:person-add-rounded" />
                         </button>
                     </div>
                     <br>
@@ -474,7 +471,7 @@ function formatarData(input) {
                 </div> -->
                 <div v-if="subscriberOk" class="subscriberOk top">
                     <div>
-                        Inscrição realizada com Sucesso!
+                        Usuário Criado com Sucesso!
                     </div>
                 </div>
             </div>
