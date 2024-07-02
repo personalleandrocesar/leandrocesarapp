@@ -94,7 +94,7 @@ const selectG = () => {
 </script>
 
 <template>
-  <NuxtLayout :name="layout">
+  <NuxtLayout>
 
     <div class="alternate">
       <span @click="chooseGrid" :class="{ alternateGrid : alternateGrid }">

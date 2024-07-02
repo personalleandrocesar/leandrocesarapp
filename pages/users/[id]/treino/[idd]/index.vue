@@ -40,7 +40,7 @@ const navD = ref(state.value == 4)
 </script>
 
 <template>
-  <NuxtLayout :name='layout'>
+  <NuxtLayout>
     <div class="main-div-one">
 
 
@@ -66,7 +66,7 @@ const navD = ref(state.value == 4)
 
       </div>
     </div>
-    <div class="story" v-if="navA">Último treino: <b>TREINO</b>
+    <!-- <div class="story" v-if="navA">Último treino: <b>TREINO</b>
       <Icon name='mdi:alpha-a' />
     </div>
     <div class="story" v-else-if="navB">Último treino: <b>TREINO</b>
@@ -78,13 +78,14 @@ const navD = ref(state.value == 4)
     <div class="story" v-else-if="navD">Último treino: <b>TREINO</b>
       <Icon name='mdi:alpha-d' />
     </div>
-    <div v-else></div>
+    <div v-else></div> -->
 
 
 
     <div class="main-div-two">
+      <br>
       <h3>
-        <Icon name='material-symbols:exercise' /> TREINOS
+        <Icon name='solar:dumbbell-small-bold' /> SÉRIES
       </h3>
 
       <span v-for="(qtTreinos, index) in qtTreinos" :key="index">
