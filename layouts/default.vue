@@ -86,9 +86,12 @@ const navD = ref(state.value === 4)
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/treinos`">
-                <Icon name='solar:dumbbell-large-bold' />
+                <Icon name='solar:dumbbell-large-minimalistic-bold-duotone' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/users/${route.params.id}/treinos/a`"
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
+                <Icon name='solar:dumbbells-2-bold-duotone' />
+            </NuxtLink>
+            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/users/${route.params.id}/treinos   /a`"
               >
                 <Icon name='mdi:alpha-a-box' />
             </NuxtLink>
@@ -104,9 +107,12 @@ const navD = ref(state.value === 4)
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/treinos`">
-                <Icon name='solar:dumbbell-large-bold' />
+                <Icon name='solar:dumbbell-large-minimalistic-bold-duotone' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/users/${route.params.id}/treinos/b`"
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
+                <Icon name='solar:dumbbells-2-bold-duotone' />
+            </NuxtLink>
+            <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/users/${route.params.id}/treinos   /b`"
               >
                 <Icon name='mdi:alpha-b-box' />
             </NuxtLink>
@@ -121,9 +127,12 @@ const navD = ref(state.value === 4)
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/treinos`">
-                <Icon name='solar:dumbbell-large-bold' />
+                <Icon name='solar:dumbbell-large-minimalistic-bold-duotone' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/users/${route.params.id}/treinos/c`"
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
+                <Icon name='solar:dumbbells-2-bold-duotone' />
+            </NuxtLink>
+            <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/users/${route.params.id}/treinos   /c`"
               >
                 <Icon name='mdi:alpha-c-box' />
             </NuxtLink>
@@ -138,9 +147,12 @@ const navD = ref(state.value === 4)
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/treinos`">
-                <Icon name='solar:dumbbell-large-bold' />
+                <Icon name='solar:dumbbell-large-minimalistic-bold-duotone' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/users/${route.params.id}/treinos/d`"
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
+                <Icon name='solar:dumbbells-2-bold-duotone' />
+            </NuxtLink>
+            <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/users/${route.params.id}/treinos   /d`"
               >
                 <Icon name='mdi:alpha-d-box' />
             </NuxtLink>
@@ -154,7 +166,7 @@ const navD = ref(state.value === 4)
             <NuxtLink :to="`/users/${route.params.id}`"  @click.native="scrollToTop()">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/users/${route.params.id}/treinos`" @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}/treinos   `" @click.native="scrollToTop()">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/cardio`" @click.native="scrollToTop()">
@@ -222,9 +234,12 @@ const navD = ref(state.value === 4)
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/treinos`">
-                <Icon name='solar:dumbbell-large-bold' />
+                <Icon name='solar:dumbbell-large-minimalistic-bold-duotone' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/users/${route.params.id}/treinos/a`"
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
+                <Icon name='solar:dumbbells-2-bold-duotone' />
+            </NuxtLink>
+            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/users/${route.params.id}/treinos   /a`"
               >
                 <Icon name='mdi:alpha-a-box' />
             </NuxtLink>
@@ -240,9 +255,12 @@ const navD = ref(state.value === 4)
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/treinos`">
-                <Icon name='solar:dumbbell-large-bold' />
+                <Icon name='solar:dumbbell-large-minimalistic-bold-duotone' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/users/${route.params.id}/treinos/b`"
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
+                <Icon name='solar:dumbbells-2-bold-duotone' />
+            </NuxtLink>
+            <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/users/${route.params.id}/treinos   /b`"
               >
                 <Icon name='mdi:alpha-b-box' />
             </NuxtLink>
@@ -257,9 +275,12 @@ const navD = ref(state.value === 4)
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/treinos`">
-                <Icon name='solar:dumbbell-large-bold' />
+                <Icon name='solar:dumbbell-large-minimalistic-bold-duotone' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/users/${route.params.id}/treinos/c`"
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
+                <Icon name='solar:dumbbells-2-bold-duotone' />
+            </NuxtLink>
+            <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/users/${route.params.id}/treinos   /c`"
               >
                 <Icon name='mdi:alpha-c-box' />
             </NuxtLink>
@@ -274,9 +295,12 @@ const navD = ref(state.value === 4)
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/treinos`">
-                <Icon name='solar:dumbbell-large-bold' />
+                <Icon name='solar:dumbbell-large-minimalistic-bold-duotone' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/users/${route.params.id}/treinos/d`"
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
+                <Icon name='solar:dumbbells-2-bold-duotone' />
+            </NuxtLink>
+            <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/users/${route.params.id}/treinos   /d`"
               >
                 <Icon name='mdi:alpha-d-box' />
             </NuxtLink>
@@ -290,7 +314,7 @@ const navD = ref(state.value === 4)
             <NuxtLink :to="`/users/${route.params.id}`"  @click.native="scrollToTop()">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/users/${route.params.id}/treinos`" @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}/treinos   `" @click.native="scrollToTop()">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/cardio`" @click.native="scrollToTop()">
