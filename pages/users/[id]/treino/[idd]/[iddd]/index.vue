@@ -140,10 +140,10 @@ const selectG = () => {
             </div>
           </div>
 
-          <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
+          <!-- Início do Nav-flow -->
+          <!-- <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
             <div class="nav-top">
 
-              <!-- Início do Nav-flow -->
               <div class="nav-flow-photo">
                 <div class="div-img-full">
                   <img :src="currentExercise.img" />
@@ -151,7 +151,7 @@ const selectG = () => {
               </div>
 
             </div>
-          </div>
+          </div> -->
         </li>
       </ul>
 
