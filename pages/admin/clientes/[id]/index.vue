@@ -157,7 +157,7 @@ useHead({
             </div>
 
             <p>Sexo: {{Users.data.value.sex }}</p>
-            <p>Nascimento: {{Users.data.value.birthday }}</p>
+            <p>Nascimento: {{ Users.data.value.birthday.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
             <p>WhatsApp: {{Users.data.value.whatsapp }}</p>
             <p>Serviço: {{Users.data.value.service }}</p>
             <p>Objetivo: {{Users.data.value.target }}</p>
@@ -165,9 +165,9 @@ useHead({
             <p>Senha: {{Users.data.value.password }}</p>
             <p>Dias de Treino:{{Users.data.value.day }}</p>
             <p>Tempo de treino: {{Users.data.value.time }} minutos</p>
-            <p>Dia do Vencimento:{{Users.data.value.payDay }}</p>
-            <p>Inicio do contrato: {{Users.data.value.periodStart }}</p>
-            <p>Fim do Período: {{Users.data.value.periodEnd }}</p>
+            <p>Dia do Vencimento:{{ Users.data.value.payDay }}</p>
+            <p>Inicio do contrato: {{Users.data.value.periodStart.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
+            <p>Fim do Período: {{ Users.data.value.periodEnd.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
             <p>Termino assinado:{{Users.data.value.terms }}</p>
             <p v-if="Users.data.value.status">Status: {{Users.data.value.status }}</p>
             <p v-else>Status: Bloqueado</p>

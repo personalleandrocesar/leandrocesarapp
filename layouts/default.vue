@@ -82,17 +82,17 @@ const navD = ref(state.value === 4)
 
             <div v-if="navA">
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`">
+            <NuxtLink :to="`/users/${route.params.id}`">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/user/${route.params.id}/treino/a`"
+            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/users/${route.params.id}/treinos/a`"
               >
                 <Icon name='mdi:alpha-a-box' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                     <Icon name='solar:clipboard-heart-bold' />
                 </NuxtLink>
         </div>
@@ -100,67 +100,67 @@ const navD = ref(state.value === 4)
 
     <div v-else-if="navB">
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`">
+            <NuxtLink :to="`/users/${route.params.id}`">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/user/${route.params.id}/treino/b`"
+            <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/users/${route.params.id}/treinos/b`"
               >
                 <Icon name='mdi:alpha-b-box' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                     <Icon name='solar:clipboard-heart-bold' />
                 </NuxtLink>
         </div>
     </div>
     <div v-else-if="navC">
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`">
+            <NuxtLink :to="`/users/${route.params.id}`">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/user/${route.params.id}/treino/c`"
+            <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/users/${route.params.id}/treinos/c`"
               >
                 <Icon name='mdi:alpha-c-box' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                     <Icon name='solar:clipboard-heart-bold' />
                 </NuxtLink>
         </div>
     </div>
     <div v-else-if="navD">
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`">
+            <NuxtLink :to="`/users/${route.params.id}`">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/user/${route.params.id}/treino/d`"
+            <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/users/${route.params.id}/treinos/d`"
               >
                 <Icon name='mdi:alpha-d-box' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                     <Icon name='solar:clipboard-heart-bold' />
                 </NuxtLink>
         </div>
     </div>
     <div v-else>
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`"  @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}`"  @click.native="scrollToTop()">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`" @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`" @click.native="scrollToTop()">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/cardio`" @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}/cardio`" @click.native="scrollToTop()">
                 <Icon name='material-symbols:cardiology' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
                 <Icon name='solar:clipboard-heart-bold' />
             </NuxtLink>
         </div>
@@ -175,7 +175,7 @@ const navD = ref(state.value === 4)
           </div>
           </div>
 
-        <div v-if="route.path === `/user/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-logo" id="sobre">
+        <div v-if="route.path === `/users/${logon}` || route.path === `/users/${logon}/parcerias`" class="head-logo" id="sobre">
             <NuxtLink @click="menu()" class="button-client">
             </NuxtLink>
             <div class='logo'>
@@ -187,7 +187,7 @@ const navD = ref(state.value === 4)
                 <img @click="openPhoto" :src="dataConf.data.value?.foto">
             </div>
         </div>
-        <div v-if="route.path === `/user/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-name">
+        <div v-if="route.path === `/users/${logon}` || route.path === `/users/${logon}/parcerias`" class="head-name">
             <div class="name">
                 Olá, {{ dataConf.data.value?.name }}
             </div>
@@ -218,17 +218,17 @@ const navD = ref(state.value === 4)
 
                 <div v-if="navA">
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`">
+            <NuxtLink :to="`/users/${route.params.id}`">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/user/${route.params.id}/treino/a`"
+            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/users/${route.params.id}/treinos/a`"
               >
                 <Icon name='mdi:alpha-a-box' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                     <Icon name='solar:clipboard-heart-bold' />
                 </NuxtLink>
         </div>
@@ -236,67 +236,67 @@ const navD = ref(state.value === 4)
 
     <div v-else-if="navB">
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`">
+            <NuxtLink :to="`/users/${route.params.id}`">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/user/${route.params.id}/treino/b`"
+            <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/users/${route.params.id}/treinos/b`"
               >
                 <Icon name='mdi:alpha-b-box' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                     <Icon name='solar:clipboard-heart-bold' />
                 </NuxtLink>
         </div>
     </div>
     <div v-else-if="navC">
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`">
+            <NuxtLink :to="`/users/${route.params.id}`">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/user/${route.params.id}/treino/c`"
+            <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/users/${route.params.id}/treinos/c`"
               >
                 <Icon name='mdi:alpha-c-box' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                     <Icon name='solar:clipboard-heart-bold' />
                 </NuxtLink>
         </div>
     </div>
     <div v-else-if="navD">
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`">
+            <NuxtLink :to="`/users/${route.params.id}`">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/user/${route.params.id}/treino/d`"
+            <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/users/${route.params.id}/treinos/d`"
               >
                 <Icon name='mdi:alpha-d-box' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                     <Icon name='solar:clipboard-heart-bold' />
                 </NuxtLink>
         </div>
     </div>
 <div v-else>
         <div class="nav-bottom">
-            <NuxtLink :to="`/user/${route.params.id}`"  @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}`"  @click.native="scrollToTop()">
                 <Icon name='solar:home-smile-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/treino`" @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}/treinos`" @click.native="scrollToTop()">
                 <Icon name='solar:dumbbell-large-bold' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/cardio`" @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}/cardio`" @click.native="scrollToTop()">
                 <Icon name='material-symbols:cardiology' />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
+            <NuxtLink :to="`/users/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
                 <Icon name='solar:clipboard-heart-bold' />
             </NuxtLink>
         </div>
@@ -390,7 +390,7 @@ const navD = ref(state.value === 4)
 
             <!-- Documentos -->
             <p class="section-title">Documentos</p>
-            <NuxtLink :to="`/user/${route.params.id}/contratos`" class="menu-button">
+            <NuxtLink :to="`/users/${route.params.id}/contratos`" class="menu-button">
                 <div>
                     <Icon name="solar:document-add-linear" />
                     <p>
@@ -399,7 +399,7 @@ const navD = ref(state.value === 4)
                 </div>
                 <Icon name="ic:baseline-keyboard-arrow-right" />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/termos-de-uso`" class="menu-button">
+            <NuxtLink :to="`/users/${route.params.id}/termos-de-uso`" class="menu-button">
                 <div>
                     <Icon name="solar:document-text-linear" />
                     <p>

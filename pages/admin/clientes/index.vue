@@ -74,6 +74,10 @@ function closeClient() {
 
 }
 
+const date = '1986-10-08';
+const reversedDate = date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1');
+console.log(reversedDate); // Output: 08-10-1986
+
 async function submitForm() {
     try {
         const response = await fetch('https://api.nexwod.app/user', {
@@ -85,7 +89,7 @@ async function submitForm() {
                 name: name.value,
                 lastName: lastName.value,
                 sex: sex.value,
-                birthday: birthday.value,
+                birthday: birthday.value.replace(),
                 whatsapp: whatsapp.value,
                 service: service.value,
                 target: target.value,
@@ -219,9 +223,6 @@ function formatarData(input) {
                                     <span>Nascimento</span>
                                 </th>
                                 <th class='none'>
-                                    <span>E-mail</span>
-                                </th>
-                                <th class='none'>
                                     <span>Status</span>
                                 </th>
                             </tr><!---->
@@ -237,7 +238,8 @@ function formatarData(input) {
                                 </td>
                                 <td class='none'>
                                     <span>
-                                        {{ item.periodStart }} <br> {{ item.periodEnd }}
+                                        {{ item.periodStart.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }} <br> {{
+                                        item.periodEnd }}
                                     </span>
                                 </td>
                                 <td class='none'>
@@ -246,12 +248,7 @@ function formatarData(input) {
                                     </span>
                                 </td>
                                 <td class='none'>
-                                    {{ item.birthday }}
-                                </td>
-                                <td class='none'>
-                                    <span>
-                                        {{ item.email }}
-                                    </span>
+                                    {{ item.birthday.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}
                                 </td>
                                 <td class='none'>
                                     <span>
@@ -423,52 +420,7 @@ function formatarData(input) {
                 <br>
                 <br>
                 <br>
-                <!-- <div class="table-clients">
-    
-    
-                    <form @submit.prevent="submitForm">
-                        <div class="table">
-                            <div class="row header">
-                                <div class="cell-two">Nome</div>
-                                <div class="cell-two">Sobrenome</div>
-                                <div class="cell-two">Usuário</div>
-                                <div class="cell-two">Email</div>
-                                <div class="cell-two">Senha</div>
-                                <div class="cell-two">Serviço</div>
-                            </div>
-                            <div class="row">
-                                <div class="cell-two"><input type="text" v-model="name" name="name" /> </div>
-                                <div class="cell-two"><input type="text" v-model="lastName" name="lastName" /> </div>
-                                <div class="cell-two"><input type="text" v-model="username" name="username" /> </div>
-                                <div class="cell-two"><input type="email" v-model="email" name="email" /></div>
-                                <div class="cell-two"><input type="text" v-model="password" name="password" /> </div>
-                                <div class="cell-two"><input type="text" v-model="service" name="service" /> </div>
-                            </div>
-                        </div>
-                        <div class="table">
-                            <div class="row header">
-                                <div class="cell-two">Início</div>
-                                <div class="cell-two">Fim</div>
-                                <div class="cell-two">Objetivo</div>
-                                <div class="cell-two">Status</div>
-                                <div class="cell-two">Dias</div>
-                                <div class="cell-two">Tempo</div>
-                            </div>
-                            <div class="row">
-                                <div class="cell-two"><input type="date" v-model="periodStart" name="periodStart" /> </div>
-                                <div class="cell-two"><input type="date" v-model="periodEnd" name="periodEnd" /> </div>
-                                <div class="cell-two"><input type="text" v-model="target" name="target" /> </div>
-                                <div class="cell-two"><input type="text" v-model="status" name="status" /> </div>
-                                <div class="cell-two"><input type="text" v-model="day" name="day" /> </div>
-                                <div class="cell-two"> <input type="text" v-model="time" name="time" /> </div>
-                            </div>
-                        </div>
-    
-                        <button class="input" type="submit" @click="refreshAll">Adicionar</button>
-                    </form>
-                    
-                    
-                </div> -->
+
                 <div v-if="subscriberOk" class="subscriberOk top">
                     <div>
                         Usuário Criado com Sucesso!

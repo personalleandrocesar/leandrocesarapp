@@ -8,11 +8,15 @@ function openExercise() {
   exerciseImg.value = !exerciseImg.value;
 }
 
-const dataTreino = await useFetch(`/api/${route.params.id}/treino/atual/a`)
+const dataTreino = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`)
+
+const qtSeries = dataTreino.data.value.set;
+
+console.log(dataTreino.data.value.set)
 
 const treino = ref(0)
 const currentExercise = computed(() => {
-  return dataTreino?.data.value[treino.value]
+  return dataTreino?.data.value[qtSeries.value]
   
 })
 
@@ -92,16 +96,17 @@ const selectG = () => {
 <template>
     <NuxtLayout :name="layout">
     
-        <div class="alternate">
-          <span  @click="chooseGrid" :class="{ alternateGrid : alternateGrid }">
-            <Icon name="solar:slider-minimalistic-horizontal-bold" /> Treino em Bloco
-          </span>
-          <span  @click="chooseList" :class="{ alternateList: alternateList }">
-            <Icon name="mdi:format-list-text" /> Treino em Lista
-          </span>
-        </div>  
-        
-        <!-- Série em lista -->
+      <div class="alternate">
+        <span  @click="chooseGrid" :class="{ alternateGrid : alternateGrid }">
+          <Icon name="solar:slider-minimalistic-horizontal-bold" /> Treino em Bloco
+        </span>
+        <span  @click="chooseList" :class="{ alternateList: alternateList }">
+          <Icon name="mdi:format-list-text" /> Treino em Lista
+        </span>
+      </div>  
+      
+      
+      <!-- 
         <div class="main-div-two" v-if="buttonList || selectL()">
           <h3 class="title">
             {{ itemExercise() }} Exercícios
@@ -111,7 +116,7 @@ const selectG = () => {
           <ul>
               <li v-for="(nome, index) in listExercise()" :key="index" >
                 <h3>
-                  {{ index + 1 }} - {{ nome.nome }}
+                  {{ index + 1 }} - {{ nome.name }}
                 </h3>
                 <div class="roww">
                   <div>
@@ -139,7 +144,6 @@ const selectG = () => {
             <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
           <div class="nav-top">
 
-            <!-- Início do Nav-flow -->
             <div class="nav-flow-photo">
               <div  class="div-img-full">
                 <img :src="currentExercise.img" />
@@ -155,7 +159,6 @@ const selectG = () => {
 
           
 
-          <!-- Série em Bloco -->
         <div class="main-div-tree" v-else="buttonGrid || selectG()">
          
           
@@ -167,7 +170,7 @@ const selectG = () => {
             </li>
           </ul>
           <h3>
-            {{ currentExercise.num }} - {{ itemExercise() }}
+             - {{ itemExercise() }}
           </h3>
           <img :src="currentExercise.img" class="square" @click="openExercise"/>
           <h2>
@@ -177,7 +180,7 @@ const selectG = () => {
           <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
           <div class="nav-top">
 
-            <!-- Início do Nav-flow -->
+            
             <div class="nav-flow-photo">
               <div class="div-img-full">
                 <img :src="currentExercise.img" />
@@ -256,7 +259,7 @@ const selectG = () => {
           
           <div>
           </div>
-          
+           -->
         </NuxtLayout>
       </template>
 

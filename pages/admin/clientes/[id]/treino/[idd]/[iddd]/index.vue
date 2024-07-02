@@ -9,7 +9,7 @@ const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/
 const Series = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
 const item = Users.data.value;
 const qtTreinos = Treinos.data.value;
-const qtSeries = Series.data.value;
+const qtSeries = Series.data.value.set;
 
 
 const subscriberOk = ref(false)
@@ -123,7 +123,7 @@ useHead({
             <div class="nav-top">
                 <div class="clients">
                     <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-        Users.data.value.lastName }} - Treino: {{ route.params.iddd }}
+                    Users.data.value.lastName }} - Treino: {{ route.params.iddd }}
                 </div>
                 <div>
                     <div class="notifications">
@@ -163,14 +163,12 @@ useHead({
             </div>
 
             <div v-if="newForm">
-                {{ qtSeries.name }} - {{ qtSeries.date }}
                 <br>
-                {{ qtSeries.set[0].id  }} - {{ qtSeries.set[0].exercício  }}
                 <h1 v-for="(qtSeries, index) in qtSeries" :key="index">
-                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}/${qtSeries.name}`)">
-                        
 
-                    </span>
+                    {{ qtSeries.id }} - {{ qtSeries.num }} - {{ qtSeries.nome }}
+                    <br>
+                    {{ qtSeries.sets }} - {{ qtSeries.reps }} - {{ qtSeries.rest }}
                 </h1>
             </div>
             <div v-else class="new-form">

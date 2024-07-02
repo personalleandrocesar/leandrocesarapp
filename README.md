@@ -95,3 +95,24 @@ O que aparecerá:
 - Fim do Período
 - Dia do vencimento
 - Status
+
+
+
+## Métodos javascript
+
+### Método 'replace()'
+
+
+Para inverter a ordem de uma data no formato YYYY-MM-DD para DD-MM-YYYY usando o método replace do JavaScript, você pode usar uma expressão regular. Aqui está um exemplo de como fazer isso:
+
+```javascript
+const date = '1986-10-08';
+const reversedDate = date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1');
+console.log(reversedDate); // Output: 08-10-1986
+``` 
+
+eu usei apenas:
+
+```javascript
+.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') 
+```

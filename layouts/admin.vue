@@ -171,7 +171,7 @@ const navD = ref(state.value === 4)
             </div>
         </div>
 
-        <div v-if="route.path === `/user/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-logo"
+        <div v-if="route.path === `/users/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-logo"
             id="sobre">
             <NuxtLink @click="menu()" class="button-client">
             </NuxtLink>
@@ -184,7 +184,7 @@ const navD = ref(state.value === 4)
                 <img @click="openPhoto" :src="dataConf.data.value?.foto">
             </div>
         </div>
-        <div v-if="route.path === `/user/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-name">
+        <div v-if="route.path === `/users/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-name">
             <div class="name">
                 Olá, {{ dataConf.data.value?.name }}
             </div>

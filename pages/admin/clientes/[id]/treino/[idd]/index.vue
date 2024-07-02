@@ -23,13 +23,60 @@ function addClient() {
 
 const items = ref(
     {
-        "name": "Treino atual",
+        "name": "treino-two ",
         "series": [
             {
                 "name": "SerieA",
                 "date": "30-06-2024",
                 "set": [
-                    { "id": '1', "exercício": 'Mesa Flexora', "sets": 3, "reps": 12 }
+                    {
+                        "id": 1,
+                        "num": "Exercício 1",
+                        "nome": "Supino reto hammer",
+                        "sets": 3,
+                        "reps": "12 c/2\"",
+                        "rest": "50'",
+                        "grupo": "",
+                        "obs": "Segurar 2 segundos embaixo a cada repetição.",
+                        "photo": "supinoRetoHammer",
+                        "img": "https://nexwod.app/exe/supinoRetoHammer.png"
+                    },
+                    {
+                        "id": 2,
+                        "num": "Exercício 2",
+                        "nome": "Supino inclinado (HBC)",
+                        "sets": 4,
+                        "reps": "8",
+                        "rest": "50''",
+                        "grupo": "",
+                        "obs": "Pegar halteres bem pesados.",
+                        "photo": "supinoInclinado",
+                        "img": "https://nexwod.app/exe/supinoInclinado.gif"
+                    },
+                    {
+                        "id": 3,
+                        "num": "Exercício 3",
+                        "nome": "Desenvolvimento Hammer",
+                        "sets": 3,
+                        "reps": "10 + 10\"",
+                        "rest": "50''",
+                        "grupo": "",
+                        "obs": "Fazer 10 reptições e segurar 10\" segundos embaixo na altura dos ombros.",
+                        "photo": "desenvolvimentoMaquina",
+                        "img": "https://nexwod.app/exe/desenvolvimentoMaquina.gif"
+                    },
+                    {
+                        "id": 4,
+                        "num": "Exercício 4",
+                        "nome": "Elevação lateral (máquina)",
+                        "sets": 3,
+                        "reps": "8 +8\" +4",
+                        "rest": "50''",
+                        "grupo": "",
+                        "obs": "Fazer 8 repetições, segurar 8 segundos em cima + 4 repetições. Fazer na máquina!",
+                        "photo": "elevacaoLateralHBC",
+                        "img": "https://nexwod.app/exe/elevacaoLateralHBC.gif"
+                    },
                 ]
             },
             {
