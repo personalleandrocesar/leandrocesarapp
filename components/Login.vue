@@ -14,7 +14,7 @@ const enterClient = () => {
   if (userExists) {
     console.log("Usuário encontrado!");
     // Faça a ação para redirecionar ou permitir o acesso do usuário à página
-    return navigateTo(`/user/${user.value}`);
+    return navigateTo(`/users/${user.value}`);
   } else {
     console.log("Usuário não encontrado ou senha incorreta!");
     // Mostre uma mensagem de erro ou realize outra ação adequada
