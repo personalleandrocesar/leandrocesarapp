@@ -91,8 +91,7 @@ const navD = ref(state.value === 4)
             <NuxtLink :to="`/users/${route.params.id}/treinos`">
                 <Icon name='solar:dumbbells-2-bold-duotone' />
             </NuxtLink>
-            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/users/${route.params.id}/treinos   /a`"
-              >
+            <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/users/${route.params.id}/treinos   /a`">
                 <Icon name='mdi:alpha-a-box' />
             </NuxtLink>
             <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
