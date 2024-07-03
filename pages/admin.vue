@@ -910,7 +910,7 @@ const navD = ref(state.value === 4)
 
 .nav a {
     margin: 2px 2px;
-    padding: 8px 12px 10px 9px;
+    padding: 9px 12px 10px 9px;
     text-decoration: none;
     cursor: pointer;
 }
@@ -919,7 +919,7 @@ const navD = ref(state.value === 4)
     background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
     margin: 1px 2px 0 2px;
     color: #34d399;
-    padding: 8px 12px 10px 9px;
+    padding: 9px 12px 10px 9px;
     border-radius: 9px;
     text-decoration: none;
     cursor: pointer;
@@ -927,7 +927,7 @@ const navD = ref(state.value === 4)
 
 .nav a.router-link-exact-active:hover {
     margin: 1px 2px 0 2px;
-    padding: 8px 12px 10px 9px;
+    padding: 9px 12px 10px 9px;
     color: #34d399;
     background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
     color: #34d399;
