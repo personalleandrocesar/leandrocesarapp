@@ -1,13 +1,14 @@
 <script setup>
 import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
+
+
 const route = useRoute();
-
-
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
+const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
 const item = Users.data.value;
+const qtTreinos = Treinos.data.value;
 
-console.log(item);
 
 const subscriberOk = ref(false)
 
@@ -15,30 +16,40 @@ const add = ref(true)
 function addClient() {
     add.value = !add.value
 }
+    
+const items = ref(
+    {
+        name: '', 
+    }
 
-async function deleteUser() {
+);
+
+async function submitTreino() {
     try {
-        const response = await fetch(`https://api.nexwod.app/users/${route.params.id}`, {
-            method: 'DELETE',
+        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos`, {
+            method: 'post',
             headers: {
                 'Content-Type': 'application/json'
-            }
-        })
+            },
+            body: JSON.stringify({
+                treino: items.value
+            }),
+        });
         if (response.ok) {
-            console.log('Data delete successfully');
+            console.log('Create Trainning successfully');
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
                 reloadNuxtApp({
-                    path: "/admin/clientes",
-                    ttl: 2000, // default 10000
+                    path: `/admin/clientes/${item.username}/treinos`,
+                    ttl: 1000, // default 10000
                 });
-            }, 2000);
+            }, 1000);
         } else {
-            console.error('Failed to delete data');
+            console.error('Failed to Create Trainning');
         }
     } catch (error) {
-        console.error('Error delete data:', error);
+        console.error('Error Create Trainning:', error);
     }
 }
 
@@ -69,14 +80,23 @@ function menu() {
 
 }
 
+const newForm = ref(true)
+const addCloseTrainning = ref(true)
+const newTrainning = () => {
+    newForm.value = !newForm.value
+    addCloseTrainning.value = !addCloseTrainning.value
+}
+
 useHead({
-    titleTemplate: `${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
+    titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
 })
+
+
 </script>
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Usuário deletado com Sucesso!
+            Treino Criado com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -84,7 +104,7 @@ useHead({
             <div class="nav-top">
                 <div class="clients">
                     <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-        Users.data.value.lastName }}
+                    Users.data.value.lastName }}
                 </div>
                 <div>
                     <div class="notifications">
@@ -93,29 +113,6 @@ useHead({
                 </div>
             </div>
             <div class="nav-users">
-                <div class='reward'>
-                    <a @click="$router.go(-1)">
-                        <Icon name="tabler:arrow-big-left-lines-filled" />
-                    </a>
-                    <NuxtLink :to="`/admin/clientes/${item.username}`">
-                        <div class="reward-button">
-                            <Icon name='material-symbols:shield-person' />
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
-                        <div class="reward-button">
-                            <Icon name='solar:dumbbell-large-bold' />
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
-                        <div class="reward-button">
-                            <Icon name='solar:clipboard-heart-bold' />
-                        </div>
-                    </NuxtLink>
-                    <div class="reward-delete" @click="deleteUser">
-                        <Icon name='material-symbols:person-off-rounded' />
-                    </div>
-                </div>
                 <div class='actions'>
                     <NuxtLink :to="`/admin/clientes/${item.username}`">
                         <div class="actions-button">
@@ -134,66 +131,107 @@ useHead({
                     </NuxtLink>
                 </div>
                 <div class='actions-user'>
-                    <div class="delete-button" @click="deleteUser">
-                        <Icon name='material-symbols:person-off-rounded' /> Deletar
+                    <div>
+                        <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
+                            <Icon name='material-symbols:add-notes' /> Novo Treino
+                        </div>
+                        <!-- parei aqui -->
+                        <div v-else class="new-user" @click="newTrainning">
+                            <Icon name='material-symbols:cancel-rounded' /> Fechar
+                        </div>
                     </div>
                 </div>
             </div>
-            <img class='none' :src="`/admin/clientes/${Users.data.value.foto}`">
-            <div>
+
+            <div v-if="newForm">
+
                 <h1>
-                    {{ Users.data.value.name }} {{ Users.data.value.lastName }}
-                    <p>
-                        {{ Users.data.value.email }}
-                    </p>
+                    Treinos:
+
                 </h1>
+                <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
+                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}`)">
+                        <ul>
+                            <li>
+                                {{ qtTreinos.name }}
 
+                            </li>
+                        </ul>
+
+                    </span>
+                </h1>
             </div>
+            <div v-else class="new-form">
+                <div class="new-form-squared">
+                    <form @submit.prevent="submitTreino">
+                        <p>Nome do treino</p>
+                        <input type="text" name="" id="" v-model="items.name">
+                        <!-- <select id="options" name="options" v-model="items.name">
+                            <option v-for="day in 31" :key="day">{{ day }}</option>
+                        </select>
+                        <select id="options" name="options" v-model="items.name">
+                            <option value="option1">Janeiro</option>
+                            <option value="option1">Fevereiro</option>
+                            <option value="option1">Março</option>
+                            <option value="option1">Abril</option>
+                            <option value="option1">Maio</option>
+                            <option value="option1">Junho</option>
+                            <option value="option1">Julho</option>
+                            <option value="option1">Agosto</option>
+                            <option value="option1">Setembro</option>
+                            <option value="option1">Outubro</option>
+                            <option value="option1">Novembro</option>
+                            <option value="option1">Dezembro</option>
+                        </select>
+                        <select id="options" name="options" v-model="items.name">
+                            <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
+                            </option>
+                        </select> -->
+                        
+                                <!-- <input type="month" name="" id="" v-model="items.name"> -->
+                                <button class="login" type="submit">Adicionar</button>
+                    </form>
 
-            <p>Sexo: {{ Users.data.value.sex }}</p>
-            <p>Nascimento: {{ Users.data.value.birthday.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
-            <p>WhatsApp: {{ Users.data.value.whatsapp }}</p>
-            <p>Serviço: {{ Users.data.value.service }}</p>
-            <p>Objetivo: {{ Users.data.value.target }}</p>
-            <p>Usuário: {{ Users.data.value.username }}</p>
-            <p>Senha: {{ Users.data.value.password }}</p>
-            <p>Dias de Treino:{{ Users.data.value.day }}</p>
-            <p>Tempo de treino: {{ Users.data.value.time }} minutos</p>
-            <p>Dia do Vencimento:{{ Users.data.value.payDay }}</p>
-            <p>Inicio do contrato: {{ Users.data.value.periodStart.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
-            <p>Fim do Período: {{ Users.data.value.periodEnd.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
-            <p>Termino assinado:{{ Users.data.value.terms }}</p>
-            <p v-if="Users.data.value.status">Status: {{ Users.data.value.status }}</p>
-            <p v-else>Status: Bloqueado</p>
+                </div>
+            </div>
 
         </div>
     </div>
 </template>
 <style scoped>
-.none,
-.nav-users .reward {
-    display: none;
+.new-form{
+    display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        transform: translateX(0%);
+        position: fixed;
+        top: 87px;
+        height: calc(100% - 98px);
+        width: calc(100% - 245px);
+    border-radius: 5px ; 
+        background: linear-gradient(to bottom right, #34d39910 0%, #34d39940 50%, #00f2ff10 100%);
+        backdrop-filter: blur(5px);
+        z-index: 1004;
 }
-
-@media (max-width: 650px) {
-    .none {
-        display: none;
-    }
+.new-form-squared{
+    display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        transform: translateX(0%);
+        position: fixed;
+        top: calc(3 *50px);
+        height: calc(100% - (3 * 98px));
+        width: calc(100% - (490px + 245px));
+        border: .10px solid #34d399;
+    border-radius: 5px ; 
+        background: linear-gradient(to bottom right, #34d39910 0%, #34d39980 50%, #00f2ff20 100%);
+        backdrop-filter: blur(5px);
+        z-index: 1004;
 }
-
-@media (max-width: 1020px) {
-
-    .nav-users .actions,
-    .actions-user .update-button,
-    .actions-user .delete-button {
-        display: none;
-    }
-
-    .nav-users .reward {
-        display: inherit;
-    }
-}
-
 .nav-top {
     position: sticky;
     top: 0px;
@@ -215,10 +253,10 @@ useHead({
 .subscriberOk {
     position: fixed;
     top: 10px;
-    right: 10px;
+    right: 2%;
     width: 20%;
     margin-left: 40%;
-    background-color: #ff1900;
+    background-color: #00DC82;
     color: #fff;
     text-shadow: 2px 2px 2px #111;
     z-index: 20;
@@ -227,7 +265,7 @@ useHead({
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
-    border-radius: 8px;
+    border-radius: 3px;
     font-weight: bolder;
     padding: 8px 0px;
 }
@@ -343,58 +381,7 @@ useHead({
     cursor: pointer;
 }
 
-.reward {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    align-content: baseline;
-    margin: 0;
-    overflow-x: auto;
-}
-
-.reward a {
-    border: solid 1px #34d39910;
-    background-color: transparent;
-    padding: 4px 15px;
-    margin: 2.5px 7px;
-    border-radius: 8px;
-    transition: all .3s linear;
-    cursor: pointer;
-}
-
-
-.reward a:hover {
-    border: solid 1px #34d39960;
-    background-color: #34d39960;
-}
-
-.reward a.router-link-exact-active {
-    background: #34d39990;
-    border: solid 1px #34d399;
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.reward-button a.router-link-exact-active:hover {
-    background: #34d39990;
-    ;
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.reward-button a.router-link-exact-active:hover::after {
-    background-color: var(--color-background);
-    color: #34d399;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.reward-user {
+.actions-user {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -422,9 +409,9 @@ useHead({
     background-color: #fadb40;
 }
 
-.delete-button {
-    border: solid 1px #ff190080;
-    background-color: #ff190080;
+.new-user {
+    border: solid 1px #04be7a90;
+        background-color: #04be7a;
     padding: 4px 15px;
     margin: 2.5px 10px;
     border-radius: 8px;
@@ -432,45 +419,11 @@ useHead({
     cursor: pointer;
 }
 
-.delete-button:hover {
-    border: solid 1px #ff1900;
+.new-user:hover {
+border: solid 1px #04be7a90;
     border-radius: 8px;
-    color: #fff;
-    background-color: #ff1900;
-}
-
-.reward-update {
-    border: solid 1px #fadb4080;
-    background-color: #fadb4080;
-    padding: 4px 15px;
-    margin: 2.5px 7px;
-    border-radius: 8px;
-    transition: all .3s linear;
-    cursor: pointer;
-}
-
-.reward-update:hover {
-    border: solid 1px #fadb40;
-    border-radius: 8px;
-    color: #000;
-    background-color: #fadb40;
-}
-
-.reward-delete {
-    border: solid 1px #ff190080;
-    background-color: #ff190080;
-    padding: 4px 15px;
-    margin: 2.5px 7px;
-    border-radius: 8px;
-    transition: all .3s linear;
-    cursor: pointer;
-}
-
-.reward-delete:hover {
-    border: solid 1px #ff1900;
-    border-radius: 8px;
-    color: #fff;
-    background-color: #ff1900;
+    color: #04be7a;
+    background-color: #fff;
 }
 
 .users-list {
