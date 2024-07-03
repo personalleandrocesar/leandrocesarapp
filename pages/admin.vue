@@ -148,7 +148,7 @@ const navD = ref(state.value === 4)
                 </div>
                 <div>
 
-                    <a @click="theme()" :model="$colorMode.value">
+                    <a @click="theme()" :model="$colorMode.value" class="button-client">
                         <Icon
                             :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
                     </a>
@@ -172,17 +172,23 @@ const navD = ref(state.value === 4)
 
                 <div>
 
-                    <NuxtLink @click="menu()" class="button-client">
-                        <Icon name="solar:close-square-bold" />
+                    <NuxtLink to="/admin" class="button-client">
+                        <Icon name="material-symbols:data-usage" />
+                    </NuxtLink>
+                    <NuxtLink to="/admin/clientes" class="button-client">
+                        <Icon name="solar:users-group-two-rounded-bold" />
                     </NuxtLink>
 
                 </div>
                 <div>
 
-                    <a @click="theme()" :model="$colorMode.value">
+                    <a @click="theme()" :model="$colorMode.value" class="button-client">
                         <Icon
                             :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
                     </a>
+                    <NuxtLink @click="menu()" class="button-client">
+                        <Icon name="solar:hamburger-menu-bold" />
+                    </NuxtLink>
 
                 </div>
 
@@ -903,28 +909,25 @@ const navD = ref(state.value === 4)
 }
 
 .nav a {
-    margin: 0 2px;
-    padding: 12.2px 8px 12px 12px;
-    padding: 12.2px 8px 9px 8px;
-    padding: 13px 14.5px 14.5px 14.5px;
+    margin: 2px 2px;
+    padding: 8px 12px 10px 9px;
     text-decoration: none;
     cursor: pointer;
 }
 
 .nav a.router-link-exact-active {
     background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
-    margin: 0 2px;
+    margin: 1px 2px 0 2px;
     color: #34d399;
-    padding: 13px 13px 13px 13px;
-
+    padding: 8px 12px 10px 9px;
     border-radius: 9px;
     text-decoration: none;
     cursor: pointer;
 }
 
 .nav a.router-link-exact-active:hover {
-    margin: 0 2px;
-    padding: 13px 14.5px 14.5px 14.5px;
+    margin: 1px 2px 0 2px;
+    padding: 8px 12px 10px 9px;
     color: #34d399;
     background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
     color: #34d399;
@@ -942,6 +945,7 @@ const navD = ref(state.value === 4)
     border-radius: 9px;
     text-decoration: none;
     cursor: pointer;
+    
 }
 
 .nav a:hover {
@@ -968,7 +972,7 @@ const navD = ref(state.value === 4)
     z-index: 100;
     border: solid 1px #34d39910;
     box-shadow: 0 0px 5px #34d39940;
-    backdrop-filter: blur(100px)
+    backdrop-filter: blur(100px);
 }
 
 .whats {
