@@ -31,13 +31,6 @@ useHead({
 const route = useRoute();
 const Users = await useFetch('https://api.nexwod.app/users');
 const item = Users.data.value;
-const UsersId = await useFetch(`https://api.nexwod.app/users/:id`);
-
-console.log(UsersId.data.value);
-
-console.log(item);
-
-
 
 
 const add = ref(true)
@@ -145,8 +138,11 @@ const navD = ref(state.value === 4)
 
                 <div>
 
-                    <NuxtLink @click="menu()" class="button-client">
-                        <Icon name="solar:hamburger-menu-bold" />
+                    <NuxtLink to="/admin" class="button-client">
+                        <Icon name="material-symbols:data-usage" />
+                    </NuxtLink>
+                    <NuxtLink to="/admin/clientes" class="button-client">
+                        <Icon name="solar:users-group-two-rounded-bold" />
                     </NuxtLink>
 
                 </div>
@@ -156,6 +152,9 @@ const navD = ref(state.value === 4)
                         <Icon
                             :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
                     </a>
+                    <NuxtLink @click="menu()" class="button-client">
+                        <Icon name="solar:hamburger-menu-bold" />
+                    </NuxtLink>
 
                 </div>
 
@@ -171,21 +170,21 @@ const navD = ref(state.value === 4)
         <div v-else>
             <div id="nav-container" class='nav'>
 
-                    <div>
+                <div>
 
-                        <NuxtLink @click="menu()" class="button-client">
-                            <Icon name="solar:close-square-bold" />
-                        </NuxtLink>
+                    <NuxtLink @click="menu()" class="button-client">
+                        <Icon name="solar:close-square-bold" />
+                    </NuxtLink>
 
-                    </div>
-                    <div>
+                </div>
+                <div>
 
-                        <a @click="theme()" :model="$colorMode.value">
-                            <Icon
-                                :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
-                        </a>
+                    <a @click="theme()" :model="$colorMode.value">
+                        <Icon
+                            :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
+                    </a>
 
-                    </div>
+                </div>
 
 
             </div>
@@ -916,7 +915,7 @@ const navD = ref(state.value === 4)
     background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
     margin: 0 2px;
     color: #34d399;
-    padding: 13px 14.5px 14.5px 14.5px;
+    padding: 13px 13px 13px 13px;
 
     border-radius: 9px;
     text-decoration: none;

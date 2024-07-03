@@ -11,9 +11,7 @@ function openPhoto() {
 const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
 const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
 
-const qtTreinos = Treinos.data.value;
-
-console.log(qtTreinos);
+const qtTreinos = Treinos.data.value.reverse();
 
 
 const state = useCookie('state')
@@ -105,6 +103,7 @@ const navD = ref(state.value == 4)
 
           <div>
             <h3>
+              
             </h3>
 
             <h5>
