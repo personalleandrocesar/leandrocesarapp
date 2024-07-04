@@ -42,9 +42,9 @@ async function submitTreino() {
                 subscriberOk.value = false;
                 reloadNuxtApp({
                     path: `/admin/clientes/${item.username}/treinos`,
-                    ttl: 1000, // default 10000
+                    ttl: 2000, // default 10000
                 });
-            }, 1000);
+            }, 2000);
         } else {
             console.error('Failed to Create Trainning');
         }
@@ -117,32 +117,32 @@ useHead({
                         <Icon name="tabler:arrow-big-left-lines-filled" />
                     </a> -->
 
-                        <NuxtLink :to="`/admin/clientes/${item.username}`">
-                            <div class="reward-button">
-                                <Icon name='material-symbols:shield-person' />
-                            </div>
-                        </NuxtLink>
-                        <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
-                            <div class="reward-button">
-                                <Icon name='solar:dumbbell-large-bold' />
-                            </div>
-                        </NuxtLink>
-                        <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
-                            <div class="reward-button">
-                                <Icon name='solar:clipboard-heart-bold' />
-                            </div>
-                        </NuxtLink>
-
-
-
-                        <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                            <Icon name='material-symbols:add-notes' />
+                    <NuxtLink :to="`/admin/clientes/${item.username}`">
+                        <div class="reward-button">
+                            <Icon name='material-symbols:shield-person' />
                         </div>
-                        <div v-else class="new-user" @click="newTrainning">
-                            <Icon name='material-symbols:cancel-rounded' /> Fechar
+                    </NuxtLink>
+                    <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
+                        <div class="reward-button">
+                            <Icon name='solar:dumbbell-large-bold' />
                         </div>
+                    </NuxtLink>
+                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                        <div class="reward-button">
+                            <Icon name='solar:clipboard-heart-bold' />
+                        </div>
+                    </NuxtLink>
 
+
+
+                    <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
+                        <Icon name='material-symbols:add-notes' />
                     </div>
+                    <div v-else class="new-user" @click="newTrainning">
+                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+                    </div>
+
+                </div>
                 <div class='actions'>
                     <NuxtLink :to="`/admin/clientes/${item.username}`">
                         <div class="actions-button">
@@ -191,32 +191,27 @@ useHead({
             <div v-else class="new-form">
                 <div class="new-form-squared">
                     <form @submit.prevent="submitTreino">
-                        <p>Nome do treino</p>
-                        <input type="text" name="" id="" v-model="items.name">
-                        <!-- <select id="options" name="options" v-model="items.name">
-                            <option v-for="day in 31" :key="day">{{ day }}</option>
-                        </select>
-                        <select id="options" name="options" v-model="items.name">
-                            <option value="option1">Janeiro</option>
-                            <option value="option1">Fevereiro</option>
-                            <option value="option1">Março</option>
-                            <option value="option1">Abril</option>
-                            <option value="option1">Maio</option>
-                            <option value="option1">Junho</option>
-                            <option value="option1">Julho</option>
-                            <option value="option1">Agosto</option>
-                            <option value="option1">Setembro</option>
-                            <option value="option1">Outubro</option>
-                            <option value="option1">Novembro</option>
-                            <option value="option1">Dezembro</option>
-                        </select>
-                        <select id="options" name="options" v-model="items.name">
-                            <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
-                            </option>
-                        </select> -->
+                        <!-- Nome e sobrenome -->
+                        <div class="inputs">
 
-                        <!-- <input type="month" name="" id="" v-model="items.name"> -->
-                        <button class="login" type="submit">Adicionar</button>
+                            <div>
+
+                                <span>Nome do treino</span>
+                                <input type="text" id="name" autofocus v-model="items.name" required autocomplete="nome">
+
+                            </div>
+
+                        </div>
+
+                        <div class="inputs">
+                            <button class="login" type="submit">
+                                Criar
+                                <Icon name="material-symbols:person-add-rounded" />
+                            </button>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
                     </form>
 
                 </div>
@@ -235,6 +230,8 @@ useHead({
     .none, .nav-users .actions-user  {
         display: none;
     }
+
+    
 }
 
 @media (max-width: 1020px) {
@@ -248,6 +245,8 @@ useHead({
     .nav-users .reward {
         display: inherit;
     }
+
+        
 }
 
 .new-user {
@@ -285,23 +284,25 @@ useHead({
 }
 
 .subscriberOk {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 20%;
-    margin-left: 40%;
-    background-color: #ff1900;
-    color: #fff;
-    text-shadow: 2px 2px 2px #111;
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    border-radius: 8px;
-    font-weight: bolder;
-    padding: 8px 0px;
+        background-color: #00DC82;
+        color: #fff;
+        text-shadow: 2px 2px 2px #111;
+        display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 20px 20px 20px;
+  padding: 15px;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 10px;
+  width: 80%;
+  left: 50%;
+  color: #fff;
+  margin-left: -40%;
+  font-weight: 900;
+  border: solid 1px #00DC8210;
+  z-index: 10000;
 }
 
 .clients {
@@ -550,6 +551,202 @@ useHead({
     margin-bottom: 1rem;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.inputs {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.inputs div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: .5rem
+}
+
+.inputs #masculino.check,
+.inputs #feminino.check {
+    text-decoration: underline;
+    margin: -15px -94px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs .radio {
+    margin: 30px 30px 15px 30px;
+}
+
+
+.inputs .terms {
+    text-decoration: underline;
+    color: #00dc82;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs #terms.check {
+    text-decoration: underline;
+    margin: 10px -64px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.dont-user {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 200px;
+    background-color: #ff1900;
+    color: #fff;
+    text-shadow: 2px 2px 2px #111;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    border-radius: 5px;
+    font-weight: bolder;
+    padding: 8px 0px;
+}
+
+input {
+    transition: all .4s linear;
+    border-bottom: solid 2px #00DC82;
+    text-align: left;
+    width: 160px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.inputs #username {
+    width: 190px
+}
+
+.inputs #lastName {
+    width: 130px
+}
+
+.inputs #email {
+    width: 335px
+}
+
+.inputs div h4 {
+    text-align: left;
+}
+
+input:focus-visible {
+    border: solid 1px #00DC82;
+}
+
+input:active {
+    border-color: #00DC8280;
+}
+
+input:hover {
+    background-color: #00DC8210;
+}
+
+
+input:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+
+h4 {
+    transition: all .3s linear;
+    margin: 0 0 0 10px;
+    text-align: left;
+}
+
+h4:nth-child(1) {
+    transition: all .3s linear;
+    margin: 20px 0 0 10px;
+}
+
+
+.select {
+    transition: all .4s linear;
+    border: 0;
+    color: inherit;
+    background-color: transparent;
+    border-bottom: solid 2px #00DC82;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 160px;
+    text-align: left;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.select:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+.select:focus-visible {
+    background-color: #00DC8210;
+}
+
+.select:active {
+    background-color: #00DC8210;
+}
+
+.select:hover {
+    background-color: #00DC8210;
+}
+
+.login {
+    transition: all .4s linear;
+    border: solid 2px #00DC82;
+    cursor: pointer;
+    width: 140px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 88px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+    padding-inline: 16px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    margin: 1rem 1.5rem;
+}
+
+.lost h5 {
+    font-size: .6rem;
+}
+
+.login .icon {
+    margin: -2px 0px 2px 4px;
+    transition: transform .3s linear;
+}
+
+.login:hover {
+    cursor: pointer;
+    background-color: #00DC82;
+    color: #fff;
+}
+
+.login:hover .icon {
+    margin: -2px 0px 2px 4px;
+    transform: translateX(6px);
 }
 
 .color {
