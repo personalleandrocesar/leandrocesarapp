@@ -214,7 +214,6 @@ const navD = ref(state.value === 4)
     border: 1px solid #00DC8290;
     padding: 0px 3px;
     border-radius: 8px;
-    color: #00DC82;
     background-color: #00DC8230;
     zoom: .7;
 }
