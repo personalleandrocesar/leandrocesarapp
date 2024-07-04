@@ -363,7 +363,7 @@ function formatarData(input) {
                         </div>
                         <div class="senhaPs">
                             <span>Senha</span>
-                            <input v-bind:type="pass" required name="" id="password" v-model="password"
+                            <input type="pass" required name="" id="password" v-model="password"
                                 autocomplete="off">
                         </div>
 

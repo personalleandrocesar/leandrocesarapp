@@ -9,10 +9,13 @@ const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/
 const Series = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
 
 const item = Users.data.value;
-const qtTreino = Treinos.data.value;
-const qtTreinos = Treinos.data.value.series;
+const qtTreino = Treinos.data;
+const qtTreinos = Series.data;
 
-const qtSeries = Series.data.value;
+console.log(qtTreinos)
+
+
+
 
 const subscriberOk = ref(false)
 
@@ -165,7 +168,7 @@ useHead({
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Treino criado com Sucesso!
+            Série criada com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -243,14 +246,14 @@ useHead({
             <div v-if="newForm">
 
                 <h1>
-                    Treinos:
+                    Séries:
 
                 </h1>
                 <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
                     <span
                         @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreino.name}/${qtTreinos.name}`)">
 
-                        {{ qtTreinos.name }}
+                        {{ qtTreino }}
 
                     </span>
                 </h1>
@@ -357,23 +360,24 @@ useHead({
 }
 
 .subscriberOk {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 20%;
-    margin-left: 40%;
-    background-color: #ff1900;
-    color: #fff;
-    text-shadow: 2px 2px 2px #111;
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    border-radius: 8px;
-    font-weight: bolder;
-    padding: 8px 0px;
+    background-color: #00DC82;
+        text-shadow: 2px 2px 2px #111;
+        display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 20px 20px 20px;
+  padding: 15px;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 10px;
+  width: 80%;
+  left: 50%;
+  color: #fff;
+  margin-left: -40%;
+  font-weight: 900;
+  border: solid 1px #00DC8210;
+  z-index: 10000;
 }
 
 .clients {
