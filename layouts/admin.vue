@@ -30,8 +30,7 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
-const status = dataConf.data.value?.status
+const Users = await useFetch('https://api.nexwod.app/users');
 const photoOpen = ref(false);
 function openPhoto() {
     photoOpen.value = !photoOpen.value;
@@ -87,6 +86,9 @@ const navD = ref(state.value === 4)
                     </NuxtLink>
                     <NuxtLink :to="`/admin/clientes`" @click.native="scrollToTop()">
                         <Icon name='solar:users-group-two-rounded-linear' />
+                        <span class="clients">
+                            <span>{{ Users.data.value.length }}</span>
+                        </span>
                     </NuxtLink>
                 </div>
             </div>
@@ -207,6 +209,16 @@ const navD = ref(state.value === 4)
     </div>
 </template>
 <style scoped>
+
+.clients {
+    border: 1px solid #00DC8290;
+    padding: 0px 3px;
+    border-radius: 8px;
+    color: #00DC82;
+    background-color: #00DC8230;
+    zoom: .7;
+}
+
 .head-logo {
     display: flex;
     justify-content: space-between;
