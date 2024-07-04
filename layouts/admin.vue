@@ -82,7 +82,7 @@ const navD = ref(state.value === 4)
             <div>
                 <div class="nav-bottom">
                     <NuxtLink :to="`/admin`" @click.native="scrollToTop()">
-                        <Icon name='solar:home-smile-angle-bold' />
+                        <Icon name='material-symbols:data-usage' />
                     </NuxtLink>
                     <NuxtLink :to="`/admin/clientes`" @click.native="scrollToTop()">
                         <Icon name='solar:users-group-two-rounded-bold' />
