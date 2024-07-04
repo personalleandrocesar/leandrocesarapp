@@ -82,10 +82,10 @@ const navD = ref(state.value === 4)
             <div>
                 <div class="nav-bottom">
                     <NuxtLink :to="`/admin`" @click.native="scrollToTop()">
-                        <Icon name='solar:home-smile-angle-linear' />
+                        <Icon name='solar:home-smile-angle-bold' />
                     </NuxtLink>
                     <NuxtLink :to="`/admin/clientes`" @click.native="scrollToTop()">
-                        <Icon name='solar:users-group-two-rounded-linear' />
+                        <Icon name='solar:users-group-two-rounded-bold' />
                         <span class="clients">
                             <span>{{ Users.data.value.length }}</span>
                         </span>
@@ -96,7 +96,7 @@ const navD = ref(state.value === 4)
             <div>
 
                 <NuxtLink :to="`/`">
-                    <Icon name="solar:logout-3-linear" />
+                    <Icon name="solar:logout-3-bold" />
                 </NuxtLink>
 
                 <!-- <NuxtLink @click="menu()" class="button-client">
