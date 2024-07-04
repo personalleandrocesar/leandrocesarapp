@@ -159,12 +159,51 @@ useHead({
     titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
 })
 
+const counter = ref(0);
+let intervalId = null;
+
+const startCounter = () => {
+    if (intervalId) return;
+
+    intervalId = setInterval(() => {
+        if (counter.value < 60) {
+            counter.value++;
+        } else {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    }, 1000);
+};
+
+const pauseCounter = () => {
+    clearInterval(intervalId);
+    intervalId = null;
+};
+
+const resumeCounter = () => {
+    if (counter.value <= 0 || counter.value >= 60) return;
+
+    intervalId = setInterval(() => {
+        if (counter.value < 60) {
+            counter.value++;
+        } else {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    }, 1000);
+};
+
+const resetCounter = () => {
+    clearInterval(intervalId);
+    intervalId = null;
+    counter.value = 0;
+};
 
 </script>
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Treino Criado com Sucesso!
+            Treino criado com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -181,6 +220,37 @@ useHead({
                 </div>
             </div>
             <div class="nav-users">
+                <div class='reward'>
+                    <!-- <a @click="$router.go(-1)">
+                        <Icon name="tabler:arrow-big-left-lines-filled" />
+                    </a> -->
+
+                    <NuxtLink :to="`/admin/clientes/${item.username}`">
+                        <div class="reward-button">
+                            <Icon name='material-symbols:shield-person' />
+                        </div>
+                    </NuxtLink>
+                    <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
+                        <div class="reward-button">
+                            <Icon name='solar:dumbbell-large-bold' />
+                        </div>
+                    </NuxtLink>
+                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                        <div class="reward-button">
+                            <Icon name='solar:clipboard-heart-bold' />
+                        </div>
+                    </NuxtLink>
+
+
+
+                    <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
+                        <Icon name='material-symbols:add-notes' />
+                    </div>
+                    <div v-else class="new-user" @click="newTrainning">
+                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+                    </div>
+
+                </div>
                 <div class='actions'>
                     <NuxtLink :to="`/admin/clientes/${item.username}`">
                         <div class="actions-button">
@@ -199,18 +269,15 @@ useHead({
                     </NuxtLink>
                 </div>
                 <div class='actions-user'>
-                    <div>
-                        <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                            <Icon name='material-symbols:add-notes' /> Novo Treino
-                        </div>
-                        <!-- parei aqui -->
-                        <div v-else class="new-user" @click="newTrainning">
-                            <Icon name='material-symbols:cancel-rounded' /> Fechar
-                        </div>
+
+                    <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
+                        <Icon name='material-symbols:add-notes' /> Novo Treino
+                    </div>
+                    <div v-else class="new-user" @click="newTrainning">
+                        <Icon name='material-symbols:cancel-rounded' /> Fechar
                     </div>
                 </div>
             </div>
-
             <div v-if="newForm">
 
                 <h1>
@@ -225,6 +292,14 @@ useHead({
 
                     </span>
                 </h1>
+                <div>
+                    <h1>Contador de 0 a 60 segundos</h1>
+                    <p>{{ counter }}</p>
+                    <button @click="startCounter" :disabled="intervalId">Iniciar</button>
+                    <button @click="pauseCounter"  :disabled="!intervalId || !pauseCounter">Pausar</button>
+                    <button @click="resumeCounter"  :disabled="!intervalId || !resumeCounter">Retomar</button>
+                    <button @click="resetCounter" :disabled="!intervalId">Resetar</button>
+                </div>
             </div>
             <div v-else class="new-form">
                 <div class="new-form-squared">
@@ -264,39 +339,48 @@ useHead({
     </div>
 </template>
 <style scoped>
-.new-form {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    transform: translateX(0%);
-    position: fixed;
-    top: 87px;
-    height: calc(100% - 98px);
-    width: calc(100% - 245px);
-    border-radius: 5px;
-    background: linear-gradient(to bottom right, #34d39910 0%, #34d39940 50%, #00f2ff10 100%);
-    backdrop-filter: blur(5px);
-    z-index: 1004;
+.none,
+.nav-users .reward {
+    display: none;
 }
 
-.new-form-squared {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    transform: translateX(0%);
-    position: fixed;
-    top: calc(3 *50px);
-    height: calc(100% - (3 * 98px));
-    width: calc(100% - (490px + 245px));
-    border: .10px solid #34d399;
-    border-radius: 5px;
-    background: linear-gradient(to bottom right, #34d39910 0%, #34d39980 50%, #00f2ff20 100%);
-    backdrop-filter: blur(5px);
-    z-index: 1004;
+@media (max-width: 650px) {
+
+    .none,
+    .nav-users .actions-user {
+        display: none;
+    }
+}
+
+@media (max-width: 1020px) {
+
+    .nav-users .actions,
+    .nav-users .actions-user,
+    .actions-user .update-button,
+    .actions-user .delete-button {
+        display: none;
+    }
+
+    .nav-users .reward {
+        display: inherit;
+    }
+}
+
+.new-user {
+    border: solid 1px #04be7a90;
+    background-color: #04be7a;
+    padding: 4px 15px;
+    margin: 2.5px 10px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+.new-user:hover {
+    border: solid 1px #04be7a90;
+    border-radius: 8px;
+    color: #04be7a;
+    background-color: #fff;
 }
 
 .nav-top {
@@ -320,10 +404,10 @@ useHead({
 .subscriberOk {
     position: fixed;
     top: 10px;
-    right: 2%;
+    right: 10px;
     width: 20%;
     margin-left: 40%;
-    background-color: #00DC82;
+    background-color: #ff1900;
     color: #fff;
     text-shadow: 2px 2px 2px #111;
     z-index: 20;
@@ -332,7 +416,7 @@ useHead({
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
-    border-radius: 3px;
+    border-radius: 8px;
     font-weight: bolder;
     padding: 8px 0px;
 }
@@ -384,6 +468,16 @@ useHead({
     border-bottom: solid 1px #34d39940;
     border-right: solid 1px #34d39940;
 }
+
+.reward {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    font-weight: bolder;
+}
+
 
 .users-conf {
     margin: 16px;
@@ -448,15 +542,52 @@ useHead({
     cursor: pointer;
 }
 
-.actions-user {
+.nav-users .reward div {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
     align-content: baseline;
-    margin: 0;
+}
+
+.reward a {
+    border: solid 1px #34d39910;
+    background-color: transparent;
+    padding: 4px 15px;
+    margin: 2.5px 7px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+
+.reward a:hover {
+    border: solid 1px #34d39960;
+    background-color: #34d39960;
+}
+
+.reward a.router-link-exact-active {
+    background: #34d39990;
+    border: solid 1px #34d399;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.reward-button a.router-link-exact-active:hover {
+    background: #34d39990;
+    ;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.reward-button a.router-link-exact-active:hover::after {
+    background-color: var(--color-background);
+    color: #34d399;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .update-button {
@@ -476,9 +607,9 @@ useHead({
     background-color: #fadb40;
 }
 
-.new-user {
-    border: solid 1px #04be7a90;
-    background-color: #04be7a;
+.delete-button {
+    border: solid 1px #ff190080;
+    background-color: #ff190080;
     padding: 4px 15px;
     margin: 2.5px 10px;
     border-radius: 8px;
@@ -486,11 +617,45 @@ useHead({
     cursor: pointer;
 }
 
-.new-user:hover {
-    border: solid 1px #04be7a90;
+.delete-button:hover {
+    border: solid 1px #ff1900;
     border-radius: 8px;
-    color: #04be7a;
-    background-color: #fff;
+    color: #fff;
+    background-color: #ff1900;
+}
+
+.reward-update {
+    border: solid 1px #fadb4080;
+    background-color: #fadb4080;
+    padding: 4px 15px;
+    margin: 2.5px 7px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+.reward-update:hover {
+    border: solid 1px #fadb40;
+    border-radius: 8px;
+    color: #000;
+    background-color: #fadb40;
+}
+
+.reward-delete {
+    border: solid 1px #ff190080;
+    background-color: #ff190080;
+    padding: 4px 15px;
+    margin: 2.5px 7px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+.reward-delete:hover {
+    border: solid 1px #ff1900;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #ff1900;
 }
 
 .users-list {

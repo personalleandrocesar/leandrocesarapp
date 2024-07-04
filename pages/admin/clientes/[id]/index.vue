@@ -94,9 +94,9 @@ useHead({
             </div>
             <div class="nav-users">
                 <div class='reward'>
-                    <a @click="$router.go(-1)">
+                    <!-- <a @click="$router.go(-1)">
                         <Icon name="tabler:arrow-big-left-lines-filled" />
-                    </a>
+                    </a> -->
                     <NuxtLink :to="`/admin/clientes/${item.username}`">
                         <div class="reward-button">
                             <Icon name='material-symbols:shield-person' />
@@ -112,6 +112,11 @@ useHead({
                             <Icon name='solar:clipboard-heart-bold' />
                         </div>
                     </NuxtLink>
+                </div>
+                <div class='reward'>
+                    <!-- <a @click="$router.go(-1)">
+                        <Icon name="tabler:arrow-big-left-lines-filled" />
+                    </a> -->
                     <div class="reward-update">
                         <Icon name='material-symbols:person-edit' />
                     </div>

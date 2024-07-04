@@ -113,34 +113,36 @@ useHead({
             </div>
             <div class="nav-users">
                 <div class='reward'>
-                    <a @click="$router.go(-1)">
+                    <!-- <a @click="$router.go(-1)">
                         <Icon name="tabler:arrow-big-left-lines-filled" />
-                    </a>
-                    <NuxtLink :to="`/admin/clientes/${item.username}`">
-                        <div class="reward-button">
-                            <Icon name='material-symbols:shield-person' />
+                    </a> -->
+
+                        <NuxtLink :to="`/admin/clientes/${item.username}`">
+                            <div class="reward-button">
+                                <Icon name='material-symbols:shield-person' />
+                            </div>
+                        </NuxtLink>
+                        <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
+                            <div class="reward-button">
+                                <Icon name='solar:dumbbell-large-bold' />
+                            </div>
+                        </NuxtLink>
+                        <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                            <div class="reward-button">
+                                <Icon name='solar:clipboard-heart-bold' />
+                            </div>
+                        </NuxtLink>
+
+
+
+                        <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
+                            <Icon name='material-symbols:add-notes' />
                         </div>
-                    </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
-                        <div class="reward-button">
-                            <Icon name='solar:dumbbell-large-bold' />
+                        <div v-else class="new-user" @click="newTrainning">
+                            <Icon name='material-symbols:cancel-rounded' /> Fechar
                         </div>
-                    </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
-                        <div class="reward-button">
-                            <Icon name='solar:clipboard-heart-bold' />
-                        </div>
-                    </NuxtLink>
 
-
-                </div>
-                <div class='reward'>
-
-
-                    <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:add-notes' /> 
                     </div>
-                </div>
                 <div class='actions'>
                     <NuxtLink :to="`/admin/clientes/${item.username}`">
                         <div class="actions-button">
@@ -159,10 +161,13 @@ useHead({
                     </NuxtLink>
                 </div>
                 <div class='actions-user'>
-                    
-                        <div v-if="addCloseTrainning" class="new-user none" @click="newTrainning">
-                            <Icon name='material-symbols:add-notes' /> Novo Treino
-                        </div>
+
+                    <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
+                        <Icon name='material-symbols:add-notes' /> Novo Treino
+                    </div>
+                    <div v-else class="new-user" @click="newTrainning">
+                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+                    </div>
                 </div>
             </div>
             <div v-if="newForm">
@@ -220,20 +225,21 @@ useHead({
     </div>
 </template>
 <style scoped>
+
 .none,
 .nav-users .reward {
     display: none;
 }
 
 @media (max-width: 650px) {
-    .none {
+    .none, .nav-users .actions-user  {
         display: none;
     }
 }
 
 @media (max-width: 1020px) {
 
-    .nav-users .actions,
+    .nav-users .actions, .nav-users .actions-user,
     .actions-user .update-button,
     .actions-user .delete-button {
         display: none;
@@ -345,6 +351,15 @@ useHead({
     border-bottom: solid 1px #34d39940;
     border-right: solid 1px #34d39940;
 }
+.reward{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    font-weight: bolder;
+}
+
 
 .users-conf {
     margin: 16px;
@@ -409,16 +424,13 @@ useHead({
     cursor: pointer;
 }
 
-.reward {
+.nav-users .reward  div     {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    flex-wrap: nowrap;
     align-items: flex-start;
     justify-content: space-between;
     align-content: baseline;
-    margin: 0;
-    overflow-x: auto;
 }
 
 .reward a {
@@ -458,17 +470,6 @@ useHead({
     color: #34d399;
     text-decoration: none;
     cursor: pointer;
-}
-
-.reward-user {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    align-content: baseline;
-    margin: 0;
 }
 
 .update-button {
