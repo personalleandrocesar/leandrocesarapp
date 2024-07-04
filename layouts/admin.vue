@@ -213,7 +213,7 @@ const navD = ref(state.value === 4)
 .clients {
     border: 1px solid #00DC8290;
     padding: 0px 3px;
-    border-radius: 8px;
+    border-radius: 8px; 
     background-color: #00DC8230;
     zoom: .7;
 }
