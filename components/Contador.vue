@@ -159,7 +159,45 @@ useHead({
     titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
 })
 
+const counter = ref(0);
+let intervalId = null;
 
+const startCounter = () => {
+    if (intervalId) return;
+
+    intervalId = setInterval(() => {
+        if (counter.value < 60) {
+            counter.value++;
+        } else {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    }, 1000);
+};
+
+const pauseCounter = () => {
+    clearInterval(intervalId);
+    intervalId = null;
+};
+
+const resumeCounter = () => {
+    if (counter.value <= 0 || counter.value >= 60) return;
+
+    intervalId = setInterval(() => {
+        if (counter.value < 60) {
+            counter.value++;
+        } else {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    }, 1000);
+};
+
+const resetCounter = () => {
+    clearInterval(intervalId);
+    intervalId = null;
+    counter.value = 0;
+};
 
 </script>
 <template>
@@ -254,7 +292,14 @@ useHead({
 
                     </span>
                 </h1>
-                
+                <!-- <div>
+                    <h1>Contador de 0 a 60 segundos</h1>
+                    <p>{{ counter }}</p>
+                    <button @click="startCounter" :disabled="intervalId">Iniciar</button>
+                    <button @click="pauseCounter"  :disabled="!intervalId || !pauseCounter">Pausar</button>
+                    <button @click="resumeCounter"  :disabled="!intervalId || !resumeCounter">Retomar</button>
+                    <button @click="resetCounter" :disabled="!intervalId">Resetar</button>
+                </div> -->
             </div>
             <div v-else class="new-form">
                 <div class="new-form-squared">

@@ -141,7 +141,7 @@ function formatarData(input) {
 </script>
 
 <template>
-
+    
     <div id="grid">
         <div id="areaA">
             <div class="nav-top">

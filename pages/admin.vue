@@ -32,7 +32,7 @@ const route = useRoute();
 const Users = await useFetch('https://api.nexwod.app/users');
 const item = Users.data.value;
 
-
+const layout = 'admin'
 const add = ref(true)
 function addClient() {
     add.value = !add.value
@@ -108,7 +108,6 @@ const navD = ref(state.value === 4)
 
 </script>
 <template>
-
     <div id="grid">
         <div id="areaA">
             <div>
@@ -134,31 +133,7 @@ const navD = ref(state.value === 4)
 
         <div v-if="bodyOne">
 
-            <div id="nav-container" class='nav'>
-
-                <div>
-
-                    <NuxtLink to="/admin" class="button-client">
-                        <Icon name="material-symbols:data-usage" />
-                    </NuxtLink>
-                    <NuxtLink to="/admin/clientes" class="button-client">
-                        <Icon name="solar:users-group-two-rounded-bold" />
-                    </NuxtLink>
-
-                </div>
-                <div>
-
-                    <a @click="theme()" :model="$colorMode.value" class="button-client">
-                        <Icon
-                            :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
-                    </a>
-                    <NuxtLink @click="menu()" class="button-client">
-                        <Icon name="solar:hamburger-menu-bold" />
-                    </NuxtLink>
-
-                </div>
-
-            </div>
+            <NuxtLayout :name='layout'  ></NuxtLayout>
 
 
 
@@ -166,81 +141,6 @@ const navD = ref(state.value === 4)
         </div>
 
 
-
-        <div v-else>
-            <div id="nav-container" class='nav'>
-
-                <div>
-
-                    <NuxtLink to="/admin" class="button-client">
-                        <Icon name="material-symbols:data-usage" />
-                    </NuxtLink>
-                    <NuxtLink to="/admin/clientes" class="button-client">
-                        <Icon name="solar:users-group-two-rounded-bold" />
-                    </NuxtLink>
-
-                </div>
-                <div>
-
-                    <a @click="theme()" :model="$colorMode.value" class="button-client">
-                        <Icon
-                            :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
-                    </a>
-                    <NuxtLink @click="menu()" class="button-client">
-                        <Icon name="solar:hamburger-menu-bold" />
-                    </NuxtLink>
-
-                </div>
-
-
-            </div>
-            <div class="head-logo" id="sobre">
-                <NuxtLink @click="menu()" class="button-client">
-                </NuxtLink>
-                <div class='logo'>
-                    <!-- <img @click="openPhoto()" :src="dataConf.data.value?.foto"> -->
-                </div>
-                <div v-if="photoOpen" class="nav-bar">
-                    <div class='logo-nav-bar'>
-                        <img @click="openPhoto" :src="dataConf.data.value?.foto">
-                    </div>
-                </div>
-            </div>
-            <div>
-                <!-- Hístórico -->
-                <NuxtLink @click='inicio()' class="menu-button">
-                    <div>
-                        <Icon name="material-symbols:data-usage" />
-                        <p>
-                            Início
-                        </p>
-                    </div>
-                    <Icon name="ic:baseline-keyboard-arrow-right" />
-                </NuxtLink>
-                <!-- Histórico fim -->
-
-                <NuxtLink @click='clientes()' class="menu-button">
-                    <div>
-                        <Icon name="solar:users-group-two-rounded-bold" />
-                        <p>
-                            Clientes
-                        </p>
-                    </div>
-                    <Icon name="ic:baseline-keyboard-arrow-right" />
-                </NuxtLink>
-                <!-- Documentos fim -->
-
-                <!-- ícones de rede sociais -->
-
-                <!--  -->
-
-                <!-- Botão Logout -->
-                <NuxtLink to="/" class="logout" @click="logOff()">
-                    LOUGOUT
-                    <Icon name="solar:logout-3-bold" />
-                </NuxtLink>
-            </div>
-        </div>
     </div>
 
 

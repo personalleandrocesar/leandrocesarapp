@@ -80,93 +80,26 @@ const navD = ref(state.value === 4)
 
         <div id="nav-container" class='nav'>
 
-            <div v-if="navA">
+            <div>
                 <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`">
-                        <Icon name='solar:home-smile-bold' />
+                    <NuxtLink :to="`/admin`" @click.native="scrollToTop()">
+                        <Icon name='solar:home-smile-angle-linear' />
                     </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/user/${route.params.id}/treino/a`">
-                        <Icon name='mdi:alpha-a-box' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
-                        <Icon name='solar:clipboard-heart-bold' />
-                    </NuxtLink>
-                </div>
-            </div>
-
-            <div v-else-if="navB">
-                <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`">
-                        <Icon name='solar:home-smile-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/user/${route.params.id}/treino/b`">
-                        <Icon name='mdi:alpha-b-box' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
-                        <Icon name='solar:clipboard-heart-bold' />
-                    </NuxtLink>
-                </div>
-            </div>
-            <div v-else-if="navC">
-                <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`">
-                        <Icon name='solar:home-smile-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/user/${route.params.id}/treino/c`">
-                        <Icon name='mdi:alpha-c-box' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
-                        <Icon name='solar:clipboard-heart-bold' />
-                    </NuxtLink>
-                </div>
-            </div>
-            <div v-else-if="navD">
-                <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`">
-                        <Icon name='solar:home-smile-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/user/${route.params.id}/treino/d`">
-                        <Icon name='mdi:alpha-d-box' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
-                        <Icon name='solar:clipboard-heart-bold' />
-                    </NuxtLink>
-                </div>
-            </div>
-            <div v-else>
-                <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`" @click.native="scrollToTop()">
-                        <Icon name='solar:home-smile-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`" @click.native="scrollToTop()">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/cardio`" @click.native="scrollToTop()">
-                        <Icon name='material-symbols:cardiology' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
-                        <Icon name='solar:clipboard-heart-bold' />
+                    <NuxtLink :to="`/admin/clientes`" @click.native="scrollToTop()">
+                        <Icon name='solar:users-group-two-rounded-linear' />
                     </NuxtLink>
                 </div>
             </div>
 
             <div>
 
-                <NuxtLink @click="menu()" class="button-client">
-                    <Icon name="solar:hamburger-menu-bold" />
+                <NuxtLink :to="`/`">
+                    <Icon name="solar:logout-3-linear" />
                 </NuxtLink>
+
+                <!-- <NuxtLink @click="menu()" class="button-client">
+                    <Icon name="solar:hamburger-menu-bold" />
+                </NuxtLink> -->
 
             </div>
         </div>
@@ -189,21 +122,13 @@ const navD = ref(state.value === 4)
                 Olá, {{ dataConf.data.value?.name }}
             </div>
         </div>
-        <div class="color">
+        <div class="theme">
 
             <a @click="theme()" :model="$colorMode.value">
                 <Icon
                     :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
             </a>
 
-        </div>
-        <div class="whats">
-
-
-            <a
-                href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Ol%C3%A1%20Leandro%20Cesar,%20fiquei%20interessado(a)%20nos%20seus%20Servi%C3%A7os,%20me%20chamo%20">
-                <Icon name="ic:outline-whatsapp" />
-            </a>
         </div>
 
 
@@ -215,77 +140,13 @@ const navD = ref(state.value === 4)
     <div v-else>
         <div id="nav-container" class='nav'>
 
-            <div v-if="navA">
-                <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`">
-                        <Icon name='solar:home-smile-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink v-if="dataConf.data.value?.treinoA" :to="`/user/${route.params.id}/treino/a`">
-                        <Icon name='mdi:alpha-a-box' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
-                        <Icon name='solar:clipboard-heart-bold' />
-                    </NuxtLink>
-                </div>
-            </div>
 
-            <div v-else-if="navB">
+            <div>
                 <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`">
+                    <NuxtLink :to="`/admin`" @click.native="scrollToTop()">
                         <Icon name='solar:home-smile-bold' />
                     </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink v-if="dataConf.data.value?.treinoB" :to="`/user/${route.params.id}/treino/b`">
-                        <Icon name='mdi:alpha-b-box' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
-                        <Icon name='solar:clipboard-heart-bold' />
-                    </NuxtLink>
-                </div>
-            </div>
-            <div v-else-if="navC">
-                <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`">
-                        <Icon name='solar:home-smile-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink v-if="dataConf.data.value?.treinoC" :to="`/user/${route.params.id}/treino/c`">
-                        <Icon name='mdi:alpha-c-box' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
-                        <Icon name='solar:clipboard-heart-bold' />
-                    </NuxtLink>
-                </div>
-            </div>
-            <div v-else-if="navD">
-                <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`">
-                        <Icon name='solar:home-smile-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink v-if="dataConf.data.value?.treinoD" :to="`/user/${route.params.id}/treino/d`">
-                        <Icon name='mdi:alpha-d-box' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
-                        <Icon name='solar:clipboard-heart-bold' />
-                    </NuxtLink>
-                </div>
-            </div>
-            <div v-else>
-                <div class="nav-bottom">
-                    <NuxtLink :to="`/user/${route.params.id}`" @click.native="scrollToTop()">
-                        <Icon name='solar:home-smile-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/treino`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/admin/clientes`" @click.native="scrollToTop()">
                         <Icon name='solar:dumbbell-large-bold' />
                     </NuxtLink>
                     <NuxtLink :to="`/user/${route.params.id}/cardio`" @click.native="scrollToTop()">
@@ -305,74 +166,9 @@ const navD = ref(state.value === 4)
 
             </div>
         </div>
-        <div class="head-logo" id="sobre">
-            <NuxtLink @click="menu()" class="button-client">
-            </NuxtLink>
-            <div class='logo'>
-                <img @click="openPhoto()" :src="dataConf.data.value?.foto">
-            </div>
-            <div v-if="photoOpen" class="nav-bar">
-                <div class='logo-nav-bar'>
-                    <img @click="openPhoto" :src="dataConf.data.value?.foto">
-                </div>
-            </div>
-        </div>
         <div class="head-name">
-            <div class="name">
-                {{ dataConf.data.value?.name }} {{ dataConf.data.value?.lastName }}
-            </div>
-            <div class="email">{{ dataConf.data.value?.email }}</div>
         </div>
         <div>
-            <p class="section-title">Ciclos</p>
-            <p class="section-subtitle">Contrato atual: {{ dataConf.data.value?.periodStart }} - {{
-        dataConf.data.value?.periodEnd }}</p>
-            <p v-if="dataConf.data.value?.service" class="section-subtitle-two">Serviço: {{ dataConf.data.value?.service
-                }}</p>
-
-            <p v-if="status === 1" class="section-option pending">
-                <Icon name="solar:danger-square-outline" /> Pendente!
-            </p>
-            <p v-else-if="status === 0" class="section-option bloqued">
-                <Icon name="solar:close-square-outline" /> Bloqueado!
-            </p>
-            <p v-else class="section-option verified">
-                <Icon name="solar:check-square-outline" /> Verificado!
-            </p>
-            <div class="conf">
-                <NuxtLink class="menu-square">
-                    <div>
-                        <div>
-                            <p>
-                                <Icon name="solar:dumbbell-large-bold" />
-                                Treino
-                            </p>
-                        </div>
-                        <div>
-                            Atual: {{ dataConf.data.value?.treinoActual }}
-                        </div>
-                        <div>
-                            Próximo: {{ dataConf.data.value?.treinoNext }}
-                        </div>
-                    </div>
-                </NuxtLink>
-                <NuxtLink v-if="dataConf.data.value?.valuationActual" class="menu-square">
-                    <div>
-                        <div>
-                            <p>
-                                <Icon name="solar:clipboard-heart-bold" />
-                                Avaliação
-                            </p>
-                        </div>
-                        <div>
-                            Atual: {{ dataConf.data.value?.valuationActual }}
-                        </div>
-                        <div>
-                            Próxima: {{ dataConf.data.value?.valuationNext }}
-                        </div>
-                    </div>
-                </NuxtLink>
-            </div>
             <!-- Hístórico -->
             <NuxtLink class="menu-button">
                 <div>
@@ -385,8 +181,6 @@ const navD = ref(state.value === 4)
             </NuxtLink>
             <!-- Histórico fim -->
 
-            <!-- Documentos -->
-            <p class="section-title">Documentos</p>
             <NuxtLink :to="`/user/${route.params.id}/contratos`" class="menu-button">
                 <div>
                     <Icon name="solar:document-add-linear" />
@@ -396,26 +190,19 @@ const navD = ref(state.value === 4)
                 </div>
                 <Icon name="ic:baseline-keyboard-arrow-right" />
             </NuxtLink>
-            <NuxtLink :to="`/user/${route.params.id}/termos-de-uso`" class="menu-button">
+            <NuxtLink :to="`/`" class="menu-button">
                 <div>
-                    <Icon name="solar:document-text-linear" />
+                    <Icon name="" />
                     <p>
-                        Termos de uso
+                        LOUGOUT
                     </p>
                 </div>
-                <Icon name="ic:baseline-keyboard-arrow-right" />
-            </NuxtLink>
-            <!-- Documentos fim -->
-
-            <!-- ícones de rede sociais -->
-
-            <!--  -->
-
-            <!-- Botão Logout -->
-            <NuxtLink to="/" class="logout" @click="logOff()">
-                LOUGOUT
                 <Icon name="solar:logout-3-bold" />
             </NuxtLink>
+
+            <br>
+            <br>
+
         </div>
     </div>
 </template>
@@ -833,27 +620,7 @@ const navD = ref(state.value === 4)
     color: #34d399;
 }
 
-.color {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    position: fixed;
-    height: 35px;
-    width: 35px;
-    transition: all 0.2s ease-in-out 0s;
-    bottom: 6rem;
-    right: 1.5rem;
-    border-radius: 9px;
-    cursor: pointer;
-    z-index: 100;
-    border: solid 1px #34d39910;
-    box-shadow: 0 0px 5px #34d39940;
-    backdrop-filter: blur(100px)
-}
-
-.whats {
+.theme {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
@@ -873,7 +640,7 @@ const navD = ref(state.value === 4)
     backdrop-filter: blur(100px)
 }
 
-.whats .icon,
+.theme .icon,
 .color .icon {
     color: #34d39990;
     zoom: 1;
