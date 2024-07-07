@@ -83,6 +83,7 @@ async function submitTreino() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                name: ss.value, 
                 treino: items.value
             }),
         });
@@ -201,15 +202,17 @@ const exe = ref([
     { exercicio: '' },
 ])
 
+const ss = ref('');
 
 
 const items = ref([
-    { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://m.leandrocesar.com/exe/${item.photo}.gif`' }
+    
+    { cc: '', id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://m.leandrocesar.com/exe/${item.photo}.gif`' }
 
 ]);
 
 function addItem() {
-    items.value.push({ id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: '' });
+    items.value.push({ cc: '', id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: '' });
 }
 
 
@@ -219,7 +222,7 @@ function deleteItem(index) {
 
 function clear() {
     items.value = ([
-        { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: `` }
+        { cc: '', id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: `` }
 
     ])
 }
@@ -307,12 +310,11 @@ function moveItemDown(index) {
                 </span>
             </h1>
 
-            <h5>{{  }}</h5>
-
             <br>
             <br>
             <br>
             <form @submit.prevent="submitTreino">
+                <td> <input type="text" v-model="ss"></td> 
                 <table>
                     <thead>
                         <th></th>
