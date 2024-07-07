@@ -72,7 +72,7 @@ function addClient() {
 
 async function submitTreino() {
     try {
-        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos/${route.params.idd}`, {
+        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -339,7 +339,7 @@ function moveItemDown(index) {
                 </table>
                 <div class="buttons">
 
-                    <button class="add-client" type="button" @click="addItem">Add Item</button>
+                    <button class="add-client" type="button" @keyup.enter="addItem" @click="addItem">Add Item</button>
                     <br>
                     <br>
                     <button class="input" type="submit">Submit</button>

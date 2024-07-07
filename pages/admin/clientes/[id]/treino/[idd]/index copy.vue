@@ -7,10 +7,13 @@ const route = useRoute();
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
 const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`);
 const Series = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
-const item = Users.data.value;
-const qtTreinos = Series.data.value;
 
-const qtSeries = qtTreinos.set  ;
+const item = Users.data.value;
+const qtTreino = Treinos.data;
+const qtTreinos = Series.data;
+
+console.log(qtTreinos)
+
 
 
 
@@ -23,13 +26,60 @@ function addClient() {
 
 const items = ref(
     {
-        "name": "Treino atual",
+        "name": "treino-two ",
         "series": [
             {
                 "name": "SerieA",
                 "date": "30-06-2024",
                 "set": [
-                    { "id": '1', "exercício": 'Mesa Flexora', "sets": 3, "reps": 12 }
+                    {
+                        "id": 1,
+                        "num": "Exercício 1",
+                        "nome": "Supino reto hammer",
+                        "sets": 3,
+                        "reps": "12 c/2\"",
+                        "rest": "50'",
+                        "grupo": "",
+                        "obs": "Segurar 2 segundos embaixo a cada repetição.",
+                        "photo": "supinoRetoHammer",
+                        "img": "https://nexwod.app/exe/supinoRetoHammer.png"
+                    },
+                    {
+                        "id": 2,
+                        "num": "Exercício 2",
+                        "nome": "Supino inclinado (HBC)",
+                        "sets": 4,
+                        "reps": "8",
+                        "rest": "50''",
+                        "grupo": "",
+                        "obs": "Pegar halteres bem pesados.",
+                        "photo": "supinoInclinado",
+                        "img": "https://nexwod.app/exe/supinoInclinado.gif"
+                    },
+                    {
+                        "id": 3,
+                        "num": "Exercício 3",
+                        "nome": "Desenvolvimento Hammer",
+                        "sets": 3,
+                        "reps": "10 + 10\"",
+                        "rest": "50''",
+                        "grupo": "",
+                        "obs": "Fazer 10 reptições e segurar 10\" segundos embaixo na altura dos ombros.",
+                        "photo": "desenvolvimentoMaquina",
+                        "img": "https://nexwod.app/exe/desenvolvimentoMaquina.gif"
+                    },
+                    {
+                        "id": 4,
+                        "num": "Exercício 4",
+                        "nome": "Elevação lateral (máquina)",
+                        "sets": 3,
+                        "reps": "8 +8\" +4",
+                        "rest": "50''",
+                        "grupo": "",
+                        "obs": "Fazer 8 repetições, segurar 8 segundos em cima + 4 repetições. Fazer na máquina!",
+                        "photo": "elevacaoLateralHBC",
+                        "img": "https://nexwod.app/exe/elevacaoLateralHBC.gif"
+                    },
                 ]
             },
             {
@@ -57,7 +107,7 @@ async function submitTreino() {
             }),
         });
         if (response.ok) {
-            console.log('Create Serie successfully');
+            console.log('Create Trainning successfully');
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
@@ -67,20 +117,20 @@ async function submitTreino() {
                 });
             }, 1000);
         } else {
-            console.error('Failed to Create Serie');
+            console.error('Failed to Create Trainning');
         }
     } catch (error) {
-        console.error('Error Create Serie:', error);
+        console.error('Error Create Trainning:', error);
     }
 }
 
+const reg = route.params.id
 const logon = useCookie('logon')
-// const logon = useCookie('logon', {maxAge: 4800})
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.idd}`)
+// const logon = useCookie('logon', { maxAge: 4800})
+logon.value = reg
+
+const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
 const status = dataConf.data.value?.status
-
-
-
 const photoOpen = ref(false);
 function openPhoto() {
     photoOpen.value = !photoOpen.value;
@@ -109,15 +159,16 @@ const newTrainning = () => {
 }
 
 useHead({
-    titleTemplate: `${route.params.idd} - Treinos - ${Users.data.value?.name} ${Users.data.value?.lastName} | Clientes | NEX_WOD`,
+    titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
 })
+
 
 
 </script>
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Treino criado com Sucesso!
+            Série criada com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -193,21 +244,172 @@ useHead({
                 </div>
             </div>
             <div v-if="newForm">
-                <br>
-                <h1 v-for="(qtSeries, index) in qtSeries" :key="index">
 
-                    {{ qtSeries.id }} - {{ qtSeries.num }} - {{ qtSeries.nome }}
-                    <br>
+                <h1>
+                    Séries:
+
                 </h1>
+                <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
+                    <span
+                        @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreino.name}/${qtTreinos.name}`)">
+
+                        {{ qtTreino }}
+
+                    </span>
+                </h1>
+
             </div>
             <div v-else class="new-form">
                 <div class="new-form-squared">
                     <form @submit.prevent="submitTreino">
-                        <p>Nome do treino</p>
-                        <input type="text" name="" id="" v-model="items.name">
+                        <!-- Nome e sobrenome -->
+                        <div class="inputs">
 
-                        <!-- <input type="month" name="" id="" v-model="items.name"> -->
-                        <button class="login" type="submit">Adicionar</button>
+                            <div>
+
+                                <span>Nome</span>
+                                <input type="text" id="name" autofocus v-model="name" required autocomplete="nome">
+
+                            </div>
+                            <div>
+
+                                <span>Sobrenome</span>
+                                <input type="text" id="sobrenome" v-model="lastName" required autocomplete="sobrenome">
+
+                            </div>
+                        </div>
+
+                        <!-- Sexo -->
+                        <div class="inputs">
+                            <div class="radio">
+
+                                <input type="radio" name='sex' id="feminino" class="check" v-model="sex" required
+                                    value=feminino autocomplete="sexo" checked>
+                                <label for="feminino">Feminino</label>
+
+                            </div>
+                            <div class="radio">
+
+                                <input type="radio" name='sex' id="masculino" class="check" v-model="sex" required
+                                    value="masculino" autocomplete="sexo">
+                                <label for="masculino">Masculino</label>
+
+                            </div>
+
+
+                        </div>
+                        <!-- Data de nascimento + Whatsapp -->
+                        <div class="inputs">
+
+                            <div>
+                                <span>Data de nascimento</span>
+                                <input type="date" name="" id="nascimento" autofocus v-model="birthday" required
+                                    autocomplete="nascimento">
+                            </div>
+                            <div>
+                                <span>WhatsApp</span>
+                                <input type="tel" name="" id="whatsapp" placeholder="(xx)xxxxx-xxxx" required
+                                    v-model="whatsapp" autocomplete="whatsapp">
+                            </div>
+
+                        </div>
+                        <!-- Serviço e objetivo -->
+                        <div class="inputs">
+
+                            <div>
+                                <span>Qual Serviço?</span>
+                                <select name="service" id="servico" required class="select" placeholder=''
+                                    v-model="service">
+                                    <option disabled value="">Selecione uma opção</option>
+                                    <option value="Personal">Personal</option>
+                                    <option value="Consultoria">Consultoria</option>
+                                </select>
+                            </div>
+
+                            <div>
+
+                                <span>Qual objetivo?</span>
+                                <select name="target" id="target" class="select" placeholder='' required
+                                    v-model="target">
+                                    <option disabled value="">Selecione uma opção</option>
+                                    <option value="Hipertrofia">Hipertrofia</option>
+                                    <option value="Emagrecimento">Emagrecimento</option>
+                                    <option value="Acompanhamento">Só acompanhamento</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <!-- E-mail -->
+                        <div class="inputs">
+                            <div>
+
+                                <span>E-mail</span>
+                                <input type="text" name="" id="email" v-model="email" autocomplete="email">
+
+                            </div>
+                        </div>
+                        <!-- Usuário e senha -->
+                        <div class="inputs senha">
+                            <div>
+                                <span>Usuário</span>
+                                <input type="text" required name="" id="usuario" v-model.trim="username"
+                                    autocomplete="usuario">
+                            </div>
+                            <div class="senhaPs">
+                                <span>Senha</span>
+                                <input type="pass" required name="" id="password" v-model="password" autocomplete="off">
+                            </div>
+
+                        </div>
+                        <div class="inputs">
+                            <div>
+
+                                <span>Dias/semana</span>
+                                <input type="number" name="" required id="servico" v-model="day" autocomplete="servico">
+
+                            </div>
+                            <div>
+
+                                <span>Minutos/treino</span>
+                                <input type="number" name="" required id="vencimento" v-model="time"
+                                    autocomplete="vencimento">
+
+                            </div>
+
+                        </div>
+                        <div class="inputs">
+                            <div>
+
+                                <span>Dia do Vencimento</span>
+                                <input type="number" name="" required id="vencimento" v-model="payDay"
+                                    autocomplete="vencimento">
+
+                            </div>
+                            <div>
+
+                                <span>Início dos treinos</span>
+                                <input type="date" name="" required id="servico" placeholder="Tempo/treino"
+                                    v-model="periodStart" autocomplete="servico">
+
+                            </div>
+                        </div>
+                        <div>
+
+                        </div>
+                        <div>
+
+                        </div>
+
+                        <div class="inputs">
+                            <button class="login" type="submit">
+                                Criar
+                                <Icon name="material-symbols:person-add-rounded" />
+                            </button>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
                     </form>
 
                 </div>
@@ -278,13 +480,57 @@ useHead({
     border-bottom: solid 1px #34d39940;
     border-right: solid 1px #34d39940;
 }
+.inputs {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 14px;
+}
 
-.subscriberOk {
+.inputs div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: .5rem
+}
+
+.inputs #masculino.check,
+.inputs #feminino.check {
+    text-decoration: underline;
+    margin: -15px -94px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs .radio {
+    margin: 30px 30px 15px 30px;
+}
+
+
+.inputs .terms {
+    text-decoration: underline;
+    color: #00dc82;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs #terms.check {
+    text-decoration: underline;
+    margin: 10px -64px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.dont-user {
     position: fixed;
     top: 10px;
     right: 10px;
-    width: 20%;
-    margin-left: 40%;
+    width: 200px;
     background-color: #ff1900;
     color: #fff;
     text-shadow: 2px 2px 2px #111;
@@ -294,9 +540,161 @@ useHead({
     flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
-    border-radius: 8px;
+    border-radius: 5px;
     font-weight: bolder;
     padding: 8px 0px;
+}
+
+input {
+    transition: all .4s linear;
+    border-bottom: solid 2px #00DC82;
+    text-align: left;
+    width: 160px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.inputs #username {
+    width: 190px
+}
+
+.inputs #lastName {
+    width: 130px
+}
+
+.inputs #email {
+    width: 335px
+}
+
+.inputs div h4 {
+    text-align: left;
+}
+
+input:focus-visible {
+    border: solid 1px #00DC82;
+}
+
+input:active {
+    border-color: #00DC8280;
+}
+
+input:hover {
+    background-color: #00DC8210;
+}
+
+
+input:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+
+h4 {
+    transition: all .3s linear;
+    margin: 0 0 0 10px;
+    text-align: left;
+}
+
+h4:nth-child(1) {
+    transition: all .3s linear;
+    margin: 20px 0 0 10px;
+}
+
+
+.select {
+    transition: all .4s linear;
+    border: 0;
+    color: inherit;
+    background-color: transparent;
+    border-bottom: solid 2px #00DC82;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 160px;
+    text-align: left;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.select:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+.select:focus-visible {
+    background-color: #00DC8210;
+}
+
+.select:active {
+    background-color: #00DC8210;
+}
+
+.select:hover {
+    background-color: #00DC8210;
+}
+
+.login {
+    transition: all .4s linear;
+    border: solid 2px #00DC82;
+    cursor: pointer;
+    width: 140px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 88px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+    padding-inline: 16px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    margin: 1rem 1.5rem;
+}
+
+.lost h5 {
+    font-size: .6rem;
+}
+
+.login .icon {
+    margin: -2px 0px 2px 4px;
+    transition: transform .3s linear;
+}
+
+.login:hover {
+    cursor: pointer;
+    background-color: #00DC82;
+    color: #fff;
+}
+
+.login:hover .icon {
+    margin: -2px 0px 2px 4px;
+    transform: translateX(6px);
+}
+
+.subscriberOk {
+    background-color: #00DC82;
+        text-shadow: 2px 2px 2px #111;
+        display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 20px 20px 20px;
+  padding: 15px;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 10px;
+  width: 80%;
+  left: 50%;
+  color: #fff;
+  margin-left: -40%;
+  font-weight: 900;
+  border: solid 1px #00DC8210;
+  z-index: 10000;
 }
 
 .clients {

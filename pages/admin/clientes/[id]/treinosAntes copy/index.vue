@@ -55,7 +55,7 @@ useHead({
 });
 
 const route = useRoute();
-const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
+const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
 const UsersTrainnig = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treino`);
 const item = Users.data.value;
 
@@ -72,7 +72,7 @@ function addClient() {
 
 async function submitTreino() {
     try {
-        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos/${route.params.idd}`, {
+        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -294,7 +294,7 @@ function moveItemDown(index) {
             </h1>
             <h1>Enviar Treino</h1>
 
-            <h5>{{ Users.data.value.treinos }}</h5>
+            <h5>{{ Users.data.value }}</h5>
 
             <br>
             <br>
