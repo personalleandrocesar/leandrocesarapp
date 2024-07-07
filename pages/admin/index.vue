@@ -13,34 +13,9 @@ const senha = ref('');
 const route = useRoute();
 const Users = await useFetch('https://api.nexwod.app/users');
 const item = Users.data.value;
-const UsersId = await useFetch(`https://api.nexwod.app/users/:id`);
 
 const service = ref('')
 const exists = Users.data.value.find(u => service);
-console.log(exists);
-
-const servicesCount = {};
-
-// Loop pelos objetos
-item.forEach(obj => {
-    const service = obj.service;
-    if (service) {
-        // Se o service já existe no objeto de contagem, incrementa a contagem
-        if (servicesCount[service]) {
-            servicesCount[service]++;
-        } else {
-            // Se não existe, inicializa a contagem como 1
-            servicesCount[service] = 1;
-        }
-    }
-});
-
-// Exibe os services e a quantidade no console
-console.log("Quantidade de cada service:");
-for (const service in servicesCount) {
-    console.log(`${service}: ${servicesCount[service]}`);
-}
-
 
 
 const add = ref(true)
@@ -84,87 +59,6 @@ colorCookie.value === "darkCookie" ? colorMode.value = "dark" : colorMode.value 
 const state = useCookie('state')
 state.value = state.value
 
-// Doughnut Chart ínicio
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js'
-import { Doughnut } from 'vue-chartjs'
-
-ChartJS.register(ArcElement, Tooltip, Legend, Title)
-
-const data = {
-  labels: [
-    `Personal (${servicesCount.Personal})`,
-    `Consultoria (${servicesCount.Consultoria})`, 
-    `Avaliação Física (${servicesCount.Avaliação})`],
-  datasets: [
-      {
-          backgroundColor: ['#09df00', '#34d399', '#095d62'],
-        data: [servicesCount.Personal, servicesCount.Consultoria, servicesCount.Avaliação],
-        borderRadius: 8,
-        rotation: 260,
-    }
-  ]
-}
-
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-    plugins: {
-        title: {
-            display: true,
-            text: `Quantidade de Clientes: ${ Users.data.value.length }`,
-            font: {
-                size: 17,
-            }
-        },
-        legend: {
-                labels: {
-                    // This more specific font property overrides the global property
-                    font: {
-                        size: 13
-                    }
-                }
-            }
-    }
-}
-// Doughnut Chart fim
-const dataTarget = {
-  labels: [
-    `Personal (${servicesCount.Personal})`,
-    `Consultoria (${servicesCount.Consultoria})`, 
-    `Avaliação Física (${servicesCount.Avaliação})`],
-  datasets: [
-      {
-          backgroundColor: ['#09df00', '#34d399', '#095d62'],
-        data: [servicesCount.Personal, servicesCount.Consultoria, servicesCount.Avaliação],
-        borderRadius: 8,
-        rotation: 260,
-    }
-  ]
-}
-
-const optionsTarget = {
-  responsive: true,
-  maintainAspectRatio: false,
-    plugins: {
-        title: {
-            display: true,
-            text: `Quantidade de Clientes: ${ Users.data.value.length }`,
-            font: {
-                size: 17,
-            }
-        },
-        legend: {
-                labels: {
-                    // This more specific font property overrides the global property
-                    font: {
-                        size: 13
-                    }
-                }
-            }
-    }
-}
-// Doughnut Chart fim
-
 
 </script>
 
@@ -197,7 +91,7 @@ const optionsTarget = {
                 </div> -->
 
                 <div class='Doughnut'>
-                    <Doughnut :data="data" :options="options" />
+                    <MyChart />
                 </div>
             </div>
         </div>

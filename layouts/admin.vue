@@ -81,10 +81,10 @@ const navD = ref(state.value === 4)
 
             <div>
                 <div class="nav-bottom">
-                    <NuxtLink :to="`/admin`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/admin`">
                         <Icon name='material-symbols:data-usage' />
                     </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/admin/clientes`">
                         <Icon name='solar:users-group-two-rounded-bold' />
                         <span class="clients">
                             <span>{{ Users.data.value.length }}</span>
@@ -145,16 +145,16 @@ const navD = ref(state.value === 4)
 
             <div>
                 <div class="nav-bottom">
-                    <NuxtLink :to="`/admin`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/admin`">
                         <Icon name='solar:home-smile-bold' />
                     </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/admin/clientes`">
                         <Icon name='solar:dumbbell-large-bold' />
                     </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/cardio`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/user/${route.params.id}/cardio`">
                         <Icon name='material-symbols:cardiology' />
                     </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
                         <Icon name='solar:clipboard-heart-bold' />
                     </NuxtLink>
                 </div>

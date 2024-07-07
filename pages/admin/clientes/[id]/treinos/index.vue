@@ -7,7 +7,7 @@ const route = useRoute();
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
 const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
 const item = Users.data.value;
-const qtTreinos = Treinos.data.value;
+const qtTreinos = Treinos.data.value.reverse();
 
 
 
@@ -173,23 +173,48 @@ useHead({
                     </div>
                 </div>
             </div>
+
+
             <div v-if="newForm">
 
-                <h1>
-                    Treinos:
+                <br>
+                <div class="main-div-two">
+                    <h3>
+                        <Icon name='solar:dumbbell-large-bold' /> TREINOS
+                    </h3>
+                </div>
+                <br>
+                <br>
 
-                </h1>
-                <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
-                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}`)">
-                        <ul>
-                            <li>
-                                {{ qtTreinos.name }}
 
-                            </li>
-                        </ul>
+                <div class="main-div-two">
 
+
+                    <span v-for="(qtTreinos, index) in qtTreinos" :key="index">
+                        <NuxtLink class="square" :to="`/admin/clientes/${item.username}/treino/${qtTreinos.name}`">
+                            <div>
+                                <h4>
+                                    TREINO
+                                </h4>
+                            </div>
+
+                            <div>
+                                <h3>
+
+                                </h3>
+
+                                <h5>
+                                    {{ qtTreinos.name }}
+                                </h5>
+
+                            </div>
+                        </NuxtLink>
                     </span>
-                </h1>
+
+                </div>
+                <br>
+                <br>
+                <br>
             </div>
             <div v-else class="new-form">
                 <div class="new-form-squared">
@@ -200,7 +225,8 @@ useHead({
                             <div>
 
                                 <span>Nome do treino</span>
-                                <input type="text" id="name" autofocus v-model="items.name" required autocomplete="nome">
+                                <input type="text" id="name" autofocus v-model="items.name" required
+                                    autocomplete="nome">
 
                             </div>
 
@@ -680,6 +706,114 @@ h4:nth-child(1) {
     margin: 20px 0 0 10px;
 }
 
+
+.main-div-two {
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0px 0 0 0;
+    align-items: left;
+    flex-wrap: wrap;
+}
+
+.main-div-two span {
+    overflow-x: auto;
+    width: 49.9%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0px 0 0 0;
+    align-items: left;
+}
+
+.main-div-two .icon {
+    color: #34d399;
+}
+
+.square {
+    background-color: #34d39910;
+    backdrop-filter: blur(5px);
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin: 2px 4px 4px 0px;
+    border-radius: 8px;
+    border: .1px solid #34d39920;
+    line-height: 1.4;
+    transition: all .4s;
+    border: 2px solid #34d39910;
+}
+
+.square:nth-child(2n+1) {
+    margin: 2px 0px 0px 4px;
+}
+
+.square:nth-child(2n) {
+    margin: 2px 4px 0px 0px;
+}
+
+.square div h4 .icon {
+    margin-top: -1px;
+}
+
+.square:nth-child(2) {
+    margin-top: 10px;
+}
+
+.square:hover {
+    background-color: #34d39930;
+
+    border-top: 2px solid #34d39940;
+    border-bottom: 2px solid #34d39940;
+
+}
+
+.square div:nth-child(2),
+.square div:nth-child(3) {
+    margin: auto;
+    border: none;
+}
+
+.main-div-two H3 {
+    margin-left: 20px;
+
+}
+
+.main-div-two h4 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #34d399;
+}
+
+.main-div-two h5 {
+    font-size: .9rem;
+}
+
+.main-div-two a div {
+    border-bottom: 2px solid #34d39920;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-div-two h4 .icon {
+    margin-left: -3px;
+}
+
+.main-div-two div .icon {
+    margin-top: -1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
 .select {
     transition: all .4s linear;

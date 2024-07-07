@@ -76,7 +76,6 @@ function closeClient() {
 
 const date = '1986-10-08';
 const reversedDate = date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1');
-console.log(reversedDate); // Output: 08-10-1986
 
 async function submitForm() {
     try {
@@ -186,7 +185,7 @@ function formatarData(input) {
 
                             <div class="title-user">
 
-                                <img :src="`/admin/clientes/${item.foto}`">
+                                <!-- <img :src="`/admin/clientes/${item.foto}`"> -->
                                 <h4>
                                     {{ item.name }} {{ item.lastName }}
                                 </h4>
@@ -734,7 +733,7 @@ h4:nth-child(1) {
 
 .users-list {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: row;
     align-items: flex-start;
     flex-wrap: wrap;
@@ -1046,7 +1045,7 @@ input {
 
 .users-list {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;

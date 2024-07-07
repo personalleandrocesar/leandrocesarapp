@@ -76,8 +76,6 @@ async function submitTreino() {
 
 const logon = useCookie('logon')
 // const logon = useCookie('logon', {maxAge: 4800})
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.idd}`)
-const status = dataConf.data.value?.status
 
 
 

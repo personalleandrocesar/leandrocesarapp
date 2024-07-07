@@ -150,7 +150,7 @@ useHead({
                     </div>
                 </div>
             </div>
-            <img class='none' :src="`/admin/clientes/${Users.data.value.foto}`">
+            <!-- <img class='none' :src="`/admin/clientes/${Users.data.value.foto}`"> -->
             <div>
                 <h1>
                     {{ Users.data.value.name }} {{ Users.data.value.lastName }}

@@ -57,7 +57,6 @@ useHead({
 const route = useRoute();
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
 const UsersTrainnig = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`);
-const UsersTrainnigSerie = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.idd}`);
 const item = Users.data.value;
 
 

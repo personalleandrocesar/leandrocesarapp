@@ -64,22 +64,8 @@ const navD = ref(state.value == 4)
 
       </div>
     </div>
-    <!-- <div class="story" v-if="navA">Último treino: <b>TREINO</b>
-      <Icon name='mdi:alpha-a' />
-    </div>
-    <div class="story" v-else-if="navB">Último treino: <b>TREINO</b>
-      <Icon name='mdi:alpha-b' />
-    </div>
-    <div class="story" v-else-if="navC">Último treino: <b>TREINO</b>
-      <Icon name='mdi:alpha-c' />
-    </div>
-    <div class="story" v-else-if="navD">Último treino: <b>TREINO</b>
-      <Icon name='mdi:alpha-d' />
-    </div>
-    <div v-else></div> -->
 
-
-
+    
     <br>
     <div class="main-div-two">
       <h3>

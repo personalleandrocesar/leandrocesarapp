@@ -31,7 +31,7 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@nuxtjs/color-mode',
   ],
-  plugins: ['@/plugins/chart.js'],
+  // plugins: ['~/plugins/chart.js'],
   content: {
     // https://content.nuxtjs.org/api/configuration
   }
