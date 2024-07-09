@@ -3,20 +3,25 @@ export default {
     mounted() {
         const inputField = document.getElementById('inputField');
         const dropdownList = document.getElementById('dropdownList');
+        const otherInput = document.getElementById('otherInput'); // Novo campo de entrada para outras informações
 
         // Simular dados do banco de dados (substitua com seus próprios dados)
-        const databaseData = ['Extensora', 'Puxada p/ frente', 'Desenvolvimento de ombros (AP)',
-            'Supino maquina',];
-        // const databaseData = ['Apple', 'Banana', 'Orange', 'Pineapple', 'Grape', 'Strawberry'];
+        const databaseData = [
+            { name: 'Extensora', otherInfo: 'extensora' },
+            { name: 'Puxada p/ frente', otherInfo: 'Informação adicional para Puxada p/ frente' },
+            { name: 'Desenvolvimento de ombros (AP)', otherInfo: 'Informação adicional para Desenvolvimento de ombros (AP)' },
+            { name: 'Supino maquina', otherInfo: 'Informação adicional para Supino maquina' },
+        ];
 
         // Função para filtrar e exibir os itens da lista suspensa
         function filterDropdownList() {
             const searchText = inputField.value.toLowerCase(); // Texto digitado no campo de entrada, em minúsculas
-            const filteredData = databaseData.filter(item => item.toLowerCase().includes(searchText)); // Filtrar os dados com base no texto digitado
+            const filteredData = databaseData.filter(item => item.name.toLowerCase().includes(searchText)); // Filtrar os dados com base no texto digitado
             dropdownList.innerHTML = ''; // Limpar a lista suspensa
             filteredData.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = item;
+                li.textContent = item.name;
+                li.dataset.otherInfo = item.otherInfo; // Armazenar a informação adicional no atributo data
                 dropdownList.appendChild(li);
             });
             if (searchText) {
@@ -33,6 +38,7 @@ export default {
         dropdownList.addEventListener('click', function (e) {
             if (e.target.tagName === 'LI') {
                 inputField.value = e.target.textContent; // Adicionar texto ao campo de entrada
+                otherInput.value = e.target.dataset.otherInfo; // Adicionar informação adicional ao outro campo de entrada
                 dropdownList.style.display = 'none'; // Esconder a lista suspensa
             }
         });
@@ -45,6 +51,7 @@ export default {
         });
     }
 }
+
 </script>
 
 <script setup>
@@ -134,7 +141,7 @@ function menu() {
 
 
 const exe = ref([
-    { exercicio: 'Extensora' },
+    { exercicio: 'Extensora'},
     { exercicio: 'Puxada p/ frente' },
     { exercicio: 'Remada na polia baixa' },
     { exercicio: 'Desenvolvimento de ombros (AP)' },
@@ -377,7 +384,7 @@ function moveItemDown(index) {
                             <td> <input type="text" v-model="item.reps"></td>
                             <td> <input type="text" v-model="item.rest"></td>
                             <td><textarea id="story" name="story" rows="2" cols="20" v-model="item.obs"></textarea></td>
-                            <td><input type="text" v-model="item.photo"></td>
+                            <td><input type="text" v-model="item.photo" id='otherInput'></td>
                             <input type="hidden" :value="item.img = `https://nexwod.app/exe/${item.photo}.gif`"
                                 readonly>
                             <button v-if="index > 0" @click="moveItemUp(index)">Subir</button>
