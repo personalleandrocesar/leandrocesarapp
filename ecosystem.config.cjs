@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'NuxtAppName',
+            name: 'app.lcesar.com',
             port: '3001',
             exec_mode: 'cluster',
             instances: 'max',
