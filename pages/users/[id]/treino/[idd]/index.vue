@@ -11,9 +11,14 @@ function openPhoto() {
 const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
 const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`);
 
-const qtTreinos = Treinos.data.value.series;
+const qtTreinos = Treinos.data.value.serie;
 
 console.log(qtTreinos);
+
+const qtTreino = Treinos.data.value.name
+
+const treinos = ref('')
+
 
 
 const state = useCookie('state')
