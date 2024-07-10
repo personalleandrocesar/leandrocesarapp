@@ -7,7 +7,7 @@ const route = useRoute();
 const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
 const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
 const item = Users.data.value;
-const qtTreinos = Treinos.data.value.reverse();
+const qtTreinos = Treinos.data.value;
 
 
 
