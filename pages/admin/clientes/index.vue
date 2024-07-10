@@ -34,7 +34,10 @@ const switBlock = ref(true)
 const switList = ref(false)
 const addCloseClient = ref(true)
 const closeAddClient = ref(false)
+const editCloseClient = ref(true)
+const closeEditClient = ref(false)
 const add = ref(true)
+const updt = ref(true)
 const block = ref(false)
 function switchButtonBlock() {
     switBlock.value = false
@@ -60,6 +63,37 @@ function closeClient() {
     add.value = true
     addCloseClient.value = true
     closeAddClient.value = false
+    // colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'
+    switBlock.value = true
+    switList.value = false
+    block.value = false
+    // if (switBlock.value === true  ) {
+    //     return switBlock.value = true,
+    //     switList.value = false
+    // } else (switList === true) {
+    //     return switList.value = true,
+    //     switBlock.value = false
+    // }
+
+}
+function editClient() {
+    updt.value = true
+    add.value = false
+    addCloseClient.value = false
+    closeAddClient.value = false
+    // colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'
+    switBlock.value = false
+    switList.value = false
+    block.value = false
+    editCloseClient = false
+    closeEditClient =true
+}
+function cEditClient() {
+    add.value = false
+    addCloseClient.value = true
+    closeAddClient.value = false
+    editCloseClient = true
+    closeEditClient = false
     // colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'
     switBlock.value = true
     switList.value = false
@@ -122,25 +156,57 @@ async function submitForm() {
         console.error('Error sending data:', error);
     }
 }
-
-function formatarData(input) {
-    // Obtém a data do input
-    let data = new Date(input.value);
-
-    // Formata a data como DD-MM-YYYY
-    let dia = data.getDate().toString().padStart(2, '0');
-    let mes = (data.getMonth() + 1).toString().padStart(2, '0');
-    let ano = data.getFullYear();
-
-    // Define a data formatada de volta no input
-    input.value = `${dia}-${mes}-${ano}`;
+async function submitUpdate() {
+    try {
+        const response = await fetch('https://api.nexwod.app/user', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                name: name.value,
+                lastName: lastName.value,
+                sex: sex.value,
+                birthday: birthday.value.replace(),
+                whatsapp: whatsapp.value,
+                service: service.value,
+                target: target.value,
+                email: email.value.replace,
+                username: username.value.replace(/\s/g, '').toLowerCase(),
+                password: password.value.replace(/\s/g, ''),
+                day: day.value,
+                time: time.value,
+                payDay: payDay.value,
+                periodStart: periodStart.value,
+                periodEnd: periodEnd.value,
+                terms: terms.value,
+                status: status.value,  
+            }),
+        });
+        
+        if (response.ok) {
+            console.log('Data sent successfully');
+            subscriberOk.value = true;
+            setTimeout(() => {
+                subscriberOk.value = false;
+                reloadNuxtApp({
+                    path: "/admin/clientes",
+                    ttl: 1000, // default 10000
+                });
+            }, 2000);
+        } else {
+            console.error('Failed to send data');
+        }
+    } catch (error) {
+        console.error('Error sending data:', error);
+    }
 }
 
 
 </script>
 
 <template>
-    
+
     <div id="grid">
         <div id="areaA">
             <div class="nav-top">
@@ -161,6 +227,18 @@ function formatarData(input) {
                     </div>
                     <div v-else-if="switList" class="filter" @click="switchButtonList">
                         <Icon name='material-symbols:view-list-outline' /> Lista
+                    </div>
+                </div>
+                <div>
+                    <div v-if="editCloseClient" class="edit-client edit-client-max" @click="editClient">
+                        <Icon name='material-symbols:person-edit-rounded' /> Cliente
+                    </div>
+                    <div v-if="editCloseClient" class="edit-client edit-client-mini" @click="editClient">
+                        <Icon name='material-symbols:person-edit-rounded' /> Atualizar Cliente
+                    </div>
+                    <!-- parei aqui -->
+                    <div v-else-if="closeEditClient" class="close-edit-client" @click="cEditClient">
+                        <Icon name='material-symbols:cancel-rounded' /> Fechar
                     </div>
                 </div>
                 <div>
@@ -260,6 +338,169 @@ function formatarData(input) {
                     </table>
 
 
+                </div>
+            </div>
+            <div v-else-if="updt" class="main">
+                <div class="barTop center">
+
+                </div>
+                <form @submit.prevent="submitUpdate">
+                    <!-- Nome e sobrenome -->
+                    <div class="inputs">
+
+                        <div>
+
+                            <span>Nome</span>
+                            <input type="text" id="name" autofocus v-model="name" required autocomplete="nome">
+
+                        </div>
+                        <div>
+
+                            <span>Sobrenome</span>
+                            <input type="text" id="sobrenome" v-model="lastName" required autocomplete="sobrenome">
+
+                        </div>
+                    </div>
+
+                    <!-- Sexo -->
+                    <div class="inputs">
+                        <div class="radio">
+
+                            <input type="radio" name='sex' id="feminino" class="check" v-model="sex" required
+                                value=feminino autocomplete="sexo" checked>
+                            <label for="feminino">Feminino</label>
+
+                        </div>
+                        <div class="radio">
+
+                            <input type="radio" name='sex' id="masculino" class="check" v-model="sex" required
+                                value="masculino" autocomplete="sexo">
+                            <label for="masculino">Masculino</label>
+
+                        </div>
+
+
+                    </div>
+                    <!-- Data de nascimento + Whatsapp -->
+                    <div class="inputs">
+
+                        <div>
+                            <span>Data de nascimento</span>
+                            <input type="date" name="" id="nascimento" autofocus v-model="birthday" required
+                                autocomplete="nascimento">
+                        </div>
+                        <div>
+                            <span>WhatsApp</span>
+                            <input type="tel" name="" id="whatsapp" placeholder="(xx)xxxxx-xxxx" required
+                                v-model="whatsapp" autocomplete="whatsapp">
+                        </div>
+
+                    </div>
+                    <!-- Serviço e objetivo -->
+                    <div class="inputs">
+
+                        <div>
+                            <span>Qual Serviço?</span>
+                            <select name="service" id="servico" required class="select" placeholder=''
+                                v-model="service">
+                                <option disabled value="">Selecione uma opção</option>
+                                <option value="Personal">Personal</option>
+                                <option value="Consultoria">Consultoria</option>
+                            </select>
+                        </div>
+
+                        <div>
+
+                            <span>Qual objetivo?</span>
+                            <select name="target" id="target" class="select" placeholder='' required v-model="target">
+                                <option disabled value="">Selecione uma opção</option>
+                                <option value="Hipertrofia">Hipertrofia</option>
+                                <option value="Emagrecimento">Emagrecimento</option>
+                                <option value="Acompanhamento">Só acompanhamento</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <!-- E-mail -->
+                    <div class="inputs">
+                        <div>
+
+                            <span>E-mail</span>
+                            <input type="text" name="" id="email" v-model="email" autocomplete="email">
+
+                        </div>
+                    </div>
+                    <!-- Usuário e senha -->
+                    <div class="inputs senha">
+                        <div>
+                            <span>Usuário</span>
+                            <input type="text" required name="" id="usuario" v-model.trim="username"
+                                autocomplete="usuario">
+                        </div>
+                        <div class="senhaPs">
+                            <span>Senha</span>
+                            <input type="pass" required name="" id="password" v-model="password" autocomplete="off">
+                        </div>
+
+                    </div>
+                    <div class="inputs">
+                        <div>
+
+                            <span>Dias/semana</span>
+                            <input type="number" name="" required id="servico" v-model="day" autocomplete="servico">
+
+                        </div>
+                        <div>
+
+                            <span>Minutos/treino</span>
+                            <input type="number" name="" required id="vencimento" v-model="time"
+                                autocomplete="vencimento">
+
+                        </div>
+
+                    </div>
+                    <div class="inputs">
+                        <div>
+
+                            <span>Dia do Vencimento</span>
+                            <input type="number" name="" required id="vencimento" v-model="payDay"
+                                autocomplete="vencimento">
+
+                        </div>
+                        <div>
+
+                            <span>Início dos treinos</span>
+                            <input type="date" name="" required id="servico" placeholder="Tempo/treino"
+                                v-model="periodStart" autocomplete="servico">
+
+                        </div>
+                    </div>
+                    <div>
+
+                    </div>
+                    <div>
+
+                    </div>
+
+                    <div class="inputs">
+                        <button class="login" type="submit">
+                            Criar
+                            <Icon name="material-symbols:person-add-rounded" />
+                        </button>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                </form>
+                <br>
+                <br>
+                <br>
+
+                <div v-if="subscriberOk" class="subscriberOk top">
+                    <div>
+                        Usuário Criado com Sucesso!
+                    </div>
                 </div>
             </div>
             <div v-else class="main">
@@ -362,8 +603,7 @@ function formatarData(input) {
                         </div>
                         <div class="senhaPs">
                             <span>Senha</span>
-                            <input type="pass" required name="" id="password" v-model="password"
-                                autocomplete="off">
+                            <input type="pass" required name="" id="password" v-model="password" autocomplete="off">
                         </div>
 
                     </div>
@@ -430,7 +670,7 @@ function formatarData(input) {
     </div>
 </template>
 <style scoped>
-.add-client-max {
+.add-client-max, .edit-client-max {
     display:none;
 }
 
@@ -439,11 +679,11 @@ function formatarData(input) {
         display: none;
     }
 
-    .add-client-mini {
+    .add-client-mini, .edit-client-mini {
         display: none;
     }
 
-        .add-client-max {
+        .add-client-max, .edit-client-max {
             display: inherit;
         }
 }
@@ -980,9 +1220,27 @@ input {
     background-color: #fff;
 }
 
+.edit-client {
+    border: solid 1px #fadb4090;
+    background-color: #fadb4080;
+    padding: 5px 7px;
+    margin: 1.5px 6px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+    color: #fff;
+}
+
+.edit-client:hover {
+    border: solid 1px #fadb4090 ;
+    border-radius: 8px;
+    color: #000;
+    background-color: #fadb40;
+}
+
 .close-client {
-    border: solid 1px #04be7a90;
-    background-color: #04be7a;
+    border: solid 1px #fadb40;
+    background-color: #fadb40;
     padding: 5px 42px;
         margin: 1.5px 6px;
     border-radius: 8px;
@@ -992,6 +1250,23 @@ input {
 }
 
 .close-client:hover {
+    border: solid 1px #04be7a90 ;
+    border-radius: 8px;
+    color: #04be7a;
+    background-color: #fff;
+}
+.close-edit-client {
+    border: solid 1px #fadb40;
+    background-color: #fadb40;
+    padding: 5px 42px;
+        margin: 1.5px 6px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+    color: #fff;
+}
+
+.close-edit-client:hover {
     border: solid 1px #04be7a90 ;
     border-radius: 8px;
     color: #04be7a;
