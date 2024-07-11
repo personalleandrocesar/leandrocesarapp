@@ -8,8 +8,8 @@ function openPhoto() {
   photoOpen.value = !photoOpen.value;
 }
 
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
-const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
+const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
+const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos`);
 
 const qtTreinos = Treinos.data.value;
 

@@ -62,8 +62,8 @@ useHead({
 });
 
 const route = useRoute();
-const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
-const UsersTrainnig = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`);
+const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
+const UsersTrainnig = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}`);
 const item = Users.data.value;
 
 
@@ -83,7 +83,7 @@ function addClient() {
 
 async function submitTreino() {
     try {
-        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos/${route.params.idd}`, {
+        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/treinos/${route.params.idd}`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -117,7 +117,7 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
+const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
 const status = dataConf.data.value?.status
 const photoOpen = ref(false);
 function openPhoto() {
@@ -385,7 +385,7 @@ function moveItemDown(index) {
                             <td> <input type="text" v-model="item.rest"></td>
                             <td><textarea id="story" name="story" rows="2" cols="20" v-model="item.obs"></textarea></td>
                             <td><input type="text" v-model="item.photo" id='otherInput'></td>
-                            <input type="hidden" :value="item.img = `https://nexwod.app/exe/${item.photo}.gif`"
+                            <input type="hidden" :value="item.img = `https://app.leandrocesar.com/exe/${item.photo}.gif`"
                                 readonly>
                             <button v-if="index > 0" @click="moveItemUp(index)">Subir</button>
                             <button v-if="index < items.length - 1" @click="moveItemDown(index)">Descer</button>

@@ -6,7 +6,7 @@ useHead({
     titleTemplate: 'Clientes | Leandro Cesar - App',
 });
 
-const Users = await useFetch('https://api.nexwod.app/users');
+const Users = await useFetch('https://api.leandrocesar.com/users');
 const item = Users.data.value;
 
 
@@ -111,7 +111,7 @@ function cEditClient() {
 
 async function submitForm() {
     try {
-        const response = await fetch('https://api.nexwod.app/user', {
+        const response = await fetch('https://api.leandrocesar.com/user', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -157,7 +157,7 @@ async function submitForm() {
 }
 async function submitUpdate() {
     try {
-        const response = await fetch('https://api.nexwod.app/user', {
+        const response = await fetch('https://api.leandrocesar.com/user', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

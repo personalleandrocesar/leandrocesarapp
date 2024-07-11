@@ -4,9 +4,9 @@ import { reloadNuxtApp } from "nuxt/app";
 
 
 const route = useRoute();
-const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
-const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}`);
-const Series = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
+const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
+const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}`);
+const Series = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
 const item = Users.data.value;
 const qtTreinos = Series.data.value;
 
@@ -47,7 +47,7 @@ const items = ref(
 
 async function submitTreino() {
     try {
-        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos`, {
+        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/treinos`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'

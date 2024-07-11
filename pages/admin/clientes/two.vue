@@ -121,7 +121,7 @@ function clear() {
 
 async function submitForm() {
     try {
-        const response = await fetch('https://api.nexwod.app/fs', {
+        const response = await fetch('https://api.leandrocesar.com/fs', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

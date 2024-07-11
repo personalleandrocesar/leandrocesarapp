@@ -8,7 +8,7 @@ function openExercise() {
   exerciseImg.value = !exerciseImg.value;
 }
 
-const dataTreino = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`)
+const dataTreino = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`)
 
 const qtSeries = dataTreino.data.value.set;
 

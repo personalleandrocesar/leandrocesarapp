@@ -11,7 +11,7 @@ const user = ref('leandrocesar');
 const senha = ref('');
 
 const route = useRoute();
-const Users = await useFetch('https://api.nexwod.app/users');
+const Users = await useFetch('https://api.leandrocesar.com/users');
 const item = Users.data.value;
 
 const service = ref('')

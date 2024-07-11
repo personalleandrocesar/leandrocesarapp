@@ -4,8 +4,8 @@ import { reloadNuxtApp } from "nuxt/app";
 
 
 const route = useRoute();
-const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
-const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
+const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
+const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos`);
 const item = Users.data.value;
 const qtTreinos = Treinos.data.value;
 
@@ -29,7 +29,7 @@ const items = ref(
 
 async function submitTreino() {
     try {
-        const response = await fetch(`https://api.nexwod.app/user/${route.params.id}/treinos`, {
+        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/treinos`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
+const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
 const status = dataConf.data.value?.status
 const photoOpen = ref(false);
 function openPhoto() {
