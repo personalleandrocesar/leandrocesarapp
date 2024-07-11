@@ -15,6 +15,7 @@ const subscriberOk = ref(false)
 const name = ref('')
 const lastName = ref('')
 const sex = ref('')
+const foto = ref('')
 const birthday = ref('')
 const whatsapp = ref('')
 const service = ref('')
@@ -108,9 +109,6 @@ function cEditClient() {
 
 }
 
-const date = '1986-10-08';
-const reversedDate = date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1');
-
 async function submitForm() {
     try {
         const response = await fetch('https://api.nexwod.app/user', {
@@ -124,6 +122,7 @@ async function submitForm() {
                 sex: sex.value,
                 birthday: birthday.value.replace(),
                 whatsapp: whatsapp.value,
+                foto: foto.value,
                 service: service.value,
                 target: target.value,
                 email: email.value.replace,
@@ -169,6 +168,7 @@ async function submitUpdate() {
                 sex: sex.value,
                 birthday: birthday.value.replace(),
                 whatsapp: whatsapp.value,
+                foto: foto.value,
                 service: service.value,
                 target: target.value,
                 email: email.value.replace,
@@ -344,7 +344,7 @@ async function submitUpdate() {
                 <div class="barTop center">
 
                 </div>
-                <form @submit.prevent="submitUpdate">
+                <form @submit.prevent="submitForm">
                     <!-- Nome e sobrenome -->
                     <div class="inputs">
 
@@ -438,6 +438,8 @@ async function submitUpdate() {
                             <input type="text" required name="" id="usuario" v-model.trim="username"
                                 autocomplete="usuario">
                         </div>
+                        <input type="hidden" :value="foto = `https://app.leandrocesar.com/img/${username}.jpeg`">
+
                         <div class="senhaPs">
                             <span>Senha</span>
                             <input type="pass" required name="" id="password" v-model="password" autocomplete="off">
@@ -600,6 +602,7 @@ async function submitUpdate() {
                             <span>Usuário</span>
                             <input type="text" required name="" id="usuario" v-model.trim="username"
                                 autocomplete="usuario">
+                            <input type="hidden" :value="foto = `https://app.leandrocesar.com/img/${username}.jpeg`">       
                         </div>
                         <div class="senhaPs">
                             <span>Senha</span>

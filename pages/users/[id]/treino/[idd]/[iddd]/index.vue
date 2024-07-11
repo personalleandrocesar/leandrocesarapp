@@ -117,7 +117,7 @@ const selectG = () => {
 
         <li v-for="(nome, index) in listExercise()" :key="index">
           <h3>
-            {{ nome.index }}
+            {{ nome.nome }}
           </h3>
           <div class="roww">
             <div>

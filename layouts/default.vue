@@ -31,6 +31,7 @@ const logon = useCookie('logon')
 logon.value = reg
 
 const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
+const inter = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
 const status = dataConf.data.value?.status
 const photoOpen = ref(false);
 function openPhoto() {
@@ -129,12 +130,12 @@ const navD = ref(state.value === 4)
             <NuxtLink @click="menu()" class="button-client">
             </NuxtLink>
             <div class='logo'>
-                <img @click="openPhoto()" :src="dataConf.data.value?.foto">
+                <img @click="openPhoto()" :src="inter.data.value?.foto">
             </div>
         </div>
         <div v-if="photoOpen" class="nav-bar">
             <div class='logo-nav-bar'>
-                <img @click="openPhoto" :src="dataConf.data.value?.foto">
+                <img @click="openPhoto" :src="inter.data.value?.foto">
             </div>
         </div>
         <div v-if="route.path === `/users/${logon}` || route.path === `/users/${logon}/parcerias`" class="head-name">
