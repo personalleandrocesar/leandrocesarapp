@@ -1343,7 +1343,7 @@ input {
     align-items: center;
     flex-wrap: wrap;
     height: 120px;
-    width: 165px;
+    width: 150px;
     margin: 2px;
     border-radius: 8px;
     border: solid 2px #04be7a60;
