@@ -339,7 +339,7 @@ const navD = ref(state.value === 4)
 <style scoped>
 .head-logo {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     flex-direction: row-reverse;
     align-items: flex-start;
     z-index: 1;
@@ -352,16 +352,16 @@ const navD = ref(state.value === 4)
 }
 
 .logo {
-   display: flex;
+    display: flex;
     justify-content: center;
     flex-direction: flex-start;
     align-items: center;
     flex-wrap: wrap;
     height: 55px;
     width: 55px;
-    background:  linear-gradient(to bottom right, #34d399 0%,#34d39970 50%,#00f2ff90 100%);
+    background: linear-gradient(to bottom right, #34d399 0%, #34d39970 50%, #00f2ff90 100%);
     margin: 1.5rem;
-    border-radius: 7px ; 
+    border-radius: 7px;
     z-index: 10;
 }
 
@@ -399,12 +399,13 @@ const navD = ref(state.value === 4)
     position: fixed;
     bottom: 0px;
     height: calc(100% - 0px);
-    width: calc(100% - 100px);
-    background:  linear-gradient(to bottom right, #34d399 0%,#34d39980 50%,#00f2ff90 100%);
+    width: 100%;
+    background: linear-gradient(to bottom right, #34d399 0%, #34d39980 50%, #00f2ff90 100%);
     backdrop-filter: blur(5px);
     z-index: 1004;
-    
+
 }
+
 .logo-nav-bar img {
     height: 300px;
     width: 300px;
@@ -412,7 +413,7 @@ const navD = ref(state.value === 4)
     border: #34d399 1px solid;
     opacity: 1;
     z-index: 100;
-    
+
 }
 
 .button-client {
@@ -604,7 +605,7 @@ const navD = ref(state.value === 4)
     justify-content: space-between;
     font-weight: 800;
     width: 100%;
-    padding:  6px 2px 2px 2px;
+    padding: 6px 2px 2px 2px;
     margin: 5px auto;
     border: solid 1px #34d39910;
     border-bottom: solid .1px #34d39940;
@@ -701,31 +702,32 @@ const navD = ref(state.value === 4)
     padding: 12.2px 8px 12px 12px;
     backdrop-filter: blur(100px)
 }
+
 .nav a {
     margin: 0 2px;
     padding: 12.2px 8px 12px 12px;
     padding: 12.2px 8px 9px 8px;
-    padding:  13px 14.5px 14.5px 14.5px;
+    padding: 13px 14.5px 14.5px 14.5px;
     text-decoration: none;
     cursor: pointer;
 }
 
 .nav a.router-link-exact-active {
-    background: linear-gradient(to bottom right, #34d39910 0%,#34d39910 50%,#34d39910 100%);
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
     margin: 0 2px;
     color: #34d399;
     padding: 13px 14.5px 14.5px 14.5px;
-    
+
     border-radius: 9px;
-  text-decoration: none;
-  cursor: pointer;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .nav a.router-link-exact-active:hover {
     margin: 0 2px;
-    padding:  13px 14.5px 14.5px 14.5px;
+    padding: 13px 14.5px 14.5px 14.5px;
     color: #34d399;
-    background: linear-gradient(to bottom right, #34d39910 0%,#34d39910 50%,#34d39910 100%);
+    background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
     color: #34d399;
     border-radius: 9px;
     text-decoration: none;
@@ -736,11 +738,11 @@ const navD = ref(state.value === 4)
     position: absolute;
     top: 60px;
     left: 20px;
-  background-color: var(--color-background);
-  color: #34d399;
-  border-radius: 9px;
-  text-decoration: none;
-  cursor: pointer;
+    background-color: var(--color-background);
+    color: #34d399;
+    border-radius: 9px;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .nav a:hover {
@@ -754,19 +756,20 @@ const navD = ref(state.value === 4)
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-  position: fixed;
-  height: 35px;
-  width: 35px;
-  transition: all 0.2s ease-in-out 0s;
-  bottom: 6rem;
-  right:1.5rem;
-  border-radius: 9px;
-  cursor: pointer;
-  z-index: 100;
-  border: solid 1px #34d39910;
-  box-shadow: 0 0px 5px #34d39940;
-  backdrop-filter: blur(100px)
+    position: fixed;
+    height: 35px;
+    width: 35px;
+    transition: all 0.2s ease-in-out 0s;
+    bottom: 6rem;
+    right: 1.5rem;
+    border-radius: 9px;
+    cursor: pointer;
+    z-index: 100;
+    border: solid 1px #34d39910;
+    box-shadow: 0 0px 5px #34d39940;
+    backdrop-filter: blur(100px)
 }
+
 .whats {
     display: flex;
     justify-content: space-around;
@@ -778,7 +781,7 @@ const navD = ref(state.value === 4)
     width: 35px;
     transition: all 0.2s ease-in-out 0s;
     bottom: 3.5rem;
-    right:1.5rem;
+    right: 1.5rem;
     border-radius: 9px;
     cursor: pointer;
     z-index: 100;
@@ -786,9 +789,10 @@ const navD = ref(state.value === 4)
     box-shadow: 0 0px 5px #34d39940;
     backdrop-filter: blur(100px)
 }
-.whats .icon, .color .icon {
-  color: #34d39990;
-  zoom: 1;
-}
 
+.whats .icon,
+.color .icon {
+    color: #34d39990;
+    zoom: 1;
+}
 </style>

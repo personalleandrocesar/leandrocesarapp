@@ -263,7 +263,7 @@ async function submitUpdate() {
 
                             <div class="title-user">
 
-                                <!-- <img :src="`/admin/clientes/${item.foto}`"> -->
+                                <img :src="`${item.foto}`">
                                 <h4>
                                     {{ item.name }} {{ item.lastName }}
                                 </h4>
@@ -1342,8 +1342,8 @@ input {
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-    height: 100px;
-    width: 156px;
+    height: 120px;
+    width: 165px;
     margin: 2px;
     border-radius: 8px;
     border: solid 2px #04be7a60;
@@ -1354,8 +1354,8 @@ input {
 }
 
 .title-user img {
-    height: 35px;
-    width: 35px;
+    height: 60px;
+    width: 60px;
     background-color: #04be7a60;
     border: 3px solid #04be7a;
     border-radius: 8px;
