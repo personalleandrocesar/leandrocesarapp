@@ -1342,7 +1342,7 @@ input {
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-    height: 120px;
+    height: 150px;
     width: 150px;
     margin: 2px;
     border-radius: 8px;
@@ -1354,8 +1354,7 @@ input {
 }
 
 .title-user img {
-    height: 60px;
-    width: 60px;
+    height: 80px;
     background-color: #04be7a60;
     border: 3px solid #04be7a;
     border-radius: 8px;
