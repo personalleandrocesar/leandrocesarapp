@@ -1354,7 +1354,7 @@ input {
 }
 
 .title-user img {
-    height: 80px;
+    width: 60px;
     background-color: #04be7a60;
     border: 3px solid #04be7a;
     border-radius: 8px;

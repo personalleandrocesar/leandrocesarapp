@@ -357,17 +357,15 @@ const navD = ref(state.value === 4)
     flex-direction: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    height: 55px;
     width: 55px;
-    background: linear-gradient(to bottom right, #34d399 0%, #34d39970 50%, #00f2ff90 100%);
     margin: 1.5rem;
     border-radius: 7px;
     z-index: 10;
 }
 
 .logo img {
-    height: 49px;
     width: 49px;
+    border: #34d399 1px solid;
     margin: -1px 0 0 -1px;
     border-radius: 7px;
     z-index: 100;
@@ -407,7 +405,6 @@ const navD = ref(state.value === 4)
 }
 
 .logo-nav-bar img {
-    height: 300px;
     width: 300px;
     border-radius: 7px;
     border: #34d399 1px solid;
@@ -475,7 +472,6 @@ const navD = ref(state.value === 4)
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-    height: 100px;
     width: 100px;
     box-shadow: 1px 7px 20px #34d399;
     margin: 1.5rem;
@@ -483,7 +479,6 @@ const navD = ref(state.value === 4)
 }
 
 .main-logo img {
-    height: 100px;
     width: 100px;
     border-radius: 7px;
     border: #34d399 2px solid;
