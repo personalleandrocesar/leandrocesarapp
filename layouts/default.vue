@@ -361,15 +361,18 @@ const navD = ref(state.value === 4)
     margin: 1.5rem;
     border-radius: 7px;
     z-index: 10;
+
 }
 
 .logo img {
     width: 49px;
-    border: #34d399 1px solid;
     margin: -1px 0 0 -1px;
-    border-radius: 7px;
+    border-radius: 8px;
     z-index: 100;
+    border: #34d399 1px solid;
     opacity: 1;
+    background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #00f2ff 100%);
+    padding: 1px;
 
 }
 
@@ -398,8 +401,7 @@ const navD = ref(state.value === 4)
     bottom: 0px;
     height: calc(100% - 0px);
     width: 100%;
-    background: linear-gradient(to bottom right, #34d399 0%, #34d39980 50%, #00f2ff90 100%);
-    backdrop-filter: blur(5px);
+    background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #00f2ff 100%);    backdrop-filter: blur(5px);
     z-index: 1004;
 
 }
