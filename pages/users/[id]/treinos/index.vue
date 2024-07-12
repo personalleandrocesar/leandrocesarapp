@@ -8,8 +8,8 @@ function openPhoto() {
   photoOpen.value = !photoOpen.value;
 }
 
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
-const Treinos = await useFetch(`https://api.nexwod.app/users/${route.params.id}/treinos`);
+const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
+const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos`);
 
 const qtTreinos = Treinos.data.value
 
@@ -29,21 +29,21 @@ const state = useCookie('state')
       <div class="conf">
         <Icon name="fluent:target-arrow-16-filled" />
         <h3>
-          {{ dataConf.data.value?.objetivo }}
+          {{ dataConf.data.value?.target }}
         </h3>
 
       </div>
       <div class="conf">
         <Icon name='mdi:calendar-weekend' />
         <h3>
-          {{ dataConf.data.value?.dias }}
+          {{ dataConf.data.value?.day }} dias
         </h3>
 
       </div>
       <div class="conf">
         <Icon name="material-symbols:timer-rounded" />
         <h3>
-          {{ dataConf.data.value?.tempo }}
+          {{ dataConf.data.value?.time }} min.
         </h3>
 
       </div>
@@ -307,7 +307,7 @@ body {
   height: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -317,7 +317,7 @@ body {
 
 .main-div-tree div .icon {
   margin-top: -1px;
-  display: flex;
+  display: flex;  
   flex-direction: row;
   justify-content: center;
   align-items: center;
