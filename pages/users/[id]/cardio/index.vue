@@ -332,7 +332,7 @@ body {
   width: 100%;
 }
 .main-div-one .icon{
-   zoom: 1.4;
+   zoom: 1.2;
   color: #34d399;
 }
 
@@ -351,7 +351,6 @@ overflow-x: hidden;
     flex-direction: row;
     justify-content: space-around;
     align-items: left;
-    margin: 10px 0 5px 0;
 
 
 
@@ -451,7 +450,7 @@ color: #34d399;
 }
 
 .main-div-two H3 {
-    margin-left: 20px;
+    margin: 20px 20px 0 20px;
 }
 
 .main-div-two h4 {
@@ -498,7 +497,7 @@ color: #34d399;
 }
 
 .main-div-one .icon{
-   zoom: 1.4;
+   zoom: 1.2;
   color: #34d399;
   margin-top: -2.5px;
 }
@@ -518,6 +517,9 @@ color: #34d399;
     border: .1px solid #34d39910;
 }
 
+.conf h3{
+    font-size: .88rem;
+}
 
 
 </style>

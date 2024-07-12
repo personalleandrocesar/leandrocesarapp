@@ -160,7 +160,7 @@ body {
 }
 
 .main-div-one .icon {
-  zoom: 1.4;
+  zoom: 1.2;
   color: #34d399;
 }
 
@@ -392,5 +392,10 @@ body {
   border-radius: 8px;
   background-color: #34d39910;
   border: .1px solid #34d39910;
+}
+
+
+.conf h3{
+    font-size: .88rem;
 }
 </style>
