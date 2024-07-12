@@ -271,14 +271,12 @@ body {
     align-items: center;
     overflow-x: auto;
     margin-bottom: -30px;
+    scrollbar-width: thin;
+    scrollbar-color: #0f172a transparent;
   }
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #0f172a transparent;
-}
 
   .main-div-tree {
-    margin: 10px 15px 0px 15px;
+    margin: 10px 15px 20px 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
