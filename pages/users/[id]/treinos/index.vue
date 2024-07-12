@@ -374,7 +374,7 @@ body {
 
 
 .icon {
-  zoom: 1.4;
+  zoom: 1.2;
   color: #fadb41;
   margin-top: -2.5px;
 }

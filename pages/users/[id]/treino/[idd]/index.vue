@@ -88,7 +88,6 @@ const navD = ref(state.value == 4)
 
 
     <div class="main-div-two">
-      <br>
       <h3>
         <Icon name='solar:dumbbells-bold' /> SÉRIES
       </h3>
@@ -174,7 +173,6 @@ b {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin: 0px 0 0 0;
   align-items: left;
 }
 
@@ -257,13 +255,13 @@ b {
 }
 
 .main-div-one .icon {
-  zoom: 1.4;
+  zoom: 1.2;
   color: #34d399;
   margin-top: -2.5px;
 }
 
-.main-div-two H3 {
-  margin-left: 20px;
+.main-div-two h3 {
+  margin: 20px 20px 0 20px;
 
 }
 
@@ -273,10 +271,12 @@ b {
   justify-content: center;
   align-items: center;
   color: #34d399;
+  margin-top: 5px;
 }
 
 .main-div-two h5 {
   font-size: .9rem;
+  margin-top: -15px;
 }
 
 .main-div-two a div {
@@ -302,8 +302,12 @@ b {
 }
 
 .icon {
-  zoom: 1.4;
+  zoom: 1.2;
   color: #fadb41;
   margin-top: -2.5px;
+}
+
+.conf h3 {
+  font-size: .88rem;
 }
 </style>
