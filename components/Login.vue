@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 const user = ref('');
 const senha = ref('');
-const client = useFetch('https://api.nexwod.app/users');
+const client = useFetch('https://api.leandrocesar.com/users');
 
 const dontUser = ref(false);
 const dontPerson = ref(false);
@@ -459,6 +459,7 @@ input {
 
 input:focus-visible {
   border: solid 1px #00DC82;
+  background-color: #00DC8210;
 }
 
 input:active {

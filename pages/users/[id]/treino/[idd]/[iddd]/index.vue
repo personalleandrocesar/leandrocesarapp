@@ -95,53 +95,59 @@ const selectG = () => {
 
 <template>
   <NuxtLayout>
-
+    
     <div class="alternate">
-      <span @click="chooseGrid" :class="{ alternateGrid : alternateGrid }">
-        <Icon name="solar:slider-minimalistic-horizontal-bold" /> Treino em Bloco
-      </span>
-      <span @click="chooseList" :class="{ alternateList: alternateList }">
-        <Icon name="mdi:format-list-text" /> Treino em Lista
-      </span>
-    </div>
+        <span @click="chooseGrid" :class="{ alternateGrid : alternateGrid }">
+          <Icon name="solar:slider-minimalistic-horizontal-bold" /> Treino em Bloco
+        </span>
+        <span @click="chooseList" :class="{ alternateList: alternateList }">
+          <Icon name="mdi:format-list-text" /> Treino em Lista
+        </span>
+      </div>
 
 
+      
+      <div class="main-div-two">
+        <br>
+        <h3>
+          <Icon name='solar:dumbbell-bold' /> {{route.params.iddd}}
+        </h3>
+      </div>
+      <div class="main-div-two" v-if="buttonList || selectL()">
+        <h3 class="title">
+          {{ itemExercise() }} Exercícios
+        </h3>
 
-    <div class="main-div-two" v-if="buttonList || selectL()">
-      <h3 class="title">
-        {{ itemExercise() }} Exercícios
-      </h3>
 
+        <ul>
 
-      <ul>
+          <li v-for="(nome, index) in listExercise()" :key="index">
+            <h3>
+              {{ nome.nome }}
+            </h3>
+            <div class="roww">
+              <div>
 
-        <li v-for="(nome, index) in listExercise()" :key="index">
-          <h3>
-            {{ nome.nome }}
-          </h3>
-          <div class="roww">
-            <div>
-
-              <img :src="nome.img" class="miniSquare" @click="openExercise" />
-            </div>
-            <div class="square-list">
-              <span>
-                <b> Séries:</b> {{ nome.sets }} <b>
+                <img :src="nome.img" class="miniSquare" @click="openExercise" />
+              </div>
+              <div class="square-list">
+                <span>
+                  <b> Séries:</b> {{ nome.sets }} <b>
+                    <br>
+                    Repetições:</b> {{ nome.reps }}
                   <br>
-                  Repetições:</b> {{ nome.reps }}
-                <br>
-              </span>
-              <span v-if="nome.obs">
-                {{ nome.obs }}
-              </span>
-              <span>
-                <b>Intervalo:</b> {{ nome.rest }}
-              </span>
+                </span>
+                <span v-if="nome.obs">
+                  {{ nome.obs }}
+                </span>
+                <span>
+                  <b>Intervalo:</b> {{ nome.rest }}
+                </span>
+              </div>
             </div>
-          </div>
 
-          <!-- Início do Nav-flow -->
-          <!-- <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
+            <!-- Início do Nav-flow -->
+            <!-- <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
             <div class="nav-top">
 
               <div class="nav-flow-photo">
@@ -152,101 +158,101 @@ const selectG = () => {
 
             </div>
           </div> -->
-        </li>
-      </ul>
+          </li>
+        </ul>
 
-    </div>
-
-
-
-    <!-- Série em Bloco -->
-    <div class="main-div-tree" v-else="buttonGrid || selectG()">
+      </div>
 
 
-      <ul>
-        <li v-for="id in itemExercise()" @click='itemExercise((treino = id - 1))'>
-          <span>
-            {{ id }}
-          </span>
-        </li>
-      </ul>
-      <h3>
-        {{ currentExercise.num }} - {{ itemExercise() }}
-      </h3>
-      <img :src="currentExercise.img" class="square" @click="openExercise" />
-      <h2>
-        {{ currentExercise.nome }}
-      </h2>
 
-      <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
-        <div class="nav-top">
+      <!-- Série em Bloco -->
+      <div class="main-div-tree" v-else="buttonGrid || selectG()">
 
-          <!-- Início do Nav-flow -->
-          <div class="nav-flow-photo">
-            <div class="div-img-full">
-              <img :src="currentExercise.img" />
+
+        <ul>
+          <li v-for="id in itemExercise()" @click='itemExercise((treino = id - 1))'>
+            <span>
+              {{ id }}
+            </span>
+          </li>
+        </ul>
+        <h3>
+          {{ currentExercise.num }} - {{ itemExercise() }}
+        </h3>
+        <img :src="currentExercise.img" class="square" @click="openExercise" />
+        <h2>
+          {{ currentExercise.nome }}
+        </h2>
+
+        <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
+          <div class="nav-top">
+
+            <!-- Início do Nav-flow -->
+            <div class="nav-flow-photo">
+              <div class="div-img-full">
+                <img :src="currentExercise.img" />
+              </div>
             </div>
-          </div>
 
+          </div>
+        </div>
+
+        <p v-if="pending">Carregando...</p>
+        <div v-else>
+
+          <div class="exercise">
+            <div class="exercise-square">
+              <h4>
+                Séries
+              </h4>
+              <h4>
+                {{ currentExercise.sets }}
+              </h4>
+            </div>
+            <div class="exercise-square">
+              <h4>
+                Repetições
+              </h4>
+              <h4>
+                {{ currentExercise.reps }}
+              </h4>
+
+            </div>
+            <div class="exercise-square">
+              <h4>
+                Intervalo
+              </h4>
+              <h4>
+                {{ currentExercise.rest }}
+              </h4>
+
+            </div>
+
+          </div>
+          <div class="obs">
+            {{ currentExercise.obs }}
+            <br>
+          </div>
+        </div>
+
+        <div class="button">
+          <span @click="previousExercise">
+            <Icon name="mdi:chevron-left" /> ANTERIOR
+          </span>
+          <span @click="nextExercise">
+            PRÓXIMO
+            <Icon name="mdi:chevron-right" />
+          </span>
         </div>
       </div>
+      <br>
+      <br>
+      <br>
 
-      <p v-if="pending">Carregando...</p>
-      <div v-else>
 
-        <div class="exercise">
-          <div class="exercise-square">
-            <h4>
-              Séries
-            </h4>
-            <h4>
-              {{ currentExercise.sets }}
-            </h4>
-          </div>
-          <div class="exercise-square">
-            <h4>
-              Repetições
-            </h4>
-            <h4>
-              {{ currentExercise.reps }}
-            </h4>
 
-          </div>
-          <div class="exercise-square">
-            <h4>
-              Intervalo
-            </h4>
-            <h4>
-              {{ currentExercise.rest }}
-            </h4>
-
-          </div>
-
-        </div>
-        <div class="obs">
-          {{ currentExercise.obs }}
-          <br>
-        </div>
+      <div>
       </div>
-
-      <div class="button">
-        <span @click="previousExercise">
-          <Icon name="mdi:chevron-left" /> ANTERIOR
-        </span>
-        <span @click="nextExercise">
-          PRÓXIMO
-          <Icon name="mdi:chevron-right" />
-        </span>
-      </div>
-    </div>
-    <br>
-    <br>
-    <br>
-
-
-
-    <div>
-    </div>
   </NuxtLayout>
 </template>
 

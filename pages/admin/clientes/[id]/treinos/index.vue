@@ -7,7 +7,17 @@ const route = useRoute();
 const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
 const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos`);
 const item = Users.data.value;
-const qtTreinos = Treinos.data.value;
+
+const qtTreinos = Treinos.data.value
+
+const treino = [...qtTreinos].reverse()
+
+
+// if (Treinos.data.value == null) {
+//     qtTreinos.value = Treinos.data.value.reverse();
+// } else {
+//     qtTreinos.value = Treinos.data.value;
+// }
 
 
 
@@ -190,8 +200,8 @@ useHead({
                 <div class="main-div-two">
 
 
-                    <span v-for="(qtTreinos, index) in qtTreinos" :key="index">
-                        <NuxtLink class="square" :to="`/admin/clientes/${item.username}/treino/${qtTreinos.name}`">
+                    <span v-for="(treino, index) in treino" :key="index">
+                        <NuxtLink class="square" :to="`/admin/clientes/${item.username}/treino/${treino.name}`">
                             <div>
                                 <h4>
                                     TREINO
@@ -204,7 +214,7 @@ useHead({
                                 </h3>
 
                                 <h5>
-                                    {{ qtTreinos.name }}
+                                    {{ treino.name }}
                                 </h5>
 
                             </div>

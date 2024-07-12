@@ -50,7 +50,7 @@
                 <br>
             </p>
             <p>
-                <a class="link" href="https://personal.leandrocesar.com" target="_blank">personal.leandrocesar.com</a>
+                <a class="link" href="https://leandrocesar.com" target="_blank">leandrocesar.com</a>
             </p>
         </div>
         

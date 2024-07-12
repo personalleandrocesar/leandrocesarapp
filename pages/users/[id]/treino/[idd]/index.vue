@@ -90,7 +90,7 @@ const navD = ref(state.value == 4)
     <div class="main-div-two">
       <br>
       <h3>
-        <Icon name='solar:dumbbell-small-bold' /> SÉRIES
+        <Icon name='solar:dumbbells-bold' /> SÉRIES
       </h3>
 
       <span v-for="(qtTreinos, index) in qtTreinos" :key="index">

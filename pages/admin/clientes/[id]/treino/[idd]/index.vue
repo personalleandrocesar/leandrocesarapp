@@ -213,7 +213,7 @@ const ss = ref('');
 
 const items = ref([
     
-    { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://m.leandrocesar.com/exe/${item.photo}.gif`' }
+    { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://app.leandrocesar.com/exe/${item.photo}.gif`' }
 
 ]);
 
@@ -849,6 +849,19 @@ input {
 
 input:focus-visible {
     border: solid 1px #00DC82;
+    background-color: #00DC8210;
+}
+
+textarea {
+    border: 0 none;
+        border-bottom: solid 2px #00DC82;
+        outline: 0;
+
+}
+textarea:focus-visible {
+    background-color: #00DC8210;
+    border-bottom: solid 1px #00DC82;
+    
 }
 
 input:active {
