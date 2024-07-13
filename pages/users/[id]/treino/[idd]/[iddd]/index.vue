@@ -670,7 +670,7 @@ border: 2px solid #2cd3db;
     bottom: 0px;
     width: 100%;
     backdrop-filter: blur(5px);
-    background-color: #ffffff50;
+background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #34d399 100%);  
   }
   
   .div-img-full img {
