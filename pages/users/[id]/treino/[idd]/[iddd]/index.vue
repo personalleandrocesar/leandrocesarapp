@@ -293,7 +293,10 @@ ul {
   margin-top: 1.5rem;
 }
 .main-div-two h3 {
-  font-size: 1.2rem;
+  font-size: 1rem;
+}
+.main-div-two h3 .icon {
+  zoom: 1.2;
 }
 
 

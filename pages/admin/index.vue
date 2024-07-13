@@ -98,14 +98,18 @@ state.value = state.value
 </template>
 <style scoped>
 .Doughnut {
-    width: 320px;
-    height: 320px;
+    width: 260px;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 650px) {
     .Doughnut {
         width: 230px;
         height: 230px;
+        margin: auto;
     }
 }
 
