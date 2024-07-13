@@ -98,10 +98,10 @@ const selectG = () => {
     
     <div class="alternate">
         <span @click="chooseGrid" :class="{ alternateGrid : alternateGrid }">
-          <Icon name="solar:slider-minimalistic-horizontal-bold" /> Treino em Bloco
+          <Icon name="solar:slider-minimalistic-horizontal-bold" /> Série em Bloco
         </span>
         <span @click="chooseList" :class="{ alternateList: alternateList }">
-          <Icon name="mdi:format-list-text" /> Treino em Lista
+          <Icon name="mdi:format-list-text" /> Série em Lista
         </span>
       </div>
 

@@ -257,7 +257,7 @@ const navD = ref(state.value === 4)
                         <div>
                             Atual: {{ dataConf.data.value?.treinoActual }}
                         </div>
-                        <div>
+                        <div> 
                             Próximo: {{ dataConf.data.value?.treinoNext }}
                         </div>
                     </div>

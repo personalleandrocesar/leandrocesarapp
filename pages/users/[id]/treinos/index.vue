@@ -131,6 +131,7 @@ body {
   flex-direction: column;
   justify-content: space-around;
   justify-items: center;
+  margin: 10px 5% 5px 5%;
 }
 
 .conf {
@@ -392,6 +393,13 @@ body {
   border-radius: 8px;
   background-color: #34d39910;
   border: .1px solid #34d39910;
+}
+.conf:nth-child(1){
+  margin: 1rem 2px 0 5%;
+}
+
+.conf:nth-child(3){
+  margin: 1rem 5% 0 2px;
 }
 
 
