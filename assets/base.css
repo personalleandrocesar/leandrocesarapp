@@ -95,6 +95,15 @@ body p {
   color: var(--vt-c-text-dark-1);
 }
 
+.dark-mode .main {
+  scrollbar-width: thin;
+    scrollbar-color: #0f172a transparent;
+}
+body .main {
+  scrollbar-width: thin;
+    scrollbar-color: #ffffff transparent;
+}
+
 body h4 {
   font-size: .9rem;
   color: var(--vt-c-text-light-1);
