@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 export default {
     mounted() {
         const inputField = document.getElementById('inputField');
@@ -52,7 +52,7 @@ export default {
     }
 }
 
-</script>
+</script> -->
 
 <script setup>
 import { ref } from 'vue';
@@ -140,91 +140,91 @@ function menu() {
 }
 
 
-const exe = ref([
-    { exercicio: 'Extensora'},
-    { exercicio: 'Puxada p/ frente' },
-    { exercicio: 'Remada na polia baixa' },
-    { exercicio: 'Desenvolvimento de ombros (AP)' },
-    { exercicio: 'Supino maquina' },
-    { exercicio: 'Tríceps mergulho no graviton' },
-    { exercicio: 'Remada no aparelho' },
-    { exercicio: 'Rabdominal Infra' },
-    { exercicio: 'abdominal Infra na Paralela' },
-    { exercicio: 'Abdominal Máquina' },
-    { exercicio: 'Abdominal Oblíquo no solo' },
-    { exercicio: 'Abdominal Remador completo' },
-    { exercicio: 'Abdominal supra' },
-    { exercicio: 'Abdução de quadril na polia baixa' },
-    { exercicio: 'Cadeira Abdutora' },
-    { exercicio: 'Cadeira adutora' },
-    { exercicio: 'Agachament Lunge' },
-    { exercicio: 'Desenvolvimemto Arnold' },
-    { exercicio: 'Back Squat' },
-    { exercicio: 'Bíceps Aparelho' },
-    { exercicio: 'Bíceps em pé(HBM)' },
-    { exercicio: 'Bíceps Invertido (HBW)' },
-    { exercicio: 'Bíceps Martelo' },
-    { exercicio: 'Bíceps Sentado' },
-    { exercicio: 'Agachamento Búlgaro' },
-    { exercicio: 'Extensão de tronco (Cadeira Romana)' },
-    { exercicio: 'Crucifixo Inverso (Ap)' },
-    { exercicio: 'Crucifixo Inverso (HBC)' },
-    { exercicio: 'Crucifixo Peitoral Reto (HBC)' },
-    { exercicio: 'Desenvolvimento de Ombros (HBC)' },
-    { exercicio: 'Desenvolvimento de Ombros (AP)' },
-    { exercicio: 'Desenvolvimento de Ombros (alternando)' },
-    { exercicio: 'Duck Walk' },
-    { exercicio: 'Dumbbel Lunge' },
-    { exercicio: 'Flexão de Ombros (HBC)' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-    { exercicio: '' },
-])
+// const exe = ref([
+//     { exercicio: 'Extensora'},
+//     { exercicio: 'Puxada p/ frente' },
+//     { exercicio: 'Remada na polia baixa' },
+//     { exercicio: 'Desenvolvimento de ombros (AP)' },
+//     { exercicio: 'Supino maquina' },
+//     { exercicio: 'Tríceps mergulho no graviton' },
+//     { exercicio: 'Remada no aparelho' },
+//     { exercicio: 'Rabdominal Infra' },
+//     { exercicio: 'abdominal Infra na Paralela' },
+//     { exercicio: 'Abdominal Máquina' },
+//     { exercicio: 'Abdominal Oblíquo no solo' },
+//     { exercicio: 'Abdominal Remador completo' },
+//     { exercicio: 'Abdominal supra' },
+//     { exercicio: 'Abdução de quadril na polia baixa' },
+//     { exercicio: 'Cadeira Abdutora' },
+//     { exercicio: 'Cadeira adutora' },
+//     { exercicio: 'Agachament Lunge' },
+//     { exercicio: 'Desenvolvimemto Arnold' },
+//     { exercicio: 'Back Squat' },
+//     { exercicio: 'Bíceps Aparelho' },
+//     { exercicio: 'Bíceps em pé(HBM)' },
+//     { exercicio: 'Bíceps Invertido (HBW)' },
+//     { exercicio: 'Bíceps Martelo' },
+//     { exercicio: 'Bíceps Sentado' },
+//     { exercicio: 'Agachamento Búlgaro' },
+//     { exercicio: 'Extensão de tronco (Cadeira Romana)' },
+//     { exercicio: 'Crucifixo Inverso (Ap)' },
+//     { exercicio: 'Crucifixo Inverso (HBC)' },
+//     { exercicio: 'Crucifixo Peitoral Reto (HBC)' },
+//     { exercicio: 'Desenvolvimento de Ombros (HBC)' },
+//     { exercicio: 'Desenvolvimento de Ombros (AP)' },
+//     { exercicio: 'Desenvolvimento de Ombros (alternando)' },
+//     { exercicio: 'Duck Walk' },
+//     { exercicio: 'Dumbbel Lunge' },
+//     { exercicio: 'Flexão de Ombros (HBC)' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+//     { exercicio: '' },
+// ])
 
 const ss = ref('');
 
 
-const items = ref([
+// const items = ref([
     
-    { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://app.leandrocesar.com/exe/${item.photo}.gif`' }
+//     { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://app.leandrocesar.com/exe/${item.photo}.gif`' }
 
-]);
+// ]);
 
-function addItem() {
-    items.value.push({ id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: '' });
-}
+// function addItem() {
+//     items.value.push({ id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: '' });
+// }
 
 
-function deleteItem(index) {
-    items.value.splice(index, 1);
-}
+// function deleteItem(index) {
+//     items.value.splice(index, 1);
+// }
 
 function clear() {
     items.value = ([
@@ -233,34 +233,107 @@ function clear() {
     ])
 }
 
+function removeAllItems() {
+    items.value = [];
+}
+
+// onMounted(() => {
+//     const storedItems = JSON.parse(localStorage.getItem('item'));
+//     if (storedItems) {
+//         items.value = storedItems;
+//     }
+// });
+
+
+
+// onUpdated(() => {
+//     localStorage.setItem('item', JSON.stringify(items.value));
+// })
+
+// function moveItemUp(index) {
+//     if (index <= 0) return;
+//     const item = items.value[index];
+//     items.value.splice(index, 1);
+//     items.value.splice(index - 1, 0, item);
+// }
+
+// function moveItemDown(index) {
+//     if (index >= items.value.length - 1) return;
+//     const item = items.value[index];
+//     items.value.splice(index, 1);
+//     items.value.splice(index + 1, 0, item);
+// }
+
+const operator = ref('');
+const items = ref([]);
+
+const newItem = ref({
+    id: '',
+    num: '',
+    nome: '',
+    sets: '',
+    reps: '',
+    rest: '',
+    grupo: '',
+    obs: '',
+    photo: '',
+    img: ''
+});
+
+const itemIdCounter = ref(1); // Contador para os IDs dos itens
+
+function addItem() {
+    items.value.push({
+        ...newItem.value,
+        id: itemIdCounter.value,
+        num: `Exercício ${itemIdCounter.value}`,
+        img: `https://app.leandrocesar.com/exe/${newItem.value.photo}.gif`
+    });
+    itemIdCounter.value++; // Incrementa o contador de ID
+    newItem.value = {
+        id: '',
+        num: '',
+        nome: '',
+        sets: '',
+        reps: '',
+        rest: '',
+        grupo: '',
+        obs: '',
+        photo: '',
+        img: ''
+    };
+}
+
+function removeItem(item) {
+    items.value = items.value.filter(i => i !== item);
+}
+
+function moveUp(index) {
+    if (index > 0) {
+        const temp = items.value[index];
+        items.value[index] = items.value[index - 1];
+        items.value[index - 1] = temp;
+    }
+}
+
+function moveDown(index) {
+    if (index < items.value.length - 1) {
+        const temp = items.value[index];
+        items.value[index] = items.value[index + 1];
+        items.value[index + 1] = temp;
+    }
+}
 
 onMounted(() => {
-    const storedItems = JSON.parse(localStorage.getItem('item'));
+    const storedItems = JSON.parse(localStorage.getItem('items'));
     if (storedItems) {
         items.value = storedItems;
     }
 });
 
-
-
-onUpdated(() => {
-    localStorage.setItem('item', JSON.stringify(items.value));
-})
-
-function moveItemUp(index) {
-    if (index <= 0) return;
-    const item = items.value[index];
-    items.value.splice(index, 1);
-    items.value.splice(index - 1, 0, item);
-}
-
-function moveItemDown(index) {
-    if (index >= items.value.length - 1) return;
-    const item = items.value[index];
-    items.value.splice(index, 1);
-    items.value.splice(index + 1, 0, item);
-}
-
+watch(items, (newItems) => {
+    localStorage.setItem('items', JSON.stringify(newItems));
+}, { deep: true });
 
 </script>
 <template>
@@ -274,7 +347,7 @@ function moveItemDown(index) {
             <div class="nav-top">
                 <div class="clients">
                     <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-        Users.data.value.lastName }}
+                    Users.data.value.lastName }}
                 </div>
                 <div>
                     <div class="notifications">
@@ -354,7 +427,8 @@ function moveItemDown(index) {
             <br>
             <br>
             <br>
-            <form @submit.prevent="submitTreino">
+            <!-- <form @submit.prevent="submitTreino">
+                
                 <td> <input type="text" v-model="ss"></td>
                 <table>
                     <thead>
@@ -404,12 +478,48 @@ function moveItemDown(index) {
 
             </form>
 
-            <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button>
+            <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
 
 
+            <div>
+                <label>Operator:</label>
+                <input v-model="ss" type="text" />
+            </div>
+            <div>
+                <input type='hidden' v-model="newItem.num" placeholder="Num" />
+                <input v-model="newItem.nome" placeholder="Nome" />
+                <input v-model="newItem.sets" placeholder="Sets" />
+                <input v-model="newItem.reps" placeholder="Reps" />
+                <input v-model="newItem.rest" placeholder="Rest" />
+                <input v-model="newItem.grupo" placeholder="Grupo" />
+                <input v-model="newItem.obs" placeholder="Obs" />
+                <input v-model="newItem.photo" placeholder="Photo" />
+                <button @click="addItem">Add Item</button>
+            </div>
 
-
-
+            <form @submit.prevent="submitTreino">
+            <div v-for="(item, index) in items" :key="item.id">
+                <span>{{ item.num }}</span>
+                <span>{{ item.nome }}</span>
+                <span>{{ item.sets }}</span>
+                <span>{{ item.reps }}</span>
+                <span>{{ item.rest }}</span>
+                <span>{{ item.grupo }}</span>
+                <span>{{ item.obs }}</span>
+                <span>{{ item.img }}</span>
+                <img :src="item.img" alt="Item Image" />
+                <button @click="moveUp(index)">Up</button>
+                <button @click="moveDown(index)">Down</button>
+                <button @click="removeItem(item)">Delete</button>
+            </div>
+            
+            <button class="input" type="submit">Submit</button>
+            
+            
+        </form>
+        
+        <button @click="removeAllItems()">Resetar</button>
+            <!-- <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
 
 
 
