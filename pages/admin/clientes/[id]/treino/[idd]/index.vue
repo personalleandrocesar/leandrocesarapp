@@ -335,6 +335,14 @@ watch(items, (newItems) => {
     localStorage.setItem('items', JSON.stringify(newItems));
 }, { deep: true });
 
+const main = ref(true)
+const addCloseTrainning = ref(true)
+
+function newTrainning() {
+    addCloseTrainning.value = !addCloseTrainning.value
+    main.value = !main.value
+}
+
 </script>
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
@@ -415,18 +423,19 @@ watch(items, (newItems) => {
                 </div>
             </div>
 
-
-            <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
-                <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreino}/${qtTreinos.name}`)">
-
-                    {{ qtTreinos.name }}
-
-                </span>
-            </h1>
-
-            <br>
-            <br>
-            <br>
+            <div v-if='main'>
+                <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
+                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreino}/${qtTreinos.name}`)">
+                        
+                        {{ qtTreinos.name }}
+                        
+                    </span>
+                </h1>
+                
+                <br>
+                <br>
+                <br>
+            </div>
             <!-- <form @submit.prevent="submitTreino">
                 
                 <td> <input type="text" v-model="ss"></td>
@@ -480,47 +489,50 @@ watch(items, (newItems) => {
 
             <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
 
+            <div v-else>
 
-            <div>
-                <label>Operator:</label>
-                <input v-model="ss" type="text" />
-            </div>
-            <div>
-                <input type='hidden' v-model="newItem.num" placeholder="Num" />
-                <input v-model="newItem.nome" placeholder="Nome" />
-                <input v-model="newItem.sets" placeholder="Sets" />
-                <input v-model="newItem.reps" placeholder="Reps" />
-                <input v-model="newItem.rest" placeholder="Rest" />
-                <input v-model="newItem.grupo" placeholder="Grupo" />
-                <input v-model="newItem.obs" placeholder="Obs" />
-                <input v-model="newItem.photo" placeholder="Photo" />
-                <button @click="addItem">Add Item</button>
-            </div>
 
-            <form @submit.prevent="submitTreino">
-            <div v-for="(item, index) in items" :key="item.id">
-                <span>{{ item.num }}</span>
-                <span>{{ item.nome }}</span>
-                <span>{{ item.sets }}</span>
-                <span>{{ item.reps }}</span>
-                <span>{{ item.rest }}</span>
-                <span>{{ item.grupo }}</span>
-                <span>{{ item.obs }}</span>
-                <span>{{ item.img }}</span>
-                <img :src="item.img" alt="Item Image" />
-                <button @click="moveUp(index)">Up</button>
-                <button @click="moveDown(index)">Down</button>
-                <button @click="removeItem(item)">Delete</button>
-            </div>
-            
-            <button class="input" type="submit">Submit</button>
-            
-            
-        </form>
-        
-        <button @click="removeAllItems()">Resetar</button>
-            <!-- <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
+                <div>
+                    <label>Operator:</label>
+                    <input v-model="ss" type="text" />
+                </div>
+                <div>
+                    <input type='hidden' v-model="newItem.num" placeholder="Num" />
+                    <input v-model="newItem.nome" placeholder="Nome" />
+                    <input v-model="newItem.sets" placeholder="Sets" />
+                    <input v-model="newItem.reps" placeholder="Reps" />
+                    <input v-model="newItem.rest" placeholder="Rest" />
+                    <input v-model="newItem.grupo" placeholder="Grupo" />
+                    <input v-model="newItem.obs" placeholder="Obs" />
+                    <input v-model="newItem.photo" placeholder="Photo" />
+                    <button @click="addItem">Add Item</button>
+                </div>
 
+                <form @submit.prevent="submitTreino">
+                    <div v-for="(item, index) in items" :key="item.id">
+                        <span>{{ item.num }}</span>
+                        <span>{{ item.nome }}</span>
+                        <span>{{ item.sets }}</span>
+                        <span>{{ item.reps }}</span>
+                        <span>{{ item.rest }}</span>
+                        <span>{{ item.grupo }}</span>
+                        <span>{{ item.obs }}</span>
+                        <span>{{ item.img }}</span>
+                        <img :src="item.img" alt="Item Image" />
+                        <button @click="moveUp(index)">Up</button>
+                        <button @click="moveDown(index)">Down</button>
+                        <button @click="removeItem(item)">Delete</button>
+                    </div>
+
+                    <button class="input" type="submit">Submit</button>
+
+
+                </form>
+
+                <button @click="removeAllItems()">Resetar</button>
+                <!-- <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
+
+            </div>
 
 
         </div>
