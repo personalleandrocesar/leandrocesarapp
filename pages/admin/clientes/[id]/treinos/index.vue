@@ -245,7 +245,7 @@ useHead({
                         <div class="inputs">
                             <button class="login" type="submit">
                                 Criar
-                                <Icon name="material-symbols:person-add-rounded" />
+                                <Icon name="material-symbols:add-notes" />
                             </button>
                         </div>
                         <br>
@@ -722,18 +722,18 @@ h4:nth-child(1) {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    margin: 0px 0 0 0;
+    margin: -20px 0 0 0;
     align-items: left;
     flex-wrap: wrap;
 }
 
 .main-div-two span {
     overflow-x: auto;
-    width: 49.9%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin: 0px 0 0 0;
+    margin: 0px;
     align-items: left;
 }
 

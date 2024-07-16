@@ -1,59 +1,3 @@
-<!-- <script>
-export default {
-    mounted() {
-        const inputField = document.getElementById('inputField');
-        const dropdownList = document.getElementById('dropdownList');
-        const otherInput = document.getElementById('otherInput'); // Novo campo de entrada para outras informações
-
-        // Simular dados do banco de dados (substitua com seus próprios dados)
-        const databaseData = [
-            { name: 'Extensora', otherInfo: 'extensora' },
-            { name: 'Puxada p/ frente', otherInfo: 'Informação adicional para Puxada p/ frente' },
-            { name: 'Desenvolvimento de ombros (AP)', otherInfo: 'Informação adicional para Desenvolvimento de ombros (AP)' },
-            { name: 'Supino maquina', otherInfo: 'Informação adicional para Supino maquina' },
-        ];
-
-        // Função para filtrar e exibir os itens da lista suspensa
-        function filterDropdownList() {
-            const searchText = inputField.value.toLowerCase(); // Texto digitado no campo de entrada, em minúsculas
-            const filteredData = databaseData.filter(item => item.name.toLowerCase().includes(searchText)); // Filtrar os dados com base no texto digitado
-            dropdownList.innerHTML = ''; // Limpar a lista suspensa
-            filteredData.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item.name;
-                li.dataset.otherInfo = item.otherInfo; // Armazenar a informação adicional no atributo data
-                dropdownList.appendChild(li);
-            });
-            if (searchText) {
-                dropdownList.style.display = 'block'; // Exibir a lista suspensa se houver texto digitado
-            } else {
-                dropdownList.style.display = 'none'; // Esconder a lista suspensa se não houver texto digitado
-            }
-        }
-
-        // Evento de digitação no campo de entrada
-        inputField.addEventListener('input', filterDropdownList);
-
-        // Evento de clique em um item da lista suspensa
-        dropdownList.addEventListener('click', function (e) {
-            if (e.target.tagName === 'LI') {
-                inputField.value = e.target.textContent; // Adicionar texto ao campo de entrada
-                otherInput.value = e.target.dataset.otherInfo; // Adicionar informação adicional ao outro campo de entrada
-                dropdownList.style.display = 'none'; // Esconder a lista suspensa
-            }
-        });
-
-        // Evento de clique fora do campo de entrada
-        document.addEventListener('click', function (e) {
-            if (!e.target.matches('#inputField') && !e.target.matches('#dropdownList')) {
-                dropdownList.style.display = 'none'; // Esconder a lista suspensa
-            }
-        });
-    }
-}
-
-</script> -->
-
 <script setup>
 import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
@@ -89,7 +33,7 @@ async function submitTreino() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                name: ss.value, 
+                name: ss.value,
                 treino: items.value
             }),
         });
@@ -212,7 +156,7 @@ const ss = ref('');
 
 
 // const items = ref([
-    
+
 //     { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://app.leandrocesar.com/exe/${item.photo}.gif`' }
 
 // ]);
@@ -228,7 +172,7 @@ const ss = ref('');
 
 function clear() {
     items.value = ([
-        {  id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: `` }
+        { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: `` }
 
     ])
 }
@@ -355,7 +299,7 @@ function newTrainning() {
             <div class="nav-top">
                 <div class="clients">
                     <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-                    Users.data.value.lastName }}
+        Users.data.value.lastName }}
                 </div>
                 <div>
                     <div class="notifications">
@@ -423,72 +367,49 @@ function newTrainning() {
                 </div>
             </div>
 
-            <div v-if='main'>
-                <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
-                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreino}/${qtTreinos.name}`)">
 
-                        {{ qtTreinos.name }}
+            <div v-if="main">
 
+                <br>
+                <div class="main-div-two">
+                    <h3>
+                        <Icon name='solar:dumbbell-large-bold' /> Séries
+                    </h3>
+                </div>
+                <br>
+                <br>
+
+
+                <div class="main-div-two">
+
+
+                    <span v-for="(qtTreinos, index) in qtTreinos" :key="index">
+                        <NuxtLink class="square"
+                            :to="`/admin/clientes/${item.username}/treino/${qtTreino}/${qtTreinos.name}`">
+                            <div>
+                                <h4>
+                                    Série
+                                </h4>
+                            </div>
+
+                            <div>
+                                <h3>
+
+                                </h3>
+
+                                <h5>
+                                    {{ qtTreinos.name }}
+                                </h5>
+
+                            </div>
+                        </NuxtLink>
                     </span>
-                </h1>
 
+                </div>
                 <br>
                 <br>
                 <br>
             </div>
-            <!-- <form @submit.prevent="submitTreino">
-                
-                <td> <input type="text" v-model="ss"></td>
-                <table>
-                    <thead>
-                        <th></th>
-                        <th>Exercício</th>
-                        <th>Sets</th>
-                        <th>Reps</th>
-                        <th>Intervalo</th>
-                        <th>Observações</th>
-                        <th>Imagem</th>
-                        <th>Deletar?</th>
-                    </thead>
-                    <tbody>
-
-
-
-                        <tr v-for="(item, index) in items" :key="index">
-
-                            <input type="hidden" :value.v-model="item.id = index + 1" readonly>{{ item.id }}
-                            <input type="hidden"
-                                :value.v-model="item.num = 'Exercício ' + (index < 9 ? '' + (index + 1) : (index + 1))">
-                            <td>
-                                <input type="text" v-model="item.nome" id="inputField">
-                                <ul id="dropdownList" class="list-susp"></ul>
-                            </td>
-                            <td><input type="number" v-model="item.sets"></td>
-                            <td> <input type="text" v-model="item.reps"></td>
-                            <td> <input type="text" v-model="item.rest"></td>
-                            <td><textarea id="story" name="story" rows="2" cols="20" v-model="item.obs"></textarea></td>
-                            <td><input type="text" v-model="item.photo" id='otherInput'></td>
-                            <input type="hidden" :value="item.img = `https://app.leandrocesar.com/exe/${item.photo}.gif`"
-                                readonly>
-                            <button v-if="index > 0" @click="moveItemUp(index)">Subir</button>
-                            <button v-if="index < items.length - 1" @click="moveItemDown(index)">Descer</button>
-                            <button class="add-client" type="button" @click="deleteItem(index)">X</button>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="buttons">
-
-                    <button class="add-client" type="button" @click="addItem">Add Item</button>
-                    <br>
-                    <br>
-                    <button class="input" type="submit">Submit</button>
-
-                </div>
-
-            </form>
-
-            <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
-
             <div v-else>
 
 
@@ -587,8 +508,6 @@ function newTrainning() {
 
 
             </div>
-
-
         </div>
     </div>
 </template>
@@ -1025,19 +944,6 @@ input {
 
 input:focus-visible {
     border: solid 1px #00DC82;
-    background-color: #00DC8210;
-}
-
-textarea {
-    border: 0 none;
-        border-bottom: solid 2px #00DC82;
-        outline: 0;
-
-}
-textarea:focus-visible {
-    background-color: #00DC8210;
-    border-bottom: solid 1px #00DC82;
-    
 }
 
 input:active {
@@ -1072,19 +978,19 @@ h4:nth-child(1) {
     overflow-x: auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    margin: 0px 0 0 0;
+    justify-content: flex-start;
+    margin: -20px 0 0 0;
     align-items: left;
     flex-wrap: wrap;
 }
 
 .main-div-two span {
     overflow-x: auto;
-    width: 49.9%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin: 0px 0 0 0;
+    margin: 0px;
     align-items: left;
 }
 
