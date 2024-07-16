@@ -400,7 +400,7 @@ function newTrainning() {
                     <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
                         <Icon name='material-symbols:add-notes' /> Nova Série
                     </div>
-                    <div v-else class="new-user" @click="newTrainning">
+                    <div v-else='addCloseTrainning' class="new-user" @click="newTrainning">
                         <Icon name='material-symbols:cancel-rounded' /> Fechar
                     </div>
                     <div class="delete-trainning" @click="deleteTrainning">
@@ -471,9 +471,9 @@ function newTrainning() {
                     <button @click="addItem">Add Item</button>
                 </div>
 
-                <!-- <form @submit.prevent="submitTreino">
+                <form @submit.prevent="submitTreino">
                     <div v-for="(item, index) in items" :key="item.id">
-                        <span>{{ item.num }}</span>
+                        <input type="text" v-model='item.num' disabled="disabled"><span>{{ item.num }}</span>
                         <span>{{ item.nome }}</span>
                         <span>{{ item.sets }}</span>
                         <span>{{ item.reps }}</span>
@@ -491,7 +491,7 @@ function newTrainning() {
 
                 </form>
 
-                <button @click="removeAllItems()">Resetar</button> -->
+                <button @click="removeAllItems()">Resetar</button>
                 <!-- <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
 
                 <form @submit.prevent="submitTreino">

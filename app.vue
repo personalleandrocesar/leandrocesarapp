@@ -8,6 +8,7 @@ const route = useRoute()
 </template>
 
 <style scoped>
+
 .d{
   position: fixed;
   left:100px;
