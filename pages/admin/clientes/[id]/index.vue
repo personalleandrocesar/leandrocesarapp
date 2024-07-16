@@ -1,17 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 import { reloadNuxtApp } from "nuxt/app";
-
-
 const route = useRoute();
-const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
-const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos`);
+
+
+const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
 const item = Users.data.value;
-const qtTreinos = Treinos.data.value;
 
-
-
-
+console.log(item);
 
 const subscriberOk = ref(false)
 
@@ -20,39 +16,29 @@ function addClient() {
     add.value = !add.value
 }
 
-const items = ref(
-    {
-        name: '',
-    }
-
-);
-
-async function submitTreino() {
+async function deleteUser() {
     try {
-        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/treinos`, {
-            method: 'post',
+        const response = await fetch(`https://api.leandrocesar.com/users/${route.params.id}`, {
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                treino: items.value
-            }),
-        });
+            }
+        })
         if (response.ok) {
-            console.log('Create Trainning successfully');
+            console.log('Data delete successfully');
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
                 reloadNuxtApp({
-                    path: `/admin/clientes/${item.username}/treinos`,
+                    path: "/admin/clientes",
                     ttl: 2000, // default 10000
                 });
             }, 2000);
         } else {
-            console.error('Failed to Create Trainning');
+            console.error('Failed to delete data');
         }
     } catch (error) {
-        console.error('Error Create Trainning:', error);
+        console.error('Error delete data:', error);
     }
 }
 
@@ -61,7 +47,7 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
+const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
 const status = dataConf.data.value?.status
 const photoOpen = ref(false);
 function openPhoto() {
@@ -83,22 +69,14 @@ function menu() {
 
 }
 
-const newForm = ref(true)
-const addCloseTrainning = ref(true)
-const newTrainning = () => {
-    newForm.value = !newForm.value
-    addCloseTrainning.value = !addCloseTrainning.value
-}
-
 useHead({
-    titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
+    titleTemplate: `${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
 })
-
 </script>
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Treino criado com Sucesso!
+            Usuário deletado com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -119,7 +97,6 @@ useHead({
                     <!-- <a @click="$router.go(-1)">
                         <Icon name="tabler:arrow-big-left-lines-filled" />
                     </a> -->
-
                     <NuxtLink :to="`/admin/clientes/${item.username}`">
                         <div class="reward-button">
                             <Icon name='material-symbols:shield-person' />
@@ -135,16 +112,12 @@ useHead({
                             <Icon name='solar:clipboard-heart-bold' />
                         </div>
                     </NuxtLink>
-
-
-
-                    <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:add-notes' />
+                    <div class="reward-update">
+                        <Icon name='material-symbols:person-edit' />
                     </div>
-                    <div v-else class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+                    <div class="reward-delete" @click="deleteUser">
+                        <Icon name='material-symbols:person-off-rounded' />
                     </div>
-
                 </div>
                 <div class='actions'>
                     <NuxtLink :to="`/admin/clientes/${item.username}`">
@@ -164,89 +137,41 @@ useHead({
                     </NuxtLink>
                 </div>
                 <div class='actions-user'>
-
-                    <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:add-notes' /> Novo Treino
+                    <div class="update-button">
+                        <Icon name='material-symbols:person-edit' /> Atualizar
                     </div>
-                    <div v-else class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+                    <div class="delete-button" @click="deleteUser">
+                        <Icon name='material-symbols:person-off-rounded' /> Deletar
                     </div>
                 </div>
             </div>
+            <img v-if='Users.data.value.foto !==true' :src="`${Users.data.value.foto}`">
+            <div>
+                <h1>
+                    {{ Users.data.value.name }} {{ Users.data.value.lastName }}
+                    <p>
+                        {{ Users.data.value.email }}
+                    </p>
+                </h1>
 
-
-            <div v-if="newForm">
-
-                <br>
-                <div class="main-div-two">
-                    <h3>
-                        <Icon name='solar:dumbbell-large-bold' /> TREINOS
-                    </h3>
-                </div>
-                <br>
-                <br>
-
-
-                <img class='photo' :src="`${Users.data.value.foto}`">
-                <div>
-                    <h1>
-                        {{ Users.data.value.name }} {{ Users.data.value.lastName }}
-                        <p>
-                            {{ Users.data.value.email }}
-                        </p>
-                    </h1>
-
-                </div>
-
-                <p>Sexo: {{ Users.data.value.sex }}</p>
-                <p>Nascimento: {{ Users.data.value.birthday.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
-                <p>WhatsApp: {{ Users.data.value.whatsapp }}</p>
-                <p>Serviço: {{ Users.data.value.service }}</p>
-                <p>Objetivo: {{ Users.data.value.target }}</p>
-                <p>Usuário: {{ Users.data.value.username }}</p>
-                <p>Senha: {{ Users.data.value.password }}</p>
-                <p>Dias de Treino:{{ Users.data.value.day }}</p>
-                <p>Tempo de treino: {{ Users.data.value.time }} minutos</p>
-                <p>Dia do Vencimento:{{ Users.data.value.payDay }}</p>
-                <p>Inicio do contrato: {{ Users.data.value.periodStart.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}
-                </p>
-                <p>Fim do Período: {{ Users.data.value.periodEnd.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
-                <p>Termino assinado:{{ Users.data.value.terms }}</p>
-                <p v-if="Users.data.value.status">Status: {{ Users.data.value.status }}</p>
-                <p v-else>Status: Bloqueado</p>
-                <br>
-                <br>
-                <br>
             </div>
-            <div v-else class="new-form">
-                <div class="new-form-squared">
-                    <form @submit.prevent="submitTreino">
-                        <!-- Nome e sobrenome -->
-                        <div class="inputs">
 
-                            <div>
+            <p>Sexo: {{ Users.data.value.sex }}</p>
+            <p>Nascimento: {{ Users.data.value.birthday }}</p>
+            <p>WhatsApp: {{ Users.data.value.whatsapp }}</p>
+            <p>Serviço: {{ Users.data.value.service }}</p>
+            <p>Objetivo: {{ Users.data.value.target }}</p>
+            <p>Usuário: {{ Users.data.value.username }}</p>
+            <p>Senha: {{ Users.data.value.password }}</p>
+            <p>Dias de Treino:{{ Users.data.value.day }}</p>
+            <p>Tempo de treino: {{ Users.data.value.time }} minutos</p>
+            <p>Dia do Vencimento:{{ Users.data.value.payDay }}</p>
+            <p>Inicio do contrato: {{ Users.data.value.periodStart }}</p>
+            <p>Fim do Período: {{ Users.data.value.periodEnd }}</p>
+            <p>Termino assinado:{{ Users.data.value.terms }}</p>
+            <p v-if="Users.data.value.status">Status: {{ Users.data.value.status }}</p>
+            <p v-else>Status: Bloqueado</p>
 
-                                <span>Nome do treino</span>
-                                <input type="text" id="name" autofocus v-model="items.name" required
-                                    autocomplete="nome">
-
-                            </div>
-
-                        </div>
-
-                        <div class="inputs">
-                            <button class="login" type="submit">
-                                Criar
-                                <Icon name="material-symbols:person-add-rounded" />
-                            </button>
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                    </form>
-
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -257,19 +182,14 @@ useHead({
 }
 
 @media (max-width: 650px) {
-
-    .none,
-    .nav-users .actions-user {
+    .none {
         display: none;
     }
-
-
 }
 
 @media (max-width: 1020px) {
 
     .nav-users .actions,
-    .nav-users .actions-user,
     .actions-user .update-button,
     .actions-user .delete-button {
         display: none;
@@ -278,25 +198,6 @@ useHead({
     .nav-users .reward {
         display: inherit;
     }
-
-
-}
-
-.new-user {
-    border: solid 1px #04be7a90;
-    background-color: #04be7a;
-    padding: 4px 15px;
-    margin: 2.5px 10px;
-    border-radius: 8px;
-    transition: all .3s linear;
-    cursor: pointer;
-}
-
-.new-user:hover {
-    border: solid 1px #04be7a90;
-    border-radius: 8px;
-    color: #04be7a;
-    background-color: #fff;
 }
 
 .nav-top {
@@ -318,25 +219,25 @@ useHead({
 }
 
 .subscriberOk {
-    background-color: #00DC82;
-    color: #fff;
-    text-shadow: 2px 2px 2px #111;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 20px 20px 20px;
-    padding: 15px;
-    border-radius: 8px;
-    position: fixed;
-    bottom: 10px;
-    width: 80%;
-    left: 50%;
-    color: #fff;
-    margin-left: -40%;
-    font-weight: 900;
-    border: solid 1px #00DC8210;
-    z-index: 10000;
+    background-color: #ff190080;
+        color: #fff;
+        text-shadow: 2px 2px 2px #111;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 20px 20px 20px;
+        padding: 15px;
+        border-radius: 8px;
+        position: fixed;
+        bottom: 10px;
+        width: 80%;
+        left: 50%;
+        color: #fff;
+        margin-left: -40%;
+        font-weight: 900;
+        border: solid 1px #00DC8210;
+        z-index: 10000;
 }
 
 .clients {
@@ -387,16 +288,6 @@ useHead({
     border-right: solid 1px #34d39940;
 }
 
-.reward {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    font-weight: bolder;
-}
-
-
 .users-conf {
     margin: 16px;
 }
@@ -411,6 +302,16 @@ useHead({
 }
 
 .actions {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-content: baseline;
+    margin: 0;
+}
+.actions-user {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -460,13 +361,16 @@ useHead({
     cursor: pointer;
 }
 
-.nav-users .reward div {
+.reward {
     display: flex;
     justify-content: center;
     flex-direction: row;
+    flex-wrap: nowrap;
     align-items: flex-start;
     justify-content: space-between;
     align-content: baseline;
+    margin: 0;
+    overflow-x: auto;
 }
 
 .reward a {
@@ -506,6 +410,17 @@ useHead({
     color: #34d399;
     text-decoration: none;
     cursor: pointer;
+}
+
+.reward-user {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-content: baseline;
+    margin: 0;
 }
 
 .update-button {
@@ -586,316 +501,6 @@ useHead({
     margin-bottom: 1rem;
     overflow-y: auto;
     overflow-x: hidden;
-}
-
-.inputs {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    font-weight: bolder;
-    font-size: 14px;
-}
-
-.inputs div {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    margin: .5rem
-}
-
-.inputs #masculino.check,
-.inputs #feminino.check {
-    text-decoration: underline;
-    margin: -15px -94px;
-    height: 15px;
-    cursor: pointer;
-}
-
-.inputs .radio {
-    margin: 30px 30px 15px 30px;
-}
-
-
-.inputs .terms {
-    text-decoration: underline;
-    color: #00dc82;
-    height: 15px;
-    cursor: pointer;
-}
-
-.inputs #terms.check {
-    text-decoration: underline;
-    margin: 10px -64px;
-    height: 15px;
-    cursor: pointer;
-}
-
-.dont-user {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 200px;
-    background-color: #ff1900;
-    color: #fff;
-    text-shadow: 2px 2px 2px #111;
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    border-radius: 5px;
-    font-weight: bolder;
-    padding: 8px 0px;
-}
-
-input {
-    transition: all .4s linear;
-    border-bottom: solid 2px #00DC82;
-    text-align: left;
-    width: 160px;
-    font-weight: 600;
-    border-radius: 4px;
-    transition: all 0.2s ease-in-out 0s;
-    height: 30px;
-    font-size: 14px;
-}
-
-.inputs #username {
-    width: 190px
-}
-
-.inputs #lastName {
-    width: 130px
-}
-
-.inputs #email {
-    width: 335px
-}
-
-.inputs div h4 {
-    text-align: left;
-}
-
-input:focus-visible {
-    border: solid 1px #00DC82;
-}
-
-input:active {
-    border-color: #00DC8280;
-}
-
-input:hover {
-    background-color: #00DC8210;
-}
-
-
-input:focus {
-    border: 0 none;
-    border-bottom: solid 2px #00DC82;
-    outline: 0;
-}
-
-
-h4 {
-    transition: all .3s linear;
-    margin: 0 0 0 10px;
-    text-align: left;
-}
-
-h4:nth-child(1) {
-    transition: all .3s linear;
-    margin: 20px 0 0 10px;
-}
-
-
-.photo {
-    height: 120px;
-    border-radius: 8px;
-}
-
-
-.main-div-two {
-    overflow-x: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin: 0px 0 0 0;
-    align-items: left;
-    flex-wrap: wrap;
-}
-
-.main-div-two span {
-    overflow-x: auto;
-    width: 49.9%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    margin: 0px 0 0 0;
-    align-items: left;
-}
-
-.main-div-two .icon {
-    color: #34d399;
-}
-
-.square {
-    background-color: #34d39910;
-    backdrop-filter: blur(5px);
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    margin: 2px 4px 4px 0px;
-    border-radius: 8px;
-    border: .1px solid #34d39920;
-    line-height: 1.4;
-    transition: all .4s;
-    border: 2px solid #34d39910;
-}
-
-.square:nth-child(2n+1) {
-    margin: 2px 0px 0px 4px;
-}
-
-.square:nth-child(2n) {
-    margin: 2px 4px 0px 0px;
-}
-
-.square div h4 .icon {
-    margin-top: -1px;
-}
-
-.square:nth-child(2) {
-    margin-top: 10px;
-}
-
-.square:hover {
-    background-color: #34d39930;
-
-    border-top: 2px solid #34d39940;
-    border-bottom: 2px solid #34d39940;
-
-}
-
-.square div:nth-child(2),
-.square div:nth-child(3) {
-    margin: auto;
-    border: none;
-}
-
-.main-div-two H3 {
-    margin-left: 20px;
-
-}
-
-.main-div-two h4 {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: #34d399;
-}
-
-.main-div-two h5 {
-    font-size: .9rem;
-}
-
-.main-div-two a div {
-    border-bottom: 2px solid #34d39920;
-    height: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.main-div-two h4 .icon {
-    margin-left: -3px;
-}
-
-.main-div-two div .icon {
-    margin-top: -1px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.select {
-    transition: all .4s linear;
-    border: 0;
-    color: inherit;
-    background-color: transparent;
-    border-bottom: solid 2px #00DC82;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 160px;
-    text-align: left;
-    transition: all 0.2s ease-in-out 0s;
-    height: 30px;
-    font-size: 14px;
-}
-
-.select:focus {
-    border: 0 none;
-    border-bottom: solid 2px #00DC82;
-    outline: 0;
-}
-
-.select:focus-visible {
-    background-color: #00DC8210;
-}
-
-.select:active {
-    background-color: #00DC8210;
-}
-
-.select:hover {
-    background-color: #00DC8210;
-}
-
-.login {
-    transition: all .4s linear;
-    border: solid 2px #00DC82;
-    cursor: pointer;
-    width: 140px;
-    text-align: center;
-    line-height: 18px;
-    border-radius: 88px;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out 0s;
-    height: 30px;
-    font-size: 14px;
-    padding-inline: 16px;
-    padding-top: 6px;
-    padding-bottom: 8px;
-    margin: 1rem 1.5rem;
-}
-
-.lost h5 {
-    font-size: .6rem;
-}
-
-.login .icon {
-    margin: -2px 0px 2px 4px;
-    transition: transform .3s linear;
-}
-
-.login:hover {
-    cursor: pointer;
-    background-color: #00DC82;
-    color: #fff;
-}
-
-.login:hover .icon {
-    margin: -2px 0px 2px 4px;
-    transform: translateX(6px);
 }
 
 .color {

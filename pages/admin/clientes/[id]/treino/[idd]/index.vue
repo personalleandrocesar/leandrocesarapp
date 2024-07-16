@@ -19,6 +19,7 @@ const treinos = ref('')
 console.log(UsersTrainnig.data.value.name);
 
 const subscriberOk = ref(false)
+const deleteOk = ref(false)
 
 const add = ref(true)
 function addClient() {
@@ -39,15 +40,41 @@ async function submitTreino() {
         });
         localStorage.setItem('item', JSON.stringify(items.value));
         if (response.ok) {
-            console.log('Data delete successfully');
+            console.log('Data create successfully');
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
                 reloadNuxtApp({
-                    path: `/admin/clientes/${item.username}/treinos`,
-                    ttl: 1000, // default 10000
+                    path: `/admin/clientes/${route.params.id}/treinos`,
+                    ttl: 2000, // default 10000
                 });
-            }, 1000);
+            }, 2000);
+        } else {
+            console.error('Failed to create data');
+        }
+    } catch (error) {
+        console.error('Error create data:', error);
+    }
+}
+
+async function deleteTrainning() {
+    try {
+        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/treinos/${route.params.idd}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (response.ok) {
+            console.log('Data delete successfully');
+            deleteOk.value = true;
+            setTimeout(() => {
+                deleteOk.value = false;
+                reloadNuxtApp({
+                    path: `/admin/clientes/${route.params.id}/treinos`,
+                    ttl: 2000, // default 10000
+                });
+            }, 2000);
         } else {
             console.error('Failed to delete data');
         }
@@ -291,7 +318,12 @@ function newTrainning() {
 <template>
     <div v-if="subscriberOk" class="subscriberOk top">
         <div>
-            Treino criado com Sucesso!
+            Série criada com Sucesso!
+        </div>
+    </div>
+    <div v-if="deleteOk" class="deleteOk top">
+        <div>
+            Treino deletado com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -299,7 +331,7 @@ function newTrainning() {
             <div class="nav-top">
                 <div class="clients">
                     <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-        Users.data.value.lastName }}
+                    Users.data.value.lastName }}
                 </div>
                 <div>
                     <div class="notifications">
@@ -312,30 +344,37 @@ function newTrainning() {
                     <!-- <a @click="$router.go(-1)">
                         <Icon name="tabler:arrow-big-left-lines-filled" />
                     </a> -->
+                    <div>
 
-                    <NuxtLink :to="`/admin/clientes/${item.username}`">
-                        <div class="reward-button">
-                            <Icon name='material-symbols:shield-person' />
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
-                        <div class="reward-button">
-                            <Icon name='solar:dumbbell-large-bold' />
-                        </div>
-                    </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
-                        <div class="reward-button">
-                            <Icon name='solar:clipboard-heart-bold' />
-                        </div>
-                    </NuxtLink>
-
-
-
-                    <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:add-notes' />
+                        <NuxtLink :to="`/admin/clientes/${item.username}`">
+                            <div class="reward-button">
+                                <Icon name='material-symbols:shield-person' />
+                            </div>
+                        </NuxtLink>
+                        <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
+                            <div class="reward-button">
+                                <Icon name='solar:dumbbell-large-bold' />
+                            </div>
+                        </NuxtLink>
+                        <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                            <div class="reward-button">
+                                <Icon name='solar:clipboard-heart-bold' />
+                            </div>
+                        </NuxtLink>
                     </div>
-                    <div v-else class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+
+
+                    <div>
+
+                        <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
+                            <Icon name='material-symbols:add-notes' />
+                        </div>
+                        <div v-else class="new-user" @click="newTrainning">
+                            <Icon name='material-symbols:cancel-rounded' /> Fechar
+                        </div>
+                        <div class="delete-trainning" @click="deleteTrainning">
+                            <Icon name='material-symbols:delete-forever' />
+                        </div>
                     </div>
 
                 </div>
@@ -359,10 +398,13 @@ function newTrainning() {
                 <div class='actions-user'>
 
                     <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:add-notes' /> Novo Treino
+                        <Icon name='material-symbols:add-notes' /> Nova Série
                     </div>
                     <div v-else class="new-user" @click="newTrainning">
                         <Icon name='material-symbols:cancel-rounded' /> Fechar
+                    </div>
+                    <div class="delete-trainning" @click="deleteTrainning">
+                        <Icon name='material-symbols:delete-forever' /> Deletar Treino
                     </div>
                 </div>
             </div>
@@ -414,7 +456,7 @@ function newTrainning() {
 
 
                 <div>
-                    <label>Operator:</label>
+                    <label>Nome da Série:</label>
                     <input v-model="ss" type="text" />
                 </div>
                 <div>
@@ -454,7 +496,7 @@ function newTrainning() {
 
                 <form @submit.prevent="submitTreino">
 
-                    <td> <input type="text" v-model="ss"></td>
+                    <td> <input type="hidden" v-model="ss"></td>
                     <table>
                         <thead>
                             <th></th>
@@ -559,6 +601,22 @@ function newTrainning() {
     color: #04be7a;
     background-color: #fff;
 }
+.delete-trainning {
+    border: solid 1px #ff190080;
+        background-color: #ff190080;
+        padding: 4px 15px;
+        margin: 2.5px 10px;
+        border-radius: 8px;
+        transition: all .3s linear;
+        cursor: pointer;
+}
+
+.delete-trainning:hover {
+    border: solid 1px #ff1900;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #ff1900;
+}
 
 .nav-top {
     position: sticky;
@@ -580,6 +638,27 @@ function newTrainning() {
 
 .subscriberOk {
     background-color: #00DC82;
+    color: #fff;
+    text-shadow: 2px 2px 2px #111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 20px 20px 20px;
+    padding: 15px;
+    border-radius: 8px;
+    position: fixed;
+    bottom: 10px;
+    width: 80%;
+    left: 50%;
+    color: #fff;
+    margin-left: -40%;
+    font-weight: 900;
+    border: solid 1px #00DC8210;
+    z-index: 10000;
+}
+.deleteOk {
+    background-color: #ff190080;
     color: #fff;
     text-shadow: 2px 2px 2px #111;
     display: flex;
@@ -682,6 +761,17 @@ function newTrainning() {
     margin: 0;
 }
 
+.actions-user {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-content: baseline;
+    margin: 0;
+}
+
 .actions a {
     border: solid 1px #34d39910;
     background-color: transparent;
@@ -721,13 +811,23 @@ function newTrainning() {
     cursor: pointer;
 }
 
+.reward {
+    display: flex;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        align-content: baseline;
+}
 .nav-users .reward div {
     display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    align-content: baseline;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        align-content: baseline;
 }
 
 .reward a {

@@ -183,7 +183,7 @@ useHead({
                 <div class='actions-user'>
 
                     <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:add-notes' /> Novo Treino
+                        <Icon name='material-symbols:source-notes' /> Atualizar Treino
                     </div>
                     <div v-else class="new-user" @click="newTrainning">
                         <Icon name='material-symbols:cancel-rounded' /> Fechar

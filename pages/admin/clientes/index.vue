@@ -233,9 +233,6 @@ async function submitUpdate() {
                     <div v-if="editCloseClient" class="edit-client edit-client-max" @click="editClient">
                         <Icon name='material-symbols:person-edit-rounded' /> Cliente
                     </div>
-                    <div v-if="editCloseClient" class="edit-client edit-client-mini" @click="editClient">
-                        <Icon name='material-symbols:person-edit-rounded' /> Atualizar Cliente
-                    </div>
                     <!-- parei aqui -->
                     <div v-else-if="closeEditClient" class="close-edit-client" @click="cEditClient">
                         <Icon name='material-symbols:cancel-rounded' /> Fechar
