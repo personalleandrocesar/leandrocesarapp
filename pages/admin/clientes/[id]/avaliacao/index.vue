@@ -715,7 +715,7 @@ h4:nth-child(1) {
     overflow-x: auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-start;
     margin: 0px 0 0 0;
     align-items: left;
     flex-wrap: wrap;

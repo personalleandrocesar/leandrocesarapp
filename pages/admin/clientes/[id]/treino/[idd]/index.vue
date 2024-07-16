@@ -426,12 +426,12 @@ function newTrainning() {
             <div v-if='main'>
                 <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
                     <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreino}/${qtTreinos.name}`)">
-                        
+
                         {{ qtTreinos.name }}
-                        
+
                     </span>
                 </h1>
-                
+
                 <br>
                 <br>
                 <br>
@@ -508,7 +508,7 @@ function newTrainning() {
                     <button @click="addItem">Add Item</button>
                 </div>
 
-                <form @submit.prevent="submitTreino">
+                <!-- <form @submit.prevent="submitTreino">
                     <div v-for="(item, index) in items" :key="item.id">
                         <span>{{ item.num }}</span>
                         <span>{{ item.nome }}</span>
@@ -517,7 +517,6 @@ function newTrainning() {
                         <span>{{ item.rest }}</span>
                         <span>{{ item.grupo }}</span>
                         <span>{{ item.obs }}</span>
-                        <span>{{ item.img }}</span>
                         <img :src="item.img" alt="Item Image" />
                         <button @click="moveUp(index)">Up</button>
                         <button @click="moveDown(index)">Down</button>
@@ -529,8 +528,63 @@ function newTrainning() {
 
                 </form>
 
-                <button @click="removeAllItems()">Resetar</button>
+                <button @click="removeAllItems()">Resetar</button> -->
                 <!-- <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
+
+                <form @submit.prevent="submitTreino">
+
+                    <td> <input type="text" v-model="ss"></td>
+                    <table>
+                        <thead>
+                            <th></th>
+                            <th>Exercício</th>
+                            <th>Sets</th>
+                            <th>Reps</th>
+                            <th>Intervalo</th>
+                            <th>Observações</th>
+                            <th>Imagem</th>
+                            <th>Deletar?</th>
+                        </thead>
+                        <tbody>
+
+
+
+                            <tr v-for="(item, index) in items" :key="index">
+
+                                <input type="hidden" :value.v-model="item.id = index + 1" readonly>{{ item.id }}
+                                <input type="hidden"
+                                    :value.v-model="item.num = 'Exercício ' + (index < 9 ? '' + (index + 1) : (index + 1))">
+                                <td>
+                                    <input type="text" v-model="item.nome" id="inputField">
+                                    <ul id="dropdownList" class="list-susp"></ul>
+                                </td>
+                                <td><input type="number" v-model="item.sets"></td>
+                                <td> <input type="text" v-model="item.reps"></td>
+                                <td> <input type="text" v-model="item.rest"></td>
+                                <td><textarea id="story" name="story" rows="2" cols="20" v-model="item.obs"></textarea>
+                                </td>
+                                <td><input type="text" v-model="item.photo" id='otherInput'></td>
+                                <input type="hidden"
+                                    :value="item.img = `https://app.leandrocesar.com/exe/${item.photo}.gif`" readonly>
+                                <button v-if="index > 0" @click="moveItemUp(index)">Subir</button>
+                                <button v-if="index < items.length - 1" @click="moveItemDown(index)">Descer</button>
+                                <button class="add-client" type="button" @click="removeItem(item)">X</button>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="buttons">
+
+                        <button class="add-client" type="button" @click="addItem">Add Item</button>
+                        <br>
+                        <br>
+                        <button class="input" type="submit">Submit</button>
+
+                    </div>
+
+                </form>
+
+                <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button>
+
 
             </div>
 
