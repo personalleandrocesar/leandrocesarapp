@@ -206,6 +206,8 @@ function clear() {
 
 function removeAllItems() {
     items.value = [];
+    newItem.value = {};
+    itemIdCounter.value = []
 }
 
 // onMounted(() => {
@@ -221,19 +223,19 @@ function removeAllItems() {
 //     localStorage.setItem('item', JSON.stringify(items.value));
 // })
 
-// function moveItemUp(index) {
-//     if (index <= 0) return;
-//     const item = items.value[index];
-//     items.value.splice(index, 1);
-//     items.value.splice(index - 1, 0, item);
-// }
+function moveItemUp(index) {
+    if (index <= 0) return;
+    const item = items.value[index];
+    items.value.splice(index, 1);
+    items.value.splice(index - 1, 0, item);
+}
 
-// function moveItemDown(index) {
-//     if (index >= items.value.length - 1) return;
-//     const item = items.value[index];
-//     items.value.splice(index, 1);
-//     items.value.splice(index + 1, 0, item);
-// }
+function moveItemDown(index) {
+    if (index >= items.value.length - 1) return;
+    const item = items.value[index];
+    items.value.splice(index, 1);
+    items.value.splice(index + 1, 0, item);
+}
 
 const operator = ref('');
 const items = ref([]);
@@ -251,14 +253,16 @@ const newItem = ref({
     img: ''
 });
 
+const firstInputRef = ref(null);
 const itemIdCounter = ref(1); // Contador para os IDs dos itens
 
 function addItem() {
+    firstInputRef.value.focus()
     items.value.push({
         ...newItem.value,
         id: itemIdCounter.value,
         num: `Exercício ${itemIdCounter.value}`,
-        img: `https://app.leandrocesar.com/exe/${newItem.value.photo}.gif`
+        img: `https://app.leandrocesar.com/exe/${newItem.value.photo}.gif`,
     });
     itemIdCounter.value++; // Incrementa o contador de ID
     newItem.value = {
@@ -455,47 +459,55 @@ function newTrainning() {
             <div v-else>
 
 
-                <div>
-                    <label>Nome da Série:</label>
-                    <input v-model="ss" type="text" />
-                </div>
-                <div>
+                
+                <h3>Exercício à ser adicionado:</h3>
+                <div class='create'>
                     <input type='hidden' v-model="newItem.num" placeholder="Num" />
-                    <input v-model="newItem.nome" placeholder="Nome" />
+                    <input v-model="newItem.nome" placeholder="Nome" ref="firstInputRef" />
                     <input v-model="newItem.sets" placeholder="Sets" />
                     <input v-model="newItem.reps" placeholder="Reps" />
                     <input v-model="newItem.rest" placeholder="Rest" />
-                    <input v-model="newItem.grupo" placeholder="Grupo" />
+                    <!-- <input v-model="newItem.grupo" placeholder="Grupo" /> -->
                     <input v-model="newItem.obs" placeholder="Obs" />
-                    <input v-model="newItem.photo" placeholder="Photo" />
-                    <button @click="addItem">Add Item</button>
+                    <input v-model="newItem.photo" placeholder="Photo" @keyup.enter='addItem' />
+                    <button class="bt-sub-serie" @click="addItem">+ Item</button>
                 </div>
                 <br>
-                <hr>
                 <br>
                 <br>
-                <h3>Nova série</h3>
+                <div class='space'>
+                    <h3>Série em construção:
+                        
+                    </h3>
+                    <button class="bt-rem-serie" @click="removeAllItems()">Resetar</button>
+                </div>
 
                 <form @submit.prevent="submitTreino">
                     <div v-for="(item, index) in items" :key="item.id">
-                        <input type="hidden" :value.v-model="item.id = index + 1" readonly />{{item.id}}
-                            <input type="text" v-model='item.num' disabled="disabled">
-                            <input type="text" v-model='item.nome'>
-                            <input type="text" v-model='item.sets'>
-                            <input type="text" v-model='item.reps'>
-                            <input type="text" v-model='item.rest'>
-                            <input type="text" v-model='item.obs'>
-                            <span class="new-user" @click="moveUp(index)">Up</span>
-                            <span class="new-user" @click="moveDown(index)">Down</span>
-                            <span class="new-user" @click="removeItem(item)">Delete</span>
+                        <input type="hidden" :value.v-model="item.id = index + 1" readonly>{{ item.id }}
+                        <input type="hidden"
+                            :value.v-model="item.num = 'Exercício ' + (index < 9 ? '' + (index + 1) : (index + 1)) "
+                            readonly>
+                        <input type="text" v-model='item.nome'>
+                        <input type="text" v-model='item.sets'>
+                        <input type="text" v-model='item.reps'>
+                        <input type="text" v-model='item.rest'>
+                        <input type="text" v-model='item.obs'>
+                        <input type="text" v-model='item.photo'>
+                        <span class="bt-serie" v-if="index > 0" @click="moveItemUp(index)">Up</span>
+                        <span class=" bt-serie" v-if="index < items.length - 1" @click="moveItemDown(index)">Down</span>
+                        <span class="bt-serie" @click="removeItem(item)">Delete</span>
+                    </div>
+                    <div>
+                        <label>Nome da Série:</label>
+                        <input v-model="ss" class='ss' type="text" />
+                        <button class="bt-sub-serie" type="submit">Submit</button>
                     </div>
 
-                    <button class="input" type="submit">Submit</button>
 
 
                 </form>
 
-                <button @click="removeAllItems()">Resetar</button>
                 <!-- <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
 
                 <!-- <form @submit.prevent="submitTreino">
@@ -593,6 +605,43 @@ img {
     height: 50px;
 }
 
+form{
+    margin: 10px 0; 
+}
+
+form input {
+    margin: 5px 2px; 
+    text-align: center;
+}
+
+form input:nth-child(4){
+    width: 30px
+}
+form input:nth-child(5){
+    width: 120px
+}
+form input:nth-child(6){
+    width: 40px
+}
+.ss{
+    width: 140px
+}
+form input:nth-child(7){
+    width: 220px
+}
+
+.space {
+    display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+}
+
+.create input {
+    margin: 5px 2px; 
+}
+
 .new-user {
     border: solid 1px #04be7a90;
     background-color: #04be7a;
@@ -609,14 +658,68 @@ img {
     color: #04be7a;
     background-color: #fff;
 }
-.delete-trainning {
+.bt-serie {
+    border: solid 1px #04be7a90;
+    background-color: #04be7a90;
+    padding: 1px 12px;
+    margin: 2.5px 2px;
+    border-radius: 8px;
+    color: #fff;
+    transition: all .3s linear;
+    cursor: pointer;
+}
+
+.bt-serie:hover {
+    border: solid 1px #04be7a;
+    border-radius: 8px;
+    color: #04be7a;
+    background-color: #fff;
+}
+.bt-sub-serie {
+    border: solid 1px #04be7a;
+    background-color: #04be7a;
+    padding: 1px 12px;
+    margin: 25px 2px 0 2px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    font-weight: bolder;
+    cursor: pointer;
+    color: #fff;
+}
+
+.bt-sub-serie:hover {
+    border: solid 1px #04be7a;
+    border-radius: 8px;
+    color: #04be7a;
+    background-color: #fff;
+}
+
+.bt-rem-serie {
     border: solid 1px #ff190080;
         background-color: #ff190080;
-        padding: 4px 15px;
-        margin: 2.5px 10px;
+        padding: 1px 12px;
+        margin: -5px 2px 20px 2px;
         border-radius: 8px;
         transition: all .3s linear;
         cursor: pointer;
+        color: #fff;
+        font-weight: bolder;
+}
+
+.bt-rem-serie:hover {
+    border: solid 1px #ff1900;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #ff1900;
+}
+.delete-trainning {
+    border: solid 1px #ff190080;
+    background-color: #ff190080;
+    padding: 4px 15px;
+    margin: 2.5px 10px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
 }
 
 .delete-trainning:hover {
@@ -1026,12 +1129,12 @@ input {
     transition: all .4s linear;
     border-bottom: solid 2px #00DC82;
     text-align: left;
-    width: 160px;
+    width: 140px;
     font-weight: 600;
     border-radius: 4px;
     transition: all 0.2s ease-in-out 0s;
     height: 30px;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .inputs #username {
@@ -1059,11 +1162,12 @@ input:active {
 }
 
 input:hover {
-    background-color: #00DC8210;
+    border-color: #00DC8280;
 }
 
 
 input:focus {
+    background-color: #00DC8210;
     border: 0 none;
     border-bottom: solid 2px #00DC82;
     outline: 0;
