@@ -470,20 +470,24 @@ function newTrainning() {
                     <input v-model="newItem.photo" placeholder="Photo" />
                     <button @click="addItem">Add Item</button>
                 </div>
+                <br>
+                <hr>
+                <br>
+                <br>
+                <h3>Nova série</h3>
 
                 <form @submit.prevent="submitTreino">
                     <div v-for="(item, index) in items" :key="item.id">
-                        <input type="text" v-model='item.num' disabled="disabled"><span>{{ item.num }}</span>
-                        <span>{{ item.nome }}</span>
-                        <span>{{ item.sets }}</span>
-                        <span>{{ item.reps }}</span>
-                        <span>{{ item.rest }}</span>
-                        <span>{{ item.grupo }}</span>
-                        <span>{{ item.obs }}</span>
-                        <img :src="item.img" alt="Item Image" />
-                        <button @click="moveUp(index)">Up</button>
-                        <button @click="moveDown(index)">Down</button>
-                        <button @click="removeItem(item)">Delete</button>
+                        <input type="hidden" :value.v-model="item.id = index + 1" readonly />{{item.id}}
+                            <input type="text" v-model='item.num' disabled="disabled">
+                            <input type="text" v-model='item.nome'>
+                            <input type="text" v-model='item.sets'>
+                            <input type="text" v-model='item.reps'>
+                            <input type="text" v-model='item.rest'>
+                            <input type="text" v-model='item.obs'>
+                            <span class="new-user" @click="moveUp(index)">Up</span>
+                            <span class="new-user" @click="moveDown(index)">Down</span>
+                            <span class="new-user" @click="removeItem(item)">Delete</span>
                     </div>
 
                     <button class="input" type="submit">Submit</button>
@@ -494,7 +498,7 @@ function newTrainning() {
                 <button @click="removeAllItems()">Resetar</button>
                 <!-- <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
 
-                <form @submit.prevent="submitTreino">
+                <!-- <form @submit.prevent="submitTreino">
 
                     <td> <input type="hidden" v-model="ss"></td>
                     <table>
@@ -546,7 +550,7 @@ function newTrainning() {
 
                 </form>
 
-                <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button>
+                <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
 
 
             </div>
@@ -583,6 +587,10 @@ function newTrainning() {
     }
 
 
+}
+
+img {
+    height: 50px;
 }
 
 .new-user {
