@@ -31,10 +31,10 @@ async function deleteUser() {
                 subscriberOk.value = false;
                 // reloadNuxtApp({
                 //     path: "/admin/clientes",
-                //     ttl: 2000, // default 10000
+                //     ttl: 1500, // default 10000
                 // });
                  return navigateTo(`/admin/clientes`);
-            }, 2000);
+            }, 1500);
         } else {
             console.error('Failed to delete data');
         }

@@ -55,10 +55,10 @@ async function submitTreino() {
                 subscriberOk.value = false;
                 // reloadNuxtApp({
                 //     path: `/admin/clientes/${item.username}/treinos`,
-                //     ttl: 2000, // default 10000
+                //     ttl: 1500, // default 10000
                 // });
                 return navigateTo(`/admin/clientes/${route.params.id}/treino/${items.value.name}`);
-            }, 2000);
+            }, 1500);
         } else {
             console.error('Failed to Create Trainning');
         }
@@ -174,7 +174,6 @@ useHead({
                 </div>
             </div>
 
-
             <div v-if="newForm">
 
                 <br>
@@ -210,7 +209,6 @@ useHead({
                             </div>
                         </NuxtLink>
                     </span>
-
                 </div>
                 <br>
                 <br>

@@ -46,10 +46,10 @@ async function submitTreino() {
                 subscriberOk.value = false;
                 // reloadNuxtApp({
                 //     path: `/admin/clientes/${route.params.id}/treinos`,
-                //     ttl: 2000, // default 10000
+                //     ttl: 1500, // default 10000
                 // });
                 return navigateTo(`/admin/clientes/${route.params.id}/treino/${route.params.idd}/${ss.value}`);
-            }, 2000);
+            }, 1500);
         } else {
             console.error('Failed to create data');
         }
@@ -73,10 +73,10 @@ async function deleteTrainning() {
                 deleteOk.value = false;
                 // reloadNuxtApp({
                 //     path: `/admin/clientes/${route.params.id}/treinos`,
-                //     ttl: 2000, // default 10000
+                //     ttl: 1500, // default 10000
                 // });
                 return navigateTo(`/admin/clientes/${route.params.id}/treinos`)
-            }, 2000);
+            }, 1500);
         } else {
             console.error('Failed to delete data');
         }

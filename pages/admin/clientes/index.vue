@@ -148,7 +148,7 @@ async function submitForm() {
                 //     ttl: 1000, // default 10000
                 // });
                 return navigateTo(`/admin/clientes/${username.value.toLowerCase() }`);
-            }, 2000);
+            }, 1500);
         } else {
             console.error('Failed to send data');
         }
@@ -195,7 +195,7 @@ async function submitUpdate() {
                 // ttl: 1000, // default 10000
                 // });
                 return navigateTo(`/admin/clientes/${username.value.toLowerCase() }`);
-            }, 2000);
+            }, 1500);
         } else {
             console.error('Failed to send data');
         }
