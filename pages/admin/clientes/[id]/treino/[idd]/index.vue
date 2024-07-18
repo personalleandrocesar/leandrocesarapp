@@ -44,10 +44,11 @@ async function submitTreino() {
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
-                reloadNuxtApp({
-                    path: `/admin/clientes/${route.params.id}/treinos`,
-                    ttl: 2000, // default 10000
-                });
+                // reloadNuxtApp({
+                //     path: `/admin/clientes/${route.params.id}/treinos`,
+                //     ttl: 2000, // default 10000
+                // });
+                return navigateTo(`/admin/clientes/${route.params.id}/treino/${route.params.idd}/${ss.value}`);
             }, 2000);
         } else {
             console.error('Failed to create data');
@@ -70,10 +71,11 @@ async function deleteTrainning() {
             deleteOk.value = true;
             setTimeout(() => {
                 deleteOk.value = false;
-                reloadNuxtApp({
-                    path: `/admin/clientes/${route.params.id}/treinos`,
-                    ttl: 2000, // default 10000
-                });
+                // reloadNuxtApp({
+                //     path: `/admin/clientes/${route.params.id}/treinos`,
+                //     ttl: 2000, // default 10000
+                // });
+                return navigateTo(`/admin/clientes/${route.params.id}/treinos`)
             }, 2000);
         } else {
             console.error('Failed to delete data');
@@ -332,17 +334,6 @@ function newTrainning() {
     </div>
     <div id="grid">
         <div id="areaA">
-            <div class="nav-top">
-                <div class="clients">
-                    <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-                    Users.data.value.lastName }}
-                </div>
-                <div>
-                    <div class="notifications">
-                        <Icon name='mingcute:notification-newdot-fill' />
-                    </div>
-                </div>
-            </div>
             <div class="nav-users">
                 <div class='reward'>
                     <!-- <a @click="$router.go(-1)">
@@ -459,7 +450,7 @@ function newTrainning() {
             <div v-else>
 
 
-                
+
                 <h3>Exercício à ser adicionado:</h3>
                 <div class='create'>
                     <input type='hidden' v-model="newItem.num" placeholder="Num" />
@@ -477,7 +468,7 @@ function newTrainning() {
                 <br>
                 <div class='space'>
                     <h3>Série em construção:
-                        
+
                     </h3>
                     <button class="bt-rem-serie" @click="removeAllItems()">Resetar</button>
                 </div>
@@ -488,12 +479,12 @@ function newTrainning() {
                         <input type="hidden"
                             :value.v-model="item.num = 'Exercício ' + (index < 9 ? '' + (index + 1) : (index + 1)) "
                             readonly>
-                        <input type="text" v-model='item.nome'>
-                        <input type="text" v-model='item.sets'>
-                        <input type="text" v-model='item.reps'>
-                        <input type="text" v-model='item.rest'>
-                        <input type="text" v-model='item.obs'>
-                        <input type="text" v-model='item.photo'>
+                        <input type="text" v-model='item.nome' placeholder="Exercício">
+                        <input type="text" v-model='item.sets' placeholder="Sets">
+                        <input type="text" v-model='item.reps' placeholder="Reps">
+                        <input type="text" v-model='item.rest' placeholder="Rest">
+                        <input type="text" v-model='item.obs' placeholder="Observações">
+                        <input type="text" v-model='item.photo' placeholder="Imagem">
                         <span class="bt-serie" v-if="index > 0" @click="moveItemUp(index)">Up</span>
                         <span class=" bt-serie" v-if="index < items.length - 1" @click="moveItemDown(index)">Down</span>
                         <span class="bt-serie" @click="removeItem(item)">Delete</span>
@@ -612,6 +603,10 @@ form{
 form input {
     margin: 5px 2px; 
     text-align: center;
+}
+
+form input::placeholder {
+    color: #ccc;
 }
 
 form input:nth-child(4){

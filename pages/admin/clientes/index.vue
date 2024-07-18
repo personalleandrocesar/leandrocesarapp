@@ -143,10 +143,11 @@ async function submitForm() {
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
-                reloadNuxtApp({
-                    path: "/admin/clientes",
-                    ttl: 1000, // default 10000
-                });
+                // reloadNuxtApp({
+                //     path: "/admin/clientes",
+                //     ttl: 1000, // default 10000
+                // });
+                return navigateTo(`/admin/clientes/${username.value.toLowerCase() }`);
             }, 2000);
         } else {
             console.error('Failed to send data');
@@ -189,10 +190,11 @@ async function submitUpdate() {
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
-                reloadNuxtApp({
-                    path: "/admin/clientes",
-                    ttl: 1000, // default 10000
-                });
+                // reloadNuxtApp({
+                // path: "/admin/clientes",
+                // ttl: 1000, // default 10000
+                // });
+                return navigateTo(`/admin/clientes/${username.value.toLowerCase() }`);
             }, 2000);
         } else {
             console.error('Failed to send data');
@@ -209,17 +211,6 @@ async function submitUpdate() {
 
     <div id="grid">
         <div id="areaA">
-            <div class="nav-top">
-                <div class="clients">
-                    <Icon name='solar:users-group-two-rounded-bold' /> Clientes <span> {{ Users.data.value.length }}
-                    </span>
-                </div>
-                <div>
-                    <div class="notifications">
-                        <Icon name='mingcute:notification-newdot-fill' />
-                    </div>
-                </div>
-            </div>
             <div class="nav-users">
                 <div class="users-conf">
                     <div v-if="switBlock" class="filter" @click="switchButtonBlock">
@@ -227,15 +218,6 @@ async function submitUpdate() {
                     </div>
                     <div v-else-if="switList" class="filter" @click="switchButtonList">
                         <Icon name='material-symbols:view-list-outline' /> Lista
-                    </div>
-                </div>
-                <div>
-                    <div v-if="editCloseClient" class="edit-client edit-client-max" @click="editClient">
-                        <Icon name='material-symbols:person-edit-rounded' /> Cliente
-                    </div>
-                    <!-- parei aqui -->
-                    <div v-else-if="closeEditClient" class="close-edit-client" @click="cEditClient">
-                        <Icon name='material-symbols:cancel-rounded' /> Fechar
                     </div>
                 </div>
                 <div>
@@ -950,7 +932,6 @@ h4:nth-child(1) {
     padding: 4px 5px;
     border-radius: 8px;
     color: #00DC82;
-    background-color: #fff;
 }
 
 .nav-users {

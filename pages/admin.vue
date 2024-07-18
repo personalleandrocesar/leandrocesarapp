@@ -116,9 +116,13 @@ const navD = ref(state.value === 4)
                 </NuxtLink>
                 <NuxtLink :to="`/admin/clientes`">
                     <Icon name='solar:users-group-two-rounded-bold' /> Clientes
+                    <span class="clients">
+                        <span>{{ Users.data.value.length }}</span>
+                    </span>
                 </NuxtLink>
             </div>
             <div class='logOut'>
+
                 <NuxtLink :to="`/`">
                     <Icon name='solar:users-group-two-rounded-bold' /> Log Out
                 </NuxtLink>
@@ -133,16 +137,23 @@ const navD = ref(state.value === 4)
 
         <div v-if="bodyOne">
 
-            <NuxtLayout :name='layout'  ></NuxtLayout>
+            <NuxtLayout :name='layout'></NuxtLayout>
 
 
 
             <NuxtPage />
         </div>
 
-
     </div>
 
+    <div class="theme">
+
+        <a @click="theme()" :model="$colorMode.value">
+            <Icon
+                :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
+        </a>
+
+    </div>
 
 
 </template>
@@ -243,7 +254,6 @@ const navD = ref(state.value === 4)
     margin: 10px;
     border-radius: 5px;
 }
-
 
 .nav-top {
     position: sticky;
@@ -896,6 +906,32 @@ const navD = ref(state.value === 4)
 }
 
 .whats .icon,
+.color .icon {
+    color: #34d39990;
+    zoom: 1;
+}
+
+.theme {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    position: fixed;
+    height: 35px;
+    width: 35px;
+    transition: all 0.2s ease-in-out 0s;
+    bottom: 3.5rem;
+    right: 1.5rem;
+    border-radius: 9px;
+    cursor: pointer;
+    z-index: 1005;
+    border: solid 1px #34d39910;
+    box-shadow: 0 0px 5px #34d39940;
+    backdrop-filter: blur(100px)
+}
+
+.theme .icon,
 .color .icon {
     color: #34d39990;
     zoom: 1;

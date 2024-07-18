@@ -30,7 +30,9 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const Users = await useFetch('https://api.nexwod.app/users');
+const Users = await useFetch('https://api.leandrocesar.com/users');
+const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
+
 const photoOpen = ref(false);
 function openPhoto() {
     photoOpen.value = !photoOpen.value;
@@ -77,6 +79,7 @@ const navD = ref(state.value === 4)
 <template>
     <div v-if="bodyOne">
 
+
         <div id="nav-container" class='nav'>
 
             <div>
@@ -86,10 +89,10 @@ const navD = ref(state.value === 4)
                     </NuxtLink>
                     <NuxtLink :to="`/admin/clientes`">
                         <Icon name='solar:users-group-two-rounded-bold' />
-                        <span class="clients">
-                            <span>{{ Users.data.value.length }}</span>
-                        </span>
                     </NuxtLink>
+                    <span class="clients">
+                        <span>{{ Users.data.value.length }}</span>
+                    </span>
                 </div>
             </div>
 
@@ -105,32 +108,33 @@ const navD = ref(state.value === 4)
 
             </div>
         </div>
+        <div class="nav-top">
 
-        <div v-if="route.path === `/users/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-logo"
-            id="sobre">
-            <NuxtLink @click="menu()" class="button-client">
-            </NuxtLink>
-            <div class='logo'>
-                <img @click="openPhoto()" :src="dataConf.data.value?.foto">
+            <div v-if="route.path === `/admin`" class="clientss">
+                <Icon name='material-symbols:data-usage' /> Início
             </div>
-        </div>
-        <div v-if="photoOpen" class="nav-bar">
-            <div class='logo-nav-bar'>
-                <img @click="openPhoto" :src="dataConf.data.value?.foto">
+            <div v-else-if="route.path === `/admin/clientes`" class="clientss">
+                <Icon name='solar:users-group-two-rounded-bold' /> Clientes
+                <span>{{ Users.data.value.length }}</span>
             </div>
-        </div>
-        <div v-if="route.path === `/users/${logon}` || route.path === `/user/${logon}/parcerias`" class="head-name">
-            <div class="name">
-                Olá, {{ dataConf.data.value?.name }}
+            <div v-else-if="route.path === `/admin/clientes/${route.params.id}`" class="clientss">
+                <Icon name='material-symbols:person' /> Cliente - {{route.params.id}}
             </div>
-        </div>
-        <div class="theme">
+            <div v-else-if="route.path === `/admin/clientes/${route.params.id}/treinos`" class="clientss">
+                <Icon name='material-symbols:person' /> Cliente - {{route.params.id}} - Treinos
+            </div>
+            <div v-else-if="route.path === `/admin/clientes/${route.params.id}/treino/${route.params.idd}`" class="clientss">
+                <Icon name='material-symbols:person' /> Cliente - {{route.params.id}} - Treino: {{ route.params.idd }}
+            </div>
+            <div v-else-if="route.path === `/admin/clientes/${route.params.id}/treino/${route.params.idd}/${route.params.iddd}`" class="clientss">
+                <Icon name='material-symbols:person' /> {{route.params.id}} - Treino: {{ route.params.idd }} | Série: {{route.params.iddd}}
+            </div>
 
-            <a @click="theme()" :model="$colorMode.value">
-                <Icon
-                    :name="colorMode.value === 'dark' ? 'line-md:moon-filled-to-sunny-filled-loop-transition' : 'line-md:sunny-filled-loop-to-moon-alt-filled-loop-transition'" />
-            </a>
-
+            <div>
+                <div class=" notifications" @click="addClient">
+                    <Icon name='mingcute:notification-newdot-fill' />
+                </div>
+            </div>
         </div>
 
 
@@ -209,13 +213,66 @@ const navD = ref(state.value === 4)
     </div>
 </template>
 <style scoped>
+.nav-top {
+    position: sticky;
+    top: 0px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    z-index: 1;
+    height: 40px;
+    font-weight: bolder;
+    border-bottom: .10px solid #34d39940;
+    backdrop-filter: blur(45px);
+    border-bottom: solid 1px #34d39940;
+    border-right: solid 1px #34d39940;
+}
 
-.clients {
+.clients span {
     border: 1px solid #00DC8290;
     padding: 0px 3px;
     border-radius: 8px; 
     background-color: #00DC8230;
-    zoom: .7;
+    zoom: .6;
+    border: 1px solid #34d39990;
+    padding: 3px 6px;
+    border-radius: 8px;
+    color: #34d399;
+    background-color: #34d39930;
+    margin-left: -31px;
+}
+.clientss {
+    margin:10px;
+
+}
+.clientss span {
+    border: 1px solid #00DC8290;
+        border-radius: 8px;
+        background-color: #00DC8230;
+        border: 1px solid #34d39990;
+        border-radius: 8px;
+        color: #34d399;
+        background-color: #34d39930;
+}
+
+.notifications {
+    border: solid 1px transparent;
+    padding: 4px 5px;
+    margin: 6px;
+    border-radius: 8px;
+    transition: all .3s linear;
+    cursor: pointer;
+    zoom:.9;
+}
+
+.notifications:hover {
+    padding: 4px 5px;
+    border-radius: 8px;
+    color: #34d399;
+    background-color: #fff;
 }
 
 .head-logo {

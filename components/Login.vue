@@ -128,7 +128,7 @@ function buttonPartner() {
     </div>
     <div class="head-name">
       <div class="name">
-        leandrocesar.app
+        Personal Leandro Cesar
       </div>
       <div class="link">
         <NuxtLink @click="buttonFeed" :class="{ aActive: linkClient }">

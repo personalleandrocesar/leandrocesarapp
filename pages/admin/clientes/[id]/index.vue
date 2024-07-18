@@ -4,7 +4,7 @@ import { reloadNuxtApp } from "nuxt/app";
 const route = useRoute();
 
 
-const Users = await useFetch(`https://api.nexwod.app/users/${route.params.id}`);
+const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
 const item = Users.data.value;
 
 console.log(item);
@@ -29,10 +29,11 @@ async function deleteUser() {
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
-                reloadNuxtApp({
-                    path: "/admin/clientes",
-                    ttl: 2000, // default 10000
-                });
+                // reloadNuxtApp({
+                //     path: "/admin/clientes",
+                //     ttl: 2000, // default 10000
+                // });
+                 return navigateTo(`/admin/clientes`);
             }, 2000);
         } else {
             console.error('Failed to delete data');
@@ -47,7 +48,7 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
+const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
 const status = dataConf.data.value?.status
 const photoOpen = ref(false);
 function openPhoto() {
@@ -81,17 +82,6 @@ useHead({
     </div>
     <div id="grid">
         <div id="areaA">
-            <div class="nav-top">
-                <div class="clients">
-                    <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-                    Users.data.value.lastName }}
-                </div>
-                <div>
-                    <div class="notifications">
-                        <Icon name='mingcute:notification-newdot-fill' />
-                    </div>
-                </div>
-            </div>
             <div class="nav-users">
                 <div class='reward'>
                     <!-- <a @click="$router.go(-1)">
