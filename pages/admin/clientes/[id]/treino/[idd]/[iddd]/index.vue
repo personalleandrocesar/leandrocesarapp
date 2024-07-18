@@ -120,17 +120,6 @@ useHead({
     </div>
     <div id="grid">
         <div id="areaA">
-            <div class="nav-top">
-                <div class="clients">
-                    <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-                    Users.data.value.lastName }}
-                </div>
-                <div>
-                    <div class="notifications">
-                        <Icon name='mingcute:notification-newdot-fill' />
-                    </div>
-                </div>
-            </div>
             <div class="nav-users">
                 <div class='reward'>
                     <!-- <a @click="$router.go(-1)">
