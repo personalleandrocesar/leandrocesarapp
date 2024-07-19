@@ -1,26 +1,7 @@
-<script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import Loading from '~/components/Loading.vue'
-
-const loading = ref(true)
-
-onMounted(() => {
-  // Adiciona um atraso de 1 segundo antes de definir loading como false
-  setTimeout(() => {
-    loading.value = false
-  }, 1000) // 1000 ms = 1 segundo
-})
-
-onBeforeUnmount(() => {
-  loading.value = true
-})
-</script>
-
 <template>
   <NuxtLoadingIndicator color='repeating-linear-gradient(to right,#34d399 0%,#095d62 50%,#34d399 100%)' /> <!-- here -->
   <div>
-    <Loading v-if="loading" />
-    <NuxtPage v-else />
+    <NuxtPage/>
   </div>
 </template>
 
