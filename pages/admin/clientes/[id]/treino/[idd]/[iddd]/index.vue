@@ -74,7 +74,7 @@ async function submitTreino() {
 
 async function deleteTrainning() {
     try {
-        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/treinos/${route.params.idd}`, {
+        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ async function deleteTrainning() {
                 //     path: `/admin/clientes/${route.params.id}/treinos`,
                 //     ttl: 1500, // default 10000
                 // });
-                return navigateTo(`/admin/clientes/${route.params.id}/treinos`)
+                return navigateTo(`/admin/clientes/${route.params.id}/treino/${route.params.idd}`)
             }, 1500);
         } else {
             console.error('Failed to delete data');
@@ -340,7 +340,7 @@ function newTrainning() {
     </div>
     <div v-if="deleteOk" class="deleteOk top">
         <div>
-            Treino deletado com Sucesso!
+            Série deletada com Sucesso!
         </div>
     </div>
     <div id="grid">
@@ -410,7 +410,7 @@ function newTrainning() {
                         <Icon name='material-symbols:cancel-rounded' /> Fechar
                     </div>
                     <div class="delete-trainning" @click="deleteTrainning">
-                        <Icon name='material-symbols:delete-forever' /> Deletar Treino
+                        <Icon name='material-symbols:delete-forever' /> Deletar Série
                     </div>
                 </div>
             </div>
@@ -452,7 +452,7 @@ function newTrainning() {
                     </div>
                     <div>
                         <label>Editar o nome da Série:</label>
-                        <input v-model="ss" class='ss' type="text" />
+                        <input v-model="ss" class='ss' type="text" required/>
                         <button class="bt-sub-serie" type="submit">Submit</button>
                     </div>
                 </form>

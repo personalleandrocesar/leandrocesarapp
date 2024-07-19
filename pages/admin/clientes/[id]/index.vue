@@ -55,6 +55,8 @@ function openPhoto() {
     photoOpen.value = !photoOpen.value;
 }
 
+const start = dataConf.data.value?.periodStart
+
 // talvez não precise do código abaixo
 const logOff = () => {
     logon.value = null
@@ -135,33 +137,74 @@ useHead({
                     </div>
                 </div>
             </div>
-            <img v-if='Users.data.value.foto !==true' :src="`${Users.data.value.foto}`">
-            <div>
-                <h1>
-                    {{ Users.data.value.name }} {{ Users.data.value.lastName }}
-                    <p>
-                        {{ Users.data.value.email }}
-                    </p>
-                </h1>
-
+            <div class="head-logo" id="sobre">
+            <NuxtLink @click="menu()" class="button-client">
+            </NuxtLink>
+            <div class='logo'>
+                <img @click="openPhoto()" :src="dataConf.data.value?.foto">
             </div>
+            <div v-if="photoOpen" class="nav-bar">
+                <div class='logo-nav-bar'>
+                    <img @click="openPhoto" :src="dataConf.data.value?.foto">
+                </div>
+            </div>
+        </div>
+        <div class="head-name">
+            <div class="name">
+                {{ dataConf.data.value?.name }} {{ dataConf.data.value?.lastName }}
+            </div>
+            <div class="email">{{ dataConf.data.value?.email }}</div>
+        </div>
+        <div>
+            <p class="section-subtitle">Contrato atual: {{ start }} - {{
+                dataConf.data.value?.periodEnd }}</p>
+            <p v-if="dataConf.data.value?.service" class="section-subtitle-two">Serviço: {{ dataConf.data.value?.service
+                }}</p>
+            <p v-if="status === 1" class="section-option pending">
+                <Icon name="solar:danger-square-outline" /> Pendente!
+            </p>
+            <p v-else-if="status === 0" class="section-option bloqued">
+                <Icon name="solar:close-square-outline" /> Bloqueado!
+            </p>
+            <p v-else class="section-option verified">
+                <Icon name="solar:check-square-outline" /> Verificado!
+            </p>
 
-            <p>Sexo: {{ Users.data.value.sex }}</p>
-            <p>Nascimento: {{ Users.data.value.birthday }}</p>
-            <p>WhatsApp: {{ Users.data.value.whatsapp }}</p>
-            <p>Serviço: {{ Users.data.value.service }}</p>
-            <p>Objetivo: {{ Users.data.value.target }}</p>
-            <p>Usuário: {{ Users.data.value.username }}</p>
-            <p>Senha: {{ Users.data.value.password }}</p>
-            <p>Dias de Treino:{{ Users.data.value.day }}</p>
-            <p>Tempo de treino: {{ Users.data.value.time }} minutos</p>
-            <p>Dia do Vencimento:{{ Users.data.value.payDay }}</p>
-            <p>Inicio do contrato: {{ Users.data.value.periodStart }}</p>
-            <p>Fim do Período: {{ Users.data.value.periodEnd }}</p>
-            <p>Termino assinado:{{ Users.data.value.terms }}</p>
-            <p v-if="Users.data.value.status">Status: {{ Users.data.value.status }}</p>
-            <p v-else>Status: Bloqueado</p>
-
+            <div class="conf">
+                <NuxtLink class="menu-square">
+                    <div>
+                        <div>
+                            <p>
+                                <Icon name="solar:dumbbell-large-bold" />
+                                Treino
+                            </p>
+                        </div>
+                        <div>
+                            Atual: {{ dataConf.data.value?.treinoActual }}
+                        </div>
+                        <div> 
+                            Próximo: {{ dataConf.data.value?.treinoNext }}
+                        </div>
+                    </div>
+                </NuxtLink>
+                <NuxtLink class="menu-square">
+                    <div>
+                        <div>
+                            <p>
+                                <Icon name="solar:clipboard-heart-bold" />
+                                Avaliação
+                            </p>
+                        </div>
+                        <div>
+                            Atual: {{ dataConf.data.value?.valuationActual }}
+                        </div>
+                        <div>
+                            Próxima: {{ dataConf.data.value?.valuationNext }}
+                        </div>
+                    </div>
+                </NuxtLink>
+            </div>
+            </div>
         </div>
     </div>
 </template>
@@ -512,6 +555,311 @@ useHead({
     box-shadow: 0 0px 5px #34d39940;
     backdrop-filter: blur(100px)
 }
+
+.head-logo {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    z-index: 1;
+    flex-wrap: wrap;
+
+}
+
+.icon {
+    zoom: 1.1;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    flex-direction: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 55px;
+    margin: 1.5rem;
+    border-radius: 7px;
+    z-index: 10;
+
+}
+
+.logo img {
+    width: 49px;
+    margin: -1px 0 0 -1px;
+    border-radius: 8px;
+    z-index: 100;
+    border: #34d399 1px solid;
+    opacity: 1;
+    background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #00f2ff 100%);
+    padding: 1px;
+
+}
+
+.nav-bar {
+    z-index: 200;
+    transform: translateX(0%);
+    position: fixed;
+    height: calc(100% - 0px);
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo-nav-bar {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    transform: translateX(0%);
+    position: fixed;
+    bottom: 0px;
+    height: calc(100% - 0px);
+    width: 100%;
+    background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #00f2ff 100%);
+    backdrop-filter: blur(5px);
+    z-index: 1004;
+
+}
+
+.logo-nav-bar img {
+    width: 300px;
+    border-radius: 7px;
+    border: #34d399 1px solid;
+    opacity: 1;
+    z-index: 100;
+
+}
+
+.button-client {
+    margin: 1.2rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    zoom: 1.3;
+}
+
+.button-client .icon {
+    zoom: .9;
+    margin-right: -3px;
+}
+
+
+.head-name {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+
+.name {
+    font-size: 1.6rem;
+    line-height: 1.5rem;
+    margin: .2rem 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #34d399;
+
+}
+
+.email {
+    font-size: .8rem;
+    line-height: 1.5rem;
+    margin: .2rem 1.6rem;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+
+}
+
+
+.body-timeline {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: left;
+    margin: 2rem 10px 120px 10px;
+}
+
+.main-logo {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100px;
+    box-shadow: 1px 7px 20px #34d399;
+    margin: 1.5rem;
+    border-radius: 7px;
+}
+
+.main-logo img {
+    width: 100px;
+    border-radius: 7px;
+    border: #34d399 2px solid;
+    opacity: 1;
+
+}
+
+.body-timeline p {
+    text-align: left;
+    margin: 0 10px 20px 20px;
+}
+
+.link {
+    text-decoration: underline;
+}
+
+.link:hover {
+    color: #34d399;
+}
+
+.section-title {
+    text-align: left;
+    margin: 10px 1.5rem;
+    font-weight: 800;
+}
+
+.section-subtitle {
+    text-align: left;
+    margin: .5rem 1.5rem 15px;
+    font-weight: 800;
+    font-size: .9em;
+}
+
+.section-subtitle-two {
+    text-align: left;
+    margin: -16px 1.5rem 15px;
+    font-weight: 800;
+    font-size: .9em;
+}
+
+.section-option {
+    text-align: left;
+    margin: -10px 1.5rem 15px;
+    font-size: .8em;
+    font-weight: 800;
+}
+
+.section-option .icon {
+    zoom: .8;
+    margin-top: -3px;
+}
+
+.verified {
+    color: green;
+}
+
+.pending {
+    color: #e1a918;
+}
+
+.bloqued {
+    color: #b30000;
+}
+
+
+.conf {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.menu-square {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: 800;
+    width: 49.6%;
+    padding: 5px;
+    border-radius: 8px;
+    margin: 1px auto;
+    border: solid .1px #34d39950;
+}
+
+.menu-square div .icon {
+    margin: 3px 0px;
+    transition: transform .3s linear;
+    transform: translateX(-10px);
+}
+
+.menu-square div {
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+    justify-content: center;
+    margin: 2px auto;
+}
+
+.menu-square div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    font-size: .7em;
+    justify-content: center;
+    margin: 2px auto;
+}
+
+.menu-square div:nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    font-size: .7em;
+    justify-content: center;
+    margin: 2px auto;
+    color: #002aff;
+}
+
+.menu-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 800;
+    width: 100%;
+    padding: 6px 2px 2px 2px;
+    margin: 5px auto;
+    border: solid 1px #34d39910;
+    border-bottom: solid .1px #34d39940;
+    border-top: solid .2px transparent;
+}
+
+.menu-button div {
+    display: flex;
+    flex-direction: row;
+    font-size: .8em;
+    justify-content: space-between;
+    margin-top: 2px;
+}
+
+.menu-button .icon {
+    margin: -2px 0px 0px 26px;
+    transition: transform .3s linear;
+    transform: translateX(-15px);
+}
+
+.menu-button .icon:nth-child(2) {
+    margin: 5px 0px 0px 26px;
+    transition: transform .3s linear;
+    transform: translateX(-25px);
+}
+
+.menu-button:hover {
+    cursor: pointer;
+    border-bottom: solid .2px #34d399;
+    background-color: #34d39910;
+}
+
+
+.menu-button:hover .icon:nth-child(2) {
+    transform: translateX(-15px);
+}
+
 
 .whats {
     display: flex;
