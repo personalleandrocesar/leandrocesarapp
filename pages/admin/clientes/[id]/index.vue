@@ -138,10 +138,12 @@ useHead({
                 </div>
             </div>
             <div class="head-logo" id="sobre">
-            <NuxtLink @click="menu()" class="button-client">
-            </NuxtLink>
             <div class='logo'>
                 <img @click="openPhoto()" :src="dataConf.data.value?.foto">
+                <div class="name">
+                    {{ dataConf.data.value?.name }} {{ dataConf.data.value?.lastName }}
+                    <div class="email">leandrocesar.goo@gmail.com</div>
+                </div>
             </div>
             <div v-if="photoOpen" class="nav-bar">
                 <div class='logo-nav-bar'>
@@ -150,16 +152,13 @@ useHead({
             </div>
         </div>
         <div class="head-name">
-            <div class="name">
-                {{ dataConf.data.value?.name }} {{ dataConf.data.value?.lastName }}
-            </div>
-            <div class="email">{{ dataConf.data.value?.email }}</div>
         </div>
         <div>
             <p class="section-subtitle">Contrato atual: {{ start }} - {{
                 dataConf.data.value?.periodEnd }}</p>
-            <p v-if="dataConf.data.value?.service" class="section-subtitle-two">Serviço: {{ dataConf.data.value?.service
-                }}</p>
+                <p v-if="dataConf.data.value?.service" class="section-subtitle-two">Serviço: 
+                {{ dataConf.data.value?.service }} | Objetivo - {{ dataConf.data.value?.target }}
+            </p>
             <p v-if="status === 1" class="section-option pending">
                 <Icon name="solar:danger-square-outline" /> Pendente!
             </p>
@@ -180,7 +179,7 @@ useHead({
                             </p>
                         </div>
                         <div>
-                            Atual: {{ dataConf.data.value?.treinoActual }}
+                            Atual: {{ start }}
                         </div>
                         <div> 
                             Próximo: {{ dataConf.data.value?.treinoNext }}
@@ -559,7 +558,7 @@ useHead({
 .head-logo {
     display: flex;
     justify-content: space-between;
-    flex-direction: row-reverse;
+    flex-direction: row;
     align-items: flex-start;
     z-index: 1;
     flex-wrap: wrap;
@@ -573,18 +572,17 @@ useHead({
 .logo {
     display: flex;
     justify-content: center;
-    flex-direction: flex-start;
+    flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    width: 55px;
-    margin: 1.5rem;
+    margin: .5rem 0rem 0 .5rem;
     border-radius: 7px;
     z-index: 10;
 
 }
 
 .logo img {
-    width: 49px;
+    width: 70px;
     margin: -1px 0 0 -1px;
     border-radius: 8px;
     z-index: 100;
@@ -671,7 +669,7 @@ useHead({
 .email {
     font-size: .8rem;
     line-height: 1.5rem;
-    margin: .2rem 1.6rem;
+    margin: .1rem .2rem;
     font-weight: 700;
     letter-spacing: 1.1px;
 
