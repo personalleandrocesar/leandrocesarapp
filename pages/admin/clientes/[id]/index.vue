@@ -142,7 +142,7 @@ useHead({
                 <img @click="openPhoto()" :src="dataConf.data.value?.foto">
                 <div class="name">
                     {{ dataConf.data.value?.name }} {{ dataConf.data.value?.lastName }}
-                    <div class="email">leandrocesar.goo@gmail.com</div>
+                    <div class="email">{{ dataConf.data.value?.email }}</div>
                 </div>
             </div>
             <div v-if="photoOpen" class="nav-bar">
