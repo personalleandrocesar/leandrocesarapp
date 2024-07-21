@@ -936,20 +936,21 @@ h4:nth-child(1) {
 
 .nav-users {
     position: sticky;
-    top: 40px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 100%;
-    z-index: 1;
-    height: 50px;
-    font-weight: bolder;
-    border-bottom: .10px solid #00DC8240;
-    backdrop-filter: blur(45px);
-    border-bottom: solid 1px #00DC8240;
-        border-right: solid 1px #00DC8240;
+        top: 40px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+        z-index: 1;
+        height: 35px;
+        font-weight: bolder;
+        margin-bottom: 1rem;
+        border-bottom: .10px solid #34d39940;
+        backdrop-filter: blur(45px);
+        border-bottom: solid 1px #34d39940;
+        border-right: solid 1px #34d39940;
 }
 
 .users-list {
@@ -1220,8 +1221,8 @@ input {
 }
 
 .close-client {
-    border: solid 1px #fadb40;
-    background-color: #fadb40;
+    border: solid 1px #04be7a;
+    background-color: #04be7a;
     padding: 5px 42px;
         margin: 1.5px 6px;
     border-radius: 8px;
@@ -1256,19 +1257,21 @@ input {
 
 .nav-users {
     position: sticky;
-    top: 40px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 100%;
-    z-index: 1;
-    height: 35px;
-    font-weight: bolder;
-    border-bottom: solid 1px #04be7a40;
-    border-right: solid 1px #04be7a40;
-    backdrop-filter: blur(45px);
+        top: 40px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+        z-index: 1;
+        height: 35px;
+        font-weight: bolder;
+        margin-bottom: 1rem;
+        border-bottom: .10px solid #34d39940;
+        backdrop-filter: blur(45px);
+        border-bottom: solid 1px #34d39940;
+        border-right: solid 1px #34d39940;
 }
 
 .users-conf {
