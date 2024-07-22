@@ -1,27 +1,3 @@
-<script>
-export default {
-    mounted() {
-        let lastScrollTop = 0;
-        const navbar = document.getElementById('nav-container');
-
-        window.addEventListener('scroll', function () {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (scrollTop > lastScrollTop) {
-                // Rolando para baixo
-                navbar.style.top = '-100px'; // Ou qualquer outra posição desejada para esconder o navbar
-            } else {
-                // Rolando para cima
-                navbar.style.top = '20px';
-            }
-
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Para o comportamento correto em bordas
-        }, false);
-    }
-}
-
-
-</script>
 <script setup>
 const route = useRoute()
 
@@ -100,16 +76,16 @@ const navD = ref(state.value === 4)
 
             <div v-else>
                 <div class="nav-bottom">
-                    <NuxtLink :to="`/users/${route.params.id}`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/users/${route.params.id}`">
                         <Icon name='solar:home-smile-bold' />
                     </NuxtLink>
-                    <NuxtLink :to="`/users/${route.params.id}/treinos`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/users/${route.params.id}/treinos`">
                         <Icon name='solar:dumbbell-large-bold' />
                     </NuxtLink>
-                    <NuxtLink :to="`/users/${route.params.id}/cardio`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/users/${route.params.id}/cardio`">
                         <Icon name='material-symbols:cardiology' />
                     </NuxtLink>
-                    <NuxtLink :to="`/users/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                         <Icon name='solar:clipboard-heart-bold' />
                     </NuxtLink>
                 </div>
@@ -168,16 +144,16 @@ const navD = ref(state.value === 4)
 
             <div v-else>
                 <div class="nav-bottom">
-                    <NuxtLink :to="`/users/${route.params.id}`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/users/${route.params.id}`">
                         <Icon name='solar:home-smile-bold' />
                     </NuxtLink>
-                    <NuxtLink :to="`/users/${route.params.id}/treinos`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/users/${route.params.id}/treinos`">
                         <Icon name='solar:dumbbell-large-bold' />
                     </NuxtLink>
-                    <NuxtLink :to="`/users/${route.params.id}/cardio`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/users/${route.params.id}/cardio`">
                         <Icon name='material-symbols:cardiology' />
                     </NuxtLink>
-                    <NuxtLink :to="`/users/${route.params.id}/avaliacao`" @click.native="scrollToTop()">
+                    <NuxtLink :to="`/users/${route.params.id}/avaliacao`">
                         <Icon name='solar:clipboard-heart-bold' />
                     </NuxtLink>
                 </div>
