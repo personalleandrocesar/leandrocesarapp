@@ -1,24 +1,46 @@
 <script setup>
-import { ref, computed } from 'vue'
-const layout = "duo"
-const route = useRoute()
+import { ref, computed, watch } from 'vue'
 
-const exerciseImg = ref(false);
+const route = useRoute()
+const dataTreino = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`)
+const qtSeries = dataTreino.data.value.set
+const treino = ref(0)
+
+const currentExercise = computed(() => {
+  return dataTreino?.data.value.set[treino.value]
+})
+
+const currentCharge = ref(currentExercise.value?.charge || 0)
+
+// Método para enviar dados via PUT para a API
+// async function updateCharge() {
+//   const exerciseId = currentExercise.value.id; // Supondo que cada exercício tem um ID único
+//   try {
+//     const response = await fetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}/${exerciseId}`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({ charge: currentCharge.value })
+//     });
+//     const result = await response.json();
+//     console.log('Updated successfully:', result);
+//   } catch (error) {
+//     console.error('Error updating:', error);
+//   }
+// }
+
+// // Observa mudanças no valor do currentCharge e envia para a API
+// watch(currentCharge, (newCharge) => {
+//   updateCharge();
+// });
+
+// Funções existentes
 function openExercise() {
   exerciseImg.value = !exerciseImg.value;
 }
 
-const dataTreino = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`)
-
-const qtSeries = dataTreino.data.value.set;
-
-console.log(dataTreino.data.value.set)
-
-const treino = ref(0)
-const currentExercise = computed(() => {
-  return dataTreino?.data.value.set[treino.value]
-  
-})
+const exerciseImg = ref(false);
 
 const itemExercise = () => {
   return dataTreino.data?.value?.set.length
@@ -56,98 +78,97 @@ const buttonList = ref(false);
 const buttonGrid = ref(false);
 function chooseList() {
   buttonList.value = true,
-  buttonGrid.value = false,
-  view.value = 'listView',
-  alternateGrid.value = false,
-  alternateList.value = true
+    buttonGrid.value = false,
+    view.value = 'listView',
+    alternateGrid.value = false,
+    alternateList.value = true
 }
 function chooseGrid() {
   buttonList.value = false,
-  buttonGrid.value = true,
-  view.value = 'gridView',
-  alternateGrid.value = true,
-  alternateList.value = false
+    buttonGrid.value = true,
+    view.value = 'gridView',
+    alternateGrid.value = true,
+    alternateList.value = false
 }
 
 const selectL = () => {
   if (view.value === 'listView') {
     return true,
-    selectG.value = false,
-    buttonList.value = true,
-    buttonGrid.value = false,
-    alternateGrid.value = false,
-    alternateList.value = true
-  } 
+      selectG.value = false,
+      buttonList.value = true,
+      buttonGrid.value = false,
+      alternateGrid.value = false,
+      alternateList.value = true
+  }
 }
 const selectG = () => {
   if (view.value === 'gridView') {
     return true,
-    selectL.value = false,
-    buttonList.value = false,
-    buttonGrid.value = true,
-    alternateGrid.value = true,
-    alternateList.value = false
-  } 
+      selectL.value = false,
+      buttonList.value = false,
+      buttonGrid.value = true,
+      alternateGrid.value = true,
+      alternateList.value = false
+  }
 }
-
 
 </script>
 
 <template>
   <NuxtLayout>
-    
+
     <div class="alternate">
-        <span @click="chooseGrid" :class="{ alternateGrid : alternateGrid }">
-          <Icon name="solar:slider-minimalistic-horizontal-bold" /> Série em Bloco
-        </span>
-        <span @click="chooseList" :class="{ alternateList: alternateList }">
-          <Icon name="mdi:format-list-text" /> Série em Lista
-        </span>
-      </div>
+      <span @click="chooseGrid" :class="{ alternateGrid : alternateGrid }">
+        <Icon name="solar:slider-minimalistic-horizontal-bold" /> Série em Bloco
+      </span>
+      <span @click="chooseList" :class="{ alternateList: alternateList }">
+        <Icon name="mdi:format-list-text" /> Série em Lista
+      </span>
+    </div>
 
 
-      
-      <div class="main-div-two">
-        <br>
-        <h3>
-          <Icon name='solar:dumbbell-bold' /> {{route.params.iddd}}
-        </h3>
-      </div>
-      <div class="main-div-two" v-if="buttonList || selectL()">
-        <h3 class="title">
-          {{ itemExercise() }} Exercícios
-        </h3>
+
+    <div class="main-div-two">
+      <br>
+      <h3>
+        <Icon name='solar:dumbbell-bold' /> {{route.params.iddd}}
+      </h3>
+    </div>
+    <div class="main-div-two" v-if="buttonList || selectL()">
+      <h3 class="title">
+        {{ itemExercise() }} Exercícios
+      </h3>
 
 
-        <ul>
+      <ul>
 
-          <li v-for="(nome, index) in listExercise()" :key="index">
-            <h3>
-              {{ nome.nome }}
-            </h3>
-            <div class="roww">
-              <div>
+        <li v-for="(nome, index) in listExercise()" :key="index">
+          <h3>
+            {{ nome.nome }}
+          </h3>
+          <div class="roww">
+            <div>
 
-                <img :src="nome.img" class="miniSquare" @click="openExercise" />
-              </div>
-              <div class="square-list">
-                <span>
-                  <b> Séries:</b> {{ nome.sets }} <b>
-                    <br>
-                    Repetições:</b> {{ nome.reps }}
-                  <br>
-                </span>
-                <span v-if="nome.obs">
-                  {{ nome.obs }}
-                </span>
-                <span>
-                  <b>Intervalo:</b> {{ nome.rest }}
-                </span>
-              </div>
+              <img :src="nome.img" class="miniSquare" @click="openExercise" />
             </div>
+            <div class="square-list">
+              <span>
+                <b> Séries:</b> {{ nome.sets }} <b>
+                  <br>
+                  Repetições:</b> {{ nome.reps }}
+                <br>
+              </span>
+              <span v-if="nome.obs">
+                {{ nome.obs }}
+              </span>
+              <span>
+                <b>Intervalo:</b> {{ nome.rest }}
+              </span>
+            </div>
+          </div>
 
-            <!-- Início do Nav-flow -->
-            <!-- <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
+          <!-- Início do Nav-flow -->
+          <!-- <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
             <div class="nav-top">
 
               <div class="nav-flow-photo">
@@ -158,101 +179,110 @@ const selectG = () => {
 
             </div>
           </div> -->
-          </li>
-        </ul>
+        </li>
+      </ul>
 
-      </div>
-
-
-
-      <!-- Série em Bloco -->
-      <div class="main-div-tree" v-else="buttonGrid || selectG()">
+    </div>
 
 
-        <ul>
-          <li v-for="id in itemExercise()" @click='itemExercise((treino = id - 1))'>
-            <span>
-              {{ id }}
-            </span>
-          </li>
-        </ul>
-        <h3>
-          {{ currentExercise.num }} - {{ itemExercise() }}
-        </h3>
-        <img :src="currentExercise.img" class="square" @click="openExercise" />
-        <h2>
-          {{ currentExercise.nome }}
-        </h2>
 
-        <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
-          <div class="nav-top">
+    <!-- Série em Bloco -->
+    <div class="main-div-tree" v-else="buttonGrid || selectG()">
 
-            <!-- Início do Nav-flow -->
-            <div class="nav-flow-photo">
-              <div class="div-img-full">
-                <img :src="currentExercise.img" />
-              </div>
-            </div>
 
-          </div>
-        </div>
-
-        <p v-if="pending">Carregando...</p>
-        <div v-else>
-
-          <div class="exercise">
-            <div class="exercise-square">
-              <h4>
-                Séries
-              </h4>
-              <h4>
-                {{ currentExercise.sets }}
-              </h4>
-            </div>
-            <div class="exercise-square">
-              <h4>
-                Repetições
-              </h4>
-              <h4>
-                {{ currentExercise.reps }}
-              </h4>
-
-            </div>
-            <div class="exercise-square">
-              <h4>
-                Intervalo
-              </h4>
-              <h4>
-                {{ currentExercise.rest }}
-              </h4>
-
-            </div>
-
-          </div>
-          <div class="obs">
-            {{ currentExercise.obs }}
-            <br>
-          </div>
-        </div>
-
-        <div class="button">
-          <span @click="previousExercise">
-            <Icon name="mdi:chevron-left" /> ANTERIOR
+      <ul>
+        <li v-for="id in itemExercise()" @click='itemExercise((treino = id - 1))'>
+          <span>
+            {{ id }}
           </span>
-          <span @click="nextExercise">
-            PRÓXIMO
-            <Icon name="mdi:chevron-right" />
-          </span>
+        </li>
+      </ul>
+      <h3>
+        {{ currentExercise.num }} - {{ itemExercise() }}
+      </h3>
+      <img :src="currentExercise.img" class="square" @click="openExercise" />
+      <h2>
+        {{ currentExercise.nome }}
+      </h2>
+
+      <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
+        <div class="nav-top">
+
+          <!-- Início do Nav-flow -->
+          <div class="nav-flow-photo">
+            <div class="div-img-full">
+              <img :src="currentExercise.img" />
+            </div>
+          </div>
+
         </div>
       </div>
-      <br>
-      <br>
-      <br>
 
+      <p v-if="pending">Carregando...</p>
+      <div v-else>
 
+        <div class="exercise">
+          <div class="exercise-square">
+            <h4>
+              Séries
+            </h4>
+            <h4>
+              {{ currentExercise.sets }}
+            </h4>
+          </div>
+          <div class="exercise-square">
+            <h4>
+              Repetições
+            </h4>
+            <h4>
+              {{ currentExercise.reps }}
+            </h4>
 
-      <div>
+          </div>
+          <!-- <div class="exercise-square">
+            <h4>
+              Carga
+            </h4>
+            <h4>
+              <input v-model="charge" @input="updateCharge" placeholder="Enter charge" />
+            </h4>
+
+          </div> -->
+          <div class="exercise-square">
+            <h4>
+              Intervalo
+            </h4>
+            <h4>
+              {{ currentExercise.rest }}
+            </h4>
+
+          </div>
+
+        </div>
+        <div class="obs">
+          {{ currentExercise.obs }}
+          <br>
+        </div>
       </div>
+
+      <div class="button">
+        <span @click="previousExercise">
+          <Icon name="mdi:chevron-left" /> ANTERIOR
+        </span>
+        <span @click="nextExercise">
+          PRÓXIMO
+          <Icon name="mdi:chevron-right" />
+        </span>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+
+
+    <div>
+    </div>
   </NuxtLayout>
 </template>
 
@@ -261,6 +291,9 @@ const selectG = () => {
 
 
 <style scoped>
+.charge {
+  width: 30px;
+}
 
 ul {
   list-style-type: none;

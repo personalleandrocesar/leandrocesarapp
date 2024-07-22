@@ -264,6 +264,7 @@ function addItem() {
         ...newItem.value,
         id: itemIdCounter.value,
         num: `Exercício ${itemIdCounter.value}`,
+        rest: `${newItem.value.rest}"`,
         img: `https://app.leandrocesar.com/exe/${newItem.value.photo}.gif`,
     });
     itemIdCounter.value++; // Incrementa o contador de ID
@@ -410,7 +411,7 @@ function newTrainning() {
                 <br>
                 <div class="main-div-two">
                     <h3>
-                        <Icon name='solar:dumbbell-large-bold' /> Séries
+                        <Icon name='solar:dumbbells-bold' /> Séries
                     </h3>
                 </div>
                 <br>

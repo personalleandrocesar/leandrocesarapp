@@ -82,6 +82,7 @@ useHead({
             Usuário deletado com Sucesso!
         </div>
     </div>
+    
     <div id="grid">
         <div id="areaA">
             <div class="nav-users">
@@ -151,14 +152,12 @@ useHead({
                 </div>
             </div>
         </div>
-        <div class="head-name">
-        </div>
         <div>
+            <p v-if="dataConf.data.value?.service" class="section-subtitle-two">Serviço: 
+            {{ dataConf.data.value?.service }} | Objetivo - {{ dataConf.data.value?.target }}
+        </p>
             <p class="section-subtitle">Contrato atual: {{ start }} - {{
                 dataConf.data.value?.periodEnd }}</p>
-                <p v-if="dataConf.data.value?.service" class="section-subtitle-two">Serviço: 
-                {{ dataConf.data.value?.service }} | Objetivo - {{ dataConf.data.value?.target }}
-            </p>
             <p v-if="status === 1" class="section-option pending">
                 <Icon name="solar:danger-square-outline" /> Pendente!
             </p>
@@ -303,21 +302,19 @@ useHead({
 
 .nav-users {
     position: sticky;
-    top: 40px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    width: 100%;
-    z-index: 1;
-    height: 35px;
-    font-weight: bolder;
-    margin-bottom: 1rem;
-    border-bottom: .10px solid #34d39940;
-    backdrop-filter: blur(45px);
-    border-bottom: solid 1px #34d39940;
-    border-right: solid 1px #34d39940;
+        top: 40px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+        z-index: 1;
+        font-weight: bolder;
+        border-bottom: .10px solid #34d39940;
+        backdrop-filter: blur(45px);
+        border-bottom: solid 1px #34d39940;
+        border-right: solid 1px #34d39940;
 }
 
 .users-conf {
@@ -357,8 +354,8 @@ useHead({
 .actions a {
     border: solid 1px #34d39910;
     background-color: transparent;
-    padding: 4px 35px;
-    margin: 2.5px 10px;
+        padding: 4px 35px;
+        margin: 2.5px 10px;
     border-radius: 8px;
     transition: all .3s linear;
     cursor: pointer;
@@ -562,11 +559,10 @@ useHead({
     align-items: flex-start;
     z-index: 1;
     flex-wrap: wrap;
-
 }
 
 .icon {
-    zoom: 1.1;
+    zoom: .9;
 }
 
 .logo {
@@ -575,7 +571,7 @@ useHead({
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    margin: .5rem 0rem 0 .5rem;
+    margin: 1.5rem;
     border-radius: 7px;
     z-index: 10;
 
@@ -618,7 +614,7 @@ useHead({
     bottom: 0px;
     height: calc(100% - 0px);
     width: 100%;
-    background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #00f2ff 100%);
+    background: linear-gradient(to bottom right, #34d39980 0%, #34d39980 50%, #34d399 100%);
     backdrop-filter: blur(5px);
     z-index: 1004;
 

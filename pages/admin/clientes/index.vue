@@ -946,7 +946,7 @@ h4:nth-child(1) {
         z-index: 1;
         height: 35px;
         font-weight: bolder;
-        margin-bottom: 1rem;
+            margin-bottom: 1rem;
         border-bottom: .10px solid #34d39940;
         backdrop-filter: blur(45px);
         border-bottom: solid 1px #34d39940;

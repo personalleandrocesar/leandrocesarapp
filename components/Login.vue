@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 const user = ref('');
 const senha = ref('');
+const id = ref('');
 const client = useFetch('https://api.leandrocesar.com/users');
 
 const dontUser = ref(false);
@@ -10,11 +11,16 @@ const dontPerson = ref(false);
 const enterClient = () => {
   const userData = client.data.value;
   const userExists = client.data.value.some(u => u.username === user.value && u.password === senha.value);
+  // const idExists = client.data.value.find(u => u.username === user.value && u.password === senha.value);
+
+
 
   if (userExists) {
     console.log("Usuário encontrado!");
     // Faça a ação para redirecionar ou permitir o acesso do usuário à página
     return navigateTo(`/users/${user.value}`);
+    // return navigateTo(`/users/${user.value}?id=${idExists._id}`);
+
   } else {
     console.log("Usuário não encontrado ou senha incorreta!");
     // Mostre uma mensagem de erro ou realize outra ação adequada

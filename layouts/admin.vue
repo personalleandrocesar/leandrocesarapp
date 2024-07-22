@@ -77,9 +77,6 @@ const navD = ref(state.value === 4)
 
 </script>
 <template>
-    <div v-if="bodyOne">
-
-
         <div id="nav-container" class='nav'>
 
             <div>
@@ -127,7 +124,7 @@ const navD = ref(state.value === 4)
                 <Icon name='material-symbols:person' /> Cliente - {{route.params.id}} - Treino: {{ route.params.idd }}
             </div>
             <div v-else-if="route.path === `/admin/clientes/${route.params.id}/treino/${route.params.idd}/${route.params.iddd}`" class="clientss">
-                <Icon name='material-symbols:person' /> {{route.params.id}} - Treino: {{ route.params.idd }} | Série: {{route.params.iddd}}
+                <Icon name='material-symbols:person' /> {{route.params.id}} - Série: {{route.params.iddd}}
             </div>
 
             <div>
@@ -138,79 +135,9 @@ const navD = ref(state.value === 4)
         </div>
 
 
-        <slot />
-    </div>
 
 
 
-    <div v-else>
-        <div id="nav-container" class='nav'>
-
-
-            <div>
-                <div class="nav-bottom">
-                    <NuxtLink :to="`/admin`">
-                        <Icon name='solar:home-smile-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes`">
-                        <Icon name='solar:dumbbell-large-bold' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/cardio`">
-                        <Icon name='material-symbols:cardiology' />
-                    </NuxtLink>
-                    <NuxtLink :to="`/user/${route.params.id}/avaliacao`">
-                        <Icon name='solar:clipboard-heart-bold' />
-                    </NuxtLink>
-                </div>
-            </div>
-
-            <div>
-
-                <NuxtLink @click="menu()" class="button-client">
-                    <Icon name="solar:close-square-bold" />
-                </NuxtLink>
-
-            </div>
-        </div>
-        <div class="head-name">
-        </div>
-        <div>
-            <!-- Hístórico -->
-            <NuxtLink class="menu-button">
-                <div>
-                    <Icon name="solar:history-outline" />
-                    <p>
-                        Histórico
-                    </p>
-                </div>
-                <Icon name="ic:baseline-keyboard-arrow-right" />
-            </NuxtLink>
-            <!-- Histórico fim -->
-
-            <NuxtLink :to="`/user/${route.params.id}/contratos`" class="menu-button">
-                <div>
-                    <Icon name="solar:document-add-linear" />
-                    <p>
-                        Contratos
-                    </p>
-                </div>
-                <Icon name="ic:baseline-keyboard-arrow-right" />
-            </NuxtLink>
-            <NuxtLink :to="`/`" class="menu-button">
-                <div>
-                    <Icon name="" />
-                    <p>
-                        LOUGOUT
-                    </p>
-                </div>
-                <Icon name="solar:logout-3-bold" />
-            </NuxtLink>
-
-            <br>
-            <br>
-
-        </div>
-    </div>
 </template>
 <style scoped>
 .nav-top {

@@ -7,8 +7,8 @@ useHead({
 
 const route = useRoute();
 const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
-const UsersTrainnig = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}`);
-const item = Users.data.value;
+const UsersTrainnig = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
+const item = UsersTrainnig.data.value.set;
 
 
 const qtTreino = UsersTrainnig.data.value.name
@@ -16,7 +16,7 @@ const qtTreinos = UsersTrainnig.data.value.serie
 
 const treinos = ref('')
 
-console.log(UsersTrainnig.data.value.name);
+console.log(UsersTrainnig.data.value.set);
 
 const subscriberOk = ref(false)
 const deleteOk = ref(false)
@@ -28,10 +28,11 @@ function addClient() {
 
 async function fetchItems() {
     try {
-        const response = await fetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}`);
+        const response = await fetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
         if (response.ok) {
             const data = await response.json();
-            items.value = data.serie; // Assume que o array está em `data.serie`
+            data.serie = items.value ; // Assume que o array está em `data.serie`
+            console.log(data)
         } else {
             console.error('Failed to fetch items');
         }
@@ -59,9 +60,9 @@ async function submitTreino() {
             setTimeout(() => {
                 subscriberOk.value = false;
                 // reloadNuxtApp({
-                //     path: `/admin/clientes/${route.params.id}/treinos`,
-                //     ttl: 1500, // default 10000
-                // });
+                    //     path: `/admin/clientes/${route.params.id}/treinos`,
+                    //     ttl: 1500, // default 10000
+                    // });
                 return navigateTo(`/admin/clientes/${route.params.id}/treino/${route.params.idd}/${ss.value}`);
             }, 1500);
         } else {
@@ -86,136 +87,52 @@ async function deleteTrainning() {
             setTimeout(() => {
                 deleteOk.value = false;
                 // reloadNuxtApp({
-                //     path: `/admin/clientes/${route.params.id}/treinos`,
-                //     ttl: 1500, // default 10000
-                // });
-                return navigateTo(`/admin/clientes/${route.params.id}/treino/${route.params.idd}`)
-            }, 1500);
-        } else {
-            console.error('Failed to delete data');
+                    //     path: `/admin/clientes/${route.params.id}/treinos`,
+                    //     ttl: 1500, // default 10000
+                    // });
+                    return navigateTo(`/admin/clientes/${route.params.id}/treino/${route.params.idd}`)
+                }, 1500);
+            } else {
+                console.error('Failed to delete data');
+            }
+        } catch (error) {
+            console.error('Error delete data:', error);
         }
-    } catch (error) {
-        console.error('Error delete data:', error);
     }
-}
-
-const reg = route.params.id
-const logon = useCookie('logon')
-// const logon = useCookie('logon', { maxAge: 4800})
-logon.value = reg
-
-const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
-const status = dataConf.data.value?.status
-const photoOpen = ref(false);
-function openPhoto() {
-    photoOpen.value = !photoOpen.value;
-}
-
-// talvez não precise do código abaixo
-const logOff = () => {
-    logon.value = null
-}
-
-const tag = useCookie('tag')
-tag.value = tag.value
-
-
-const bodyOne = ref(true)
-function menu() {
-    bodyOne.value = !bodyOne.value
-
-}
-
-
-// const exe = ref([
-//     { exercicio: 'Extensora'},
-//     { exercicio: 'Puxada p/ frente' },
-//     { exercicio: 'Remada na polia baixa' },
-//     { exercicio: 'Desenvolvimento de ombros (AP)' },
-//     { exercicio: 'Supino maquina' },
-//     { exercicio: 'Tríceps mergulho no graviton' },
-//     { exercicio: 'Remada no aparelho' },
-//     { exercicio: 'Rabdominal Infra' },
-//     { exercicio: 'abdominal Infra na Paralela' },
-//     { exercicio: 'Abdominal Máquina' },
-//     { exercicio: 'Abdominal Oblíquo no solo' },
-//     { exercicio: 'Abdominal Remador completo' },
-//     { exercicio: 'Abdominal supra' },
-//     { exercicio: 'Abdução de quadril na polia baixa' },
-//     { exercicio: 'Cadeira Abdutora' },
-//     { exercicio: 'Cadeira adutora' },
-//     { exercicio: 'Agachament Lunge' },
-//     { exercicio: 'Desenvolvimemto Arnold' },
-//     { exercicio: 'Back Squat' },
-//     { exercicio: 'Bíceps Aparelho' },
-//     { exercicio: 'Bíceps em pé(HBM)' },
-//     { exercicio: 'Bíceps Invertido (HBW)' },
-//     { exercicio: 'Bíceps Martelo' },
-//     { exercicio: 'Bíceps Sentado' },
-//     { exercicio: 'Agachamento Búlgaro' },
-//     { exercicio: 'Extensão de tronco (Cadeira Romana)' },
-//     { exercicio: 'Crucifixo Inverso (Ap)' },
-//     { exercicio: 'Crucifixo Inverso (HBC)' },
-//     { exercicio: 'Crucifixo Peitoral Reto (HBC)' },
-//     { exercicio: 'Desenvolvimento de Ombros (HBC)' },
-//     { exercicio: 'Desenvolvimento de Ombros (AP)' },
-//     { exercicio: 'Desenvolvimento de Ombros (alternando)' },
-//     { exercicio: 'Duck Walk' },
-//     { exercicio: 'Dumbbel Lunge' },
-//     { exercicio: 'Flexão de Ombros (HBC)' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-//     { exercicio: '' },
-// ])
-
-const ss = ref('');
-
-
-// const items = ref([
-
-//     { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: 'https://app.leandrocesar.com/exe/${item.photo}.gif`' }
-
-// ]);
-
-// function addItem() {
-//     items.value.push({ id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: '' });
-// }
-
-
-// function deleteItem(index) {
-//     items.value.splice(index, 1);
-// }
-
-function clear() {
-    items.value = ([
-        { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: `` }
+    
+    const reg = route.params.id
+    const logon = useCookie('logon')
+    // const logon = useCookie('logon', { maxAge: 4800})
+    logon.value = reg
+    
+    const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
+    const status = dataConf.data.value?.status
+    const photoOpen = ref(false);
+    function openPhoto() {
+        photoOpen.value = !photoOpen.value;
+    }
+    
+    // talvez não precise do código abaixo
+    const logOff = () => {
+        logon.value = null
+    }
+    
+    const tag = useCookie('tag')
+    tag.value = tag.value
+    
+    
+    const bodyOne = ref(true)
+    function menu() {
+        bodyOne.value = !bodyOne.value
+        
+    }
+    
+    
+    const ss = ref('');
+    
+    function clear() {
+        items.value = ([
+            { id: '', num: '', nome: '', sets: '', reps: '', rest: '', grupo: '', obs: '', photo: '', img: `` }
 
     ])
 }
@@ -225,19 +142,6 @@ function removeAllItems() {
     newItem.value = {};
     itemIdCounter.value = []
 }
-
-// onMounted(() => {
-//     const storedItems = JSON.parse(localStorage.getItem('item'));
-//     if (storedItems) {
-//         items.value = storedItems;
-//     }
-// });
-
-
-
-// onUpdated(() => {
-//     localStorage.setItem('item', JSON.stringify(items.value));
-// })
 
 function moveItemUp(index) {
     if (index <= 0) return;
@@ -268,6 +172,8 @@ const newItem = ref({
     photo: '',
     img: ''
 });
+
+
 
 const firstInputRef = ref(null);
 const itemIdCounter = ref(1); // Contador para os IDs dos itens
@@ -317,6 +223,8 @@ function moveDown(index) {
 
 onMounted(() => {
     fetchItems();
+    console.log(items.value)
+    console.log(fetchItems())
 });
 
 watch(items, (newItems) => {
@@ -421,25 +329,23 @@ function newTrainning() {
                 <br>
                 <div class="main-div-two">
                     <h3>
-                        <Icon name='solar:dumbbell-large-bold' /> Série {{ route.params.iddd }}
+                        <Icon name='solar:dumbbell-bold' /> Série: {{ route.params.iddd }}
                     </h3>
                 </div>
             </div>
             <div>
-<br>
+                <br>
 
                 <div class='space'>
-                    <h3>    
+                    <h3>
                     </h3>
                     <button class="bt-rem-serie" @click="removeAllItems()">Resetar</button>
                 </div>
 
                 <form @submit.prevent="submitTreino">
-                    <div v-for="(item, index) in items" :key="item.id">
-                        <input type="hidden" :value.v-model="item.id = index + 1" readonly>{{ item.id }}
-                        <input type="hidden"
-                            :value.v-model="item.num = 'Exercício ' + (index < 9 ? '' + (index + 1) : (index + 1))"
-                            readonly>
+                    <div v-for="(item, index) in item" :key="item.id">
+                        <input type="text" v-model='item.id' placeholder="Exercício">
+                        <input type="text" v-model='item.num' placeholder="Exercício">
                         <input type="text" v-model='item.nome' placeholder="Exercício">
                         <input type="text" v-model='item.sets' placeholder="Sets">
                         <input type="text" v-model='item.reps' placeholder="Reps">
@@ -452,7 +358,7 @@ function newTrainning() {
                     </div>
                     <div>
                         <label>Editar o nome da Série:</label>
-                        <input v-model="ss" class='ss' type="text" required/>
+                        <input v-model="ss" class='ss' type="text" required />
                         <button class="bt-sub-serie" type="submit">Submit</button>
                     </div>
                 </form>
@@ -468,64 +374,6 @@ function newTrainning() {
                     <input v-model="newItem.photo" placeholder="Photo" @keyup.enter='addItem' />
                     <button class="bt-sub-serie" @click="addItem">+ Item</button>
                 </div>
-
-
-                <!-- <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
-
-                <!-- <form @submit.prevent="submitTreino">
-
-                    <td> <input type="hidden" v-model="ss"></td>
-                    <table>
-                        <thead>
-                            <th></th>
-                            <th>Exercício</th>
-                            <th>Sets</th>
-                            <th>Reps</th>
-                            <th>Intervalo</th>
-                            <th>Observações</th>
-                            <th>Imagem</th>
-                            <th>Deletar?</th>
-                        </thead>
-                        <tbody>
-
-
-
-                            <tr v-for="(item, index) in items" :key="index">
-
-                                <input type="hidden" :value.v-model="item.id = index + 1" readonly>{{ item.id }}
-                                <input type="hidden"
-                                    :value.v-model="item.num = 'Exercício ' + (index < 9 ? '' + (index + 1) : (index + 1))">
-                                <td>
-                                    <input type="text" v-model="item.nome" id="inputField">
-                                    <ul id="dropdownList" class="list-susp"></ul>
-                                </td>
-                                <td><input type="number" v-model="item.sets"></td>
-                                <td> <input type="text" v-model="item.reps"></td>
-                                <td> <input type="text" v-model="item.rest"></td>
-                                <td><textarea id="story" name="story" rows="2" cols="20" v-model="item.obs"></textarea>
-                                </td>
-                                <td><input type="text" v-model="item.photo" id='otherInput'></td>
-                                <input type="hidden"
-                                    :value="item.img = `https://app.leandrocesar.com/exe/${item.photo}.gif`" readonly>
-                                <button v-if="index > 0" @click="moveItemUp(index)">Subir</button>
-                                <button v-if="index < items.length - 1" @click="moveItemDown(index)">Descer</button>
-                                <button class="add-client" type="button" @click="removeItem(item)">X</button>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="buttons">
-
-                        <button class="add-client" type="button" @click="addItem">Add Item</button>
-                        <br>
-                        <br>
-                        <button class="input" type="submit">Submit</button>
-
-                    </div>
-
-                </form>
-
-                <button class="input" type="button" @keyup.delete="clear" @click="clear">Resetar</button> -->
-
 
             </div>
         </div>

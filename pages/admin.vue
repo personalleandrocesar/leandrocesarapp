@@ -111,11 +111,17 @@ const navD = ref(state.value === 4)
     <div id="grid">
         <div id="areaA">
             <div>
-                <NuxtLink @click='inicio()'>
-                    <Icon name='material-symbols:data-usage' /> Início
+                <NuxtLink :to="`/admin`">
+                    <Icon name='material-symbols:data-usage' />
+                    <p class='link-menu'>
+                        Dashboard
+                    </p>
                 </NuxtLink>
                 <NuxtLink :to="`/admin/clientes`">
-                    <Icon name='solar:users-group-two-rounded-bold' /> Clientes
+                    <Icon name='solar:users-group-two-rounded-bold' />
+                    <p class='link-menu'>
+                        Clientes
+                    </p>
                     <span class="clients">
                         <span>{{ Users.data.value.length }}</span>
                     </span>
@@ -124,11 +130,64 @@ const navD = ref(state.value === 4)
             <div class='logOut'>
 
                 <NuxtLink :to="`/`">
-                    <Icon name='solar:users-group-two-rounded-bold' /> Log Out
+                    <Icon name='solar:users-group-two-rounded-bold' /> 
+                    <p class='link-menu'>
+                        Log Out
+                    </p>
                 </NuxtLink>
             </div>
+
         </div>
         <div id="areaB">
+            <div class="nav-top">
+
+                <div v-if="route.path === `/admin`" class="clientss">
+                    <Icon name='material-symbols:data-usage' />
+                    <p>
+                        Dashboard
+                    </p>
+                </div>
+                <div v-else-if="route.path === `/admin/clientes`" class="clientss">
+                    <Icon name='solar:users-group-two-rounded-bold' />
+                    <p>
+                        Clientes
+                    </p>
+                    <span>{{ Users.data.value.length }}</span>
+                </div>
+                <div v-else-if="route.path === `/admin/clientes/${route.params.id}`" class="clientss">
+                    <Icon name='material-symbols:person' />
+                    <p>
+                        Cliente - {{ route.params.id }}
+                    </p>
+                </div>
+                <div v-else-if="route.path === `/admin/clientes/${route.params.id}/treinos`" class="clientss">
+                    <Icon name='material-symbols:person' />
+                    <p>
+                        Cliente - {{ route.params.id }} - Treinos
+                    </p>
+                </div>
+                <div v-else-if="route.path === `/admin/clientes/${route.params.id}/treino/${route.params.idd}`"
+                    class="clientss">
+                    <Icon name='material-symbols:person' />
+                    <p>
+                        Cliente - {{ route.params.id }} - Treino: {{ route.params.idd }}
+                    </p>
+                </div>
+                <div v-else-if="route.path === `/admin/clientes/${route.params.id}/treino/${route.params.idd}/${route.params.iddd}`"
+                    class="clientss">
+                    <Icon name='material-symbols:person' />
+                    <p>
+                        Cliente - {{ route.params.id }} - Treino: {{ route.params.idd }} - Série: {{ route.params.iddd
+                        }}
+                    </p>
+                </div>
+
+                <div>
+                    <div class=" notifications" @click="addClient">
+                        <Icon name='mingcute:notification-newdot-fill' />
+                    </div>
+                </div>
+            </div>
             <NuxtPage />
         </div>
     </div>
@@ -202,7 +261,7 @@ const navD = ref(state.value === 4)
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-    padding: 12px;
+    padding: 10px;
     border-bottom: solid 1px #00DC8240;
     border-end-end-radius: 5px;
     border-start-end-radius: 5px;
@@ -265,14 +324,9 @@ const navD = ref(state.value === 4)
     flex-wrap: wrap;
     width: 100%;
     z-index: 1;
-    height: 35px;
     font-weight: bolder;
     border-bottom: .10px solid #00DC8240;
     backdrop-filter: blur(45px);
-}
-
-.clients {
-    margin: 11px;
 }
 
 .clients span {
@@ -282,6 +336,35 @@ const navD = ref(state.value === 4)
     color: #00DC82;
     background-color: #00DC8230;
     margin-left: 3px;
+}
+
+.clientss {
+    margin: 11px;
+    display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+}
+
+.clientss p {
+    margin-top: 3px;
+    margin-left: 3px;
+}
+
+.clientss span {
+    border: 1px solid #00DC8290;
+    padding: 1px 4px;
+    border-radius: 5px;
+    color: #00DC82;
+    background-color: #00DC8230;
+    margin-top: 1px;
+    margin-left: 3px;
+}
+
+.link-menu {
+    margin-top: 1px;
+    margin-left: 8px;
 }
 
 .notifications {
@@ -297,7 +380,6 @@ const navD = ref(state.value === 4)
     padding: 4px 5px;
     border-radius: 5px;
     color: #00DC82;
-    background-color: #fff;
 }
 
 .nav-users {
@@ -833,6 +915,14 @@ const navD = ref(state.value === 4)
     border-radius: 9px;
     text-decoration: none;
     cursor: pointer;
+}
+a.router-link-exact-active .clients span {
+    border: 1px solid #fff;
+        padding: 3px 6px;
+        border-radius: 5px;
+        color: #00DC82;
+        background-color: #fff;
+        margin-left: 3px;
 }
 
 .nav a.router-link-exact-active:hover {
