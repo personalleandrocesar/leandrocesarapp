@@ -162,6 +162,9 @@ const selectG = () => {
                 {{ nome.obs }}
               </span>
               <span>
+                <b>*Carga:</b> -- Kg
+              </span>
+              <span>
                 <b>Intervalo:</b> {{ nome.rest }}
               </span>
             </div>
@@ -204,10 +207,14 @@ const selectG = () => {
       <h2>
         {{ currentExercise.nome }}
       </h2>
+      <p style='text-align: center;'>
+
+        *Carga sendo implementada!
+      </p>
 
       <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
         <div class="nav-top">
-
+          
           <!-- Início do Nav-flow -->
           <div class="nav-flow-photo">
             <div class="div-img-full">
@@ -239,15 +246,15 @@ const selectG = () => {
             </h4>
 
           </div>
-          <!-- <div class="exercise-square">
+          <div class="exercise-square">
             <h4>
-              Carga
+              *Carga
             </h4>
             <h4>
-              <input v-model="charge" @input="updateCharge" placeholder="Enter charge" />
+              <input class="charge" v-model="charge" @input="updateCharge" placeholder="" disabled />
             </h4>
-
-          </div> -->
+            
+          </div>
           <div class="exercise-square">
             <h4>
               Intervalo
@@ -255,9 +262,9 @@ const selectG = () => {
             <h4>
               {{ currentExercise.rest }}
             </h4>
-
+            
           </div>
-
+          
         </div>
         <div class="obs">
           {{ currentExercise.obs }}
@@ -293,6 +300,7 @@ const selectG = () => {
 <style scoped>
 .charge {
   width: 30px;
+  border-radius: 8px;
 }
 
 ul {
