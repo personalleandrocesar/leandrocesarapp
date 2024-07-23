@@ -15,6 +15,12 @@ function openPhoto() {
     photoOpen.value = !photoOpen.value;
 }
 
+const nameValue = dataConf.data.value?.name
+
+const firstName = computed(() => {
+    return nameValue.split(' ')[0]
+})
+
 // talvez não precise do código abaixo
 const logOff = () => {
     logon.value = null
@@ -117,7 +123,7 @@ const navD = ref(state.value === 4)
         </div>
         <div v-if="route.path === `/users/${logon}` || route.path === `/users/${logon}/parcerias`" class="head-name">
             <div class="name">
-                Olá, {{ dataConf.data.value?.name }}
+                Olá, {{ firstName }}
             </div>
         </div>
         <div class="color">

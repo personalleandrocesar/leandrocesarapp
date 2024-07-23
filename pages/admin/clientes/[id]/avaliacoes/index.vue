@@ -1,9 +1,12 @@
 <script setup>
-import { ref } from 'vue';
-import { reloadNuxtApp } from "nuxt/app";
+import { computed } from 'vue'
+// import './cal'
+const route = useRoute()
+const layout = "duo"
+const data = await useFetch(`/api/${route.params.id}/avaliacao/atual`)
+const dataConf = await useFetch(`/api/${route.params.id}`)
+const notify = await useFetch(`/api/notifications`)
 
-
-const route = useRoute();
 const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
 const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos`);
 const item = Users.data.value;
@@ -13,67 +16,54 @@ const qtTreinos = Treinos.data.value
 const treino = [...qtTreinos]
 
 
-// if (Treinos.data.value == null) {
-//     qtTreinos.value = Treinos.data.value.reverse();
-// } else {
-//     qtTreinos.value = Treinos.data.value;
-// }
+const sexo = data.data.value?.sexo
+const idade = data.data.value?.idade
+const dTorax = data.data.value?.dtorax
+const abdominal = data.data.value?.abdominal
+const coxa = data.data.value?.coxa
+const triceps = data.data.value?.tricipital
+const supraespinhal = data.data.value?.supraEspinhal
 
+const homens = dTorax + abdominal + coxa
+const mulheres = triceps + supraespinhal + coxa
 
+const dcHomens = 1.109380 - (0.0008267 * (homens)) + (0.0000016 * (homens * homens)) - (0.0002574 * (idade))
+const dcMulheres = 1.0994921 - (0.0009929 * (mulheres)) + (0.0000023 * (mulheres * mulheres)) - (0.0001392 * (idade))
 
+const percGHomens = (((4.95 / dcHomens) - 4.50) * 100).toFixed(1)
+const percGMulheres = (((4.95 / dcMulheres) - 4.50) * 100).toFixed(1)
 
+const percentualFat = computed(() => {
+    if (sexo === "feminino") {
+        return percGMulheres
+    } return percGHomens
+})
 
-const subscriberOk = ref(false)
-
-const add = ref(true)
-function addClient() {
-    add.value = !add.value
-}
-
-const items = ref(
-    {
-        name: '',
-    }
-
-);
-
-async function submitTreino() {
-    try {
-        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/treinos`, {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                treino: items.value
-            }),
-        });
-        if (response.ok) {
-            console.log('Create Trainning successfully');
-            subscriberOk.value = true;
-            setTimeout(() => {
-                subscriberOk.value = false;
-                // reloadNuxtApp({
-                //     path: `/admin/clientes/${item.username}/treinos`,
-                //     ttl: 1500, // default 10000
-                // });
-                return navigateTo(`/admin/clientes/${route.params.id}/treino/${items.value.name}`);
-            }, 1500);
-        } else {
-            console.error('Failed to Create Trainning');
-        }
-    } catch (error) {
-        console.error('Error Create Trainning:', error);
-    }
-}
 
 const reg = route.params.id
 const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
+// logon.value = reg + route.params.id.length + (Math.round(Math.random() * 1000)) 
+console.log(logon.value);
 
-const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
-const status = dataConf.data.value?.status
+console.log(reg);
+
+// const { data, pending, error, refresh } = await useFetch(`https://professorleandrocesar.com/usuarios/`, {})
+
+const status = data.data.value?.status
+
+const navbarOpen = ref(false);
+function openNavbar() {
+    navbarOpen.value = !navbarOpen.value;
+}
+
+const notification = notify.data.value?.status
+const notifyOpen = ref(false);
+function openNotify() {
+    notifyOpen.value = !notifyOpen.value;
+
+}
 const photoOpen = ref(false);
 function openPhoto() {
     photoOpen.value = !photoOpen.value;
@@ -86,6 +76,15 @@ const logOff = () => {
 
 const tag = useCookie('tag')
 tag.value = tag.value
+
+
+const plusYes = ref(false)
+const buttonPlus = ref(true)
+function plusButton() {
+    buttonPlus.value = !buttonPlus.value,
+        plusYes.value = !plusYes.value
+}
+
 
 
 const bodyOne = ref(true)
@@ -105,13 +104,10 @@ useHead({
     titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
 })
 
+
+
 </script>
 <template>
-    <div v-if="subscriberOk" class="subscriberOk top">
-        <div>
-            Treino criado com Sucesso!
-        </div>
-    </div>
     <div id="grid">
         <div id="areaA">
             <div class="nav-users">
@@ -130,7 +126,7 @@ useHead({
                             <Icon name='solar:dumbbell-large-bold' />
                         </div>
                     </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacoes`">
                         <div class="reward-button">
                             <Icon name='solar:clipboard-heart-bold' />
                         </div>
@@ -157,7 +153,7 @@ useHead({
                             <Icon name='solar:dumbbell-large-bold' /> Treinos
                         </div>
                     </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacoes`">
                         <div class="actions-button">
                             <Icon name='solar:clipboard-heart-bold' /> Avaliações
                         </div>
@@ -176,94 +172,112 @@ useHead({
 
             <div v-if="newForm">
 
-                <br>
-                <div class="main-div-two">
-                    <h3>
-                        <Icon name='solar:dumbbell-large-bold' /> TREINOS
-                    </h3>
-                </div>
-                <br>
-                <br>
 
 
-                <div class="main-div-two">
+                <div>
+
+                    <div class="main-div-two" v-for="(treino, index) in treino" :key="index">
+                        <h3>
+                            <Icon name='solar:clipboard-heart-bold' /> AVALIAÇÕES
+                        </h3>
+                        <nuxt-link class="main-square" :to="`/user/${route.params.id}/avaliacao/atual`">
 
 
-                    <span v-for="(treino, index) in treino" :key="index">
-                        <NuxtLink class="square" :to="`/admin/clientes/${item.username}/treino/${treino.name}`">
+
                             <div>
                                 <h4>
-                                    TREINO
+                                    <Icon name='material-symbols:event' />
+                                </h4>
+                                <h4>
+                                    {{ data.data.value?.data }}
                                 </h4>
                             </div>
 
                             <div>
                                 <h3>
+                                </h3>
+                                <h4>
+                                    <Icon name="fa6-solid:weight-scale" />
+                                </h4>
+                                <h4>
+                                    {{ data.data.value?.massa }} kg
+                                </h4>
 
+                            </div>
+                            <div>
+                                <h3>
                                 </h3>
 
-                                <h5>
-                                    {{ treino.name }}
-                                </h5>
+                                <h4 style="font-weight: 900;color: #34d399; zoom: 1.6; margin-bottom: -5px;">
+                                    %G
+                                </h4>
+                                <!--
+                                  // antigo ícone!
+                                  <h4>
+                            <Icon name="material-symbols:body-fat-rounded" />
+                          </h4>
+                        -->
+                                <h4>
+                                    {{ percentualFat }} %
+                                </h4>
 
                             </div>
-                        </NuxtLink>
-                    </span>
+                        </nuxt-link>
+                    </div>
                 </div>
-                <br>
-                <br>
-                <br>
-            </div>
-            <div v-else class="new-form">
-                <div class="new-form-squared">
-                    <form @submit.prevent="submitTreino">
-                        <!-- Nome e sobrenome -->
-                        <div class="inputs">
+
+                <div>
+                    <div class="main-div-tree">
+                        <h3>
+                            <Icon name='solar:clipboard-heart-bold' /> AVALIAÇÕES
+                        </h3>
+
+                        <a href="https://cal.com/leandrocesar/personal" target="_blank" class="main-square">
+
+
 
                             <div>
-
-                                <span>Nome do treino</span>
-                                <input type="text" id="name" autofocus v-model="items.name" required
-                                    autocomplete="nome">
-
+                                <h4>
+                                    <Icon name='material-symbols:event' />
+                                </h4>
+                                <h4>
+                                    Clique aqui e agende sua Avaliação!!
+                                </h4>
                             </div>
-
-                        </div>
-
-                        <div class="inputs">
-                            <button class="login" type="submit">
-                                Criar
-                                <Icon name="material-symbols:add-notes" />
-                            </button>
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                    </form>
-
+                        </a>
+                    </div>
                 </div>
+                <br>
+                <!-- <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline"></div> -->
+                <br>
+                <br>
+
+
+
             </div>
         </div>
     </div>
 </template>
 <style scoped>
-
 .none,
 .nav-users .reward {
     display: none;
 }
 
 @media (max-width: 650px) {
-    .none, .nav-users .actions-user  {
+
+    .none,
+    .nav-users .actions-user {
         display: none;
     }
 
-    
+
 }
 
 @media (max-width: 1020px) {
 
-    .nav-users .actions, .nav-users .actions-user,
+    .nav-users .actions,
+    .nav-users .actions-user,
     .actions-user .update-button,
     .actions-user .delete-button {
         display: none;
@@ -273,7 +287,7 @@ useHead({
         display: inherit;
     }
 
-        
+
 }
 
 .new-user {
@@ -292,6 +306,7 @@ useHead({
     color: #04be7a;
     background-color: #fff;
 }
+
 .nav-top {
     position: sticky;
     top: 0px;
@@ -311,25 +326,25 @@ useHead({
 }
 
 .subscriberOk {
-        background-color: #00DC82;
-        color: #fff;
-        text-shadow: 2px 2px 2px #111;
-        display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 20px 20px 20px;
-  padding: 15px;
-  border-radius: 8px;
-  position: fixed;
-  bottom: 10px;
-  width: 80%;
-  left: 50%;
-  color: #fff;
-  margin-left: -40%;
-  font-weight: 900;
-  border: solid 1px #00DC8210;
-  z-index: 10000;
+    background-color: #00DC82;
+    color: #fff;
+    text-shadow: 2px 2px 2px #111;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 20px 20px 20px;
+    padding: 15px;
+    border-radius: 8px;
+    position: fixed;
+    bottom: 10px;
+    width: 80%;
+    left: 50%;
+    color: #fff;
+    margin-left: -40%;
+    font-weight: 900;
+    border: solid 1px #00DC8210;
+    z-index: 10000;
 }
 
 .clients {
@@ -379,7 +394,8 @@ useHead({
     border-bottom: solid 1px #34d39940;
     border-right: solid 1px #34d39940;
 }
-.reward{
+
+.reward {
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -452,7 +468,7 @@ useHead({
     cursor: pointer;
 }
 
-.nav-users .reward  div     {
+.nav-users .reward div {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -579,205 +595,450 @@ useHead({
     overflow-y: auto;
     overflow-x: hidden;
 }
-
-.inputs {
+.head-logo {
     display: flex;
-    justify-content: center;
-    flex-direction: row;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    z-index: 1;
     flex-wrap: wrap;
-    align-items: center;
-    font-weight: bolder;
-    font-size: 14px;
+
 }
 
-.inputs div {
+.logo {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
     flex-wrap: wrap;
-    align-items: flex-start;
-    margin: .5rem
+    background-color: #edf2f7;
+    height: 60px;
+    width: 60px;
+    color: #718096;
+    box-shadow: 1px 7px 20px #34d399;
+    margin: 1.5rem;
+    border-radius: 7px;
+    z-index: 10;
 }
 
-.inputs #masculino.check,
-.inputs #feminino.check {
-    text-decoration: underline;
-    margin: -15px -94px;
-    height: 15px;
-    cursor: pointer;
+.logo img {
+    height: 60px;
+    width: 60px;
+    border-radius: 7px;
+    border: #34d399 2px solid;
+    z-index: 100;
+    opacity: 1;
+
 }
 
-.inputs .radio {
-    margin: 30px 30px 15px 30px;
-}
-
-
-.inputs .terms {
-    text-decoration: underline;
-    color: #00dc82;
-    height: 15px;
-    cursor: pointer;
-}
-
-.inputs #terms.check {
-    text-decoration: underline;
-    margin: 10px -64px;
-    height: 15px;
-    cursor: pointer;
-}
-
-.dont-user {
+.nav-bar {
+    z-index: 1004;
+    transform: translateX(0%);
     position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 200px;
-    background-color: #ff1900;
-    color: #fff;
-    text-shadow: 2px 2px 2px #111;
-    z-index: 20;
+    height: calc(100% - 0px);
+    bottom: 0px;
+    width: 100%;
     display: flex;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: nowrap;
-    border-radius: 5px;
-    font-weight: bolder;
-    padding: 8px 0px;
+    flex-wrap: wrap;
 }
 
-input {
+.logo-nav-bar {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 1004;
+    transform: translateX(0%);
+    position: fixed;
+    height: calc(100% - 0px);
+    bottom: 0px;
+    width: 100%;
+    backdrop-filter: blur(5px);
+    background-color: #ffffff50;
+
+}
+
+.logo-nav-bar img {
+    box-shadow: 1px 7px 20px #34d399;
+    height: 300px;
+    width: 300px;
+    border-radius: 7px;
+    border: #34d399 2px solid;
+    z-index: 100;
+    opacity: 1;
+
+}
+
+.button-client {
+    margin: 1.2rem 1.5rem;
     transition: all .4s linear;
-    border-bottom: solid 2px #00DC82;
-    text-align: left;
-    width: 160px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--color-text);
     font-weight: 600;
-    border-radius: 4px;
     transition: all 0.2s ease-in-out 0s;
-    height: 30px;
+    zoom: 1.3;
+}
+
+.button-client:hover {
+    color: #34d39980;
+}
+
+.button-client .icon {
+    margin-top: -5px;
+    margin-right: 5px;
+    color: var(--color-text);
+    transition: all 0.2s ease-in-out 0s;
+}
+
+.button-client:hover .icon {
+    color: #34d39980;
+}
+
+.head-name {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+
+.name {
+    font-size: 1.6rem;
+    line-height: 1.5rem;
+    margin: .2rem 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #34d399;
+
+}
+
+.email {
+    font-size: .8rem;
+    line-height: 1.5rem;
+    margin: .2rem 1.6rem;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    color: var(--color-text);
+
+}
+
+.whats {
+    position: fixed;
+    bottom: 4.5rem;
+    right: .1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #edf2f7;
+    height: 40px;
+    width: 40px;
+    color: #718096;
+    box-shadow: 1px 1px 15px #34d39950;
+    transition: all 0.2s ease-in-out 0s;
+    margin: 0rem 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.whats:hover {
+    background-color: #34d39910;
+    color: #34d39980;
+    box-shadow: 1px 1px 15px #34d39980;
+}
+
+.body-timeline {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: left;
+    margin: 2rem 10px 120px 10px;
+}
+
+.main-logo {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: #edf2f7;
+    height: 100px;
+    width: 100px;
+    color: #718096;
+    box-shadow: 1px 7px 20px #34d399;
+    margin: 1.5rem;
+    border-radius: 7px;
+}
+
+.main-logo img {
+    height: 100px;
+    width: 100px;
+    border-radius: 7px;
+    border: #34d399 2px solid;
+    opacity: 1;
+
+}
+
+.body-timeline p {
+    text-align: left;
+    margin: 0 10px 20px 20px;
+    color: var(--color-text);
+}
+
+.link {
+    text-decoration: underline;
+}
+
+.link:hover {
+    color: #34d399;
+}
+
+.section-title {
+    color: var(--color-text);
+    text-align: left;
+    margin: 10px 1.5rem;
+    font-weight: 800;
+}
+
+.section-subtitle {
+    color: #34d399;
+    text-align: left;
+    margin: -10px 1.5rem 15px;
+    font-weight: 800;
+    font-size: .9em;
+}
+
+.section-option {
+    text-align: left;
+    margin: -10px 1.5rem 15px;
+    font-size: .8em;
+    font-weight: 800;
+}
+
+.section-option .icon {
+    zoom: .8;
+    margin-top: -3px;
+}
+
+.verified {
+    color: green;
+}
+
+.pending {
+    color: #e1a918;
+}
+
+.bloqued {
+    color: #b30000;
+}
+
+
+.conf {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.menu-square {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: 800;
+    width: 49.6%;
+    padding: 5px;
+    border-radius: 8px;
+    margin: 1px auto;
+    color: #34d399;
+    background-color: #34d39910;
+    border: solid .2px #34d39910;
+}
+
+.menu-square div .icon {
+    margin: 3px 0px;
+    transition: transform .3s linear;
+    transform: translateX(-10px);
+}
+
+.menu-square div {
+    display: flex;
+    flex-direction: column;
+    font-size: 1em;
+    justify-content: center;
+    margin: 2px auto;
+}
+
+.menu-square div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    font-size: .7em;
+    justify-content: center;
+    margin: 2px auto;
+    color: var(--color-text);
+}
+
+.menu-square div:nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    font-size: .7em;
+    justify-content: center;
+    margin: 2px auto;
+    color: #002aff;
+}
+
+.menu-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: 800;
+    width: 100%;
+    padding: 5px;
+    margin: 1px auto;
+    border: solid 1px #34d39910;
+    color: var(--color-text);
+    background-color: #fff;
+    border-bottom: solid .2px #34d39930;
+    border-top: solid .2px transparent;
+}
+
+.menu-button div {
+    display: flex;
+    flex-direction: row;
+    font-size: .8em;
+    justify-content: space-between;
+    margin-top: 2px;
+}
+
+.menu-button .icon {
+    margin: 2px 0px 0px 26px;
+    transition: transform .3s linear;
+    transform: translateX(-15px);
+}
+
+.menu-button .icon:nth-child(2) {
+    margin: 5px 0px 0px 26px;
+    transition: transform .3s linear;
+    transform: translateX(-25px);
+}
+
+.menu-button:hover {
+    background-color: #34d39910;
+    color: #34d39980;
+    cursor: pointer;
+    border-bottom: solid .2px #34d39950;
+}
+
+
+.menu-button:hover .icon:nth-child(2) {
+    transform: translateX(-15px);
+}
+
+.logout {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    width: 250px;
+    margin-left: -125px;
+    transition: all .4s linear;
+    border: solid 1px #34d39910;
+    color: var(--color-text);
+    box-shadow: 0 0px 5px #34d39910;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out 0s;
+    height: 34px;
     font-size: 14px;
+    padding-inline: 16px;
+    padding-top: 6px;
+    padding-bottom: 8px;
 }
 
-.inputs #username {
-    width: 190px
+.logout .icon {
+    margin: 1px 0px 0px 6px;
+    transition: transform .3s linear;
+    transform: translateX(8px);
 }
 
-.inputs #lastName {
-    width: 130px
+.logout:hover {
+    background-color: #34d39910;
+    color: #34d39980;
+    cursor: pointer;
 }
 
-.inputs #email {
-    width: 335px
+.logout:hover .icon {
+    margin: 1px 0px 0px 6px;
+    transform: translateX(0px);
 }
 
-.inputs div h4 {
-    text-align: left;
-}
-
-input:focus-visible {
-    border: solid 1px #00DC82;
-}
-
-input:active {
-    border-color: #00DC8280;
-}
-
-input:hover {
-    background-color: #00DC8210;
-}
-
-
-input:focus {
-    border: 0 none;
-    border-bottom: solid 2px #00DC82;
-    outline: 0;
-}
-
-
-h4 {
-    transition: all .3s linear;
-    margin: 0 0 0 10px;
-    text-align: left;
-}
-
-h4:nth-child(1) {
-    transition: all .3s linear;
-    margin: 20px 0 0 10px;
-}
 
 
 .main-div-two {
+    margin-top: 1rem;
     overflow-x: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin: -20px 0 0 0;
-    align-items: left;
-    flex-wrap: wrap;
-}
-
-.main-div-two span {
-    overflow-x: auto;
-    width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    margin: 0px;
+    justify-content: space-between;
     align-items: left;
 }
 
 .main-div-two .icon {
     color: #34d399;
+    zoom: 1.3;
 }
 
-.square {
+.main-square {
+    color: var(--color-text);
     background-color: #34d39910;
     backdrop-filter: blur(5px);
     overflow-x: auto;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
-    align-items: stretch;
-    margin: 2px 4px 4px 0px;
+    align-items: center;
+    margin: 1.5rem;
     border-radius: 8px;
-    border: .1px solid #34d39920;
+    border: .1px solid #34d39910;
     line-height: 1.4;
     transition: all .4s;
     border: 2px solid #34d39910;
 }
 
-.square:nth-child(2n+1) {
-    margin: 2px 0px 0px 4px;
-}
-
-.square:nth-child(2n) {
-    margin: 2px 4px 0px 0px;
-}
-
-.square div h4 .icon {
-    margin-top: -1px;
-}
-
-.square:nth-child(2) {
-    margin-top: 10px;
-}
-
-.square:hover {
+.main-square:hover {
     background-color: #34d39930;
+    border-right: 1px solid #34d39930;
 
+    border: 2px solid #34d39920;
     border-top: 2px solid #34d39940;
     border-bottom: 2px solid #34d39940;
+}
+
+.main-square div:nth-child(1) {
+    padding-right: 20px;
 
 }
 
-.square div:nth-child(2),
-.square div:nth-child(3) {
+.main-square div:nth-child(2),
+.main-square div:nth-child(3) {
     margin: auto;
     border: none;
 }
 
 .main-div-two H3 {
     margin-left: 20px;
-
+    margin-top: 10px;
 }
 
 .main-div-two h4 {
@@ -785,16 +1046,12 @@ h4:nth-child(1) {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    color: #34d399;
-}
-
-.main-div-two h5 {
-    font-size: .9rem;
 }
 
 .main-div-two a div {
-    border-bottom: 2px solid #34d39920;
-    height: 70px;
+    border-right: 2px solid #34d39910;
+    margin-left: 15px;
+    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -802,131 +1059,183 @@ h4:nth-child(1) {
 }
 
 .main-div-two h4 .icon {
-    margin-left: -3px;
+    margin-left: 1px;
 }
 
 .main-div-two div .icon {
-    margin-top: -1px;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    zoom: 1.2;
+}
+
+.main-div-one {
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 90px;
+    width: 100%;
+}
+
+.main-div-one .icon {
+    zoom: 1.3;
+    color: #34d399;
+    margin-top: -2.5px;
+}
+
+
+.main-div-tree {
+    margin-top: 1rem;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+}
+
+.main-div-tree H3 {
+    margin-left: 20px;
+    color: var(--color-text);
+}
+
+.main-div-tree .icon {
+    color: #34d399;
+    margin-top: -4px;
+}
+
+.main-div-tree h4 {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-.select {
-    transition: all .4s linear;
-    border: 0;
-    color: inherit;
-    background-color: transparent;
-    border-bottom: solid 2px #00DC82;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 160px;
-    text-align: left;
-    transition: all 0.2s ease-in-out 0s;
-    height: 30px;
-    font-size: 14px;
-}
-
-.select:focus {
-    border: 0 none;
-    border-bottom: solid 2px #00DC82;
-    outline: 0;
-}
-
-.select:focus-visible {
-    background-color: #00DC8210;
-}
-
-.select:active {
-    background-color: #00DC8210;
-}
-
-.select:hover {
-    background-color: #00DC8210;
-}
-
-.login {
-    transition: all .4s linear;
-    border: solid 2px #00DC82;
-    cursor: pointer;
-    width: 140px;
-    text-align: center;
-    line-height: 18px;
-    border-radius: 88px;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out 0s;
-    height: 30px;
-    font-size: 14px;
-    padding-inline: 16px;
-    padding-top: 6px;
-    padding-bottom: 8px;
-    margin: 1rem 1.5rem;
-}
-
-.lost h5 {
-    font-size: .6rem;
-}
-
-.login .icon {
-    margin: -2px 0px 2px 4px;
-    transition: transform .3s linear;
-}
-
-.login:hover {
-    cursor: pointer;
-    background-color: #00DC82;
-    color: #fff;
-}
-
-.login:hover .icon {
-    margin: -2px 0px 2px 4px;
-    transform: translateX(6px);
-}
-
-.color {
+.main-div-tree a div {
+    margin: auto;
+    height: 100px;
     display: flex;
-    justify-content: space-around;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    position: fixed;
-    height: 35px;
-    width: 35px;
-    transition: all 0.2s ease-in-out 0s;
-    bottom: 6rem;
-    right: 1.5rem;
-    border-radius: 9px;
-    cursor: pointer;
-    z-index: 100;
-    border: solid 1px #34d39910;
-    box-shadow: 0 0px 5px #34d39940;
-    backdrop-filter: blur(100px)
 }
 
-.whats {
+.main-div-tree h4 .icon {
+    margin-left: 1px;
+    zoom: 1.4;
+}
+
+.main-div-tree div .icon {
+    margin-top: 0px;
     display: flex;
-    justify-content: space-around;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    position: fixed;
-    height: 35px;
-    width: 35px;
-    transition: all 0.2s ease-in-out 0s;
-    bottom: 3.5rem;
-    right: 1.5rem;
-    border-radius: 9px;
-    cursor: pointer;
-    z-index: 100;
-    border: solid 1px #34d39910;
-    box-shadow: 0 0px 5px #34d39940;
-    backdrop-filter: blur(100px)
 }
 
-.whats .icon,
-.color .icon {
-    color: #34d39990;
-    zoom: 1;
+
+@media only screen and (max-width: 370px) {
+    .head-logo {
+        display: flex;
+        justify-content: center;
+        flex-direction: row-reverse;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo img {
+        height: 100px;
+        width: 100px;
+        border-radius: 7px;
+        border: #34d399 2px solid;
+
+    }
+
+    .button-client {
+        margin: 2rem 1.5rem 1rem 1.5rem;
+    }
+
+    .head-name {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    .name {
+        font-size: 1.6rem;
+        line-height: 1.5rem;
+        margin: .2rem 1.5rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-align: center;
+    }
+
+    .whats {
+        margin: 1rem 1.5rem;
+    }
+
+    .category {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    .category-plus {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .button-plus a {
+        margin: 1.5rem auto;
+        cursor: pointer;
+        transition: all .4s linear;
+        border: solid 1px #34d39910;
+        box-shadow: 0 0px 5px #34d39910;
+        background-color: #fff;
+        cursor: pointer;
+        text-align: center;
+        color: var(--color-text);
+        line-height: 18px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out 0s;
+        font-size: 14px;
+        padding: 8px 20px;
+        text-align: center;
+    }
+
+    .button-plus a .icon {
+        margin: 0 -8px 0 -5px;
+    }
+
+    .button-plus a:hover {
+        margin: 0rem auto;
+        transition: all .4s linear;
+        border: solid 1px #34d39910;
+        box-shadow: 0 0px 5px #34d39910;
+        background-color: #edf2f7;
+        cursor: pointer;
+        width: 100px;
+        text-align: center;
+        color: #34d39980;
+        line-height: 18px;
+        border-radius: 8px;
+        transition: all 0.2s ease-in-out 0s;
+        height: 34px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
 }
 </style>

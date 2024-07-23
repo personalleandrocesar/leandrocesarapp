@@ -352,7 +352,7 @@ function newTrainning() {
                                 <Icon name='solar:dumbbell-large-bold' />
                             </div>
                         </NuxtLink>
-                        <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                        <NuxtLink :to="`/admin/clientes/${item.username}/avaliacoes`">
                             <div class="reward-button">
                                 <Icon name='solar:clipboard-heart-bold' />
                             </div>
@@ -385,7 +385,7 @@ function newTrainning() {
                             <Icon name='solar:dumbbell-large-bold' /> Treinos
                         </div>
                     </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacoes`">
                         <div class="actions-button">
                             <Icon name='solar:clipboard-heart-bold' /> Avaliações
                         </div>
