@@ -10,7 +10,7 @@ const item = Users.data.value;
 
 const qtTreinos = Treinos.data.value
 
-const treino = [...qtTreinos].reverse()
+const treino = [...qtTreinos]
 
 
 // if (Treinos.data.value == null) {
@@ -142,7 +142,7 @@ useHead({
                         <Icon name='material-symbols:add-notes' />
                     </div>
                     <div v-else class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+                        <Icon name='material-symbols:cancel-rounded' />
                     </div>
 
                 </div>

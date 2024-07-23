@@ -8,6 +8,7 @@ useHead({
 const route = useRoute();
 const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
 const UsersTrainnig = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos/${route.params.idd}/${route.params.iddd}`);
+const userItem = Users.data.value;
 const item = UsersTrainnig.data.value.set;
 
 
@@ -260,17 +261,17 @@ function newTrainning() {
                     </a> -->
                     <div>
 
-                        <NuxtLink :to="`/admin/clientes/${item.username}`">
+                        <NuxtLink :to="`/admin/clientes/${userItem.username}`">
                             <div class="reward-button">
                                 <Icon name='material-symbols:shield-person' />
                             </div>
                         </NuxtLink>
-                        <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
+                        <NuxtLink :to="`/admin/clientes/${userItem.username}/treinos`">
                             <div class="reward-button">
                                 <Icon name='solar:dumbbell-large-bold' />
                             </div>
                         </NuxtLink>
-                        <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                        <NuxtLink :to="`/admin/clientes/${userItem.username}/avaliacao`">
                             <div class="reward-button">
                                 <Icon name='solar:clipboard-heart-bold' />
                             </div>
@@ -284,7 +285,7 @@ function newTrainning() {
                             <Icon name='material-symbols:add-notes' />
                         </div>
                         <div v-else class="new-user" @click="newTrainning">
-                            <Icon name='material-symbols:cancel-rounded' /> Fechar
+                            <Icon name='material-symbols:cancel-rounded' />
                         </div>
                         <div class="delete-trainning" @click="deleteTrainning">
                             <Icon name='material-symbols:delete-forever' />
@@ -293,17 +294,17 @@ function newTrainning() {
 
                 </div>
                 <div class='actions'>
-                    <NuxtLink :to="`/admin/clientes/${item.username}`">
+                    <NuxtLink :to="`/admin/clientes/${userItem.username}`">
                         <div class="actions-button">
                             <Icon name='material-symbols:shield-person' /> Resumo
                         </div>
                     </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/treinos`">
+                    <NuxtLink :to="`/admin/clientes/${userItem.username}/treinos`">
                         <div class="actions-button">
                             <Icon name='solar:dumbbell-large-bold' /> Treinos
                         </div>
                     </NuxtLink>
-                    <NuxtLink :to="`/admin/clientes/${item.username}/avaliacao`">
+                    <NuxtLink :to="`/admin/clientes/${userItem.username}/avaliacao`">
                         <div class="actions-button">
                             <Icon name='solar:clipboard-heart-bold' /> Avaliações
                         </div>

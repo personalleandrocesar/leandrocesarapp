@@ -366,7 +366,7 @@ function newTrainning() {
                             <Icon name='material-symbols:add-notes' />
                         </div>
                         <div v-else class="new-user" @click="newTrainning">
-                            <Icon name='material-symbols:cancel-rounded' /> Fechar
+                            <Icon name='material-symbols:cancel-rounded' />
                         </div>
                         <div class="delete-trainning" @click="deleteTrainning">
                             <Icon name='material-symbols:delete-forever' />
@@ -1157,13 +1157,8 @@ input:active {
     border-color: #00DC8280;
 }
 
-input:hover {
-    border-color: #00DC8280;
-}
-
-
 input:focus {
-    background-color: #00DC8210;
+    background-color: #00DC8240;
     border: 0 none;
     border-bottom: solid 2px #00DC82;
     outline: 0;
