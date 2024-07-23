@@ -1,9 +1,10 @@
 <script setup>
 import { computed } from 'vue'
+const config = useRuntimeConfig()
 // import './cal'
 const route = useRoute()
 const layout = "duo"
-const data = await useFetch(`/api/${route.params.id}/avaliacao/atual`)
+const data = await useFetch('config.apiSecret')
 const dataConf = await useFetch(`/api/${route.params.id}`)
 const notify = await useFetch(`/api/notifications`)
 
@@ -14,6 +15,8 @@ const item = Users.data.value;
 const qtTreinos = Treinos.data.value
 
 const treino = [...qtTreinos]
+
+console.log(data);
 
 
 const sexo = data.data.value?.sexo
@@ -104,6 +107,42 @@ useHead({
     titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
 })
 
+const items = ref(
+    {
+        name: '',
+    }
+
+);
+
+async function submitAvaliacao() {
+    try {
+        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/avaliacoes`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avaliacao: items.value
+            }),
+        });
+        if (response.ok) {
+            console.log('Create Valuation successfully');
+            subscriberOk.value = true;
+            setTimeout(() => {
+                subscriberOk.value = false;
+                // reloadNuxtApp({
+                //     path: `/admin/clientes/${item.username}/treinos`,
+                //     ttl: 1500, // default 10000
+                // });
+                return navigateTo(`/admin/clientes/${route.params.id}/treino/${items.value.name}`);
+            }, 1500);
+        } else {
+            console.error('Failed to Create Valuation');
+        }
+    } catch (error) {
+        console.error('Error Create Valuation:', error);
+    }
+}
 
 
 </script>
@@ -162,7 +201,7 @@ useHead({
                 <div class='actions-user'>
 
                     <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:add-notes' /> Novo Treino
+                        <Icon name='material-symbols:add-notes' /> Nova avaliação
                     </div>
                     <div v-else class="new-user" @click="newTrainning">
                         <Icon name='material-symbols:cancel-rounded' /> Fechar
@@ -176,7 +215,7 @@ useHead({
 
                 <div>
 
-                    <div class="main-div-two" v-for="(treino, index) in treino" :key="index">
+                    <div class="main-div-two">
                         <h3>
                             <Icon name='solar:clipboard-heart-bold' /> AVALIAÇÕES
                         </h3>
@@ -189,7 +228,7 @@ useHead({
                                     <Icon name='material-symbols:event' />
                                 </h4>
                                 <h4>
-                                    {{ data.data.value?.data }}
+                                    {{ data.data.value }}
                                 </h4>
                             </div>
 
@@ -255,10 +294,169 @@ useHead({
 
 
             </div>
+            <div v-else class="new-form">
+                <div class="new-form-squared">
+                    <form @submit.prevent="submitAvaliacao">
+                        <!-- Nome e sobrenome -->
+                        <div class="inputs">
+
+                            <div>
+
+                                <span>Dia da Avaliação</span>
+                                <input type="date" id="name" v-model="items.name" autofocus  required
+                                    autocomplete="nome">
+
+                            </div>
+
+                        </div>
+
+                        <div class="inputs">
+                            <button class="login" type="submit">
+                                Criar
+                                <Icon name="material-symbols:add-notes" />
+                            </button>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                    </form>
+
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <style scoped>
+
+.login {
+    transition: all .4s linear;
+    border: solid 2px #00DC82;
+    cursor: pointer;
+    width: 140px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 88px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+    padding-inline: 16px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    margin: 1rem 1.5rem;
+}
+
+.lost h5 {
+    font-size: .6rem;
+}
+
+.login .icon {
+    margin: -2px 0px 2px 4px;
+    transition: transform .3s linear;
+}
+
+.login:hover {
+    cursor: pointer;
+    background-color: #00DC82;
+    color: #fff;
+}
+
+.login:hover .icon {
+    margin: -2px 0px 2px 4px;
+    transform: translateX(6px);
+}
+input {
+    transition: all .4s linear;
+    border-bottom: solid 2px #00DC82;
+    text-align: left;
+    width: 160px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.inputs #username {
+    width: 190px
+}
+
+.inputs #lastName {
+    width: 130px
+}
+
+.inputs #email {
+    width: 335px
+}
+
+.inputs div h4 {
+    text-align: left;
+}
+
+input:focus-visible {
+    border: solid 1px #00DC82;
+}
+
+input:active {
+    border-color: #00DC8280;
+}
+
+input:hover {
+    background-color: #00DC8210;
+}
+
+
+input:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+.inputs {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.inputs div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: .5rem
+}
+
+.inputs #masculino.check,
+.inputs #feminino.check {
+    text-decoration: underline;
+    margin: -15px -94px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs .radio {
+    margin: 30px 30px 15px 30px;
+}
+
+
+.inputs .terms {
+    text-decoration: underline;
+    color: #00dc82;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs #terms.check {
+    text-decoration: underline;
+    margin: 10px -64px;
+    height: 15px;
+    cursor: pointer;
+}
 .none,
 .nav-users .reward {
     display: none;

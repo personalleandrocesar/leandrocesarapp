@@ -5,6 +5,12 @@ export default defineNuxtConfig({
     '/api/**': { cors: true, headers: { 'access-control-allow-methods': 'GET, POST, DELETE, PUT' } },
     'https://api.leandrocesar.com/**': { cors: true, headers: { 'access-control-allow-methods': 'GET, POST, DELETE, PUT' } },
   },
+  runtimeConfig: {
+    apiSecret: '', // can be overridden by NUXT_API_SECRET environment variable
+    public: {
+      apiBase: '', // can be overridden by NUXT_PUBLIC_API_BASE environment variable
+    }
+  },
   app: {
     head: {
       charset: 'utf-8',
