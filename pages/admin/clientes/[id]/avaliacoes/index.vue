@@ -7,7 +7,20 @@ const route = useRoute();
 const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
 const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos`);
 const item = Users.data.value;
-const qtTreinos = Treinos.data.value;
+
+const qtTreinos = Treinos.data.value
+
+const treino = [...qtTreinos]
+
+
+// if (Treinos.data.value == null) {
+//     qtTreinos.value = Treinos.data.value.reverse();
+// } else {
+//     qtTreinos.value = Treinos.data.value;
+// }
+
+
+
 
 
 const subscriberOk = ref(false)
@@ -40,11 +53,12 @@ async function submitTreino() {
             subscriberOk.value = true;
             setTimeout(() => {
                 subscriberOk.value = false;
-                reloadNuxtApp({
-                    path: `/admin/clientes/${item.username}/treinos`,
-                    ttl: 1000, // default 10000
-                });
-            }, 1000);
+                // reloadNuxtApp({
+                //     path: `/admin/clientes/${item.username}/treinos`,
+                //     ttl: 1500, // default 10000
+                // });
+                return navigateTo(`/admin/clientes/${route.params.id}/treino/${items.value.name}`);
+            }, 1500);
         } else {
             console.error('Failed to Create Trainning');
         }
@@ -100,17 +114,6 @@ useHead({
     </div>
     <div id="grid">
         <div id="areaA">
-            <div class="nav-top">
-                <div class="clients">
-                    <Icon name='material-symbols:person' /> Cliente - {{ Users.data.value.name }} {{
-        Users.data.value.lastName }}
-                </div>
-                <div>
-                    <div class="notifications">
-                        <Icon name='mingcute:notification-newdot-fill' />
-                    </div>
-                </div>
-            </div>
             <div class="nav-users">
                 <div class='reward'>
                     <!-- <a @click="$router.go(-1)">
@@ -139,7 +142,7 @@ useHead({
                         <Icon name='material-symbols:add-notes' />
                     </div>
                     <div v-else class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:cancel-rounded' /> Fechar
+                        <Icon name='material-symbols:cancel-rounded' />
                     </div>
 
                 </div>
@@ -170,53 +173,72 @@ useHead({
                     </div>
                 </div>
             </div>
+
             <div v-if="newForm">
 
-                <h1>
-                    Treinos:
+                <br>
+                <div class="main-div-two">
+                    <h3>
+                        <Icon name='solar:dumbbell-large-bold' /> TREINOS
+                    </h3>
+                </div>
+                <br>
+                <br>
 
-                </h1>
-                <h1 v-for="(qtTreinos, index) in qtTreinos" :key="index">
-                    <span @click="navigateTo(`/admin/clientes/${item.username}/treino/${qtTreinos.name}`)">
-                        <ul>
-                            <li>
-                                {{ qtTreinos.name }}
 
-                            </li>
-                        </ul>
+                <div class="main-div-two">
 
+
+                    <span v-for="(treino, index) in treino" :key="index">
+                        <NuxtLink class="square" :to="`/admin/clientes/${item.username}/treino/${treino.name}`">
+                            <div>
+                                <h4>
+                                    TREINO
+                                </h4>
+                            </div>
+
+                            <div>
+                                <h3>
+
+                                </h3>
+
+                                <h5>
+                                    {{ treino.name }}
+                                </h5>
+
+                            </div>
+                        </NuxtLink>
                     </span>
-                </h1>
+                </div>
+                <br>
+                <br>
+                <br>
             </div>
             <div v-else class="new-form">
                 <div class="new-form-squared">
                     <form @submit.prevent="submitTreino">
-                        <p>Nome do treino</p>
-                        <input type="text" name="" id="" v-model="items.name">
-                        <!-- <select id="options" name="options" v-model="items.name">
-                            <option v-for="day in 31" :key="day">{{ day }}</option>
-                        </select>
-                        <select id="options" name="options" v-model="items.name">
-                            <option value="option1">Janeiro</option>
-                            <option value="option1">Fevereiro</option>
-                            <option value="option1">Março</option>
-                            <option value="option1">Abril</option>
-                            <option value="option1">Maio</option>
-                            <option value="option1">Junho</option>
-                            <option value="option1">Julho</option>
-                            <option value="option1">Agosto</option>
-                            <option value="option1">Setembro</option>
-                            <option value="option1">Outubro</option>
-                            <option value="option1">Novembro</option>
-                            <option value="option1">Dezembro</option>
-                        </select>
-                        <select id="options" name="options" v-model="items.name">
-                            <option value="option4" v-for="year in 2300 - 1900 + 1" :key="year">{{ year + 1900 - 1 }}
-                            </option>
-                        </select> -->
+                        <!-- Nome e sobrenome -->
+                        <div class="inputs">
 
-                        <!-- <input type="month" name="" id="" v-model="items.name"> -->
-                        <button class="login" type="submit">Adicionar</button>
+                            <div>
+
+                                <span>Nome do treino</span>
+                                <input type="text" id="name" autofocus v-model="items.name" required
+                                    autocomplete="nome">
+
+                            </div>
+
+                        </div>
+
+                        <div class="inputs">
+                            <button class="login" type="submit">
+                                Criar
+                                <Icon name="material-symbols:add-notes" />
+                            </button>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
                     </form>
 
                 </div>
@@ -225,23 +247,23 @@ useHead({
     </div>
 </template>
 <style scoped>
+
 .none,
 .nav-users .reward {
     display: none;
 }
 
 @media (max-width: 650px) {
-
-    .none,
-    .nav-users .actions-user {
+    .none, .nav-users .actions-user  {
         display: none;
     }
+
+    
 }
 
 @media (max-width: 1020px) {
 
-    .nav-users .actions,
-    .nav-users .actions-user,
+    .nav-users .actions, .nav-users .actions-user,
     .actions-user .update-button,
     .actions-user .delete-button {
         display: none;
@@ -250,6 +272,8 @@ useHead({
     .nav-users .reward {
         display: inherit;
     }
+
+        
 }
 
 .new-user {
@@ -268,7 +292,6 @@ useHead({
     color: #04be7a;
     background-color: #fff;
 }
-
 .nav-top {
     position: sticky;
     top: 0px;
@@ -288,23 +311,25 @@ useHead({
 }
 
 .subscriberOk {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 20%;
-    margin-left: 40%;
-    background-color: #ff1900;
-    color: #fff;
-    text-shadow: 2px 2px 2px #111;
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: nowrap;
-    border-radius: 8px;
-    font-weight: bolder;
-    padding: 8px 0px;
+        background-color: #00DC82;
+        color: #fff;
+        text-shadow: 2px 2px 2px #111;
+        display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 20px 20px 20px;
+  padding: 15px;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 10px;
+  width: 80%;
+  left: 50%;
+  color: #fff;
+  margin-left: -40%;
+  font-weight: 900;
+  border: solid 1px #00DC8210;
+  z-index: 10000;
 }
 
 .clients {
@@ -354,8 +379,7 @@ useHead({
     border-bottom: solid 1px #34d39940;
     border-right: solid 1px #34d39940;
 }
-
-.reward {
+.reward{
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -428,7 +452,7 @@ useHead({
     cursor: pointer;
 }
 
-.nav-users .reward div {
+.nav-users .reward  div     {
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -554,6 +578,310 @@ useHead({
     margin-bottom: 1rem;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.inputs {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
+.inputs div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: .5rem
+}
+
+.inputs #masculino.check,
+.inputs #feminino.check {
+    text-decoration: underline;
+    margin: -15px -94px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs .radio {
+    margin: 30px 30px 15px 30px;
+}
+
+
+.inputs .terms {
+    text-decoration: underline;
+    color: #00dc82;
+    height: 15px;
+    cursor: pointer;
+}
+
+.inputs #terms.check {
+    text-decoration: underline;
+    margin: 10px -64px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.dont-user {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 200px;
+    background-color: #ff1900;
+    color: #fff;
+    text-shadow: 2px 2px 2px #111;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    border-radius: 5px;
+    font-weight: bolder;
+    padding: 8px 0px;
+}
+
+input {
+    transition: all .4s linear;
+    border-bottom: solid 2px #00DC82;
+    text-align: left;
+    width: 160px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.inputs #username {
+    width: 190px
+}
+
+.inputs #lastName {
+    width: 130px
+}
+
+.inputs #email {
+    width: 335px
+}
+
+.inputs div h4 {
+    text-align: left;
+}
+
+input:focus-visible {
+    border: solid 1px #00DC82;
+}
+
+input:active {
+    border-color: #00DC8280;
+}
+
+input:hover {
+    background-color: #00DC8210;
+}
+
+
+input:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+
+h4 {
+    transition: all .3s linear;
+    margin: 0 0 0 10px;
+    text-align: left;
+}
+
+h4:nth-child(1) {
+    transition: all .3s linear;
+    margin: 20px 0 0 10px;
+}
+
+
+.main-div-two {
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: -20px 0 0 0;
+    align-items: left;
+    flex-wrap: wrap;
+}
+
+.main-div-two span {
+    overflow-x: auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0px;
+    align-items: left;
+}
+
+.main-div-two .icon {
+    color: #34d399;
+}
+
+.square {
+    background-color: #34d39910;
+    backdrop-filter: blur(5px);
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin: 2px 4px 4px 0px;
+    border-radius: 8px;
+    border: .1px solid #34d39920;
+    line-height: 1.4;
+    transition: all .4s;
+    border: 2px solid #34d39910;
+}
+
+.square:nth-child(2n+1) {
+    margin: 2px 0px 0px 4px;
+}
+
+.square:nth-child(2n) {
+    margin: 2px 4px 0px 0px;
+}
+
+.square div h4 .icon {
+    margin-top: -1px;
+}
+
+.square:nth-child(2) {
+    margin-top: 10px;
+}
+
+.square:hover {
+    background-color: #34d39930;
+
+    border-top: 2px solid #34d39940;
+    border-bottom: 2px solid #34d39940;
+
+}
+
+.square div:nth-child(2),
+.square div:nth-child(3) {
+    margin: auto;
+    border: none;
+}
+
+.main-div-two H3 {
+    margin-left: 20px;
+
+}
+
+.main-div-two h4 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #34d399;
+}
+
+.main-div-two h5 {
+    font-size: .9rem;
+}
+
+.main-div-two a div {
+    border-bottom: 2px solid #34d39920;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-div-two h4 .icon {
+    margin-left: -3px;
+}
+
+.main-div-two div .icon {
+    margin-top: -1px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.select {
+    transition: all .4s linear;
+    border: 0;
+    color: inherit;
+    background-color: transparent;
+    border-bottom: solid 2px #00DC82;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 160px;
+    text-align: left;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.select:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+.select:focus-visible {
+    background-color: #00DC8210;
+}
+
+.select:active {
+    background-color: #00DC8210;
+}
+
+.select:hover {
+    background-color: #00DC8210;
+}
+
+.login {
+    transition: all .4s linear;
+    border: solid 2px #00DC82;
+    cursor: pointer;
+    width: 140px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 88px;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+    padding-inline: 16px;
+    padding-top: 6px;
+    padding-bottom: 8px;
+    margin: 1rem 1.5rem;
+}
+
+.lost h5 {
+    font-size: .6rem;
+}
+
+.login .icon {
+    margin: -2px 0px 2px 4px;
+    transition: transform .3s linear;
+}
+
+.login:hover {
+    cursor: pointer;
+    background-color: #00DC82;
+    color: #fff;
+}
+
+.login:hover .icon {
+    margin: -2px 0px 2px 4px;
+    transform: translateX(6px);
 }
 
 .color {
