@@ -1,4 +1,27 @@
+<script>
+export default {
+    mounted() {
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('nav-container');
 
+        window.addEventListener('scroll', function () {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > lastScrollTop) {
+                // Rolando para baixo
+                navbar.style.top = '-100px'; // Ou qualquer outra posição desejada para esconder o navbar
+            } else {
+                // Rolando para cima
+                navbar.style.top = '20px';
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Para o comportamento correto em bordas
+        }, false);
+    }
+}
+
+
+</script>
 <script setup>
 const route = useRoute()
 

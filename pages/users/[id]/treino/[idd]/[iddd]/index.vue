@@ -124,7 +124,7 @@ const selectG = () => {
       <span @click="chooseList" :class="{ alternateList: alternateList }">
         <Icon name="mdi:format-list-text" /> Lista
       </span>
-      <span :class="{ }">
+      <span class="light" :class="{ }">
         <Icon name="solar:align-horizonta-spacing-bold" /> Total
       </span>
     </div>
@@ -301,6 +301,10 @@ const selectG = () => {
 
 
 <style scoped>
+.light {
+  color: #ddd;
+}
+
 .charge {
   width: 30px;
   border-radius: 8px;
