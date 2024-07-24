@@ -144,30 +144,35 @@ b {
 }
 
 .conf {
+  color: #fff;
   height: 80px;
-  width: 32.5%;
-  margin: 25px 2px 10px 2px;
-  color: #555;
-  height: 80px;
+  background-color: #34d399;
   backdrop-filter: blur(15px);
-  overflow-x: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-wrap: nowrap;
+  backdrop-filter: blur(5px);
+  width: 100%;
+  margin: 0px 10px;
   border-radius: 8px;
-  background-color: #34d39910;
-  border: .1px solid #34d39910;
-  margin-top: 1rem;
+  border: 2px solid #44acb1;
 }
+
 
 .main-div-one {
   overflow-x: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  width: 100%;
 }
 
+.main-div-one .icon {
+  zoom: 1.2;
+  color: #34d399;
+}
 .main-div-two {
   overflow-x: auto;
   display: flex;
@@ -306,6 +311,30 @@ b {
   color: #fadb41;
   margin-top: -2.5px;
 }
+
+.conf {
+  height: 80px;
+  backdrop-filter: blur(15px);
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 32.5%;
+  margin: 1rem auto 0 auto;
+  border-radius: 8px;
+  background-color: #34d39910;
+  border: .1px solid #34d39910;
+}
+
+.conf:nth-child(1) {
+  margin: 1rem 2px 0 5%;
+}
+
+.conf:nth-child(3) {
+  margin: 1rem 5% 0 2px;
+}
+
 
 .conf h3 {
   font-size: .88rem;

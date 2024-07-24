@@ -119,10 +119,13 @@ const selectG = () => {
 
     <div class="alternate">
       <span @click="chooseGrid" :class="{ alternateGrid : alternateGrid }">
-        <Icon name="solar:slider-minimalistic-horizontal-bold" /> Série em Bloco
+        <Icon name="solar:slider-minimalistic-horizontal-bold" /> Bloco
       </span>
       <span @click="chooseList" :class="{ alternateList: alternateList }">
-        <Icon name="mdi:format-list-text" /> Série em Lista
+        <Icon name="mdi:format-list-text" /> Lista
+      </span>
+      <span :class="{ }">
+        <Icon name="solar:align-horizonta-spacing-bold" /> Total
       </span>
     </div>
 
@@ -214,7 +217,7 @@ const selectG = () => {
 
       <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
         <div class="nav-top">
-          
+
           <!-- Início do Nav-flow -->
           <div class="nav-flow-photo">
             <div class="div-img-full">
@@ -253,7 +256,7 @@ const selectG = () => {
             <h4>
               <input class="charge" v-model="charge" @input="updateCharge" placeholder="" disabled />
             </h4>
-            
+
           </div>
           <div class="exercise-square">
             <h4>
@@ -262,9 +265,9 @@ const selectG = () => {
             <h4>
               {{ currentExercise.rest }}
             </h4>
-            
+
           </div>
-          
+
         </div>
         <div class="obs">
           {{ currentExercise.obs }}
@@ -349,9 +352,14 @@ ul {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin: 1rem 15px 0 15px;
-  border: solid .1px #34d39980;
-  border-radius: 8px;
+  margin: 1rem 5% 0 5%;
+  box-shadow: 0 0px 5px #00f2ff10;
+  border: solid 1px #34d39940;
+  border-radius: 15px;
+  box-shadow: 0 0px 5px #00f2ff10;
+  -webkit-backdrop-filter: blur(100px);
+  backdrop-filter: blur(100px);
+  
 }
 
 .alternate span{
@@ -360,7 +368,7 @@ ul {
   justify-content: center;
   padding: .8rem 0 .5rem 0;
   width: 100%;  font-size: .8rem;
-  border-radius: 8px;
+  border-radius: 15px;
   /* border: solid .2px #34d39930; */
   
 }
@@ -370,7 +378,7 @@ ul {
   justify-content: center;
   padding: .8rem 0 .5rem 0;
   width: 100%;  font-size: .8rem;
-  border-radius: 8px;
+  border-radius: 15px;
   background-color: #34d39950;
   color: #34d399;
 }

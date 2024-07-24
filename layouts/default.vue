@@ -354,7 +354,7 @@ const navD = ref(state.value === 4)
     z-index: 100;
     border: #34d399 1px solid;
     opacity: 1;
-    background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #00f2ff 100%);
+    background: linear-gradient(to bottom right, #34d39980 0%, #34d39980 50%, #34d399 100%);
     padding: 1px;
 
 }
@@ -384,7 +384,7 @@ const navD = ref(state.value === 4)
     bottom: 0px;
     height: calc(100% - 0px);
     width: 100%;
-    background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #00f2ff 100%);    backdrop-filter: blur(5px);
+    background: linear-gradient(to bottom right, #34d39980 0%, #34d39980 50%, #34d399 100%);    backdrop-filter: blur(5px);
     z-index: 1004;
 
 }

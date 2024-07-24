@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 const layout = "duo"
 const route = useRoute()
 
-const dataConf = await useFetch(`/api/${route.params.id}`)
+const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
 const dataTreino = await useFetch(`/api/${route.params.id}/cardio/atual`)
 const state = useCookie('state')
 
@@ -64,38 +64,39 @@ function openDivFour() {
         <div class="main-div-one">
 
 
-                <div class="conf">
-                  <Icon name="fluent:target-arrow-16-filled" />
-                  <h3>
-                    {{ dataConf.data.value?.objetivo }}
-                  </h3>
-                  
-                </div>
-                <div class="conf">
-                    <Icon name='mdi:calendar-weekend' />
-                    <h3>
-                        {{ dataConf.data.value?.dias }}
-                    </h3>
-                    
-                </div>
-                <div class="conf">
-                    <Icon name="material-symbols:timer-rounded" />
-                    <h3>
-                        {{ dataConf.data.value?.tempo }}
-                    </h3>
-                    
-                </div>
+            <div class="conf">
+                <Icon name="fluent:target-arrow-16-filled" />
+                <h3>
+                    {{ dataConf.data.value?.target }}
+                </h3>
+
             </div>
-            <div>
-                
-                <div class="main-div-two" >
-                    
-                    <h3>
-                        <Icon name='material-symbols:cardiology' /> CARDIO
-                    </h3>
+            <div class="conf">
+                <Icon name='mdi:calendar-weekend' />
+                <h3>
+                    {{ dataConf.data.value?.day }} dias
+                </h3>
+
             </div>
-            <div class="main-div-two"  >
-                <nuxt-link v-if="dataTreino.data.value?.cardioA" @click="openDivOne" class="square" :class="{ squared: divAplicar }" >
+            <div class="conf">
+                <Icon name="material-symbols:timer-rounded" />
+                <h3>
+                    {{ dataConf.data.value?.time }} min.
+                </h3>
+
+            </div>
+        </div>
+        <div>
+
+            <div class="main-div-two">
+
+                <h3>
+                    <Icon name='material-symbols:cardiology' /> CARDIO
+                </h3>
+            </div>
+            <div class="main-div-two">
+                <nuxt-link v-if="dataTreino.data.value?.cardioA" @click="openDivOne" class="square"
+                    :class="{ squared: divAplicar }">
                     <div>
                         <h4>
                             TREINO
@@ -114,7 +115,8 @@ function openDivFour() {
 
                     </div>
                 </nuxt-link>
-                <nuxt-link v-if="dataTreino.data.value?.cardioB" @click="openDivTwo" class="square" :class="{ squared: divAplicarTwo }">
+                <nuxt-link v-if="dataTreino.data.value?.cardioB" @click="openDivTwo" class="square"
+                    :class="{ squared: divAplicarTwo }">
                     <div>
                         <h4>
                             TREINO
@@ -134,7 +136,8 @@ function openDivFour() {
                     </div>
                 </nuxt-link>
 
-                <nuxt-link v-if="dataTreino.data.value?.cardioC" @click="openDivTree" class="square" :class="{ squared: divAplicarTree }">
+                <nuxt-link v-if="dataTreino.data.value?.cardioC" @click="openDivTree" class="square"
+                    :class="{ squared: divAplicarTree }">
                     <div>
                         <h4>
                             TREINO
@@ -152,7 +155,8 @@ function openDivFour() {
 
                     </div>
                 </nuxt-link>
-                <nuxt-link v-if="dataTreino.data.value?.cardioD" @click="openDivFour" class="square" :class="{ squared: divAplicarFour }">
+                <nuxt-link v-if="dataTreino.data.value?.cardioD" @click="openDivFour" class="square"
+                    :class="{ squared: divAplicarFour }">
                     <div>
                         <h4>
                             TREINO
@@ -171,99 +175,99 @@ function openDivFour() {
                     </div>
                 </nuxt-link>
             </div>
-            <div v-if="divOne" class="squareRes" >
-                    <div class="main-div-tree">
-                        
-                        <div>
-                            <Icon name="ph:clock-countdown-fill" />
-                            <h4>
-                                {{ dataTreino.data.value?.cardioATime }}
-                            </h4>
-                        </div>
+            <div v-if="divOne" class="squareRes">
+                <div class="main-div-tree">
 
-                        <div>
-                            <h4>{{ dataTreino.data.value?.cardioADescription }}</h4>
-
-                        </div>
-                        
+                    <div>
+                        <Icon name="ph:clock-countdown-fill" />
+                        <h4>
+                            {{ dataTreino.data.value?.cardioATime }}
+                        </h4>
                     </div>
+
+                    <div>
+                        <h4>{{ dataTreino.data.value?.cardioADescription }}</h4>
+
+                    </div>
+
+                </div>
             </div>
-              <div v-else-if="divTwo" class="squareRes">
-                      <div class="main-div-tree">
-                        
-                            <div>
-                                <Icon name="ph:clock-countdown-fill" />
-                                <h4>
-                                    {{ dataTreino.data.value?.cardioBTime }}
-                                </h4>
-                            </div>
+            <div v-else-if="divTwo" class="squareRes">
+                <div class="main-div-tree">
 
-                            <div>
-                                <h4>
-                                    {{ dataTreino.data.value?.cardioBDescription }}
-                                </h4>
-
-                            </div>
-                        
-                        </div>
-                  </div>
-              <div v-else-if="divTree" class="squareRes">
-                 <div class="main-div-tree">
-                        
-                            <div>
-                                <Icon name="ph:clock-countdown-fill" />
-                                <h4>
-                                    {{ dataTreino.data.value?.cardioCTime }}
-                                </h4>
-                            </div>
-
-                            <div>
-                                <h4>
-                                    {{ dataTreino.data.value?.cardioCDescription }}
-                                </h4>
-
-                            </div>
-                        
-                        </div>
-                </div>
-              <div v-else-if="divFour" class="squareRes">
-                 <div class="main-div-tree">
-                        
-                            <div>
-                                <Icon name="ph:clock-countdown-fill" />
-                                <h4>
-                                    {{ dataTreino.data.value?.cardioDTime }}
-                                </h4>
-                            </div>
-
-                            <div>
-                                <h4>
-                                    {{ dataTreino.data.value?.cardioDDescription }}
-                                </h4>
-
-                            </div>
-                        
-                        </div>
-                </div>
-                <div v-else class="info" >
-                    <div class="arrowUp">
-                        <Icon v-if="dataTreino.data.value?.cardioA" name="ic:round-arrow-drop-up" />
-                        <Icon v-if="dataTreino.data.value?.cardioB" name="ic:round-arrow-drop-up" />
-                        <Icon v-if="dataTreino.data.value?.cardioC" name="ic:round-arrow-drop-up" />
-                        <Icon v-if="dataTreino.data.value?.cardioD" name="ic:round-arrow-drop-up" />
+                    <div>
+                        <Icon name="ph:clock-countdown-fill" />
+                        <h4>
+                            {{ dataTreino.data.value?.cardioBTime }}
+                        </h4>
                     </div>
-                        <h5>Clique acima e veja detalhes!</h5>
+
+                    <div>
+                        <h4>
+                            {{ dataTreino.data.value?.cardioBDescription }}
+                        </h4>
+
+                    </div>
+
                 </div>
-              <br>
-              <br>
-              <br>
-             </div>
+            </div>
+            <div v-else-if="divTree" class="squareRes">
+                <div class="main-div-tree">
+
+                    <div>
+                        <Icon name="ph:clock-countdown-fill" />
+                        <h4>
+                            {{ dataTreino.data.value?.cardioCTime }}
+                        </h4>
+                    </div>
+
+                    <div>
+                        <h4>
+                            {{ dataTreino.data.value?.cardioCDescription }}
+                        </h4>
+
+                    </div>
+
+                </div>
+            </div>
+            <div v-else-if="divFour" class="squareRes">
+                <div class="main-div-tree">
+
+                    <div>
+                        <Icon name="ph:clock-countdown-fill" />
+                        <h4>
+                            {{ dataTreino.data.value?.cardioDTime }}
+                        </h4>
+                    </div>
+
+                    <div>
+                        <h4>
+                            {{ dataTreino.data.value?.cardioDDescription }}
+                        </h4>
+
+                    </div>
+
+                </div>
+            </div>
+            <div v-else class="info">
+                <div class="arrowUp">
+                    <Icon v-if="dataTreino.data.value?.cardioA" name="ic:round-arrow-drop-up" />
+                    <Icon v-if="dataTreino.data.value?.cardioB" name="ic:round-arrow-drop-up" />
+                    <Icon v-if="dataTreino.data.value?.cardioC" name="ic:round-arrow-drop-up" />
+                    <Icon v-if="dataTreino.data.value?.cardioD" name="ic:round-arrow-drop-up" />
+                </div>
+                <h5>Clique acima e veja detalhes!</h5>
+            </div>
+            <br>
+            <br>
+            <br>
+        </div>
 
 
 
 
     </NuxtLayout>
-    
+
 </template>
 
     
@@ -305,7 +309,6 @@ body {
     justify-content: space-around;
     justify-items: center;
 }
-
 .conf {
     color: #fff;
     height: 80px;
@@ -325,15 +328,16 @@ body {
 
 
 .main-div-one {
-  overflow-x: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
 }
-.main-div-one .icon{
-   zoom: 1.2;
-  color: #34d399;
+
+.main-div-one .icon {
+    zoom: 1.2;
+    color: #34d399;
 }
 
 .main-div-two {
@@ -488,38 +492,32 @@ color: #34d399;
   margin-top: -2.5px;
 }
 
-.main-div-one {
-  overflow-x: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.main-div-one .icon{
-   zoom: 1.2;
-  color: #34d399;
-  margin-top: -2.5px;
-}
-
-.conf {  
-  height: 80px;
+.conf {
+    height: 80px;
     backdrop-filter: blur(15px);
-  overflow-x: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 32.5%;
-  margin: 1rem auto 0 auto;
-  border-radius: 8px;  
-      background-color: #34d39910;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 32.5%;
+    margin: 1rem auto 0 auto;
+    border-radius: 8px;
+    background-color: #34d39910;
     border: .1px solid #34d39910;
 }
 
-.conf h3{
-    font-size: .88rem;
+.conf:nth-child(1) {
+    margin: 1rem 2px 0 5%;
 }
 
+.conf:nth-child(3) {
+    margin: 1rem 5% 0 2px;
+}
+
+
+.conf h3 {
+    font-size: .88rem;
+}
 
 </style>
