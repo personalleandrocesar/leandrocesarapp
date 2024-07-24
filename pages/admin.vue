@@ -219,9 +219,10 @@ const navD = ref(state.value === 4)
 <style scoped>
 #grid {
     display: grid;
-    grid-template-columns: 14rem 1fr;
+    grid-template-columns: 12rem 1fr;
     width: 100%;
     height: 100vh;
+    font-size: .8rem;
 }
 
 #areaA {
@@ -365,6 +366,7 @@ const navD = ref(state.value === 4)
 .link-menu {
     margin-top: 1px;
     margin-left: 8px;
+    font-size: .9rem;
 }
 
 .notifications {
@@ -545,7 +547,7 @@ const navD = ref(state.value === 4)
 }
 
 .icon {
-    zoom: 1.1;
+    zoom: 1;
 }
 
 .logo {

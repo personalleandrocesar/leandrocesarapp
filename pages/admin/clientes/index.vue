@@ -936,7 +936,7 @@ h4:nth-child(1) {
 
 .nav-users {
     position: sticky;
-        top: 40px;
+        top: 35px;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
@@ -1257,7 +1257,7 @@ input {
 
 .nav-users {
     position: sticky;
-        top: 40px;
+        top: 35px;
         display: flex;
         justify-content: space-between;
         flex-direction: row;
@@ -1267,7 +1267,7 @@ input {
         z-index: 1;
         height: 35px;
         font-weight: bolder;
-        margin-bottom: 1rem;
+        margin-bottom: 0rem;
         border-bottom: .10px solid #34d39940;
         backdrop-filter: blur(45px);
         border-bottom: solid 1px #34d39940;
