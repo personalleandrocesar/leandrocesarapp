@@ -35,7 +35,6 @@ const currentCharge = ref(currentExercise.value?.charge || 0)
 //   updateCharge();
 // });
 
-// Funções existentes
 function openExercise() {
   exerciseImg.value = !exerciseImg.value;
 }
@@ -112,6 +111,53 @@ const selectG = () => {
   }
 }
 
+const counter = ref(0);
+const counterLimit = ref(60); // Limite do contador, inicialmente 60 segundos
+let intervalId = null;
+
+// Observa mudanças no valor de currentExercise e ajusta o limite do contador
+watch(currentExercise, (newExercise) => {
+  counterLimit.value = newExercise.rest || 60; // Define o limite do contador baseado no valor de rest do exercício atual
+});
+
+const startCounter = () => {
+    if (intervalId) return;
+
+    intervalId = setInterval(() => {
+        if (counter.value < counterLimit.value) {
+            counter.value++;
+        } else {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    }, 1000);
+};
+
+const pauseCounter = () => {
+    clearInterval(intervalId);
+    intervalId = null;
+};
+
+const resumeCounter = () => {
+    if (counter.value <= 0 || counter.value >= counterLimit.value) return;
+
+    intervalId = setInterval(() => {
+        if (counter.value < counterLimit.value) {
+            counter.value++;
+        } else {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    }, 1000);
+};
+
+const resetCounter = () => {
+    clearInterval(intervalId);
+    intervalId = null;
+    counter.value = 0;
+};
+
+
 </script>
 
 <template>
@@ -124,9 +170,10 @@ const selectG = () => {
       <span @click="chooseList" :class="{ alternateList: alternateList }">
         <Icon name="mdi:format-list-text" /> Lista
       </span>
+      <span class="light" :class="{ }">
+        <Icon name="solar:align-horizonta-spacing-bold" /> Total
+      </span>
     </div>
-
-
 
     <div class="main-div-two">
       <br>
@@ -139,16 +186,13 @@ const selectG = () => {
         {{ itemExercise() }} Exercícios
       </h3>
 
-
       <ul>
-
         <li v-for="(nome, index) in listExercise()" :key="index">
           <h3>
             {{ nome.nome }}
           </h3>
           <div class="roww">
             <div>
-
               <img :src="nome.img" class="miniSquare" @click="openExercise" />
             </div>
             <div class="square-list">
@@ -169,30 +213,12 @@ const selectG = () => {
               </span>
             </div>
           </div>
-
-          <!-- Início do Nav-flow -->
-          <!-- <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
-            <div class="nav-top">
-
-              <div class="nav-flow-photo">
-                <div class="div-img-full">
-                  <img :src="currentExercise.img" />
-                </div>
-              </div>
-
-            </div>
-          </div> -->
         </li>
       </ul>
-
     </div>
-
-
 
     <!-- Série em Bloco -->
     <div class="main-div-tree" v-else="buttonGrid || selectG()">
-
-
       <ul>
         <li v-for="id in itemExercise()" @click='itemExercise((treino = id - 1))'>
           <span>
@@ -208,26 +234,21 @@ const selectG = () => {
         {{ currentExercise.nome }}
       </h2>
       <p style='text-align: center;'>
-
         *kg sendo implementada!
       </p>
 
       <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
         <div class="nav-top">
-
-          <!-- Início do Nav-flow -->
           <div class="nav-flow-photo">
             <div class="div-img-full">
               <img :src="currentExercise.img" />
             </div>
           </div>
-
         </div>
       </div>
 
       <p v-if="pending">Carregando...</p>
       <div v-else>
-
         <div class="exercise">
           <div class="exercise-square">
             <h4>
@@ -244,7 +265,6 @@ const selectG = () => {
             <h4>
               {{ currentExercise.reps }}
             </h4>
-
           </div>
           <div class="exercise-square">
             <h4>
@@ -253,7 +273,6 @@ const selectG = () => {
             <h4>
               <input class="charge" v-model="charge" @input="updateCharge" placeholder="" disabled />
             </h4>
-
           </div>
           <div class="exercise-square">
             <h4>
@@ -262,9 +281,7 @@ const selectG = () => {
             <h4>
               {{ currentExercise.rest }}
             </h4>
-
           </div>
-
         </div>
         <div class="obs">
           {{ currentExercise.obs }}
@@ -281,17 +298,30 @@ const selectG = () => {
           <Icon name="mdi:chevron-right" />
         </span>
       </div>
+      <br>
+      <div class="cron">
+        <div>
+            <span v-if='play = true'>
+                <Icon name='solar:play-bold'  @click="startCounter" />
+            </span>   
+            <span>
+                <Icon name='solar:pause-bold'  @click="pauseCounter" />
+            </span>    
+            <span>
+                <Icon name='solar:stop-bold'  @click="resetCounter" />
+            </span>    
+        </div>
+      </div>
+      <div class="counter">
+          -{{ counter }}-
+      </div>
     </div>
     <br>
     <br>
     <br>
-
-
-
-    <div>
-    </div>
   </NuxtLayout>
 </template>
+
 
 
 
@@ -557,6 +587,29 @@ h2 {
   justify-content: space-evenly;
   align-items: center;
   z-index: 120;
+}
+.cron {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 120;
+}
+
+.cron .icon {
+    color: #34d399;
+    zoom: 1.4;
+}
+
+.counter {
+    color: #34d399;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 4rem;
+  font-family: 'Nirequa';
 }
 
 .button .icon{

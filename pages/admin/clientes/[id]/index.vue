@@ -578,14 +578,14 @@ useHead({
 }
 
 .logo img {
-    width: 70px;
+    width: 80px;
     margin: -1px 0 0 -1px;
-    border-radius: 8px;
+    border-radius: 18px;
     z-index: 100;
-    border: #34d399 1px solid;
+    border: #34d399 0px solid;
     opacity: 1;
-    background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #00f2ff 100%);
-    padding: 1px;
+    background: linear-gradient(to bottom right, #34d399 0%, #34d39980 50%, #00f2ff 100%);
+    padding: 3px;
 
 }
 
@@ -602,7 +602,7 @@ useHead({
     align-items: center;
     flex-wrap: wrap;
 }
-
+h1
 .logo-nav-bar {
     display: flex;
     justify-content: center;
@@ -622,8 +622,8 @@ useHead({
 
 .logo-nav-bar img {
     width: 300px;
-    border-radius: 7px;
-    border: #34d399 1px solid;
+    border-radius: 18px;
+    border: #34d399 0px solid;
     opacity: 1;
     z-index: 100;
 

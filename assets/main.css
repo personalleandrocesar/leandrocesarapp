@@ -4,6 +4,11 @@
   font-family: "Ubuntu";
 }
 
+@font-face {
+  font-family: 'Nirequa';
+  src: url('~/assets/Nirequa.otf') format('opentype');
+}
+
 #app {
   font-family: 'Ubuntu', sans-serif;
   font-weight: normal;
