@@ -175,12 +175,6 @@ const resetCounter = () => {
       </span>
     </div>
 
-    <div class="main-div-two">
-      <br>
-      <h3>
-        <Icon name='solar:dumbbell-bold' /> {{route.params.iddd}}
-      </h3>
-    </div>
     <div class="main-div-two" v-if="buttonList || selectL()">
       <h3 class="title">
         {{ itemExercise() }} Exercícios
@@ -221,21 +215,27 @@ const resetCounter = () => {
     <div class="main-div-tree" v-else="buttonGrid || selectG()">
       <ul>
         <li v-for="id in itemExercise()" @click='itemExercise((treino = id - 1))'>
-          <span>
-            {{ id }}
-          </span>
+        <span>
+          {{ id }}
+        </span>          
         </li>
       </ul>
-      <h3>
-        {{ currentExercise.num }} - {{ itemExercise() }}
-      </h3>
+    <div class='div-tree-one'>
+      <h5>
+        {{ currentExercise.id }} - {{ itemExercise() }} Exercícios
+      </h5>
+      <h5>
+        {{ currentExercise.id }} - {{ itemExercise() }} Exercícios
+      </h5>
+    </div> 
+      <!-- <h3>
+        {{ currentExercise.id }} - {{ itemExercise() }}
+      </h3> -->
       <img :src="currentExercise.img" class="square" @click="openExercise" />
       <h2>
         {{ currentExercise.nome }}
+        <br>
       </h2>
-      <p style='text-align: center;'>
-        *kg sendo implementada!
-      </p>
 
       <div v-if="exerciseImg" class="nav-bar-photo" @click="openExercise">
         <div class="nav-top">
@@ -252,7 +252,7 @@ const resetCounter = () => {
         <div class="exercise">
           <div class="exercise-square">
             <h4>
-              Série
+              Séries
             </h4>
             <h4>
               {{ currentExercise.sets }}
@@ -268,7 +268,7 @@ const resetCounter = () => {
           </div>
           <div class="exercise-square">
             <h4>
-              *kg
+              <Icon name='mdi:weight-kilogram' />
             </h4>
             <h4>
               <input class="charge" v-model="charge" @input="updateCharge" placeholder="" disabled />
@@ -483,7 +483,6 @@ h2 {
 }
 .main-div-two h2{
   margin-left: 10px;
-  text-transform: uppercase;
 }
 .main-div-two h3{
   margin-left: 10px;
@@ -512,31 +511,35 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-top: .3rem;
+  margin-top: .4rem;
 }
 .main-div-tree ul li {
   border: solid .1px #34d39980;
-  padding: 3px 8px;
+  padding: .5px 6px;
   border-radius: 6px;
-  margin: 3px 0 ;
-  margin: 5px 0rem;
+  margin: 0px 0rem;
   background-color: #34d39920;
   border: solid .2px #34d39910;
 }
+
 .main-div-tree ul li:nth-child(2n -1) {
-  background-color: #34d39950;
+  background-color: #34d39960;
 }
 .main-div-tree .icon{   
   cursor: pointer;
 }
 .main-div-tree h2{
   margin-left: 1.5rem;
-  text-transform: uppercase;
 }
 .main-div-tree h3{
   margin-left: 1.5rem;
   color: #34d399;
   font-size: 1.2rem;
+}
+.main-div-tree h5{
+  margin-left: 5%;
+  color: #34d399;
+  font-size: 1rem;
 }
 
 .square-list{
@@ -552,13 +555,13 @@ h2 {
   align-items: center;
   margin: 0 10px;
   justify-content: center;
+  margin: 5px 5% 0 5%;
 }
 
 .exercise-square {
   width: max-content;
-  text-transform:uppercase;
-  padding: 5px 10px;
-  height: 80px;
+  height: 55px;
+  padding: 5px 20px;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
@@ -567,13 +570,15 @@ h2 {
   margin: 5px 2px 0 2px;
   border-radius: 8px;
   color:#555;
-  background-color: #34d39910;
-  opacity: .9;
-  backdrop-filter: blur(5px);
-  border: 1px solid #34d39910; 
+  background-color: #34d39940;
+  backdrop-filter: blur(35px);
+  border: 1px solid #34d399; 
 }
 .exercise-square h4:nth-child(1) {
   color: #34d399;
+}
+.exercise-square:nth-child(3) input {
+  background-color: transparent;
 }
 
 .exercise-square .icon {
@@ -696,7 +701,7 @@ border: 2px solid #2cd3db;
 }
 
 .square {
-  height: 140px;
+  height: 200px;
   width: auto;
   max-width: 370px;
   color:#555;
@@ -708,7 +713,7 @@ border: 2px solid #2cd3db;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 10px auto;
+  margin: 3px auto;
   border: 2px solid #34d39990; 
   cursor: zoom-in;
 }
@@ -782,7 +787,7 @@ background: linear-gradient(to bottom right, #00f2ff80 0%, #34d39980 50%, #34d39
   .div-img-full img {
     box-shadow: 0px 7px 20px #34d399;
     height: auto;
-    width: 300px;
+    width: 95%;
     border-radius: 7px;
     border: #34d399 2px solid;
     z-index: 100;
