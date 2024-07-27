@@ -225,7 +225,7 @@ const resetCounter = () => {
         {{ currentExercise.id }} - {{ itemExercise() }} Exercícios
       </h5>
       <h5>
-        {{ currentExercise.id }} - {{ itemExercise() }} Exercícios
+        <Icon name='solar:dumbbell-bold' /> {{route.params.iddd}}
       </h5>
     </div> 
       <!-- <h3>
@@ -249,10 +249,13 @@ const resetCounter = () => {
 
       <p v-if="pending">Carregando...</p>
       <div v-else>
+        <div v-if='currentExercise.obs' class="obs">
+          {{ currentExercise.obs }}
+        </div>
         <div class="exercise">
           <div class="exercise-square">
             <h4>
-              Séries
+              Sets
             </h4>
             <h4>
               {{ currentExercise.sets }}
@@ -268,7 +271,7 @@ const resetCounter = () => {
           </div>
           <div class="exercise-square">
             <h4>
-              <Icon name='mdi:weight-kilogram' />
+              <Icon name='mdi:weight' />
             </h4>
             <h4>
               <input class="charge" v-model="charge" @input="updateCharge" placeholder="" disabled />
@@ -283,10 +286,6 @@ const resetCounter = () => {
             </h4>
           </div>
         </div>
-        <div class="obs">
-          {{ currentExercise.obs }}
-          <br>
-        </div>
       </div>
 
       <div class="button">
@@ -299,7 +298,7 @@ const resetCounter = () => {
         </span>
       </div>
       <br>
-      <div class="cron">
+      <!-- <div class="cron">
         <div>
             <span v-if='play = true'>
                 <Icon name='solar:play-bold'  @click="startCounter" />
@@ -314,7 +313,7 @@ const resetCounter = () => {
       </div>
       <div class="counter">
           -{{ counter }}-
-      </div>
+      </div> -->
     </div>
     <br>
     <br>
@@ -513,6 +512,15 @@ h2 {
   justify-content: space-around;
   margin-top: .4rem;
 }
+
+.div-tree-one {
+  position: relative;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 5%
+}
 .main-div-tree ul li {
   border: solid .1px #34d39980;
   padding: .5px 6px;
@@ -537,7 +545,6 @@ h2 {
   font-size: 1.2rem;
 }
 .main-div-tree h5{
-  margin-left: 5%;
   color: #34d399;
   font-size: 1rem;
 }
@@ -553,15 +560,13 @@ h2 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0 10px;
   justify-content: center;
-  margin: 5px 5% 0 5%;
+  margin: 5px 5% 20px 5%;
 }
 
 .exercise-square {
   width: max-content;
   height: 55px;
-  padding: 5px 20px;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
@@ -573,6 +578,21 @@ h2 {
   background-color: #34d39940;
   backdrop-filter: blur(35px);
   border: 1px solid #34d399; 
+}
+.exercise-square:nth-child(1) {
+  width: 15%
+}
+.exercise-square:nth-child(2) {
+  width: 45%
+}
+.exercise-square:nth-child(3) {
+  width: 15%
+}
+.exercise-square:nth-child(4) {
+  width: 15%
+}
+.exercise-square h4:nth-child(12) {
+  color: #34d399;
 }
 .exercise-square h4:nth-child(1) {
   color: #34d399;
@@ -627,7 +647,7 @@ h2 {
   zoom:1.7;
 }
 .button span:nth-child(1){
-  background-color: #34d3996c;
+  background-color: #34d399;
   color: #fff;
   display: flex;
   flex-direction: row;
@@ -639,7 +659,7 @@ h2 {
   border: .5px solid #34d39980; 
 }
 .button span:nth-child(2){
-  background-color: #34d3996c;
+  background-color: #34d399;
   color: #fff;
   display: flex;
   flex-direction: row;
@@ -648,19 +668,19 @@ h2 {
   cursor: pointer;
   border-radius: 10px;
   padding-left: 28px;
-  border: .5px solid #34d39980; 
 }
 /* 
 border: 2px solid #2cd3db;
 */ 
+
 .obs{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  margin: 0 25px 10px 25px;
-  
+  margin: 5px 6% 10px 6%;
+  height:50px;
 }
 
 .icon {

@@ -281,9 +281,9 @@ function newTrainning() {
 
                     <div>
 
-                        <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                            <Icon name='material-symbols:add-notes' />
-                        </div>
+                        <NuxtLink v-if="addCloseTrainning" class="new-user" :to="`/users/${userItem.username}/treino/${route.params.idd}/${route.params.iddd}`">
+                            <Icon name='ic:baseline-remove-red-eye' />
+                        </NuxtLink>
                         <div v-else class="new-user" @click="newTrainning">
                             <Icon name='material-symbols:cancel-rounded' />
                         </div>
@@ -312,9 +312,9 @@ function newTrainning() {
                 </div>
                 <div class='actions-user'>
 
-                    <div v-if="addCloseTrainning" class="new-user" @click="newTrainning">
-                        <Icon name='material-symbols:add-notes' /> Nova Série
-                    </div>
+                    <NuxtLink v-if="addCloseTrainning" class="new-user" :to="`/users/${userItem.username}/treino/${route.params.idd}/${route.params.iddd}`">
+                        <Icon name='ic:baseline-remove-red-eye' /> Ver Série
+                    </NuxtLink>
                     <div v-else='addCloseTrainning' class="new-user" @click="newTrainning">
                         <Icon name='material-symbols:cancel-rounded' /> Fechar
                     </div>
@@ -340,7 +340,7 @@ function newTrainning() {
                 <div class='space'>
                     <h3>
                     </h3>
-                    <button class="bt-rem-serie" @click="removeAllItems()">Resetar</button>
+                    <button class="bt-rem-serie" @click="removeAllItems()">Editar</button>
                 </div>
 
                 <form @submit.prevent="submitTreino">
@@ -516,8 +516,8 @@ form input:nth-child(7) {
 }
 
 .bt-rem-serie {
-    border: solid 1px #ff190080;
-    background-color: #ff190080;
+    border: solid 1px #fadb4080;
+    background-color: #fadb4080;
     padding: 1px 12px;
     margin: -5px 2px 20px 2px;
     border-radius: 8px;
@@ -528,10 +528,10 @@ form input:nth-child(7) {
 }
 
 .bt-rem-serie:hover {
-    border: solid 1px #ff1900;
+    border: solid 1px #fadb40;
     border-radius: 8px;
     color: #fff;
-    background-color: #ff1900;
+    background-color: #fadb40;
 }
 
 .delete-trainning {

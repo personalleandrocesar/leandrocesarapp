@@ -763,7 +763,7 @@ const navD = ref(state.value === 4)
     height: 35px;
     width: 35px;
     transition: all 0.2s ease-in-out 0s;
-    bottom: 6rem;
+    bottom: 3.9rem;
     right: 1.5rem;
     border-radius: 9px;
     cursor: pointer;
@@ -783,7 +783,7 @@ const navD = ref(state.value === 4)
     height: 35px;
     width: 35px;
     transition: all 0.2s ease-in-out 0s;
-    bottom: 3.5rem;
+    bottom: 1.5rem;
     right: 1.5rem;
     border-radius: 9px;
     cursor: pointer;
