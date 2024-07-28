@@ -10,7 +10,7 @@ const currentExercise = computed(() => {
   return dataTreino?.data.value.set[treino.value]
 })
 
-const currentCharge = ref(currentExercise.value?.charge || 0)
+// const currentCharge = ref(currentExercise.value?.charge || 0)
 
 // Método para enviar dados via PUT para a API
 // async function updateCharge() {
@@ -112,19 +112,13 @@ const selectG = () => {
 }
 
 const counter = ref(0);
-const counterLimit = ref(60); // Limite do contador, inicialmente 60 segundos
 let intervalId = null;
-
-// Observa mudanças no valor de currentExercise e ajusta o limite do contador
-watch(currentExercise, (newExercise) => {
-  counterLimit.value = newExercise.rest || 60; // Define o limite do contador baseado no valor de rest do exercício atual
-});
 
 const startCounter = () => {
     if (intervalId) return;
 
     intervalId = setInterval(() => {
-        if (counter.value < counterLimit.value) {
+        if (counter.value < 60) {
             counter.value++;
         } else {
             clearInterval(intervalId);
@@ -139,10 +133,10 @@ const pauseCounter = () => {
 };
 
 const resumeCounter = () => {
-    if (counter.value <= 0 || counter.value >= counterLimit.value) return;
+    if (counter.value <= 0 || counter.value >= 60) return;
 
     intervalId = setInterval(() => {
-        if (counter.value < counterLimit.value) {
+        if (counter.value < 60) {
             counter.value++;
         } else {
             clearInterval(intervalId);
@@ -156,7 +150,6 @@ const resetCounter = () => {
     intervalId = null;
     counter.value = 0;
 };
-
 
 </script>
 
@@ -249,9 +242,6 @@ const resetCounter = () => {
 
       <p v-if="pending">Carregando...</p>
       <div v-else>
-        <div v-if='currentExercise.obs' class="obs">
-          {{ currentExercise.obs }}
-        </div>
         <div class="exercise">
           <div class="exercise-square">
             <h4>
@@ -274,7 +264,7 @@ const resetCounter = () => {
               <Icon name='mdi:weight' />
             </h4>
             <h4>
-              <input class="charge" v-model="charge" @input="updateCharge" placeholder="" disabled />
+              <input class="charge" @input="updateCharge" placeholder="" disabled />
             </h4>
           </div>
           <div class="exercise-square">
@@ -285,6 +275,12 @@ const resetCounter = () => {
               {{ currentExercise.rest }}
             </h4>
           </div>
+        </div>
+        <div  v-if='currentExercise.obs' class="obs">
+          {{ currentExercise.obs }}
+        </div>
+        <div  v-else class="obs">
+          Sem observações
         </div>
       </div>
 
@@ -298,12 +294,12 @@ const resetCounter = () => {
         </span>
       </div>
       <br>
-      <!-- <div class="cron">
+      <div class="cron">
         <div>
-            <span v-if='play = true'>
+            <span v-if='startCounter = true'>
                 <Icon name='solar:play-bold'  @click="startCounter" />
             </span>   
-            <span>
+            <span v-else>
                 <Icon name='solar:pause-bold'  @click="pauseCounter" />
             </span>    
             <span>
@@ -313,7 +309,7 @@ const resetCounter = () => {
       </div>
       <div class="counter">
           -{{ counter }}-
-      </div> -->
+      </div>
     </div>
     <br>
     <br>
@@ -638,7 +634,7 @@ h2 {
 }
 
 .button .icon{
-  color: #fff;
+  color: #34d399;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -647,8 +643,8 @@ h2 {
   zoom:1.7;
 }
 .button span:nth-child(1){
-  background-color: #34d399;
-  color: #fff;
+  background-color: #34d39920;
+  color: #34d399;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -656,11 +652,13 @@ h2 {
   cursor: pointer;
   border-radius: 10px;
   padding-right: 25px;
-  border: .5px solid #34d39980; 
+  font-weight: bolder;
+  border: 1px solid #34d399; 
 }
 .button span:nth-child(2){
-  background-color: #34d399;
-  color: #fff;
+    background-color: #34d39920;
+    color: #34d399;
+  font-weight: bolder;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -668,6 +666,11 @@ h2 {
   cursor: pointer;
   border-radius: 10px;
   padding-left: 28px;
+  border: 1px solid #34d399; 
+}
+.dark-mode .button span:nth-child(1), .dark-mode .button span:nth-child(2){
+  background-color: #34d39960;
+  color: #34d399;
 }
 /* 
 border: 2px solid #2cd3db;
@@ -679,7 +682,7 @@ border: 2px solid #2cd3db;
   justify-content: center;
   align-items: center;
   font-weight: bold;
-  margin: 5px 6% 10px 6%;
+  margin: -10px 9% 10px 9%;
   height:50px;
 }
 
@@ -728,7 +731,7 @@ border: 2px solid #2cd3db;
   background-color: #fff;
   backdrop-filter: blur(5px);
   overflow-x: auto;
-  border-radius: 8px;
+  border-radius: 18px;
   display: flex;
   flex-direction: row;
   justify-content: center;
