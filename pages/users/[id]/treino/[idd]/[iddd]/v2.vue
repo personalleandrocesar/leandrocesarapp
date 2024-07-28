@@ -111,45 +111,47 @@ const selectG = () => {
   }
 }
 
-const counter = ref(0);
-let intervalId = null;
+// const counter = ref(0);
+// let intervalId = null;
 
-const startCounter = () => {
-    if (intervalId) return;
+// const startCounter = () => {
+//     if (intervalId) return;
 
-    intervalId = setInterval(() => {
-        if (counter.value < 60) {
-            counter.value++;
-        } else {
-            clearInterval(intervalId);
-            intervalId = null;
-        }
-    }, 1000);
-};
+//     intervalId = setInterval(() => {
+//         if (counter.value < 60) {
+//             counter.value++;
+//         } else {
+//             clearInterval(intervalId);
+//             intervalId = null;
+//         }
+//     }, 1000);
+// };
 
-const pauseCounter = () => {
-    clearInterval(intervalId);
-    intervalId = null;
-};
+// const pauseCounter = () => {
+//     clearInterval(intervalId);
+//     intervalId = null;
+// };
 
-const resumeCounter = () => {
-    if (counter.value <= 0 || counter.value >= 60) return;
+// const resumeCounter = () => {
+//     if (counter.value <= 0 || counter.value >= 60) return;
 
-    intervalId = setInterval(() => {
-        if (counter.value < 60) {
-            counter.value++;
-        } else {
-            clearInterval(intervalId);
-            intervalId = null;
-        }
-    }, 1000);
-};
+//     intervalId = setInterval(() => {
+//         if (counter.value < 60) {
+//             counter.value++;
+//         } else {
+//             clearInterval(intervalId);
+//             intervalId = null;
+//         }
+//     }, 1000);
+// };
 
-const resetCounter = () => {
-    clearInterval(intervalId);
-    intervalId = null;
-    counter.value = 0;
-};
+// const resetCounter = () => {
+//     clearInterval(intervalId);
+//     intervalId = null;
+//     counter.value = 0;
+// };
+
+console.log(currentExercise)
 
 </script>
 
@@ -294,7 +296,7 @@ const resetCounter = () => {
         </span>
       </div>
       <br>
-      <div class="cron">
+      <!-- <div class="cron">
         <div>
             <span v-if='startCounter = true'>
                 <Icon name='solar:play-bold'  @click="startCounter" />
@@ -309,18 +311,13 @@ const resetCounter = () => {
       </div>
       <div class="counter">
           -{{ counter }}-
-      </div>
+      </div> -->
     </div>
     <br>
     <br>
     <br>
   </NuxtLayout>
 </template>
-
-
-
-
-
 
 <style scoped>
 .light {
