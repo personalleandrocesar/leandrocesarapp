@@ -475,7 +475,6 @@ h2 {
   flex-direction: column;
   justify-content: space-around;
   margin-top: 0px;
-  margin-bottom: 50px;
 }
 
 .main-div-two ul{
@@ -486,6 +485,7 @@ h2 {
   justify-content: space-around;
   margin: 0px 1.2%;
 }
+
 .main-div-two .icon{
   cursor: pointer;
 }
@@ -532,7 +532,15 @@ table {
 
 table tr th, table tr td {
     border: none;
-    border: solid .5px #34d39950;
+}
+table tr th {
+    border: none;
+    background-color: #34d39940;
+}
+th, td {
+  border: 1px solid #34d399;
+  padding: 8px;
+  text-align: left;
 }
 
 .col {
