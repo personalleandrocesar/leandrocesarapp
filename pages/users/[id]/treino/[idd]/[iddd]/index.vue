@@ -184,13 +184,13 @@ console.log(currentExercise)
             <tr>
               <th>Série</th>
               <th>Reps</th>
-              <th>Peso (Kg)</th>
+              <th>Carga</th>
               <th>Intervalo</th>
             </tr>
             <tr>
               <td>{{ nome.sets }}</td>
               <td>{{ nome.reps }}</td>
-              <td>-- Kg</td>
+              <td>--</td>
               <td>{{ nome.rest }}</td>
             </tr>
           </table>
@@ -475,6 +475,7 @@ h2 {
   flex-direction: column;
   justify-content: space-around;
   margin-top: 0px;
+  margin-bottom: 60px;
 }
 
 .main-div-two ul{
