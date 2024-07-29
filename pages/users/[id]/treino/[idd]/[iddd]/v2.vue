@@ -177,31 +177,25 @@ console.log(currentExercise)
 
       <ul>
         <li v-for="(nome, index) in listExercise()" :key="index">
-          <h3>
-            {{ nome.nome }}
+          <h3 class='img-exe' >
+              <img :src="nome.img" class="miniSquare" @click="openExercise" />  {{ nome.nome }}
           </h3>
-          <div class="roww">
-            <div>
-              <img :src="nome.img" class="miniSquare" @click="openExercise" />
-            </div>
-            <div class="square-list">
-              <span>
-                <b> Série:</b> {{ nome.sets }} <b>
-                  <br>
-                  Reps:</b> {{ nome.reps }}
-                <br>
-              </span>
-              <span v-if="nome.obs">
-                {{ nome.obs }}
-              </span>
-              <span>
-                <b>*kg:</b> -- Kg
-              </span>
-              <span>
-                <b>Intervalo:</b> {{ nome.rest }}
-              </span>
-            </div>
-          </div>
+          <table>
+            <tr>
+              <th>Série</th>
+              <th>Reps</th>
+              <th>Peso (Kg)</th>
+              <th>Intervalo</th>
+            </tr>
+            <tr>
+              <td>{{ nome.sets }}</td>
+              <td>{{ nome.reps }}</td>
+              <td>-- Kg</td>
+              <td>{{ nome.rest }}</td>
+            </tr>
+          </table>
+
+        <span  class='col' v-if="nome.obs">{{ nome.obs }}</span>
         </li>
       </ul>
     </div>
@@ -324,6 +318,11 @@ console.log(currentExercise)
   color: #ddd;
 }
 
+.dark-mode .light {
+    color: #777;
+}
+
+
 .charge {
   width: 30px;
   border-radius: 8px;
@@ -357,7 +356,7 @@ ul {
   margin: 0 1rem ;
 }
 .title {
-  margin-top: 1.5rem;
+  margin: 1.5rem 0 0 5%;
 }
 .main-div-two h3 {
   font-size: 1rem;
@@ -405,6 +404,14 @@ ul {
   background-color: #34d39950;
   color: #34d399;
 }
+.alternate span:nth-child(3):hover{
+  background-color: transparent;
+  color: #ddd;
+}
+.dark-mode .alternate span:nth-child(3):hover{
+  background-color: transparent;
+  color: #777;
+}
 
 .alternate span .icon {
   zoom: 1.1;
@@ -412,6 +419,14 @@ ul {
 }
 .alternate span:hover .icon {
   color: #34d399;
+  zoom: 1.1;
+}
+.dark-mode .alternate span:nth-child(3):hover .icon {
+  color: #777;
+  zoom: 1.1;
+}
+.alternate span:nth-child(3):hover .icon {
+  color: #ddd;
   zoom: 1.1;
 }
 
@@ -468,7 +483,7 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-top: 0px;
+  margin: 0px 1.2%;
 }
 .main-div-two .icon{
   cursor: pointer;
@@ -477,8 +492,50 @@ h2 {
   margin-left: 10px;
 }
 .main-div-two h3{
-  margin-left: 10px;
   color: #34d399;
+}
+.img-exe{
+  color: #34d399;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #34d39940;
+    border-radius: 10px 10px 0 0;
+}
+
+.img-exe img {
+  margin-left: 10px;
+    height: 45px;
+    margin-right: 15px;
+    border-radius: 10px;
+    border: solid 2px #34d399;
+}
+
+.col {
+    border-radius: 2px;
+    border: none;display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 5px 5px 5px 10px;
+    justify-content: center;
+}
+
+table {
+    border-radius: 10px;
+    border: none;
+    
+}
+
+table tr th, table tr td {
+    border: none;
+    border: solid .5px #34d39950;
+}
+
+.col {
+    font-size: .8rem;
 }
 
 .main-div-tree ul {
