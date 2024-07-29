@@ -13,9 +13,9 @@ const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.param
 
 const qtTreinos = Treinos.data.value.serie;
 
-console.log(qtTreinos);
 
 const qtTreino = Treinos.data.value.name
+console.log(qtTreinos);
 
 const treinos = ref('')
 
@@ -100,15 +100,18 @@ const navD = ref(state.value == 4)
             </h4>
           </div>
 
-          <div>
-            <h3>
-            </h3>
-
+        <div>
+        
+          
             <h5>
               {{ qtTreinos.name }}
             </h5>
-
-          </div>
+            <!-- <div v-for="(exercise, index) in qtTreinos.set" :key="index">
+              {{ exercise.nome }}
+            </div> -->
+          
+          
+        </div>
         </NuxtLink>
       </span>
 
@@ -276,22 +279,43 @@ b {
   justify-content: center;
   align-items: center;
   color: #34d399;
-  margin-top: 5px;
 }
 
 .main-div-two h5 {
   font-size: .9rem;
-  margin-top: -15px;
 }
 
 .main-div-two a div {
-  border-right: 2px solid #34d39920;
-  margin-left: 15px;
-  height: 100px;
+  height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.main-div-two a div:nth-child(1) {
+  border-right: 2px solid #34d39920;
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.main-div-two a div:nth-child(2) h4{
+    margin: 30px;
+}
+.main-div-two a div:nth-child(2){
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main-div-two a div:nth-child(2) div{
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .main-div-two h4 .icon {

@@ -60,7 +60,7 @@ function openDivFour() {
 </script>
 
 <template>
-    <NuxtLayout :name="layout">
+    <NuxtLayout>
         <div class="main-div-one">
 
 

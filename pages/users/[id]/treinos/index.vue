@@ -22,7 +22,7 @@ const state = useCookie('state')
 </script>
 
 <template>
-  <NuxtLayout :name="layout">
+  <NuxtLayout>
     <div class="main-div-one">
 
 
