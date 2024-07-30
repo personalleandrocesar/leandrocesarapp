@@ -516,12 +516,12 @@ h2 {
 }
 
 .col {
-    border-radius: 2px;
+    border-radius: 0 0 8px 8px;
     border: none;display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    margin: 5px 5px 5px 10px;
+    padding: 5px 5px 5px 10px;
     justify-content: center;
 }
 
@@ -543,6 +543,7 @@ th, td {
   padding: 8px;
   text-align: left;
 }
+
 
 .col {
     font-size: .8rem;

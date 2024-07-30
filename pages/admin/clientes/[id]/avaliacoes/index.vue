@@ -9,21 +9,71 @@ const dataConf = await useFetch(`/api/${route.params.id}`)
 const notify = await useFetch(`/api/notifications`)
 
 const Users = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`);
-const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/treinos`);
+const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/avaliacoes`);
 const item = Users.data.value;
 
-const qtTreinos = Treinos.data.value
-
-const treino = [...qtTreinos]
-
-console.log(data);
 
 
-const sexo = data.data.value?.sexo
-const idade = data.data.value?.idade
+const date = ref('');
+const idade = ref('');
+const massa = ref('');
+const altura = ref('');
+const nascimento = ref('');
+const sexo = ref('');
+const pescoco = ref('');
+const ombro = ref('');
+const torax = ref('');
+const toraxRelaxado = ref('');
+const toraxContraido = ref('');
+const cintura = ref('');
+const abdomem = ref('');
+const quadril = ref('');
+// lado direito
+const bracoDireitoRelaxado = ref('');
+const bracoDireitoContraido = ref('');
+const antebracoDireito = ref('');
+const coxaMedialDireita = ref('');
+const coxaDistalDireita = ref('');
+const pernaDireita = ref('');
+// lado esquerdo
+const bracoEsquerdoRelaxado = ref('');
+const bracoEsquerdoContraido = ref('');
+const antebracoEsquerdo = ref('');
+const coxaMedialEsquerda = ref('');
+const coxaDistalEsquerda = ref('');
+const pernaEsquerda = ref('');
+// Dobras Cutâneas
+const dtorax = ref('');
+const tricipital = ref('');
+const subEscapular = ref('');
+const axilarMedia = ref('');
+const abdominal = ref('');
+const supraEspinhal = ref('');
+const coxa = ref('');
+const perna = ref('');
+// BioImpedância
+const bmi = ref('');
+const fat = ref('');
+const muscle = ref('');
+const rm = ref('');
+const bodyAge = ref('');
+const visceralFat = ref('');
+// Diâmetros ósseos
+const umero = ref('');
+const punho = ref('');
+const femur = ref('');
+const tornozelo = ref('');
+// Testes
+const flexaoBraco = ref('');
+const flexaoAbdominal = ref('');
+// Postura
+const retroversaoQuadril = ref('');
+const anteroversaoOmbros = ref('');
+const joelhosRecurvados = ref('');
+
+
+
 const dTorax = data.data.value?.dtorax
-const abdominal = data.data.value?.abdominal
-const coxa = data.data.value?.coxa
 const triceps = data.data.value?.tricipital
 const supraespinhal = data.data.value?.supraEspinhal
 
@@ -47,7 +97,7 @@ const reg = route.params.id
 const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
-// logon.value = reg + route.params.id.length + (Math.round(Math.random() * 1000)) 
+// logon.value = reg + route.params.id.length + (Math.round(Math.random() * 1000))
 console.log(logon.value);
 
 console.log(reg);
@@ -107,22 +157,75 @@ useHead({
     titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
 })
 
-const items = ref(
-    {
-        name: '',
-    }
 
-);
 
 async function submitAvaliacao() {
-    try {
-        const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/avaliacoes`, {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                avaliacao: items.value
+  try {
+    const response = await fetch(`https://api.leandrocesar.com/user/${route.params.id}/avaliacoes`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        avaliacao: {
+          date: date.value,
+          idade: idade.value,
+          massa: massa.value,
+          altura: altura.value,
+          nascimento: nascimento.value,
+          sexo: sexo.value,
+          pescoco: pescoco.value,
+          ombro: ombro.value,
+          torax: torax.value,
+          toraxRelaxado: toraxRelaxado.value,
+          toraxContraido: toraxContraido.value,
+          cintura: cintura.value,
+          abdomem: abdomem.value,
+          quadril: quadril.value,
+          // lado direito
+          bracoDireitoRelaxado: bracoDireitoRelaxado.value,
+          bracoDireitoContraido: bracoDireitoContraido.value,
+          antebracoDireito: antebracoDireito.value,
+          coxaMedialDireita: coxaMedialDireita.value,
+          coxaDistalDireita: coxaDistalDireita.value,
+          pernaDireita: pernaDireita.value,
+          // lado esquerdo
+          bracoEsquerdoRelaxado: bracoEsquerdoRelaxado.value,
+          bracoEsquerdoContraido: bracoEsquerdoContraido.value,
+          antebracoEsquerdo: antebracoEsquerdo.value,
+          coxaMedialEsquerda: coxaMedialEsquerda.value,
+          coxaDistalEsquerda: coxaDistalEsquerda.value,
+          pernaEsquerda: pernaEsquerda.value,
+          // Dobras Cutâneas
+          dtorax: dtorax.value,
+          tricipital: tricipital.value,
+          subEscapular: subEscapular.value,
+          axilarMedia: axilarMedia.value,
+          abdominal: abdominal.value,
+          supraEspinhal: supraEspinhal.value,
+          coxa: coxa.value,
+          perna: perna.value,
+          // BioImpedância
+          bmi: bmi.value,
+          fat: fat.value,
+          muscle: muscle.value,
+          rm: rm.value,
+          bodyAge: bodyAge.value,
+          visceralFat: visceralFat.value,
+          // Diâmetros ósseos
+          umero: umero.value,
+          punho: punho.value,
+          femur: femur.value,
+          tornozelo: tornozelo.value,
+          // Testes
+          flexaoBraco: flexaoBraco.value,
+          flexaoAbdominal: flexaoAbdominal.value,
+          // Postura
+          retroversaoQuadril: retroversaoQuadril.value,
+          anteroversaoOmbros: anteroversaoOmbros.value,
+          joelhosRecurvados: joelhosRecurvados.value,
+ 
+  }
             }),
         });
         if (response.ok) {
@@ -301,11 +404,43 @@ async function submitAvaliacao() {
                         <div class="inputs">
 
                             <div>
-
                                 <span>Dia da Avaliação</span>
-                                <input type="date" id="name" v-model="items.name" autofocus  required
-                                    autocomplete="nome">
+                                <input type="date" id="name" v-model="date" autofocus  required
+                                    autocomplete="data">
+                            </div>
+                            <div>
+                                <span>Idade</span>
+                                <input type="text" id="idade" v-model="idade" autofocus  required
+                                    autocomplete="idade">
+                            </div>
+                            <div>
+                                <span>Massa</span>
+                                <input type="text" id="massa" v-model="massa" autofocus  required
+                                    autocomplete="massa">
+                            </div>
+                            <div>
+                                <span>Altura</span>
+                                <input type="text" id="altura" v-model="altura" autofocus  required
+                                    autocomplete="altura">
+                            </div>
+                            <div>
+                                <span>Nascimento</span>
+                                <input type="date" id="nascimento" v-model="nascimento" autofocus  required
+                                    autocomplete="nascimento">
+                            </div>
+                            <div>
+                                <span>Gênero</span>
+                                <input type="text" id="sexo" v-model="sexo" autofocus  required
+                                    autocomplete="sexo">
+                            </div>
 
+                        </div>
+                        <br>
+                        <div class="inputs">
+                            <div>
+                                <span>Pescoço</span>
+                                <input type="text" id="sexo" v-model="sexo" autofocus  required
+                                    autocomplete="sexo">
                             </div>
 
                         </div>

@@ -3,7 +3,13 @@ import { computed } from 'vue'
 // import './cal'
 const route = useRoute()
 const layout = "duo"
-const data = await useFetch(`/api/${route.params.id}/avaliacao/atual`)
+const data = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
+
+console.log(data.data.value.avaliacoes)
+const aval = data.data.value.avaliacoes
+
+
+
 const dataConf = await useFetch(`/api/${route.params.id}`)
 const notify = await useFetch(`/api/notifications`)
 
@@ -91,87 +97,77 @@ function menu() {
 
     <NuxtLayout>
 
-      <div v-if="data.data.value?.data">
+      <div v-if="data.data.value?.avaliacoes">
         
         <div class="main-div-two">
-          <h3>
+            <h3>
             <Icon name='solar:clipboard-heart-bold' /> AVALIAÇÕES
-          </h3>
-          <nuxt-link class="main-square" :to="`/user/${route.params.id}/avaliacao/atual`">
+            </h3>
+        </div>
+        
+        <div class="main-div-two" v-for='(aval, index) in aval' :key='index'>
             
-            
-            
-            <div>
-              <h4>
-                <Icon name='material-symbols:event' />
-              </h4>
-              <h4>
-                {{ data.data.value?.data }}
-              </h4>
-            </div>
-            
-            <div>
-              <h3>
-              </h3>
-              <h4>
-                                    <Icon name="fa6-solid:weight-scale" />
-                                  </h4>
-                                  <h4>
-                                    {{ data.data.value?.massa }} kg
-                                  </h4>
-                                  
-                                </div>
-                                <div>
-                                  <h3>
-                                </h3>
-                                
-                                <h4 style="font-weight: 900;color: #34d399; zoom: 1.6; margin-bottom: -5px;">
-                                  %G
-                                </h4>
-                                <!--
-                                  // antigo ícone!
-                                  <h4>
-                            <Icon name="material-symbols:body-fat-rounded" />
-                          </h4>
-                        -->
-                                <h4>
-                                    {{ percentualFat }} %
-                                  </h4>
-
-                            </div>
-                        </nuxt-link>
-                      </div>
+            <nuxt-link class="main-square" :to="`/users/${route.params.id}/avaliacao/${aval.name}`">
+                <div>
+                <h4>
+                    <Icon name='material-symbols:event' />
+                </h4>
+                <h4>
+                    {{ aval.name }}
+                </h4>
                 </div>
+                
+                <div>
+                    <h4>
+                        <Icon name="fa6-solid:weight-scale" />
+                    </h4>
+                    <h4>
+                    {{ aval.weight }} kg
+                    </h4>                                  
+                </div>
+                <div>
+                                    
+                    <h4 style="font-weight: 900;color: #34d399; zoom: 1.6; margin-bottom: -5px;">
+                        %G
+                    </h4>
+                    <h4>
+                        {{ percentualFat }} %
+                    </h4>
+    
+                </div>
+            </nuxt-link>
+    </div>
+    </div>
 
-                <div v-else>
-                    <div class="main-div-tree">
-                      <h3>
-                            <Icon name='solar:clipboard-heart-bold' /> AVALIAÇÕES
-                          </h3>
-                          
-                          <a href="https://cal.com/leandrocesar/personal" target="_blank" class="main-square">
-                            
-                            
-                            
-                            <div>
-                              <h4>
-                                <Icon name='material-symbols:event' />
-                              </h4>
-                              <h4>
-                                Clique aqui e agende sua Avaliação!!
-                              </h4>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
-                      <br>
-                      <!-- <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline"></div> -->
-                <br>
-                <br>
+    <div v-else>
+        <div class="main-div-tree">
+            <h3>
+                <Icon name='solar:clipboard-heart-bold' /> AVALIAÇÕES
+                </h3>
+                
+                <a href="https://cal.com/leandrocesar/personal" target="_blank" class="main-square">
                 
                 
                 
-                
+                <div>
+                    <h4>
+                    <Icon name='material-symbols:event' />
+                    </h4>
+                    <h4>
+                    Clique aqui e agende sua Avaliação!!
+                    </h4>
+                </div>
+                </a>
+            </div>
+            </div>
+            <br>
+            <!-- <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline"></div> -->
+    <br>
+    <br>
+    
+    
+    
+    
               </NuxtLayout>
               </template>
 <style scoped>

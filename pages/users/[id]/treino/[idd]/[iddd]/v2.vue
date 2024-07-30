@@ -543,6 +543,7 @@ th, td {
   text-align: left;
 }
 
+
 .col {
     font-size: .8rem;
 }
