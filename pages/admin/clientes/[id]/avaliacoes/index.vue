@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 const config = useRuntimeConfig()
 // import './cal'
 const route = useRoute()
@@ -67,6 +67,7 @@ const tornozelo = ref('');
 const flexaoBraco = ref('');
 const flexaoAbdominal = ref('');
 // Postura
+const posturaObs = ref('');
 const retroversaoQuadril = ref('');
 const anteroversaoOmbros = ref('');
 const joelhosRecurvados = ref('');
@@ -157,7 +158,24 @@ useHead({
     titleTemplate: `Treinos - ${dataConf.data.value?.name} ${dataConf.data.value?.lastName} | Clientes | NEX_WOD`,
 })
 
+const dataNascimento = ref('');
+const idad = computed(() => {
+  if (dataNascimento.value) {
+    return calcularIdade(dataNascimento.value);
+  }
+  return '';
+});
 
+function calcularIdade(dataNascimento) {
+  const hoje = new Date();
+  const nascimento = new Date(dataNascimento);
+  let idad = hoje.getFullYear() - nascimento.getFullYear();
+  const mes = hoje.getMonth() - nascimento.getMonth();
+  if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+    idad--;
+  }
+  return idad;
+}
 
 async function submitAvaliacao() {
   try {
@@ -221,10 +239,11 @@ async function submitAvaliacao() {
           flexaoBraco: flexaoBraco.value,
           flexaoAbdominal: flexaoAbdominal.value,
           // Postura
+          posturaObs: posturaObs.value,
           retroversaoQuadril: retroversaoQuadril.value,
           anteroversaoOmbros: anteroversaoOmbros.value,
           joelhosRecurvados: joelhosRecurvados.value,
- 
+
   }
             }),
         });
@@ -401,6 +420,9 @@ async function submitAvaliacao() {
                 <div class="new-form-squared">
                     <form @submit.prevent="submitAvaliacao">
                         <!-- Nome e sobrenome -->
+                        <h3>
+                            Dados pessoais
+                        </h3>
                         <div class="inputs">
 
                             <div>
@@ -409,9 +431,14 @@ async function submitAvaliacao() {
                                     autocomplete="data">
                             </div>
                             <div>
+                                <span>Nascimento</span>
+                                <input v-model="dataNascimento" type="date" placeholder="Data de Nascimento">
+
+                            </div>
+                            <div>
                                 <span>Idade</span>
-                                <input type="text" id="idade" v-model="idade" autofocus  required
-                                    autocomplete="idade">
+                                <input type="text" id="idade" :value.v-model="idad" autofocus  required
+                                    autocomplete="idade" disabled>
                             </div>
                             <div>
                                 <span>Massa</span>
@@ -424,23 +451,285 @@ async function submitAvaliacao() {
                                     autocomplete="altura">
                             </div>
                             <div>
-                                <span>Nascimento</span>
-                                <input type="date" id="nascimento" v-model="nascimento" autofocus  required
-                                    autocomplete="nascimento">
-                            </div>
-                            <div>
                                 <span>Gênero</span>
-                                <input type="text" id="sexo" v-model="sexo" autofocus  required
-                                    autocomplete="sexo">
+                                    <select
+                                        name="sexo"
+                                        id="sexo"
+                                        class="select"
+                                        placeholder=""
+                                        required
+                                        v-model="sexo"
+                                    >
+                                        <option disabled value="">
+                                            Selecione uma opção
+                                        </option>
+                                        <option value="feminino">Feminino</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
                             </div>
 
                         </div>
                         <br>
+                        <h3>
+                            Circunferência
+                        </h3>
                         <div class="inputs">
                             <div>
                                 <span>Pescoço</span>
-                                <input type="text" id="sexo" v-model="sexo" autofocus  required
-                                    autocomplete="sexo">
+                                <input type="text" id="pescoco" v-model="pescoco" autofocus  required
+                                    autocomplete="pescoco">
+                            </div>
+                            <div>
+                                <span>Ombro</span>
+                                <input type="text" id="ombro" v-model="ombro" autofocus  required
+                                    autocomplete="ombro">
+                            </div>
+                            <div>
+                                <span>Tórax</span>
+                                <input type="text" id="torax" v-model="torax" autofocus  required
+                                    autocomplete="torax">
+                            </div>
+                            <div>
+                                <span>Tórax relaxado</span>
+                                <input type="text" id="toraxRelaxado" v-model="toraxRelaxado" autofocus  required
+                                    autocomplete="toraxRelaxado">
+                            </div>
+                            <div>
+                                <span>Tórax contraído</span>
+                                <input type="text" id="toraxContraido" v-model="toraxContraido" autofocus  required
+                                    autocomplete="toraxContraido">
+                            </div>
+                            <div>
+                                <span>Cintura</span>
+                                <input type="text" id="cintura" v-model="cintura" autofocus  required
+                                    autocomplete="cintura">
+                            </div>
+                            <div>
+                                <span>Abdômen</span>
+                                <input type="text" id="abdomem" v-model="abdomem" autofocus  required
+                                    autocomplete="abdomem">
+                            </div>
+                            <div>
+                                <span>Quadril</span>
+                                <input type="text" id="quadril" v-model="quadril" autofocus  required
+                                    autocomplete="quadril">
+                            </div>
+
+                        </div>
+                        <br>
+                        <h4>
+                            Lado Direito
+                        </h4>
+                        <div class="inputs">
+                            <div>
+                                <span>Braço Direito Relaxado</span>
+                                <input type="text" id="bracoDireitoRelaxado" v-model="bracoDireitoRelaxado" autofocus  required
+                                    autocomPescoçoPescoçoplete="bracoDireitoRelaxado">
+                            </div>
+                            <div>
+                                <span>Braço Direito Contraído</span>
+                                <input type="text" id="bracoDireitoContraido" v-model="bracoDireitoContraido" autofocus  required
+                                    autocomplete="bracoDireitoContraido">
+                            </div>
+                            <div>
+                                <span>Antebraço Direito</span>
+                                <input type="text" id="antebracoDireito" v-model="antebracoDireito" autofocus  required
+                                    autocomplete="antebracoDireito">
+                            </div>
+                            <div>
+                                <span>Coxa Medial Direita</span>
+                                <input type="text" id="coxaMedialDireita" v-model="coxaMedialDireita" autofocus  required
+                                    autocomplete="coxaMedialDireita">
+                            </div>
+                            <div>
+                                <span>Coxa Distal Direita</span>
+                                <input type="text" id="coxaDistalDireita" v-model="coxaDistalDireita" autofocus  required
+                                    autocomplete="coxaDistalDireita">
+                            </div>
+                            <div>
+                                <span>Perna Direita</span>
+                                <input type="text" id="pernaDireita" v-model="pernaDireita" autofocus  required
+                                    autocomplete="pernaDireita">
+                            </div>
+
+                        </div>
+                        <br>
+                        <h4>
+                            Lado Esquerdo
+                        </h4>
+                        <div class="inputs">
+                            <div>
+                                <span>Braço Esquerdo Relaxado</span>
+                                <input type="text" id="bracoEsquerdoRelaxado" v-model="bracoEsquerdoRelaxado" autofocus  required
+                                autocomPescoçoPescoçoplete="bracoEsquerdoRelaxado">
+                            </div>
+                            <div>
+                                <span>Braço Esquerdo Contraído</span>
+                                <input type="text" id="bracoEsquerdoContraido" v-model="bracoEsquerdoContraido" autofocus  required
+                                autocomplete="bracoEsquerdoContraido">
+                            </div>
+                            <div>
+                                <span>Antebraço Esquerdo</span>
+                                <input type="text" id="antebracoEsquerdo" v-model="antebracoEsquerdo" autofocus  required
+                                autocomplete="antebracoEsquerdo">
+                            </div>
+                            <div>
+                                <span>Coxa Medial Esquerda</span>
+                                <input type="text" id="coxaMedialEsquerda" v-model="coxaMedialEsquerda" autofocus  required
+                                autocomplete="coxaMedialEsquerda">
+                            </div>
+                            <div>
+                                <span>Coxa Distal Esquerda</span>
+                                <input type="text" id="coxaDistalEsquerda" v-model="coxaDistalEsquerda" autofocus  required
+                                autocomplete="coxaDistalEsquerda">
+                            </div>
+                            <div>
+                                <span>Perna Esquerda</span>
+                                <input type="text" id="pernaEsquerda" v-model="pernaEsquerda" autofocus  required
+                                autocomplete="pernaEsquerda">
+                            </div>
+
+                        </div>
+                        <br>
+                        <h3>
+                            Dobras Cutâneas
+                        </h3>
+                        <div class="inputs">
+                            <div>
+                                <span>Tórax</span>
+                                <input type="text" id="dtorax" v-model="dtorax" autofocus  required
+                                    autocomplete="dtorax">
+                            </div>
+                            <div>
+                                <span>Tríceps</span>
+                                <input type="text" id="tricipital" v-model="tricipital" autofocus  required
+                                    autocomplete="tricipital">
+                            </div>
+                            <div>
+                                <span>Sub-Escapular</span>
+                                <input type="text" id="subEscapular" v-model="subEscapular" autofocus  required
+                                    autocomplete="subEscapular">
+                            </div>
+                            <div>
+                                <span>Axilar média</span>
+                                <input type="text" id="axilarMedia" v-model="axilarMedia" autofocus  required
+                                    autocomplete="axilarMedia">
+                            </div>
+                            <div>
+                                <span>Abdômen</span>
+                                <input type="text" id="abdominal" v-model="abdominal" autofocus  required
+                                    autocomplete="abdominal">
+                            </div>
+                            <div>
+                                <span>Supra-Espinhal</span>
+                                <input type="text" id="supraEspinhal" v-model="supraEspinhal" autofocus  required
+                                    autocomplete="supraEspinhal">
+                            </div>
+                            <div>
+                                <span>Coxa</span>
+                                <input type="text" id="coxa" v-model="coxa" autofocus  required
+                                    autocomplete="coxa">
+                            </div>
+                            <div>
+                                <span>Perna</span>
+                                <input type="text" id="perna" v-model="perna" autofocus  required
+                                    autocomplete="perna">
+                            </div>
+
+                        </div>
+                        <br>
+                        <h3>
+                            Diâmetro Ósseo
+                        </h3>
+                        <div class="inputs">
+                            <div>
+                                <span>Umero</span>
+                                <input type="text" id="umero" v-model="umero" autofocus  required
+                                    autocomplete="umero">
+                            </div>
+                            <div>
+                                <span>Punho</span>
+                                <input type="text" id="punho" v-model="punho" autofocus  required
+                                    autocomplete="punho">
+                            </div>
+                            <div>
+                                <span>Fêmur</span>
+                                <input type="text" id="femur" v-model="femur" autofocus  required
+                                    autocomplete="femur">
+                            </div>
+                            <div>
+                                <span>Tornozelo</span>
+                                <input type="text" id="tornozelo" v-model="tornozelo" autofocus  required
+                                    autocomplete="tornozelo">
+                            </div>
+
+                        </div>
+                        <br>
+                        <h3>
+                            Bio-Impedância
+                        </h3>
+                        <div class="inputs">
+                            <div>
+                                <span>BMI</span>
+                                <input type="text" id="bmi" v-model="bmi" autofocus  required
+                                    autocomplete="bmi">
+                            </div>
+                            <div>
+                                <span>FAT</span>
+                                <input type="text" id="fat" v-model="fat" autofocus  required
+                                    autocomplete="fat">
+                            </div>
+                            <div>
+                                <span>MUSCLE</span>
+                                <input type="text" id="muscle" v-model="muscle" autofocus  required
+                                    autocomplete="muscle">
+                            </div>
+                            <div>
+                                <span>Basal Metabolism</span>
+                                <input type="text" id="rm" v-model="rm" autofocus  required
+                                    autocomplete="rm">
+                            </div>
+                            <div>
+                                <span>Body Age</span>
+                                <input type="text" id="bodyAge" v-model="bodyAge" autofocus  required
+                                    autocomplete="bodyAge">
+                            </div>
+                            <div>
+                                <span>Visceral Fat</span>
+                                <input type="text" id="visceralFat" v-model="visceralFat" autofocus  required
+                                    autocomplete="visceralFat">
+                            </div>
+
+                        </div>
+                        <br>
+                        <h3>
+                            Testes Físicos
+                        </h3>
+                        <div class="inputs">
+            
+                            <div>
+                                <span>Flexão de braço</span>
+                                <input type="text" id="flexaoBraco" v-model="flexaoBraco" autofocus  required
+                                    autocomplete="flexaoBraco">
+                            </div>
+                            <div>
+                                <span>Abdominal</span>
+                                <input type="text" id="flexaoAbdominal" v-model="flexaoAbdominal" autofocus  required
+                                    autocomplete="flexaoAbdominal">
+                            </div>
+
+                        </div>
+                        <br>
+                        <h3>
+                            Postura
+                        </h3>
+                        <div class="inputs">
+            
+                            <div>
+                                <span>Observaçoes</span>
+                                <textarea type="text" id="posturaObs" v-model="posturaObs" autofocus  required></textarea>
+                                
                             </div>
 
                         </div>
@@ -511,6 +800,73 @@ input {
     height: 30px;
     font-size: 14px;
 }
+.select {
+    transition: all .4s linear;
+    border: 0;
+    color: inherit;
+    background-color: transparent;
+    border-bottom: solid 2px #00DC82;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 160px;
+    text-align: left;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+}
+
+.select:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+.select:focus-visible {
+    background-color: #00DC8210;
+}
+
+.select:active {
+    background-color: #00DC8210;
+}
+
+.select:hover {
+    background-color: #00DC8210;
+}
+textarea {
+    transition: all .4s linear;
+    border: 0;
+    color: inherit;
+    background-color: transparent;
+    border-bottom: solid 2px #00DC82;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 800px;
+    text-align: left;
+    transition: all 0.2s ease-in-out 0s;
+    height: 30px;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+textarea:focus {
+    border: 0 none;
+    border-bottom: solid 2px #00DC82;
+    outline: 0;
+}
+
+textarea:focus-visible {
+    background-color: #00DC8210;
+}
+
+textarea:active {
+    background-color: #00DC8210;
+}
+
+textarea:hover {
+    background-color: #00DC8210;
+}
+
+
 
 .inputs #username {
     width: 190px
@@ -535,13 +891,13 @@ input:focus-visible {
 input:active {
     border-color: #00DC8280;
 }
-
+/* 
 input:hover {
-    background-color: #00DC8210;
-}
+} */
 
 
 input:focus {
+    background-color: #00DC8210;
     border: 0 none;
     border-bottom: solid 2px #00DC82;
     outline: 0;
@@ -549,7 +905,7 @@ input:focus {
 
 .inputs {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
@@ -557,6 +913,22 @@ input:focus {
     font-size: 14px;
 }
 
+.inputs-lign {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: .5rem
+}
+.inputs-lign div {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: .5rem
+}
 .inputs div {
     display: flex;
     justify-content: center;
@@ -619,7 +991,9 @@ input:focus {
     .nav-users .reward {
         display: inherit;
     }
-
+    #posturaObs {
+        width: 340px;
+    }
 
 }
 
@@ -1038,6 +1412,13 @@ input:focus {
     flex-direction: row;
     align-items: flex-start;
     flex-wrap: wrap;
+}
+
+.new-form h3{
+    margin:0 5% 10px 5%;
+}
+.new-form h4{
+    margin:0 5% 10px 5%;
 }
 
 
@@ -1476,6 +1857,10 @@ input:focus {
         flex-direction: row-reverse;
         align-items: center;
         flex-wrap: wrap;
+    }
+    
+    #posturaObs {
+        width: 340px;
     }
 
     .logo {
