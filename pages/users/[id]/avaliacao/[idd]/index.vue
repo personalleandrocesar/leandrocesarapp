@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 
 const route = useRoute()
 const layout = "duo"
-const data = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/avaliacoes/${route.params.idd}`)
+const data = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/avaliacoes`)
 const dataAPI = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
 
 

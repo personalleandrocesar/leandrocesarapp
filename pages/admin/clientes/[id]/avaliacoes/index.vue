@@ -13,7 +13,6 @@ const Treinos = await useFetch(`https://api.leandrocesar.com/users/${route.param
 const item = Users.data.value;
 
 
-
 const date = ref('');
 const idade = ref('');
 const massa = ref('');
@@ -174,7 +173,7 @@ function calcularIdade(dataNascimento) {
   if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
     idad--;
   }
-  return idad;
+  return idad.toString();
 }
 
 async function submitAvaliacao() {
@@ -187,10 +186,10 @@ async function submitAvaliacao() {
       body: JSON.stringify({
         avaliacao: {
           date: date.value,
-          idade: idade.value,
+          idade: idad.value,
           massa: massa.value,
           altura: altura.value,
-          nascimento: nascimento.value,
+          nascimento: dataNascimento.value,
           sexo: sexo.value,
           pescoco: pescoco.value,
           ombro: ombro.value,
@@ -427,7 +426,7 @@ async function submitAvaliacao() {
 
                             <div>
                                 <span>Dia da Avaliação</span>
-                                <input type="date" id="name" v-model="date" autofocus  required
+                                <input type="date" id="name" v-model="date" autofocus required
                                     autocomplete="data">
                             </div>
                             <div>
@@ -437,17 +436,17 @@ async function submitAvaliacao() {
                             </div>
                             <div>
                                 <span>Idade</span>
-                                <input type="text" id="idade" :value.v-model="idad" autofocus  required
+                                <input type="text" id="idade" :value.v-model="idad" autofocus
                                     autocomplete="idade" disabled>
                             </div>
                             <div>
                                 <span>Massa</span>
-                                <input type="text" id="massa" v-model="massa" autofocus  required
+                                <input type="text" id="massa" v-model="massa" autofocus
                                     autocomplete="massa">
                             </div>
                             <div>
                                 <span>Altura</span>
-                                <input type="text" id="altura" v-model="altura" autofocus  required
+                                <input type="text" id="altura" v-model="altura" autofocus
                                     autocomplete="altura">
                             </div>
                             <div>
@@ -457,7 +456,7 @@ async function submitAvaliacao() {
                                         id="sexo"
                                         class="select"
                                         placeholder=""
-                                        required
+                                
                                         v-model="sexo"
                                     >
                                         <option disabled value="">
@@ -477,42 +476,42 @@ async function submitAvaliacao() {
                         <div class="inputs">
                             <div>
                                 <span>Pescoço</span>
-                                <input type="text" id="pescoco" v-model="pescoco" autofocus  required
+                                <input type="text" id="pescoco" v-model="pescoco" autofocus
                                     autocomplete="pescoco">
                             </div>
                             <div>
                                 <span>Ombro</span>
-                                <input type="text" id="ombro" v-model="ombro" autofocus  required
+                                <input type="text" id="ombro" v-model="ombro" autofocus
                                     autocomplete="ombro">
                             </div>
                             <div>
                                 <span>Tórax</span>
-                                <input type="text" id="torax" v-model="torax" autofocus  required
+                                <input type="text" id="torax" v-model="torax" autofocus
                                     autocomplete="torax">
                             </div>
                             <div>
                                 <span>Tórax relaxado</span>
-                                <input type="text" id="toraxRelaxado" v-model="toraxRelaxado" autofocus  required
+                                <input type="text" id="toraxRelaxado" v-model="toraxRelaxado" autofocus
                                     autocomplete="toraxRelaxado">
                             </div>
                             <div>
                                 <span>Tórax contraído</span>
-                                <input type="text" id="toraxContraido" v-model="toraxContraido" autofocus  required
+                                <input type="text" id="toraxContraido" v-model="toraxContraido" autofocus
                                     autocomplete="toraxContraido">
                             </div>
                             <div>
                                 <span>Cintura</span>
-                                <input type="text" id="cintura" v-model="cintura" autofocus  required
+                                <input type="text" id="cintura" v-model="cintura" autofocus
                                     autocomplete="cintura">
                             </div>
                             <div>
                                 <span>Abdômen</span>
-                                <input type="text" id="abdomem" v-model="abdomem" autofocus  required
+                                <input type="text" id="abdomem" v-model="abdomem" autofocus
                                     autocomplete="abdomem">
                             </div>
                             <div>
                                 <span>Quadril</span>
-                                <input type="text" id="quadril" v-model="quadril" autofocus  required
+                                <input type="text" id="quadril" v-model="quadril" autofocus
                                     autocomplete="quadril">
                             </div>
 
@@ -524,32 +523,32 @@ async function submitAvaliacao() {
                         <div class="inputs">
                             <div>
                                 <span>Braço Direito Relaxado</span>
-                                <input type="text" id="bracoDireitoRelaxado" v-model="bracoDireitoRelaxado" autofocus  required
+                                <input type="text" id="bracoDireitoRelaxado" v-model="bracoDireitoRelaxado" autofocus
                                     autocomPescoçoPescoçoplete="bracoDireitoRelaxado">
                             </div>
                             <div>
                                 <span>Braço Direito Contraído</span>
-                                <input type="text" id="bracoDireitoContraido" v-model="bracoDireitoContraido" autofocus  required
+                                <input type="text" id="bracoDireitoContraido" v-model="bracoDireitoContraido" autofocus
                                     autocomplete="bracoDireitoContraido">
                             </div>
                             <div>
                                 <span>Antebraço Direito</span>
-                                <input type="text" id="antebracoDireito" v-model="antebracoDireito" autofocus  required
+                                <input type="text" id="antebracoDireito" v-model="antebracoDireito" autofocus
                                     autocomplete="antebracoDireito">
                             </div>
                             <div>
                                 <span>Coxa Medial Direita</span>
-                                <input type="text" id="coxaMedialDireita" v-model="coxaMedialDireita" autofocus  required
+                                <input type="text" id="coxaMedialDireita" v-model="coxaMedialDireita" autofocus
                                     autocomplete="coxaMedialDireita">
                             </div>
                             <div>
                                 <span>Coxa Distal Direita</span>
-                                <input type="text" id="coxaDistalDireita" v-model="coxaDistalDireita" autofocus  required
+                                <input type="text" id="coxaDistalDireita" v-model="coxaDistalDireita" autofocus
                                     autocomplete="coxaDistalDireita">
                             </div>
                             <div>
                                 <span>Perna Direita</span>
-                                <input type="text" id="pernaDireita" v-model="pernaDireita" autofocus  required
+                                <input type="text" id="pernaDireita" v-model="pernaDireita" autofocus
                                     autocomplete="pernaDireita">
                             </div>
 
@@ -561,32 +560,32 @@ async function submitAvaliacao() {
                         <div class="inputs">
                             <div>
                                 <span>Braço Esquerdo Relaxado</span>
-                                <input type="text" id="bracoEsquerdoRelaxado" v-model="bracoEsquerdoRelaxado" autofocus  required
+                                <input type="text" id="bracoEsquerdoRelaxado" v-model="bracoEsquerdoRelaxado" autofocus
                                 autocomPescoçoPescoçoplete="bracoEsquerdoRelaxado">
                             </div>
                             <div>
                                 <span>Braço Esquerdo Contraído</span>
-                                <input type="text" id="bracoEsquerdoContraido" v-model="bracoEsquerdoContraido" autofocus  required
+                                <input type="text" id="bracoEsquerdoContraido" v-model="bracoEsquerdoContraido" autofocus
                                 autocomplete="bracoEsquerdoContraido">
                             </div>
                             <div>
                                 <span>Antebraço Esquerdo</span>
-                                <input type="text" id="antebracoEsquerdo" v-model="antebracoEsquerdo" autofocus  required
+                                <input type="text" id="antebracoEsquerdo" v-model="antebracoEsquerdo" autofocus
                                 autocomplete="antebracoEsquerdo">
                             </div>
                             <div>
                                 <span>Coxa Medial Esquerda</span>
-                                <input type="text" id="coxaMedialEsquerda" v-model="coxaMedialEsquerda" autofocus  required
+                                <input type="text" id="coxaMedialEsquerda" v-model="coxaMedialEsquerda" autofocus
                                 autocomplete="coxaMedialEsquerda">
                             </div>
                             <div>
                                 <span>Coxa Distal Esquerda</span>
-                                <input type="text" id="coxaDistalEsquerda" v-model="coxaDistalEsquerda" autofocus  required
+                                <input type="text" id="coxaDistalEsquerda" v-model="coxaDistalEsquerda" autofocus
                                 autocomplete="coxaDistalEsquerda">
                             </div>
                             <div>
                                 <span>Perna Esquerda</span>
-                                <input type="text" id="pernaEsquerda" v-model="pernaEsquerda" autofocus  required
+                                <input type="text" id="pernaEsquerda" v-model="pernaEsquerda" autofocus
                                 autocomplete="pernaEsquerda">
                             </div>
 
@@ -598,42 +597,42 @@ async function submitAvaliacao() {
                         <div class="inputs">
                             <div>
                                 <span>Tórax</span>
-                                <input type="text" id="dtorax" v-model="dtorax" autofocus  required
+                                <input type="text" id="dtorax" v-model="dtorax" autofocus
                                     autocomplete="dtorax">
                             </div>
                             <div>
                                 <span>Tríceps</span>
-                                <input type="text" id="tricipital" v-model="tricipital" autofocus  required
+                                <input type="text" id="tricipital" v-model="tricipital" autofocus
                                     autocomplete="tricipital">
                             </div>
                             <div>
                                 <span>Sub-Escapular</span>
-                                <input type="text" id="subEscapular" v-model="subEscapular" autofocus  required
+                                <input type="text" id="subEscapular" v-model="subEscapular" autofocus
                                     autocomplete="subEscapular">
                             </div>
                             <div>
                                 <span>Axilar média</span>
-                                <input type="text" id="axilarMedia" v-model="axilarMedia" autofocus  required
+                                <input type="text" id="axilarMedia" v-model="axilarMedia" autofocus
                                     autocomplete="axilarMedia">
                             </div>
                             <div>
                                 <span>Abdômen</span>
-                                <input type="text" id="abdominal" v-model="abdominal" autofocus  required
+                                <input type="text" id="abdominal" v-model="abdominal" autofocus
                                     autocomplete="abdominal">
                             </div>
                             <div>
                                 <span>Supra-Espinhal</span>
-                                <input type="text" id="supraEspinhal" v-model="supraEspinhal" autofocus  required
+                                <input type="text" id="supraEspinhal" v-model="supraEspinhal" autofocus
                                     autocomplete="supraEspinhal">
                             </div>
                             <div>
                                 <span>Coxa</span>
-                                <input type="text" id="coxa" v-model="coxa" autofocus  required
+                                <input type="text" id="coxa" v-model="coxa" autofocus
                                     autocomplete="coxa">
                             </div>
                             <div>
                                 <span>Perna</span>
-                                <input type="text" id="perna" v-model="perna" autofocus  required
+                                <input type="text" id="perna" v-model="perna" autofocus
                                     autocomplete="perna">
                             </div>
 
@@ -645,22 +644,22 @@ async function submitAvaliacao() {
                         <div class="inputs">
                             <div>
                                 <span>Umero</span>
-                                <input type="text" id="umero" v-model="umero" autofocus  required
+                                <input type="text" id="umero" v-model="umero" autofocus
                                     autocomplete="umero">
                             </div>
                             <div>
                                 <span>Punho</span>
-                                <input type="text" id="punho" v-model="punho" autofocus  required
+                                <input type="text" id="punho" v-model="punho" autofocus
                                     autocomplete="punho">
                             </div>
                             <div>
                                 <span>Fêmur</span>
-                                <input type="text" id="femur" v-model="femur" autofocus  required
+                                <input type="text" id="femur" v-model="femur" autofocus
                                     autocomplete="femur">
                             </div>
                             <div>
                                 <span>Tornozelo</span>
-                                <input type="text" id="tornozelo" v-model="tornozelo" autofocus  required
+                                <input type="text" id="tornozelo" v-model="tornozelo" autofocus
                                     autocomplete="tornozelo">
                             </div>
 
@@ -672,32 +671,32 @@ async function submitAvaliacao() {
                         <div class="inputs">
                             <div>
                                 <span>BMI</span>
-                                <input type="text" id="bmi" v-model="bmi" autofocus  required
+                                <input type="text" id="bmi" v-model="bmi" autofocus
                                     autocomplete="bmi">
                             </div>
                             <div>
                                 <span>FAT</span>
-                                <input type="text" id="fat" v-model="fat" autofocus  required
+                                <input type="text" id="fat" v-model="fat" autofocus
                                     autocomplete="fat">
                             </div>
                             <div>
                                 <span>MUSCLE</span>
-                                <input type="text" id="muscle" v-model="muscle" autofocus  required
+                                <input type="text" id="muscle" v-model="muscle" autofocus
                                     autocomplete="muscle">
                             </div>
                             <div>
                                 <span>Basal Metabolism</span>
-                                <input type="text" id="rm" v-model="rm" autofocus  required
+                                <input type="text" id="rm" v-model="rm" autofocus
                                     autocomplete="rm">
                             </div>
                             <div>
                                 <span>Body Age</span>
-                                <input type="text" id="bodyAge" v-model="bodyAge" autofocus  required
+                                <input type="text" id="bodyAge" v-model="bodyAge" autofocus
                                     autocomplete="bodyAge">
                             </div>
                             <div>
                                 <span>Visceral Fat</span>
-                                <input type="text" id="visceralFat" v-model="visceralFat" autofocus  required
+                                <input type="text" id="visceralFat" v-model="visceralFat" autofocus
                                     autocomplete="visceralFat">
                             </div>
 
@@ -710,12 +709,12 @@ async function submitAvaliacao() {
             
                             <div>
                                 <span>Flexão de braço</span>
-                                <input type="text" id="flexaoBraco" v-model="flexaoBraco" autofocus  required
+                                <input type="text" id="flexaoBraco" v-model="flexaoBraco" autofocus
                                     autocomplete="flexaoBraco">
                             </div>
                             <div>
                                 <span>Abdominal</span>
-                                <input type="text" id="flexaoAbdominal" v-model="flexaoAbdominal" autofocus  required
+                                <input type="text" id="flexaoAbdominal" v-model="flexaoAbdominal" autofocus
                                     autocomplete="flexaoAbdominal">
                             </div>
 
@@ -728,7 +727,7 @@ async function submitAvaliacao() {
             
                             <div>
                                 <span>Observaçoes</span>
-                                <textarea type="text" id="posturaObs" v-model="posturaObs" autofocus  required></textarea>
+                                <textarea type="text" id="posturaObs" v-model="posturaObs" autofocus></textarea>
                                 
                             </div>
 

@@ -1,79 +1,80 @@
 <script setup>
-import { computed } from 'vue'
-// import './cal'
+import { computed, ref } from 'vue'
+
 const route = useRoute()
 const layout = "duo"
-const data = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
-
-console.log(data.data.value.avaliacoes)
-const aval = data.data.value.avaliacoes
+const { data: dataRes } = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/avaliacoes`)
+const aval = dataRes.value
 
 
+
+
+// Logar os índices e os valores
+aval.forEach((item, index) => {
+  console.log(`Index: ${index}, Value:`, item);
+  
+  const sexo = item.sexo
+    const idade = parseFloat(item.idade)
+    console.log(idade)
+  
+    // Convertendo strings para números
+    const dTorax = parseFloat(item.dtorax)
+    const abdominal = parseFloat(item.abdominal)
+    const coxa = parseFloat(item.coxa)
+    const triceps = parseFloat(item.tricipital)
+    const supraespinhal = parseFloat(item.supraEspinhal)
+
+  const homens = dTorax + abdominal + coxa
+  const mulheres = triceps + supraespinhal + coxa
+
+  const dcHomens = 1.109380 - (0.0008267 * (homens)) + (0.0000016 * (homens * homens)) - (0.0002574 * (idade))
+  const dcMulheres = 1.0994921 - (0.0009929 * (mulheres)) + (0.0000023 * (mulheres * mulheres)) - (0.0001392 * (idade))
+
+  const percGHomens = (((4.95 / dcHomens) - 4.50) * 100).toFixed(1)
+  const percGMulheres = (((4.95 / dcMulheres) - 4.50) * 100).toFixed(1)
+
+  const percentualFat = sexo === "feminino" ? percGMulheres : percGHomens
+
+  // Adicionando o percentual de gordura ao item
+  item.percentualFat = percentualFat
+
+  console.log(`Percentual de Gordura: ${item.percentualFat} %`);
+  
+  // Convertendo a data para o formato yyyy-mm-dd
+   const dateParts = item.date.split('-')  // Dividindo a data em partes
+   const reversedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`  // Reorganizando as partes
+   item.reversedDate = reversedDate  // Salvando a data invertida no item
+ 
+   console.log(`Data Original: ${item.date}, Data Invertida: ${item.reversedDate}`);
+   
+});
 
 const dataConf = await useFetch(`/api/${route.params.id}`)
 const notify = await useFetch(`/api/notifications`)
 
-const sexo = data.data.value?.sexo
-const idade = data.data.value?.idade
-const dTorax = data.data.value?.dtorax
-const abdominal = data.data.value?.abdominal
-const coxa = data.data.value?.coxa
-const triceps = data.data.value?.tricipital
-const supraespinhal = data.data.value?.supraEspinhal
-
-const homens = dTorax + abdominal + coxa
-const mulheres = triceps + supraespinhal + coxa
-
-const dcHomens = 1.109380 - (0.0008267 * (homens)) + (0.0000016 * (homens * homens)) - (0.0002574 * (idade))
-const dcMulheres = 1.0994921 - (0.0009929 * (mulheres)) + (0.0000023 * (mulheres * mulheres)) - (0.0001392 * (idade))
-
-const percGHomens = (((4.95 / dcHomens) - 4.50) * 100).toFixed(1)
-const percGMulheres = (((4.95 / dcMulheres) - 4.50) * 100).toFixed(1)
-
-const percentualFat = computed(() => {
-  if (sexo === "feminino") {
-    return percGMulheres
-  } return percGHomens
-})
-
-
 const reg = route.params.id
 const logon = useCookie('logon')
-// const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
-// logon.value = reg + route.params.id.length + (Math.round(Math.random() * 1000)) 
 console.log(logon.value);
 
 console.log(reg);
-
-// const { data, pending, error, refresh } = await useFetch(`https://professorleandrocesar.com/usuarios/`, {})
-
-const status = data.data.value?.status
 
 const navbarOpen = ref(false);
 function openNavbar() {
   navbarOpen.value = !navbarOpen.value;
 }
 
-const notification = notify.data.value?.status
-const notifyOpen = ref(false);
-function openNotify() {
-  notifyOpen.value = !notifyOpen.value;
-
-}
 const photoOpen = ref(false);
 function openPhoto() {
   photoOpen.value = !photoOpen.value;
 }
 
-// talvez não precise do código abaixo
 const logOff = () => {
   logon.value = null
 }
 
 const tag = useCookie('tag')
 tag.value = tag.value
-
 
 const plusYes = ref(false)
 const buttonPlus = ref(true)
@@ -82,22 +83,16 @@ function plusButton() {
     plusYes.value = !plusYes.value
 }
 
-
-
 const bodyOne = ref(true)
 function menu() {
   bodyOne.value = !bodyOne.value
-
 }
-
-
-
 </script>
 <template>
 
     <NuxtLayout>
 
-      <div v-if="data.data.value?.avaliacoes">
+      <div v-if="aval">
         
         <div class="main-div-two">
             <h3>
@@ -105,15 +100,15 @@ function menu() {
             </h3>
         </div>
         
-        <div class="main-div-two" v-for='(aval, index) in aval' :key='index'>
+        <div class="main-div-two" v-for='(item, index) in aval' :key='index'>
             
-            <nuxt-link class="main-square" :to="`/users/${route.params.id}/avaliacao/${aval.name}`">
+            <nuxt-link class="main-square" :to="`/users/${route.params.id}/avaliacao/${item.date}`">
                 <div>
                 <h4>
                     <Icon name='material-symbols:event' />
                 </h4>
                 <h4>
-                    {{ aval.name }}
+                    {{ item.reversedDate }}
                 </h4>
                 </div>
                 
@@ -122,7 +117,7 @@ function menu() {
                         <Icon name="fa6-solid:weight-scale" />
                     </h4>
                     <h4>
-                    {{ aval.weight }} kg
+                    {{ item.massa }} kg
                     </h4>                                  
                 </div>
                 <div>
@@ -131,7 +126,7 @@ function menu() {
                         %G
                     </h4>
                     <h4>
-                        {{ percentualFat }} %
+                        {{ item.percentualFat }} %
                     </h4>
     
                 </div>
@@ -170,6 +165,7 @@ function menu() {
     
               </NuxtLayout>
               </template>
+
 <style scoped>
 .head-logo {
   display: flex;
