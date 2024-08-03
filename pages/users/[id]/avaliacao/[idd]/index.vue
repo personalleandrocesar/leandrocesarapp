@@ -3,13 +3,13 @@ import { ref, computed } from 'vue'
 
 const route = useRoute()
 const layout = "duo"
-const data = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/avaliacoes`)
+const data = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}/avaliacoes/${route.params.idd}`)
 const dataAPI = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
 
 
 const divInfoIMC = ref(false)
-const peso = data.data.value?.massa.toFixed(2)
-const altura = data.data.value?.altura.toFixed(2)
+const peso = parseFloat(data.data.value?.massa).toFixed(2)
+const altura = parseFloat(data.data.value?.altura).toFixed(2)
 
 const calcIMC = computed(() => {
     return (peso / (altura * altura)).toFixed(1)
@@ -40,12 +40,12 @@ function infoIMC() {
 }
 
 const sexo = data.data.value?.sexo
-const idade = data.data.value?.idade
-const dTorax = data.data.value?.dtorax
-const abdominal = data.data.value?.abdominal
-const coxa = data.data.value?.coxa
-const triceps = data.data.value?.tricipital
-const supraespinhal = data.data.value?.supraEspinhal
+const idade = parseFloat(data.data.value?.idade)
+const dTorax = parseFloat(data.data.value?.dtorax)
+const abdominal = parseFloat(data.data.value?.abdominal)
+const coxa = parseFloat(data.data.value?.coxa)
+const triceps = parseFloat(data.data.value?.tricipital)
+const supraespinhal = parseFloat(data.data.value?.supraEspinhal)
 
 const homens = dTorax + abdominal + coxa
 const mulheres = triceps + supraespinhal + coxa
@@ -917,8 +917,6 @@ td {
 
 
 .squareRes {
-
-    color: var(--color-text);
     backdrop-filter: blur(5px);
     overflow-x: auto;
     display: flex;

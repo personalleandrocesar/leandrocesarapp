@@ -11,13 +11,11 @@ const aval = dataRes.value
 
 // Logar os índices e os valores
 aval.forEach((item, index) => {
-  console.log(`Index: ${index}, Value:`, item);
-  
-  const sexo = item.sexo
-    const idade = parseFloat(item.idade)
-    console.log(idade)
+  // console.log(`Index: ${index}, Value:`, item);
   
     // Convertendo strings para números
+    const sexo = item.sexo
+    const idade = parseFloat(item.idade)
     const dTorax = parseFloat(item.dtorax)
     const abdominal = parseFloat(item.abdominal)
     const coxa = parseFloat(item.coxa)
@@ -38,19 +36,16 @@ aval.forEach((item, index) => {
   // Adicionando o percentual de gordura ao item
   item.percentualFat = percentualFat
 
-  console.log(`Percentual de Gordura: ${item.percentualFat} %`);
+  // console.log(`Percentual de Gordura: ${item.percentualFat} %`);
   
   // Convertendo a data para o formato yyyy-mm-dd
    const dateParts = item.date.split('-')  // Dividindo a data em partes
    const reversedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`  // Reorganizando as partes
    item.reversedDate = reversedDate  // Salvando a data invertida no item
  
-   console.log(`Data Original: ${item.date}, Data Invertida: ${item.reversedDate}`);
+   // console.log(`Data Original: ${item.date}, Data Invertida: ${item.reversedDate}`);
    
 });
-
-const dataConf = await useFetch(`/api/${route.params.id}`)
-const notify = await useFetch(`/api/notifications`)
 
 const reg = route.params.id
 const logon = useCookie('logon')
