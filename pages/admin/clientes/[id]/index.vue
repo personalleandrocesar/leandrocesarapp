@@ -55,7 +55,7 @@ function openPhoto() {
     photoOpen.value = !photoOpen.value;
 }
 
-const start = dataConf.data.value?.periodStart
+const start = dataConf.data.value?.periodStart.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1')
 
 // talvez não precise do código abaixo
 const logOff = () => {
@@ -157,7 +157,7 @@ useHead({
             {{ dataConf.data.value?.service }} | Objetivo - {{ dataConf.data.value?.target }}
         </p>
             <p class="section-subtitle">Contrato atual: {{ start }} - {{
-                dataConf.data.value?.periodEnd }}</p>
+                dataConf.data.value?.periodEnd.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
             <p v-if="status === 1" class="section-option pending">
                 <Icon name="solar:danger-square-outline" /> Pendente!
             </p>

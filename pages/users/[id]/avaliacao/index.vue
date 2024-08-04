@@ -10,9 +10,10 @@ const aval = dataRes.value
 
 
 // Logar os índices e os valores
-aval.forEach((item, index) => {
-  // console.log(`Index: ${index}, Value:`, item);
-  
+if (aval) {
+  aval.forEach((item, index) => {
+    // console.log(`Index: ${index}, Value:`, item);
+
     // Convertendo strings para números
     const sexo = item.sexo
     const idade = parseFloat(item.idade)
@@ -22,30 +23,31 @@ aval.forEach((item, index) => {
     const triceps = parseFloat(item.tricipital)
     const supraespinhal = parseFloat(item.supraEspinhal)
 
-  const homens = dTorax + abdominal + coxa
-  const mulheres = triceps + supraespinhal + coxa
+    const homens = dTorax + abdominal + coxa
+    const mulheres = triceps + supraespinhal + coxa
 
-  const dcHomens = 1.109380 - (0.0008267 * (homens)) + (0.0000016 * (homens * homens)) - (0.0002574 * (idade))
-  const dcMulheres = 1.0994921 - (0.0009929 * (mulheres)) + (0.0000023 * (mulheres * mulheres)) - (0.0001392 * (idade))
+    const dcHomens = 1.109380 - (0.0008267 * (homens)) + (0.0000016 * (homens * homens)) - (0.0002574 * (idade))
+    const dcMulheres = 1.0994921 - (0.0009929 * (mulheres)) + (0.0000023 * (mulheres * mulheres)) - (0.0001392 * (idade))
 
-  const percGHomens = (((4.95 / dcHomens) - 4.50) * 100).toFixed(1)
-  const percGMulheres = (((4.95 / dcMulheres) - 4.50) * 100).toFixed(1)
+    const percGHomens = (((4.95 / dcHomens) - 4.50) * 100).toFixed(1)
+    const percGMulheres = (((4.95 / dcMulheres) - 4.50) * 100).toFixed(1)
 
-  const percentualFat = sexo === "feminino" ? percGMulheres : percGHomens
+    const percentualFat = sexo === "feminino" ? percGMulheres : percGHomens
 
-  // Adicionando o percentual de gordura ao item
-  item.percentualFat = percentualFat
+    // Adicionando o percentual de gordura ao item
+    item.percentualFat = percentualFat
 
-  // console.log(`Percentual de Gordura: ${item.percentualFat} %`);
-  
-  // Convertendo a data para o formato yyyy-mm-dd
-   const dateParts = item.date.split('-')  // Dividindo a data em partes
-   const reversedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`  // Reorganizando as partes
-   item.reversedDate = reversedDate  // Salvando a data invertida no item
- 
-   // console.log(`Data Original: ${item.date}, Data Invertida: ${item.reversedDate}`);
-   
-});
+    // console.log(`Percentual de Gordura: ${item.percentualFat} %`);
+
+    // Convertendo a data para o formato yyyy-mm-dd
+    const dateParts = item.date.split('-')  // Dividindo a data em partes
+    const reversedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`  // Reorganizando as partes
+    item.reversedDate = reversedDate  // Salvando a data invertida no item
+
+    // console.log(`Data Original: ${item.date}, Data Invertida: ${item.reversedDate}`);
+
+  });
+}
 
 const reg = route.params.id
 const logon = useCookie('logon')
@@ -564,6 +566,7 @@ function menu() {
 .main-div-two .icon {
   color: #34d399;
   zoom: 1.3;
+  margin-top: -4px;
 }
 
 .main-square {
@@ -575,8 +578,8 @@ function menu() {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin: 1.5rem;
-  border-radius: 8px;
+  margin: 0rem 1.5rem;
+  border-radius: 10px;
   border: .1px solid #34d39910;
   line-height: 1.4;
   transition: all .4s;
@@ -603,7 +606,7 @@ function menu() {
   border: none;
 }
 
-.main-div-two H3 {
+.main-div-two h3 {
   margin-left: 20px;
   margin-top:10px;
 }
@@ -655,7 +658,7 @@ function menu() {
 
 
 .main-div-tree {
-  margin-top: 1rem;
+  margin-top: .5rem;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
@@ -664,8 +667,8 @@ function menu() {
 }
 
 .main-div-tree H3 {
+  margin: 1rem;
   margin-left: 20px;
-  color: var(--color-text);
 }
 
 .main-div-tree .icon {
@@ -689,12 +692,13 @@ function menu() {
   align-items: center;
 }
 
-.main-div-tree h4 .icon {
+.main-div-tree h3 .icon {
   margin-left: 1px;
-  zoom: 1.4;
+  zoom: 1.3;
 }
 
 .main-div-tree div .icon {
+  zoom: 1.3;
   margin-top: 0px;
   display: flex;
   flex-direction: row;

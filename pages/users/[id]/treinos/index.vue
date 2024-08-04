@@ -56,37 +56,61 @@ const state = useCookie('state')
       </h3>
     </div>
     
-    <div class='main'>
-      <div class="main-div-tree" v-for="(treino, index) in treino" :key="index">
-        <NuxtLink class="square" :to="`/users/${route.params.id}/treino/${treino.name}`">
-
-          <div>
-            <h4>
-              TREINO
-            </h4>
-          </div>
-
-          <div>
-
-            <!-- <h4>
-                            <Icon name="healthicons:exercise-running" />
-                        </h4> -->
-            <h4>
-              {{ treino.name }}
-            </h4>
-
-          </div>
-          <div class="arrowUp">
-          </div>
-        </NuxtLink>
-        <Icon name="ic:round-arrow-drop-up" />
-      </div>
+    <div v-if="qtTreinos">
+    
+        <div class='main'>
+        <div class="main-div-tree" v-for="(treino, index) in treino" :key="index">
+            <NuxtLink class="square" :to="`/users/${route.params.id}/treino/${treino.name}`">
+    
+            <div>
+                <h4>
+                TREINO
+                </h4>
+            </div>
+    
+            <div>
+    
+                <!-- <h4>
+                                <Icon name="healthicons:exercise-running" />
+                            </h4> -->
+                <h4>
+                {{ treino.name }}
+                </h4>
+    
+            </div>
+            <div class="arrowUp">
+            </div>
+            </NuxtLink>
+            <Icon name="ic:round-arrow-drop-up" />
+        </div>
+        </div>
+        <div class="info">
+        <h5>Clique em um dos treinos acima!</h5>
+        </div>
+        
     </div>
-    <div class="info">
-      <h5>Clique em um dos treinos acima!</h5>
-    </div>
-
-
+    
+    <div v-else>
+        <div class="main-div-four">
+                
+                <a href="https://api.whatsapp.com/send?phone=5521936184024%20&text=Oie,%20estou%20sem%20Treino!!" target="_blank" class="main-square">
+                
+                
+                
+                <div>
+                    <h4>
+                    <Icon name='solar:sad-square-outline' />
+                    </h4>
+                    <h4>
+                    Sem treino!
+                    </h4>
+                    <h4>
+                    Clique aqui e avise seu Personal!!
+                    </h4>
+                </div>
+                </a>
+            </div>
+            </div>
 
   </NuxtLayout>
 
@@ -324,6 +348,81 @@ body {
   align-items: center;
 }
 
+
+.main-div-four {
+  margin-top: .5rem;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+}
+
+.main-div-four H3 {
+  margin: 1rem;
+  margin-left: 20px;
+  color: var(--color-text);
+}
+
+.main-div-four .icon {
+  color: #34d399;
+  margin-top: -4px;
+}
+
+.main-div-four h4 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-div-four a div {
+  margin: auto;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-div-four h3 .icon {
+  margin-left: 1px;
+  zoom: 1.3;
+}
+
+.main-div-four div .icon {
+  zoom: 1.3;
+  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-square {
+  color: var(--color-text);
+  background-color: #34d39910;
+  backdrop-filter: blur(5px);
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0rem 1.5rem;
+  border-radius: 10px;
+  border: .1px solid #34d39910;
+  line-height: 1.4;
+  transition: all .4s;
+  border: 2px solid #34d39910;
+}
+
+.main-square:hover {
+  background-color: #34d39930;
+  border-right: 1px solid #34d39930;
+    border: 2px solid #34d39920;
+    border-top: 2px solid #34d39940;
+    border-bottom: 2px solid #34d39940;
+}
 
 .squareRes {
   backdrop-filter: blur(5px);

@@ -29,7 +29,7 @@ useHead({
 });
 
 const route = useRoute();
-const Users = await useFetch('https://api.nexwod.app/users');
+const Users = await useFetch('https://api.leandrocesar.com/users');
 const item = Users.data.value;
 
 const layout = 'admin'
@@ -97,14 +97,12 @@ const logon = useCookie('logon')
 // const logon = useCookie('logon', { maxAge: 4800})
 logon.value = reg
 
-const dataConf = await useFetch(`https://api.nexwod.app/users/${route.params.id}`)
+const dataConf = await useFetch(`https://api.leandrocesar.com/users/${route.params.id}`)
 const status = dataConf.data.value?.status  
 const navA = ref(state.value === 1)
 const navB = ref(state.value === 2)
 const navC = ref(state.value === 3)
 const navD = ref(state.value === 4)
-
-
 
 </script>
 <template>

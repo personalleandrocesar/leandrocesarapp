@@ -237,8 +237,8 @@ const navD = ref(state.value === 4)
         </div>
         <div>
             <p class="section-title">Ciclos</p>
-            <p class="section-subtitle">Contrato atual: {{ dataConf.data.value?.periodStart }} - {{
-                dataConf.data.value?.periodEnd }}</p>
+            <p class="section-subtitle">Contrato atual: {{ dataConf.data.value?.periodStart.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }} - {{
+                dataConf.data.value?.periodEnd.replace(/(\d{4})-(\d{2})-(\d{2})/, '$3-$2-$1') }}</p>
             <p v-if="dataConf.data.value?.service" class="section-subtitle-two">Serviço: {{ dataConf.data.value?.service
                 }}</p>
 
@@ -365,7 +365,7 @@ const navD = ref(state.value === 4)
     flex-wrap: wrap;
     width: 55px;
     margin: 1.5rem;
-    border-radius: 7px;
+    border-radius: 10px;
     z-index: 10;
 
 }
@@ -373,7 +373,7 @@ const navD = ref(state.value === 4)
 .logo img {
     width: 49px;
     margin: -1px 0 0 -1px;
-    border-radius: 8px;
+    border-radius: 10px;
     z-index: 100;
     border: #34d399 1px solid;
     opacity: 1;
@@ -414,7 +414,7 @@ const navD = ref(state.value === 4)
 
 .logo-nav-bar img {
     width: 300px;
-    border-radius: 7px;
+    border-radius: 10px;
     border: #34d399 1px solid;
     opacity: 1;
     z-index: 100;
@@ -423,7 +423,7 @@ const navD = ref(state.value === 4)
 
 .button-client {
     margin: 1.2rem 1.5rem;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: 600;
     zoom: 1.3;
@@ -483,12 +483,12 @@ const navD = ref(state.value === 4)
     width: 100px;
     box-shadow: 1px 7px 20px #34d399;
     margin: 1.5rem;
-    border-radius: 7px;
+    border-radius: 10px;
 }
 
 .main-logo img {
     width: 100px;
-    border-radius: 7px;
+    border-radius: 10px;
     border: #34d399 2px solid;
     opacity: 1;
 
@@ -566,7 +566,7 @@ const navD = ref(state.value === 4)
     font-weight: 800;
     width: 49.6%;
     padding: 5px;
-    border-radius: 8px;
+    border-radius: 10px;
     margin: 1px auto;
     border: solid .1px #34d39950;
 }
@@ -655,11 +655,10 @@ const navD = ref(state.value === 4)
     transition: all .4s linear;
     border: solid .1px #34d39970;
     box-shadow: 0 0px 5px #34d39910;
-    border-radius: 8px;
     cursor: pointer;
     text-align: center;
     line-height: 18px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-weight: 600;
     transition: all 0.2s ease-in-out 0s;
     height: 34px;
@@ -721,7 +720,7 @@ const navD = ref(state.value === 4)
     color: #34d399;
     padding: 13px 14.5px 14.5px 14.5px;
 
-    border-radius: 9px;
+    border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
 }
@@ -732,7 +731,7 @@ const navD = ref(state.value === 4)
     color: #34d399;
     background: linear-gradient(to bottom right, #34d39910 0%, #34d39910 50%, #34d39910 100%);
     color: #34d399;
-    border-radius: 9px;
+    border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
 }
@@ -743,7 +742,7 @@ const navD = ref(state.value === 4)
     left: 20px;
     background-color: var(--color-background);
     color: #34d399;
-    border-radius: 9px;
+    border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
 }
@@ -765,7 +764,7 @@ const navD = ref(state.value === 4)
     transition: all 0.2s ease-in-out 0s;
     bottom: 3.9rem;
     right: 1.5rem;
-    border-radius: 9px;
+    border-radius: 10px;
     cursor: pointer;
     z-index: 100;
     border: solid 1px #34d39910;
@@ -785,7 +784,7 @@ const navD = ref(state.value === 4)
     transition: all 0.2s ease-in-out 0s;
     bottom: 1.5rem;
     right: 1.5rem;
-    border-radius: 9px;
+    border-radius: 10px;
     cursor: pointer;
     z-index: 100;
     border: solid 1px #34d39910;

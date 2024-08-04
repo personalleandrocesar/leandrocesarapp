@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue'
 import { reloadNuxtApp } from "nuxt/app";
 
 useHead({
@@ -12,9 +12,10 @@ const item = Users.data.value;
 
 const subscriberOk = ref(false)
 
+const newDate = ref()
 const name = ref('')
 const lastName = ref('')
-const sex = ref('')
+const sex = ref('feminino')
 const foto = ref('')
 const birthday = ref('')
 const whatsapp = ref('')
@@ -26,8 +27,7 @@ const password = ref('')
 const day = ref('')
 const time = ref('')
 const payDay = ref('')
-const periodStart = ref('')
-const periodEnd = ref('')
+const periodEnd = newDate
 const terms = ref('')
 const status = ref('')
 
@@ -205,6 +205,50 @@ async function submitUpdate() {
 }
 
 
+const periodStart = ref('')
+const monthsToAdd = ref(0)
+const calculateNewDate = () => {
+  if (!periodStart.value || !monthsToAdd.value) {
+    newDate.value = ''
+    return
+  }
+
+  const start = new Date(periodStart.value)
+  const months = parseInt(monthsToAdd.value)
+
+  start.setMonth(start.getMonth() + months)
+
+  newDate.value = start.toISOString().split('T')[0]
+}
+
+watch([periodStart, monthsToAdd], calculateNewDate)
+
+
+const updateStatus = () => {
+  if (!periodStart.value || !periodEnd.value) {
+    status.value = '';
+    return;
+  }
+
+  const today = new Date();
+  const start = new Date(periodStart.value);
+  const end = new Date(periodEnd.value);
+
+  const daysSinceStart = Math.floor((today - start) / (1000 * 60 * 60 * 24));
+  const daysUntilEnd = Math.floor((end - today) / (1000 * 60 * 60 * 24));
+
+  if (daysSinceStart >= 1 && daysUntilEnd >= 0) {
+    status.value = 2; // Dentro do período
+  } else if (daysSinceStart > 3) {
+    status.value = 0; // Fora do período após 3 dias
+  } else if (daysSinceStart >= 1) {
+    status.value = 1; // Dentro do período, mas mais de 1 dia passou
+  } else {
+    status.value = ''; // Caso padrão, pode ajustar conforme necessário
+  }
+}
+watch([periodStart, periodEnd], updateStatus);
+
 </script>
 
 <template>
@@ -340,19 +384,27 @@ async function submitUpdate() {
 
                         </div>
                     </div>
+                    <div class="inputs">
+
+                        <div>
+
+                            <span>Gênero</span>
+
+                        </div>
+                    </div>
 
                     <!-- Sexo -->
                     <div class="inputs">
-                        <div class="radio">
+                        <div>
 
-                            <input type="radio" name='sex' id="feminino" class="check" v-model="sex" required
+                            <input type="radio" name='sex' id="feminino" v-model="sex" required
                                 value=feminino autocomplete="sexo" checked>
                             <label for="feminino">Feminino</label>
 
                         </div>
-                        <div class="radio">
+                        <div>
 
-                            <input type="radio" name='sex' id="masculino" class="check" v-model="sex" required
+                            <input type="radio" name='sex' id="masculino" v-model="sex" required
                                 value="masculino" autocomplete="sexo">
                             <label for="masculino">Masculino</label>
 
@@ -452,10 +504,43 @@ async function submitUpdate() {
                         <div>
 
                             <span>Início dos treinos</span>
-                            <input type="date" name="" required id="servico" placeholder="Tempo/treino"
-                                v-model="periodStart" autocomplete="servico">
+                            <!-- <input type="date" name="" required id="servico" placeholder="Tempo/treino"
+                                v-model="periodStart" autocomplete="servico"> -->
+                              <input type="date" v-model="periodStart" id="periodStart" />
 
                         </div>
+                    </div>
+                    <div class="inputs">
+                              <label for="monthsToAdd">Tipo de plano</label>                           
+                    </div>
+                    <div class="inputs">
+                            <div>
+                                      <input type="radio" id="oneMonth" value="1" v-model="monthsToAdd" @change="calculateNewDate" />
+                                      <label for="oneMonth">Mensal</label>
+                                    </div>
+                                    <div>
+                                      <input type="radio" id="threeMonths" value="3" v-model="monthsToAdd" @change="calculateNewDate" />
+                                      <label for="threeMonths">Trimestral</label>
+                                    </div>
+                                    <div>
+                                      <input type="radio" id="sixMonths" value="6" v-model="monthsToAdd" @change="calculateNewDate" />
+                                      <label for="sixMonths">Semestral</label>
+                                    </div>
+                                    <div>
+                                      <input type="radio" id="twelveMonths" value="12" v-model="monthsToAdd" @change="calculateNewDate" />
+                                      <label for="twelveMonths">Anual</label>
+                                    </div>
+                           
+                    </div>
+                    <div class="inputs">
+                        <div>
+                            <div>
+                              <label for="monthsToAdd">Fim do treino</label>
+                              <input type="date" id="newDate" v-model="newDate" @input="updateNewDate" />
+                            </div>
+                          </div>
+                        <div>
+                          </div>
                     </div>
                     <div>
 
@@ -717,7 +802,7 @@ async function submitUpdate() {
 }
 
 .inputs .radio {
-    margin: 30px 30px 15px 30px;
+    margin: 30px 0px 15px 0px;
 }
 
 
@@ -1069,9 +1154,11 @@ input {
     font-weight: bolder;
 }
 
-::placeholder {
-    font-size: 1rem;
-    font-weight: bolder;
+input[type="radio"] {
+  accent-color: #34d399; /* Muda a cor do botão de rádio */
+  transform: scale(1); /* Diminui o tamanho do botão de rádio */
+  width: 15px; /* Ajusta a largura do botão de rádio */
+  height: 15px; /* Ajusta a altura do botão de rádio */
 }
 .row {
     display: flex;
